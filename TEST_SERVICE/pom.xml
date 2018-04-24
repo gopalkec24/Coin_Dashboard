@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>TEST_SERVICE</groupId>
+  <artifactId>TEST_SERVICE</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>TEST_SERVICE</name>
+  <description>TEST_SERVICE</description>
+   <dependencies>
+  	<!-- <dependency>
+  		<groupId>org.glassfish.jersey.bundles</groupId>
+  		<artifactId>jaxrs-ri</artifactId>
+  		<version>2.16</version>
+  		<scope>runtime</scope>
+  	</dependency>
+  	<dependency>
+    <groupId>org.apache.tika</groupId>
+    <artifactId>tika-app</artifactId>
+    <version>1.14</version>
+    <scope>runtime</scope>
+	</dependency>
+	https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl
+	<dependency>
+    <groupId>org.codehaus.jackson</groupId>
+    <artifactId>jackson-mapper-asl</artifactId>
+    <version>1.6.2</version>
+	</dependency> -->
+  	<!-- https://mvnrepository.com/artifact/net.sourceforge.htmlunit/htmlunit -->
+<dependency>
+    <groupId>net.sourceforge.htmlunit</groupId>
+    <artifactId>htmlunit</artifactId>
+    <version>2.13</version>
+</dependency>
+
+<dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+    <version>4.5.5</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+<dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.3.1</version>
+</dependency>
+
+  </dependencies>
+  
+  
+</project>
