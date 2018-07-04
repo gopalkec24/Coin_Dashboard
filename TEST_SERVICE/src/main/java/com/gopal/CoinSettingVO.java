@@ -1,5 +1,8 @@
 package com.gopal;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CoinSettingVO {
 
 	public String coinName;
@@ -7,6 +10,16 @@ public class CoinSettingVO {
 	public double percentage =10;
 	
 	public double currentRate = 0.0;
+	
+	public Map<String,Double> multiCurrencyCurrentRate = new HashMap<String,Double>();
+
+	public Map<String, Double> getMultiCurrencyCurrentRate() {
+		return multiCurrencyCurrentRate;
+	}
+
+	public void setMultiCurrencyCurrentRate(Map<String, Double> multiCurrencyCurrentRate) {
+		this.multiCurrencyCurrentRate = multiCurrencyCurrentRate;
+	}
 
 	public String getCoinName() {
 		return coinName;

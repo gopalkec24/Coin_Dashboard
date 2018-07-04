@@ -30,6 +30,12 @@ import com.gopal.CoinSettingVO;
 
 public class ReadWebPage {
 
+	private static String PROXY_AUTH_PASSWORD = "Gopalelk@54";
+	private static String PROXY_AUTH_USERNAME = "hcltech\\natarajan_g";
+	private static String PROXY_PORT = "8080";
+	private static String PROXY_HOSTNAME = "10.121.11.33";
+	private static boolean useProxy = false;
+
 	public static void main(String[] args) throws Exception 
 	{
 		
@@ -38,21 +44,27 @@ public class ReadWebPage {
 	    
 	   
 	    
-	    readCoinSetting();
+	   // readCoinSetting();
 		
 		
 		
 		
 
 	}
+	
+	public static void setProxyDetails(String hostName,String portNumber,String userName,String password){
+		PROXY_HOSTNAME=hostName;
+		PROXY_PORT=portNumber;
+		PROXY_AUTH_USERNAME=userName;
+		PROXY_AUTH_PASSWORD=password;
+		useProxy=true;
+				
+	}
 
-	public static Map<String, CoinSettingVO> readCoinSetting() throws Exception, IOException, MalformedURLException {
-		List<String>  currencies = new ArrayList<String>();
-		currencies.add("INR");
-		currencies.add("MXN");
-		CurrencyVO currentRateVO = getCurrentCurrencyRate(currencies);
-
-		List<String> coinList = getCoinList();			
+	public static Map<String, CoinSettingVO> readCoinSetting(String exchangeURL) throws Exception, IOException, MalformedURLException {
+		CurrencyVO currentRateVO = getLiveCurrency();
+        
+		List<String> coinList = getCoinList(exchangeURL);			
 		 Map<String,CoinSettingVO> coinSettingVOMap  = new TreeMap<String, CoinSettingVO>();
 		for(String coindetails : coinList) {
 			System.out.println(coindetails);
@@ -60,28 +72,95 @@ public class ReadWebPage {
 			int i=0;
 			CoinSettingVO settingVO = new CoinSettingVO();
 			String key = null;
+			String currency= null;
 			int valueIndex = -1;
 			for(String co: coins) {
 				
 					if(co.indexOf("/") > 0) {
 						key = co.substring(0, co.indexOf("/"));
-						System.out.println("COin Name : "+key);
+					  currency= co.substring(co.indexOf("/")+1, co.length());
+						if(!currency.equalsIgnoreCase("INR")){
+							System.out.println(currency + " to break for "+key);
+							key=null;
+							continue;
+						}
+						System.out.println("COin Name : "+key+" currency"+currency);
 						settingVO.setCoinName(key);
+						
 						valueIndex = i +2;
 					}				
-					
+					else if(co.equalsIgnoreCase("***")){
+						valueIndex = valueIndex +1;
+					}
 					else if(co.indexOf("$") == 0 && valueIndex == i) {
+						
 						System.out.println(Double.parseDouble(co.substring(1)));
 						settingVO.setCurrentRate(Double.parseDouble(co.substring(1)) * currentRateVO.getUSDINR());
 					}
 				
 				i++;
 			}
+			if(key!= null)
 			coinSettingVOMap.put(key, settingVO);
 		}
+		System.out.println(coinSettingVOMap);
 		return coinSettingVOMap;
 	}    
 	
+	public static Map<String, CoinSettingVO> readMultiCoinSetting(String exchangeURL) throws Exception, IOException, MalformedURLException {
+		
+        
+		List<String> coinList = getCoinList(exchangeURL);			
+		 Map<String,CoinSettingVO> coinSettingVOMap  = new TreeMap<String, CoinSettingVO>();
+		for(String coindetails : coinList) {
+			System.out.println(coindetails);
+			String[] coins= coindetails.split("\\s+");
+			int i=0;
+			CoinSettingVO settingVO = new CoinSettingVO();
+			String key = null;
+			String currency = null;
+			int valueIndex = -1;
+			for(String co: coins) {
+				
+					if(co.indexOf("/") > 0) {
+						key = co.substring(0, co.indexOf("/"));
+						currency = co.substring(co.indexOf("/")+1);
+						System.out.println("COin Name : "+co.trim());
+						settingVO.setCoinName(key);
+						valueIndex = i +2;
+					}				
+					
+					else if(co.indexOf("$") == 0 && valueIndex == i) {
+						
+						System.out.println(currency);
+						System.out.println("Price" +Double.parseDouble(co.substring(1)));
+						if(coinSettingVOMap.containsKey(key)){
+							System.out.println("Already exist :"+coinSettingVOMap.get(key).getMultiCurrencyCurrentRate());
+						  coinSettingVOMap.get(key).getMultiCurrencyCurrentRate().put(currency, Double.parseDouble(co.substring(1)));
+						  System.out.println("After exist :"+coinSettingVOMap.get(key).getMultiCurrencyCurrentRate());
+						}
+						else
+						{
+							System.out.println("Fresh Entry");
+							settingVO.getMultiCurrencyCurrentRate().put(currency, Double.parseDouble(co.substring(1)));
+							coinSettingVOMap.put(key, settingVO);
+						}
+					}
+				
+				i++;
+			}
+			
+		}
+		return coinSettingVOMap;
+	}
+
+	public static CurrencyVO getLiveCurrency() throws Exception {
+		List<String>  currencies = new ArrayList<String>();
+		currencies.add("INR");
+		currencies.add("MXN");
+		CurrencyVO currentRateVO = getCurrentCurrencyRate(currencies);
+		return currentRateVO;
+	}    
 	
 	private static CurrencyVO getCurrentCurrencyRate(List<String> currencies) throws Exception {
 		
@@ -119,22 +198,26 @@ public class ReadWebPage {
 	
 
 	
-	private static List<String> getCoinList() throws IOException, MalformedURLException {
+	private static List<String> getCoinList(String exchangeURL) throws IOException, MalformedURLException {
 		@SuppressWarnings("resource")
 		WebClient webClient = new WebClient(BrowserVersion.CHROME);	
 		
-		ProxyConfig proxyConfig = new ProxyConfig("10.121.11.33", 8080);				
-		webClient.getOptions().setProxyConfig(proxyConfig);	
-			
-		DefaultCredentialsProvider cp= (DefaultCredentialsProvider) webClient.getCredentialsProvider();
-		cp.addCredentials("hcltech\natarajan_g","Gopalelk@54");
-		
+		if (useProxy) {
+			ProxyConfig proxyConfig = new ProxyConfig(PROXY_HOSTNAME, 8080);
+			webClient.getOptions().setProxyConfig(proxyConfig);
+			DefaultCredentialsProvider cp = (DefaultCredentialsProvider) webClient.getCredentialsProvider();
+			cp.addCredentials("hcltech\natarajan_g", PROXY_AUTH_PASSWORD);
+		}
+		else{
+			System.out.println("Proxy is not initailzed");
+		}
 		webClient.getCookieManager().setCookiesEnabled(true);
 		webClient.getOptions().setCssEnabled(false);
 		webClient.getOptions().setJavaScriptEnabled(false);
 		webClient.getOptions().setThrowExceptionOnScriptError(false);
 		
-		HtmlPage page  = webClient.getPage("https://coinmarketcap.com/exchanges/koinex/");
+	
+		HtmlPage page  = webClient.getPage(exchangeURL);
 		String pageContent= page.asText();
 		String[] lines = pageContent.split("\\r?\\n");
 		boolean detectedStart= false;
@@ -146,7 +229,7 @@ public class ReadWebPage {
 				detectedStart =true;
 				continue;
 			}
-			else if(detectedStart && line.contains("CoinMarketCap")) {
+			else if(detectedStart && (line.startsWith("*") |line.contains("CoinMarketCap"))) {
 				break;
 			}
 
@@ -165,14 +248,7 @@ public class ReadWebPage {
         URL url = new URL(urlStr);
         
         
-        System.setProperty("http.proxyHost", "10.121.11.33");
-        System.setProperty("http.proxyPort", "8080");
-       /* System.setProperty("http.proxyUser", "hcltech\\natarajan_g");
-        System.setProperty("http.proxyPassword", "Gopalelk@54");*/
-    URLConnection con = url.openConnection();
-    String encoded = new String
-    	      (Base64.getEncoder().encode((new String("hcltech\\natarajan_g:Gopalelk@54").getBytes())));
-    con.setRequestProperty("Proxy-Authorization", "Basic " + encoded);
+        URLConnection con = getURLConnection(url);
     con.connect(); 
         InputStream is =con.getInputStream();
 
@@ -195,6 +271,23 @@ public class ReadWebPage {
         }
         return sb.toString();
     }
+
+	private static URLConnection getURLConnection(URL url) throws IOException {
+
+		URLConnection con = url.openConnection();
+
+		if (useProxy) {
+			System.setProperty("http.proxyHost", PROXY_HOSTNAME);
+			System.setProperty("http.proxyPort", PROXY_PORT);
+			String encoded = new String(Base64.getEncoder()
+					.encode((new String(PROXY_AUTH_USERNAME + ":" + PROXY_AUTH_PASSWORD).getBytes())));
+			con.setRequestProperty("Proxy-Authorization", "Basic " + encoded);
+		}
+		else{
+			
+		}
+		return con;
+	}
 		
 	
 	

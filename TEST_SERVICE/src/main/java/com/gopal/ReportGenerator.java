@@ -17,7 +17,7 @@ public class ReportGenerator {
 		String csvFile = "D:\\Documents\\transactiom\\transaction_1.csv";
 		 String coinSettingFile ="D:\\Documents\\transactiom\\coin_setting.csv";   
 	        try {
-	        	 Map<String, List<CoinVO>> coinMap = readTransaction(csvFile);
+	        	 Map<String, List<TransactionVO>> coinMap = readTransaction(csvFile);
 	        	 Map<String,CoinSettingVO> coinSettingMap =readCoinSetting(coinSettingFile);
 				processCoinVO(coinMap,coinSettingMap);
 			} catch (FileNotFoundException e) {
@@ -72,12 +72,12 @@ public class ReportGenerator {
 		return coinMap;
 	}
 
-	private static Map<String, List<CoinVO>> readTransaction(String csvFile) {
+	private static Map<String, List<TransactionVO>> readTransaction(String csvFile) {
 		
 	        BufferedReader br = null;
 	        String line = "";
 	        String cvsSplitBy = ",";
-	        Map<String,List<CoinVO>> coinMap = new TreeMap<String,List<CoinVO>>();
+	        Map<String,List<TransactionVO>> coinMap = new TreeMap<String,List<TransactionVO>>();
 	        try {
 
 	            br = new BufferedReader(new FileReader(csvFile));
@@ -86,19 +86,19 @@ public class ReportGenerator {
 
 	                // use comma as separator
 	                String[] country = line.split(cvsSplitBy);
-	                CoinVO coin = new CoinVO();
+	                TransactionVO coin = new TransactionVO();
 	                coinName=country[0];
 	                coin.setName(coinName);
 	                coin.setPrice(Double.parseDouble(country[2]));
 	                coin.setVolume(Double.parseDouble(country[1]));
 	                coin.setTransactionType(Integer.parseInt(country[3]));
-	                List<CoinVO> list =null;
+	                List<TransactionVO> list =null;
 	                if(coinMap.containsKey(coinName)) {
 	                	list = coinMap.get(coinName);
 	                	
 	                }
 	                else {
-	                list = new ArrayList<CoinVO>();
+	                list = new ArrayList<TransactionVO>();
 	                	
 	                }
 	                list.add(coin);
@@ -127,17 +127,17 @@ public class ReportGenerator {
 		return coinMap;
 	}
 
-	private static void processCoinVO(Map<String, List<CoinVO>> coinMap, Map<String,CoinSettingVO> coinSettingMap) throws FileNotFoundException {
+	private static void processCoinVO(Map<String, List<TransactionVO>> coinMap, Map<String,CoinSettingVO> coinSettingMap) throws FileNotFoundException {
 		PrintWriter pw = new PrintWriter("D:\\Documents\\transactiom\\report.csv");
 		pw.println("Coin Name, Total volume , TotalPrice,Average Price ,Project Sell value,Current value, Current Portifilo Value, Profit/loss,Profit Percentage,StablizeCount,StablizeRate");
 		for(String coinName  : coinMap.keySet()) {
-			List<CoinVO> coinVOList= coinMap.get(coinName);
+			List<TransactionVO> coinVOList= coinMap.get(coinName);
 			   double totalPrice = 0;
 			   double totalVolume = 0;
 			   double buyPrice = 0;
 			   double sellPrice = 0;
 			  
-			 for(CoinVO coinVO : coinVOList) {
+			 for(TransactionVO coinVO : coinVOList) {
 				 double costPrice = coinVO.getPrice()* coinVO.getVolume();
 				 double totalNetPrice =0.0;
 				 if(coinVO.getTransactionType() == 1) {
