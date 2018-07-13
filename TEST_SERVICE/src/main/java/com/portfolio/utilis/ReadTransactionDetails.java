@@ -20,6 +20,8 @@ public class ReadTransactionDetails {
 	private final static int TRANS_COMM_RATE_INDEX=6;
 	private final static int TRANS_CURRENCY_INDEX=7;
 	private final static int EXCHANGE_NAME_INDEX=8;
+	private final static int TRANS_TOTAL_AMT_INDEX=9;
+	private final static int TRANS_FEE_CURRECNY_INDEX=10;
 	
 
 
@@ -34,7 +36,7 @@ public class ReadTransactionDetails {
 	}
    
 	
-	 public List<TransactionDetailsVO> getTransactionDetails(String csvFile) throws NumberFormatException, IOException{
+	 public List<TransactionDetailsVO> getTransactionDetails(String csvFile,String filterExchange,String filterCoinName) throws NumberFormatException, IOException{
 
 
 			BufferedReader br = null;
@@ -46,6 +48,7 @@ public class ReadTransactionDetails {
 			{
 				br = new BufferedReader(new FileReader(csvFile));
 				String coinName = null;
+				String exChange= null;
 				while ((line = br.readLine()) != null) 
 				{
 					//line is empty and startswith # means it is comment in transaction
@@ -56,17 +59,32 @@ public class ReadTransactionDetails {
 					}
 					// use comma as separator
 					String[] transactionDetails = line.split(cvsSplitBy);
-					TransactionDetailsVO transactionVO = new TransactionDetailsVO();
+					
 					coinName=transactionDetails[COIN_NAME_INDEX];
+					exChange =transactionDetails[EXCHANGE_NAME_INDEX];
+					if(filterCoinName!= null && !filterCoinName.equalsIgnoreCase(coinName)) {
+						continue;
+					}
+					if(filterExchange!= null && !filterExchange.equalsIgnoreCase(exChange)) {
+						continue;
+					}
+					TransactionDetailsVO transactionVO = new TransactionDetailsVO();
 					transactionVO.setCoinName(coinName);
+					transactionVO.setExchangeName(transactionDetails[EXCHANGE_NAME_INDEX]);
 					transactionVO.setPrice(new BigDecimal(transactionDetails[TRANS_PRICE_INDEX]));
 					transactionVO.setVolume(new BigDecimal(transactionDetails[TRANS_VOLUME_INDEX]));
 					transactionVO.setTransactionType(Integer.parseInt(transactionDetails[TRANS_TYPE_INDEX]));
 					transactionVO.setDate(transactionDetails[TRANS_DATE_INDEX]);
 					transactionVO.setCurrency(transactionDetails[TRANS_CURRENCY_INDEX]);
-					transactionVO.setExchangeName(transactionDetails[EXCHANGE_NAME_INDEX]);
+					
 					transactionVO.setCommissionType(Integer.parseInt(transactionDetails[TRANS_COMM_TYPE_INDEX]));
 					transactionVO.setCommissionRate(new BigDecimal(transactionDetails[TRANS_COMM_RATE_INDEX]));
+					if(transactionVO.getTransactionType() == 5 || transactionVO.getTransactionType() == 6 ) {
+						transactionVO.setTotalTransactionAmt(new BigDecimal(TRANS_TOTAL_AMT_INDEX));
+					}
+					if(transactionVO.getCommissionType() == 4) {
+						transactionVO.setCommissionCurrency(transactionDetails[TRANS_FEE_CURRECNY_INDEX]);
+					}
 					
 					transactionList.add(transactionVO);
 				}

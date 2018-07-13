@@ -17,6 +17,24 @@ public class TransactionDetailsVO {
 	String exchangeName;
 	String currency;
 	
+	BigDecimal totalTransactionAmt=new BigDecimal("0");
+	
+	public BigDecimal getTotalTransactionAmt() {
+		return totalTransactionAmt;
+	}
+	public void setTotalTransactionAmt(BigDecimal totalTransactionAmt) {
+		this.totalTransactionAmt = totalTransactionAmt;
+	}
+	public String getCommissionCurrency() {
+		return commissionCurrency;
+	}
+	public void setCommissionCurrency(String commissionCurrency) {
+		this.commissionCurrency = commissionCurrency;
+	}
+
+	String commissionCurrency;
+	
+	
 	
 	public int getTransactionType() {
 		return transactionType;

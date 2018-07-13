@@ -34,17 +34,24 @@ public class ReportGeneration {
 		kionexList.add("BTC");
 		kionexList.add("ETH");
 		tradeConfig.put("KIONEX", kionexList);
+		List<String> livecoinList =  new ArrayList<String>();
+		livecoinList.add("ETH");
+		livecoinList.add("LTC");
 	}
 	
 	public static void main(String[] args) throws NumberFormatException, IOException{
 		
-		String transactionFile = "D:/Documents/MultiTransaction_1.csv";
+		String transactionFile = "C:/Documents/MultiTransaction_1.csv";
 		
 		ReadTransactionDetails readTransaction = new ReadTransactionDetails();
 		
-		List<TransactionDetailsVO> transactionList= readTransaction.getTransactionDetails(transactionFile);
+		String filterExchange ="BINANCE";
+		String coinName = null;
+		
+		List<TransactionDetailsVO> transactionList= readTransaction.getTransactionDetails(transactionFile,filterExchange,coinName);
 		
 		//System.out.println(transactionList);
+		
 		ReportGeneration reGeneration = new ReportGeneration();
 		reGeneration.loadTradeConfig();
 		Map<String,List<ExchangeCurrencyVO>> exchangeList = reGeneration.processTransactionList(transactionList);
@@ -53,57 +60,71 @@ public class ReportGeneration {
 		int i=0;
 		for(List<ExchangeCurrencyVO>  exCurr: exchangeList.values()){
 			 
-			 for(ExchangeCurrencyVO exVO : exCurr){
-				 
-				 BigDecimal totalVolume = exVO.getDepositAmt().subtract(exVO.getWithdrawalAmt());
-				 BigDecimal totalBuyVolume= ZERO_BIGDECIMAL;
-				 BigDecimal totalSellVolume = ZERO_BIGDECIMAL;
-				 for(CurrencyMean currMean : exVO.getCurrency())
-				 {
-					 totalBuyVolume=totalBuyVolume.add(currMean.getBuyVolume());
-					 totalSellVolume = totalSellVolume.add(currMean.getSellVolume());
-					 
-					 totalVolume= totalVolume.add(currMean.getBuyVolume()).subtract(currMean.getSellVolume());
+			
+				for (ExchangeCurrencyVO exVO : exCurr) {
 					
-					 int compare = currMean.getBuyPrice().compareTo(ZERO_BIGDECIMAL) ;
-					 int compare2 = currMean.getBuyVolume().compareTo(ZERO_BIGDECIMAL) ;
-					 int compare3 = currMean.getSellPrice().compareTo(ZERO_BIGDECIMAL);
-					 
-					 
-					 BigDecimal buyMean = ( compare ==1 && compare2 ==1 ) ? currMean.getBuyPrice().divide(currMean.getBuyVolume(),8,RoundingMode.HALF_UP): ZERO_BIGDECIMAL;
-					 BigDecimal sellMean =   (compare3 == 1 )?   currMean.getSellPrice().divide(currMean.getSellVolume(),8,RoundingMode.HALF_UP) : ZERO_BIGDECIMAL;
-					
-					 BigDecimal soldInvestement = buyMean.multiply(currMean.getSellVolume()); 
-					 BigDecimal currentInvestmentAmt = currMean.getBuyPrice().subtract(soldInvestement);
-					
-					 
-						
-					 BigDecimal profitRealised = (currMean.getSellVolume().multiply(sellMean)).subtract(soldInvestement);
-					 
-					 
-					 BigDecimal profitPercentage = (compare==1) ?profitRealised.divide(currMean.getBuyPrice(),2,RoundingMode.HALF_UP).multiply(new BigDecimal(100)):ZERO_BIGDECIMAL;
-							 
-					 /*System.out.println("Buy Price "+currMean.getBuyPrice());
-					 System.out.println("Buy Volume "+currMean.getBuyVolume());
-					 System.out.println("Buy Mean Value : "+ buyMean);
-					 System.out.println("Sell Price : "+currMean.getSellPrice());
-					 System.out.println("Sell volume : "+ currMean.getSellVolume());
-					 System.out.println("Sell Mean :"+ sellMean);
-					 System.out.println("Sold Investment : "+soldInvestement); 
-					 System.out.println("CurrentInvestment : " +currentInvestmentAmt);
-					 System.out.println("Profit Realised : "+profitRealised);*/
-					 
-					 System.out.println();
-					 System.out.println("Coin Name/Currency,Total Volume,CurrentInvestment,Avg Price of Buy,profit Realised");
-					 System.out.println(exVO.getCoinName()+"/"+currMean.getCurrencyName()+ ","+totalVolume+","+currentInvestmentAmt+","+buyMean+","+profitRealised+","+profitPercentage+"%");
-					
-				 }
-				 
-				 System.out.println(i+" exchange " + exVO.getExchangeName()+ " => "+exVO.getCoinName()+"Total vol ===> "+totalVolume+"Transaction Amt ======>"+exVO.getTotalAmt()+"Deposit Amt=======>"+exVO.getDepositAmt());
-				 i++;
-				 //System.out.println();
-			 }
-		}
+					BigDecimal totalVolume = exVO.getDepositAmt().subtract(exVO.getWithdrawalAmt());
+					BigDecimal totalBuyVolume = ZERO_BIGDECIMAL;
+					BigDecimal totalSellVolume = ZERO_BIGDECIMAL;
+					for (CurrencyMean currMean : exVO.getCurrency()) {
+						totalBuyVolume = totalBuyVolume.add(currMean.getBuyVolume());
+						totalSellVolume = totalSellVolume.add(currMean.getSellVolume());
+
+						totalVolume = totalVolume.add(currMean.getBuyVolume()).subtract(currMean.getSellVolume());
+
+						int compare = currMean.getBuyPrice().compareTo(ZERO_BIGDECIMAL);
+						int compare2 = currMean.getBuyVolume().compareTo(ZERO_BIGDECIMAL);
+						int compare3 = currMean.getSellPrice().compareTo(ZERO_BIGDECIMAL);
+
+						BigDecimal buyMean = (compare == 1 && compare2 == 1)
+								? currMean.getBuyPrice().divide(currMean.getBuyVolume(), 8, RoundingMode.HALF_UP)
+								: ZERO_BIGDECIMAL;
+						BigDecimal sellMean = (compare3 == 1)
+								? currMean.getSellPrice().divide(currMean.getSellVolume(), 8, RoundingMode.HALF_UP)
+								: ZERO_BIGDECIMAL;
+
+						BigDecimal soldInvestement = buyMean.multiply(currMean.getSellVolume());
+						BigDecimal currentInvestmentAmt = currMean.getBuyPrice().subtract(soldInvestement);
+
+						BigDecimal profitRealised = (currMean.getSellVolume().multiply(sellMean))
+								.subtract(soldInvestement);
+
+						BigDecimal profitPercentage = (compare == 1) ? profitRealised
+								.divide(currMean.getBuyPrice(), 2, RoundingMode.HALF_UP).multiply(new BigDecimal(100))
+								: ZERO_BIGDECIMAL;
+
+						/*System.out.println("Buy Price "+currMean.getBuyPrice());
+						System.out.println("Buy Volume "+currMean.getBuyVolume());
+						System.out.println("Buy Mean Value : "+ buyMean);
+						System.out.println("Sell Price : "+currMean.getSellPrice());
+						System.out.println("Sell volume : "+ currMean.getSellVolume());
+						System.out.println("Sell Mean :"+ sellMean);
+						System.out.println("Sold Investment : "+soldInvestement); 
+						System.out.println("CurrentInvestment : " +currentInvestmentAmt);
+						System.out.println("Profit Realised : "+profitRealised);*/
+						currMean.setBuyMean(buyMean);
+						currMean.setSellMean(sellMean);
+						currMean.setSoldInvestment(soldInvestement);
+						currMean.setCurrentInvestment(currentInvestmentAmt);
+						currMean.setProfitRealised(profitRealised);
+						currMean.setProfitRealPercentage(profitPercentage);
+						System.out.println();
+						// System.out.println("Coin Name/Currency,Total Volume,CurrentInvestment,Avg Price of Buy,profit Realised");
+						System.out.println(exVO.getCoinName() + "/" + currMean.getCurrencyName() + "," + totalVolume
+								+ "," + currentInvestmentAmt + "," + buyMean + "," + profitRealised + ","
+								+ profitPercentage + "%");
+
+					}
+
+					System.out.println("\n" + i + " exchange " + exVO.getExchangeName() + " => " + exVO.getCoinName()
+							+ " Total vol ===> " + totalVolume + " Transaction Amt ======>" + exVO.getTotalAmt()
+							+ " Deposit Amt=======>" + exVO.getDepositAmt());
+					i++;
+					//System.out.println();
+				} 
+		
+			}
+		
 		
 		
 	}
@@ -121,28 +142,33 @@ public class ReportGeneration {
 			BigDecimal volume = detailsVO.getVolume();
 			BigDecimal commissionRate = detailsVO.getCommissionRate();
 			String currency = detailsVO.getCurrency();
+			String commissionCurrency= detailsVO.getCommissionCurrency();
 			CurrencyMean currencyMean = null;
 			ExchangeCurrencyVO xChangeCurrency = null;
 			ExchangeCurrencyVO tradeCurrency = null;
+			ExchangeCurrencyVO tradeCommission = null;
+			
 			if(exchangeList.containsKey(exchangeName))
 			{
 				List<ExchangeCurrencyVO> currencyList= exchangeList.get(exchangeName);
+				//checking the coin is available in the exchange
 				xChangeCurrency = getXChangeCurrency(currencyList,coinName);
-				
+				//if coin is not available
 				if(xChangeCurrency == null){
 					 xChangeCurrency = new ExchangeCurrencyVO();
 					 //System.out.println("Coin Not Found : "+ coinName);
+					xChangeCurrency.setCoinName(coinName);
+					xChangeCurrency.setExchangeName(exchangeName);
 					//Since it is reference
-						currencyList.add(xChangeCurrency);
+					currencyList.add(xChangeCurrency);
 				}
 				
-				
+				//check for Transaction Currency is available 
 				currencyMean = getCurrencyMeanFromExchange(currency,xChangeCurrency.getCurrency());
 				if(currencyMean == null)
 				{
-					
-					xChangeCurrency.setCoinName(coinName);
-					xChangeCurrency.setExchangeName(exchangeName);
+					// in case of deposit and withdrawal Coin name and transaction currency will be same
+					//so performing this check here
 					if (!coinName.equalsIgnoreCase(currency)) 
 					{
 						currencyMean = createNewCurrecnyMean(currency);
@@ -156,23 +182,21 @@ public class ReportGeneration {
 				}
 				tradeCurrency = getXChangeCurrency(currencyList, currency);
 				if(tradeCurrency == null){
-					tradeCurrency = new ExchangeCurrencyVO();
-					//System.out.println("Added in trade Mean");
-					//tradeMean = createNewCurrecnyMean(currency);
-					tradeCurrency.setCoinName(currency);
-					tradeCurrency.setExchangeName(exchangeName);
-					//tradeCurrency.addCurrencyVO(tradeMean);
-					if(isTradeCurrency(exchangeName,coinName)){
-						tradeCurrency.setTradeCurrency(true);
-					}
-					//Since it is reference
-					currencyList.add(tradeCurrency);
+					tradeCurrency = buildCurrencyInXChange(exchangeName, currency, currencyList);
 				}
+				if(commissionCurrency != null) {
+					tradeCommission=getXChangeCurrency(currencyList, commissionCurrency );
+					if(tradeCommission == null) {
+						tradeCommission = buildCurrencyInXChange(exchangeName, commissionCurrency, currencyList);
+					}
+				}
+				
+				
 			}
 			else
 			{
 				
-				System.out.println("New Exchange Name :"+ exchangeName);
+				System.out.println("\nNew Exchange Name :"+ exchangeName);
 				xChangeCurrency = new ExchangeCurrencyVO();
 				xChangeCurrency.setCoinName(coinName);
 				xChangeCurrency.setExchangeName(exchangeName);
@@ -191,28 +215,25 @@ public class ReportGeneration {
 				
 				tradeCurrency = getXChangeCurrency(exList, currency);
 				if(tradeCurrency == null){
-				tradeCurrency = new ExchangeCurrencyVO();
-				//tradeMean = createNewCurrecnyMean(currency);
-				tradeCurrency.setCoinName(currency);
-				tradeCurrency.setExchangeName(exchangeName);
-				//tradeCurrency.addCurrencyVO(tradeMean);
-				if(isTradeCurrency(exchangeName,coinName)){
-					tradeCurrency.setTradeCurrency(true);
+				tradeCurrency = buildCurrencyInXChange(exchangeName, currency, exList);
 				}
-				//Since it is reference
-				exList.add(tradeCurrency);
+				if(commissionCurrency!= null && !currency.equalsIgnoreCase(commissionCurrency)) {
+					
+					if(tradeCommission == null) {
+						tradeCommission = buildCurrencyInXChange(exchangeName, commissionCurrency, exList);
+					}
 				}
-				
 				
 			}
 			
 			//total Amount 
-			BigDecimal transactionAmt=price.multiply(volume);;
+			BigDecimal transactionAmt=price.multiply(volume);
 			BigDecimal buyPrice;
 			BigDecimal sellPrice;
 			BigDecimal buyVolume;
 			BigDecimal sellVolume;
 			BigDecimal totalCommissionSpend;
+			
 			if (currencyMean != null) {
 				
 				buyPrice = currencyMean.getBuyPrice();
@@ -233,6 +254,8 @@ public class ReportGeneration {
 			BigDecimal totalAmt = xChangeCurrency.getTotalAmt();
 			BigDecimal tradeCurrencyAmt = tradeCurrency.getTotalAmt();
 			
+			BigDecimal xChangeTransferRate = xChangeCurrency.getXchangeTransferCommission();
+			
 			BigDecimal commissionValue = null;
 			BigDecimal effectiveVolume = null;
 			System.out.println();
@@ -241,53 +264,109 @@ public class ReportGeneration {
 			/*System.out.println("Total Amt" + buyPrice);
 			System.out.println("Total Volume "+buyVolume);
 			System.out.println("Total CommissionSepnd"+ totalCommissionSpend);*/
-			System.out.print("\t"+ tradeCurrencyAmt);
+			System.out.print(" Transaction currency = \t"+ tradeCurrencyAmt);
 			//System.out.println("*********************************Calculation Part*********");
-			System.out.print("\t"+transactionAmt+"\t");
-			// Buy Transaction
-			if(detailsVO.getTransactionType() == 1){
+			System.out.print(" Transaction Amount = \t"+transactionAmt+"\t");
+			System.out.print(" Before Volume =\t"+totalAmt+"\t");
+			System.out.print(" Trade Volume =\t"+volume+"\t");
+			// Buy Transaction and Fixed Buy Transaction
+			if(detailsVO.getTransactionType() == 1 || detailsVO.getTransactionType() ==5 )
+			{
+				if(detailsVO.getTransactionType() == 5) {
+					transactionAmt = detailsVO.getTotalTransactionAmt();
+				}
+				//purchasing coin volume does not get affected in this method of transaction 
+				effectiveVolume = volume;
+				tradeCurrencyAmt=tradeCurrencyAmt.subtract(transactionAmt);
 				if(detailsVO.getCommissionType() == AMOUNT_BASED)
 				{
+					//Transaction  coin as Commission value
 					commissionValue = transactionAmt.multiply(commissionRate);
-					effectiveVolume = volume;
 					tradeCurrencyAmt=tradeCurrencyAmt.subtract(transactionAmt.add(commissionValue));
+					totalCommissionSpend = totalCommissionSpend.add(commissionValue);
+					//System.out.println("effectiveVolume : "+effectiveVolume);
+					
 				}
 				else if(detailsVO.getCommissionType() == VOLUME_BASED)
 				{
+					//purchase coin as commission value
 					commissionValue = volume.multiply(price).multiply(commissionRate);
+					//purchasing coin volume get affected in this method of transaction 
 					effectiveVolume = volume.subtract(volume.multiply(commissionRate));
-					tradeCurrencyAmt=tradeCurrencyAmt.subtract(transactionAmt);
+					System.out.println("Effective volume : "+effectiveVolume);
+					totalCommissionSpend = totalCommissionSpend.add(commissionValue);
+					//System.out.println("effectiveVolume : "+effectiveVolume);
 				}
+				else if(detailsVO.getCommissionType() == 3 || detailsVO.getCommissionType() == 5) {		
+					//transaction coin as commission , but commission is fixed amount
+					totalCommissionSpend = totalCommissionSpend.add(commissionRate);
+					
+				}
+				else if(detailsVO.getCommissionType() == 4 ) {				
+					//Commission other than transaction,purchasing coin , but commission is fixed amount
+					tradeCommission.setTotalAmt(tradeCommission.getTotalAmt().subtract(commissionRate));
+				}
+				
 				/*System.out.println("Actual Volume :"+volume);
 				System.out.println("Effective Volume :"+effectiveVolume);*/
 				
 				buyVolume=buyVolume.add(effectiveVolume);
 				totalAmt=totalAmt.add(effectiveVolume);
 				buyPrice=buyPrice.add(transactionAmt);
-				totalCommissionSpend = totalCommissionSpend.add(commissionValue);
+				
 				System.out.print("BUY ORDER");
+				System.out.print("\t"+commissionValue);
 				
 			}
-			//sell Transaction
-			else if(detailsVO.getTransactionType() ==2 ){
+			//sell Transaction and fixed sell Transaction
+			else if(detailsVO.getTransactionType() ==2 || detailsVO.getTransactionType() ==6  )
+			{
+				if(detailsVO.getTransactionType() == 6) {
+					transactionAmt = detailsVO.getTotalTransactionAmt();
+				}
+				effectiveVolume = volume;
 				if(detailsVO.getCommissionType() == AMOUNT_BASED)
 				{
-					commissionValue = transactionAmt.multiply(commissionRate);
-					effectiveVolume = volume;
+					//transaction coin as commission value
+					commissionValue = transactionAmt.multiply(commissionRate);					
+					tradeCurrencyAmt=tradeCurrencyAmt.add(transactionAmt.subtract(commissionValue));
+					totalCommissionSpend = totalCommissionSpend.add(commissionValue);
 				}
 				else if(detailsVO.getCommissionType() == VOLUME_BASED)
 				{
-					commissionValue = transactionAmt.multiply(commissionRate);
-					effectiveVolume = volume;
+					//fix is required here
+					commissionValue = transactionAmt.multiply(commissionRate);					
+					tradeCurrencyAmt=tradeCurrencyAmt.add(transactionAmt.subtract(commissionValue));
+					totalCommissionSpend = totalCommissionSpend.add(commissionValue);
 				}
-				tradeCurrencyAmt=tradeCurrencyAmt.add(transactionAmt.subtract(commissionValue));
+				else if(detailsVO.getCommissionType() == 3 || detailsVO.getCommissionType() == 5) {
+					if(detailsVO.getCommissionType() == 3) 
+					{
+					tradeCurrencyAmt=tradeCurrencyAmt.add(transactionAmt.subtract(commissionRate));	
+					}
+					else 
+					{
+						tradeCurrencyAmt=tradeCurrencyAmt.add(transactionAmt);
+					}
+					totalCommissionSpend = totalCommissionSpend.add(commissionRate);
+				}
+				else if(detailsVO.getCommissionType() == 4 ) {
+					
+					tradeCurrencyAmt=tradeCurrencyAmt.add(transactionAmt);
+					//Commission coin is other than transaction or purchasing coin , but commission is fixed amount
+					tradeCommission.setTotalAmt(tradeCommission.getTotalAmt().add(commissionRate));
+				}
+				
+				
 				sellVolume=sellVolume.add(effectiveVolume);
-				sellPrice= transactionAmt.add(sellPrice);
+				sellPrice= sellPrice.add(transactionAmt);
 				totalAmt = totalAmt.subtract(effectiveVolume);
-				totalCommissionSpend = totalCommissionSpend.add(commissionValue);
+				
 				System.out.print("SELL ORDER");
+				System.out.print("\t"+commissionValue);
 			}
 			//Deposit Transaction
+			//TODO Deposit/Withdrawal  commission Type deduction 
 			else if(detailsVO.getTransactionType() == 3){
 				effectiveVolume = volume.subtract(commissionRate);
 				depositAmt=depositAmt.add(effectiveVolume);
@@ -295,17 +374,36 @@ public class ReportGeneration {
 				tradeCurrencyAmt=tradeCurrencyAmt.add(effectiveVolume);
 				System.out.print("DEPOSIT ORDER");
 				//TODO commission for Deposit Rate needs to be calculated 
+				xChangeTransferRate=xChangeTransferRate.add(commissionRate);
+				System.out.print("\t"+commissionRate);
+				
 			}
-			//withdrawal Transaction
+			//TODO withdrawal Transaction
 			else if(detailsVO.getTransactionType() == 4){
 				effectiveVolume = volume.subtract(commissionRate);
 				withdrawAmt=withdrawAmt.add(volume);
-				totalAmt = totalAmt.subtract(effectiveVolume);
-				tradeCurrencyAmt=tradeCurrencyAmt.subtract(effectiveVolume);
+				totalAmt = totalAmt.subtract(volume);
+				tradeCurrencyAmt=tradeCurrencyAmt.subtract(volume);
 				System.out.print("WITHDRAWAL ORDER");
 				//TODO commission for Withdrawal Rate needs to be calculated
+				xChangeTransferRate=xChangeTransferRate.add(commissionRate);
+				System.out.print("\t"+effectiveVolume);
+				System.out.print("\t"+commissionRate);
 			}
-			System.out.print("\t"+tradeCurrencyAmt);
+			else if(detailsVO.getTransactionType() ==6) 
+			{
+				
+				effectiveVolume = volume;
+				sellVolume=sellVolume.add(effectiveVolume);
+				sellPrice= sellPrice.add(detailsVO.getTotalTransactionAmt());
+				totalAmt = totalAmt.subtract(effectiveVolume);
+				
+				System.out.print("SELL ORDER");
+				System.out.print("\t"+commissionValue);
+			}
+			
+			System.out.print(" Final Currency Amt \t"+tradeCurrencyAmt);
+			System.out.print(" Final Volume \t"+totalAmt);
 			
 			if (currencyMean != null) {
 				/*System.out.println("Commission value :"+commissionValue);
@@ -329,13 +427,31 @@ public class ReportGeneration {
 			xChangeCurrency.setDepositAmt(depositAmt);
 			xChangeCurrency.setWithdrawalAmt(withdrawAmt);
 			xChangeCurrency.setTotalAmt(totalAmt);
+			xChangeCurrency.setXchangeTransferCommission(xChangeTransferRate);
 			tradeCurrency.setTotalAmt(tradeCurrencyAmt);
 			//System.out.println("***********************************************************");
 			}
+			}
 			
-		}
+		
 		
 		return exchangeList;
+	}
+
+	private ExchangeCurrencyVO buildCurrencyInXChange(String exchangeName, String coinName,List<ExchangeCurrencyVO> currencyList) {
+		ExchangeCurrencyVO tradeCurrency;
+		tradeCurrency = new ExchangeCurrencyVO();
+		//System.out.println("Added in trade Mean");
+		//tradeMean = createNewCurrecnyMean(currency);
+		tradeCurrency.setCoinName(coinName);
+		tradeCurrency.setExchangeName(exchangeName);
+		//tradeCurrency.addCurrencyVO(tradeMean);
+		if(isTradeCurrency(exchangeName,coinName)){
+			tradeCurrency.setTradeCurrency(true);
+		}
+		//Since it is reference
+		currencyList.add(tradeCurrency);
+		return tradeCurrency;
 	}
 
 	private boolean isTradeCurrency(String exchangeName, String coinName) {
@@ -361,17 +477,7 @@ public class ReportGeneration {
 		return xChangeCurrency;
 	}
 
-	private CurrencyMean getXChangeCurrency(List<ExchangeCurrencyVO> currencyList, String coin,String currency) {
-		for(ExchangeCurrencyVO currencyVO: currencyList){
-			if(currencyVO!= null){
-				if(currencyVO.getCoinName().equalsIgnoreCase(coin)){
-					return getCurrencyMeanFromExchange(currency, currencyVO.getCurrency());
-				}
-			}
-		}
-		return null;
-	}
-
+	
 	private ExchangeCurrencyVO getXChangeCurrency(List<ExchangeCurrencyVO> currencyList, String coin) {
 		for(ExchangeCurrencyVO currencyVO: currencyList){
 			if(currencyVO!= null){

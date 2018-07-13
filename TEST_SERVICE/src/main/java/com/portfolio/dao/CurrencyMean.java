@@ -17,6 +17,58 @@ public class CurrencyMean {
 	
 	
 	
+	BigDecimal soldInvestment;
+	BigDecimal currentInvestment;
+	BigDecimal buyMean;
+	BigDecimal sellMean;
+	
+	BigDecimal profitRealised;
+	BigDecimal profitRealPercentage;
+	
+	
+	
+	public BigDecimal getTradeVolume() {
+		return tradeVolume;
+	}
+	public void setTradeVolume(BigDecimal tradeVolume) {
+		this.tradeVolume = tradeVolume;
+	}
+	public BigDecimal getSoldInvestment() {
+		return soldInvestment;
+	}
+	public void setSoldInvestment(BigDecimal soldInvestment) {
+		this.soldInvestment = soldInvestment;
+	}
+	public BigDecimal getCurrentInvestment() {
+		return currentInvestment;
+	}
+	public void setCurrentInvestment(BigDecimal currentInvestment) {
+		this.currentInvestment = currentInvestment;
+	}
+	public BigDecimal getBuyMean() {
+		return buyMean;
+	}
+	public void setBuyMean(BigDecimal buyMean) {
+		this.buyMean = buyMean;
+	}
+	public BigDecimal getSellMean() {
+		return sellMean;
+	}
+	public void setSellMean(BigDecimal sellMean) {
+		this.sellMean = sellMean;
+	}
+	public BigDecimal getProfitRealised() {
+		return profitRealised;
+	}
+	public void setProfitRealised(BigDecimal profitRealised) {
+		this.profitRealised = profitRealised;
+	}
+	public BigDecimal getProfitRealPercentage() {
+		return profitRealPercentage;
+	}
+	public void setProfitRealPercentage(BigDecimal profitRealPercentage) {
+		this.profitRealPercentage = profitRealPercentage;
+	}
 	public boolean isTradeCurrency() {
 		return tradeCurrency;
 	}

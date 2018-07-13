@@ -8,8 +8,13 @@ public class ExchangeCurrencyVO {
 
 	 String exchangeName;
 	 String coinName;
-	 List<CurrencyMean> currency=new ArrayList<CurrencyMean>();
+	 BigDecimal depositAmt = new BigDecimal("0");
+	 BigDecimal withdrawalAmt = new BigDecimal("0");
+	
 	 BigDecimal totalAmt = new BigDecimal("0");
+	 //Holds the coins available in exchange here.
+	 List<CurrencyMean> currency=new ArrayList<CurrencyMean>();
+	 public boolean tradeCurrency = false;
 	 
 	 public BigDecimal getTotalAmt() {
 		return totalAmt;
@@ -18,14 +23,18 @@ public class ExchangeCurrencyVO {
 		this.totalAmt = totalAmt;
 	}
 
-	BigDecimal depositAmt = new BigDecimal("0");
-	 BigDecimal withdrawalAmt = new BigDecimal("0");
+	
 	 
-	 public boolean tradeCurrency = false;
+	
 	 
+	 public BigDecimal getXchangeTransferCommission() {
+			return xchangeTransferCommission;
+		}
+		public void setXchangeTransferCommission(BigDecimal xchangeTransferCommission) {
+			this.xchangeTransferCommission = xchangeTransferCommission;
+		}
 	 
-	 
-	 
+		BigDecimal xchangeTransferCommission = new BigDecimal("0");
 	public boolean isTradeCurrency() {
 		return tradeCurrency;
 	}
