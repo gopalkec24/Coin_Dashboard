@@ -36,7 +36,7 @@ public class ReadTransactionDetails {
 	}
    
 	
-	 public List<TransactionDetailsVO> getTransactionDetails(String csvFile,String filterExchange,String filterCoinName) throws NumberFormatException, IOException{
+	 public List<TransactionDetailsVO> getTransactionDetails(String csvFile,String filterExchange,String filterCoinName,String tradeCurrency) throws NumberFormatException, IOException{
 
 
 			BufferedReader br = null;
@@ -49,6 +49,8 @@ public class ReadTransactionDetails {
 				br = new BufferedReader(new FileReader(csvFile));
 				String coinName = null;
 				String exChange= null;
+				String commissionCurrency=null;
+				String currency =null;
 				while ((line = br.readLine()) != null) 
 				{
 					//line is empty and startswith # means it is comment in transaction
@@ -62,12 +64,30 @@ public class ReadTransactionDetails {
 					
 					coinName=transactionDetails[COIN_NAME_INDEX];
 					exChange =transactionDetails[EXCHANGE_NAME_INDEX];
-					if(filterCoinName!= null && !filterCoinName.equalsIgnoreCase(coinName)) {
-						continue;
+					int commissionType= Integer.parseInt(transactionDetails[TRANS_COMM_TYPE_INDEX]);
+					if(commissionType == 4) {
+						commissionCurrency=transactionDetails[TRANS_FEE_CURRECNY_INDEX];
 					}
+					else{
+						commissionCurrency= null;
+					}
+					
 					if(filterExchange!= null && !filterExchange.equalsIgnoreCase(exChange)) {
 						continue;
 					}
+					
+					if(filterCoinName!= null && !filterCoinName.equalsIgnoreCase(coinName)) {
+						continue;
+					}
+					
+					System.out.println(" Trade Currency: "+ transactionDetails[TRANS_CURRENCY_INDEX]+ " Commission Currency : "+commissionCurrency);
+					if(tradeCurrency != null &&!( tradeCurrency.equalsIgnoreCase(coinName)|| (tradeCurrency.equalsIgnoreCase(transactionDetails[TRANS_CURRENCY_INDEX]) || (commissionCurrency!= null && commissionCurrency.equalsIgnoreCase(tradeCurrency)) ))) {
+						System.out.print("  Skipped\n");
+						continue;
+					}
+					
+					
+					
 					TransactionDetailsVO transactionVO = new TransactionDetailsVO();
 					transactionVO.setCoinName(coinName);
 					transactionVO.setExchangeName(transactionDetails[EXCHANGE_NAME_INDEX]);
@@ -77,14 +97,15 @@ public class ReadTransactionDetails {
 					transactionVO.setDate(transactionDetails[TRANS_DATE_INDEX]);
 					transactionVO.setCurrency(transactionDetails[TRANS_CURRENCY_INDEX]);
 					
-					transactionVO.setCommissionType(Integer.parseInt(transactionDetails[TRANS_COMM_TYPE_INDEX]));
+					transactionVO.setCommissionType(commissionType);
 					transactionVO.setCommissionRate(new BigDecimal(transactionDetails[TRANS_COMM_RATE_INDEX]));
-					if(transactionVO.getTransactionType() == 5 || transactionVO.getTransactionType() == 6 ) {
-						transactionVO.setTotalTransactionAmt(new BigDecimal(TRANS_TOTAL_AMT_INDEX));
+					if(transactionVO.getTransactionType() == 5 || transactionVO.getTransactionType() == 6 ) 
+					{
+						transactionVO.setTotalTransactionAmt(new BigDecimal(transactionDetails[TRANS_TOTAL_AMT_INDEX]));
 					}
-					if(transactionVO.getCommissionType() == 4) {
-						transactionVO.setCommissionCurrency(transactionDetails[TRANS_FEE_CURRECNY_INDEX]);
-					}
+					
+					transactionVO.setCommissionCurrency(commissionCurrency);
+					
 					
 					transactionList.add(transactionVO);
 				}
