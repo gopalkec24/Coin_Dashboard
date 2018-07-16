@@ -1,6 +1,7 @@
 package com.portfolio.transaction;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import com.portfolio.utilis.ReadTransactionDetails;
 
 public class ReportGeneration {
 
+	private static final String CSV_DELIMITER = ",";
 	public static final BigDecimal ZERO_BIGDECIMAL = new BigDecimal(0);
 	private static final int AMOUNT_BASED = 2;
 	private static final int VOLUME_BASED = 1;
@@ -41,7 +43,8 @@ public class ReportGeneration {
 	
 	public static void main(String[] args) throws NumberFormatException, IOException{
 		
-		String transactionFile = "D:/Documents/MultiTransaction_1.csv";
+		String transactionFile = "C:/Documents/MultiTransaction_1.csv";
+		PrintWriter pw= new PrintWriter("C:/Documents/newReport.csv");
 		
 		ReadTransactionDetails readTransaction = new ReadTransactionDetails();
 		
@@ -58,9 +61,34 @@ public class ReportGeneration {
 		Map<String,List<ExchangeCurrencyVO>> exchangeList = reGeneration.processTransactionList(transactionList);
 		
 		//System.out.println(exchangeList);
+		reGeneration.calculateMeanValue(exchangeList);
+		
+		for(List<ExchangeCurrencyVO>  exCurr: exchangeList.values()){
+			 
+			pw.println("Coin/TradeCurrency,Buy Price,Buy Volume,Buy Mean,Sell Price,Sell Volume,Sell Mean,Commission Rate, Profit Realised , Profit %,Deposit Vol,Withdrawal Vol,Commission Rate,Total Amt");
+			for (ExchangeCurrencyVO exVO : exCurr) {
+				
+				
+				
+				for (CurrencyMean currMean : exVO.getCurrency()) {
+					pw.println(exVO.getCoinName() + "/" + currMean.getCurrencyName() + CSV_DELIMITER + currMean.getBuyPrice()+
+							CSV_DELIMITER + currMean.getBuyVolume()+ CSV_DELIMITER + currMean.getBuyMean() + CSV_DELIMITER  +  currMean.getSellPrice()+CSV_DELIMITER + currMean.getSellVolume()+ CSV_DELIMITER + currMean.getSellMean() + CSV_DELIMITER+currMean.getCommissionRate() + " ,"+ currMean.getProfitRealised() + CSV_DELIMITER
+							+ currMean.getProfitRealPercentage() + "%");
+				}
+				
+				pw.println(exVO.getCoinName()+",,,,,,,,,," + exVO.getDepositAmt()+CSV_DELIMITER+exVO.getWithdrawalAmt()+CSV_DELIMITER+exVO.getXchangeTransferCommission()+CSV_DELIMITER +exVO.getTotalAmt());
+				pw.println(",,,,,");
+			}
+		}
+		pw.close();
+		
+	}
+
+	private  void calculateMeanValue(Map<String, List<ExchangeCurrencyVO>> exchangeList) {
 		int i=0;
 		for(List<ExchangeCurrencyVO>  exCurr: exchangeList.values()){
 			 
+			
 			
 				for (ExchangeCurrencyVO exVO : exCurr) {
 					
@@ -111,9 +139,7 @@ public class ReportGeneration {
 						currMean.setProfitRealPercentage(profitPercentage);
 						System.out.println();
 						// System.out.println("Coin Name/Currency,Total Volume,CurrentInvestment,Avg Price of Buy,profit Realised");
-						System.out.println(exVO.getCoinName() + "/" + currMean.getCurrencyName() + "," + totalVolume
-								+ "," + currentInvestmentAmt + "," + buyMean + "," + profitRealised + ","
-								+ profitPercentage + "%");
+						
 
 					}
 
@@ -125,9 +151,6 @@ public class ReportGeneration {
 				} 
 		
 			}
-		
-		
-		
 	}
 	
 	public Map<String,List<ExchangeCurrencyVO>> processTransactionList(List<TransactionDetailsVO> transactionList)
