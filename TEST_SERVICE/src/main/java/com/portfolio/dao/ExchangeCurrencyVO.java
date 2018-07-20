@@ -14,7 +14,11 @@ public class ExchangeCurrencyVO {
 	 BigDecimal totalAmt = new BigDecimal("0");
 	 //Holds the coins available in exchange here.
 	 List<CurrencyMean> currency=new ArrayList<CurrencyMean>();
-	 public boolean tradeCurrency = false;
+	 
+	
+	
+	
+	public boolean tradeCurrency = false;
 	 
 	 public BigDecimal getTotalAmt() {
 		return totalAmt;
@@ -74,6 +78,8 @@ public class ExchangeCurrencyVO {
 	public void addCurrencyVO(CurrencyMean mean){
 		this.currency.add(mean);
 	}
+	
+	
 	
 	public String toString()
 	{
