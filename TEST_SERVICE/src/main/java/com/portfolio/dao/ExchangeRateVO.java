@@ -3,20 +3,31 @@ package com.portfolio.dao;
 import java.math.BigDecimal;
 
 public class ExchangeRateVO {
-	
+	//1
 	private String coinName;
+	//2
+	private BigDecimal priceChangePercent24;
+	//3
+	int rank;
+	//4
+	private String exchange;
+	//5
+	private BigDecimal volumeChange24;
+	//6	
+	private String currency;
+	//7
+	private BigDecimal currentTradePrice;
+	//8
+	private String symbol;
 	
-	private String currencny;
-	
-	private BigDecimal lastTradePrice;
 	
 	private BigDecimal lastBuyPrice;
 	
 	private BigDecimal lastSellPrice;
 	
-	private String symbol;
+	private BigDecimal lastTradePrice;
 	
-	private String price;
+	
 	
 	public String getSymbol() {
 		return symbol;
@@ -26,13 +37,7 @@ public class ExchangeRateVO {
 		this.symbol = symbol;
 	}
 
-	public String getPrice() {
-		return price;
-	}
 
-	public void setPrice(String price) {
-		this.price = price;
-	}
 
 	private String exchangeName;
 
@@ -44,13 +49,7 @@ public class ExchangeRateVO {
 		this.coinName = coinName;
 	}
 
-	public String getCurrencny() {
-		return currencny;
-	}
 
-	public void setCurrencny(String currencny) {
-		this.currencny = currencny;
-	}
 
 	public BigDecimal getLastTradePrice() {
 		return lastTradePrice;
@@ -82,6 +81,46 @@ public class ExchangeRateVO {
 
 	public void setExchangeName(String exchangeName) {
 		this.exchangeName = exchangeName;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public BigDecimal getPriceChangePercent24() {
+		return priceChangePercent24;
+	}
+
+	public void setPriceChangePercent24(BigDecimal priceChangePercent24) {
+		this.priceChangePercent24 = priceChangePercent24;
+	}
+
+	public BigDecimal getVolumeChange24() {
+		return volumeChange24;
+	}
+
+	public void setVolumeChange24(BigDecimal volumeChange24) {
+		this.volumeChange24 = volumeChange24;
+	}
+
+	public String getExchange() {
+		return exchange;
+	}
+
+	public void setExchange(String exchange) {
+		this.exchange = exchange;
+	}
+
+	public BigDecimal getCurrentTradePrice() {
+		return currentTradePrice;
+	}
+
+	public void setCurrentTradePrice(BigDecimal currentTradePrice) {
+		this.currentTradePrice = currentTradePrice;
 	}
 	
 	
