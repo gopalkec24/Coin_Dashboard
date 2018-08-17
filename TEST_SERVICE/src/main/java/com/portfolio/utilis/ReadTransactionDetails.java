@@ -101,7 +101,7 @@ public class ReadTransactionDetails {
 					transactionVO.setCommissionRate(new BigDecimal(transactionDetails[TRANS_COMM_RATE_INDEX]));
 					if(transactionVO.getTransactionType() == 5 || transactionVO.getTransactionType() == 6 ) 
 					{
-						transactionVO.setTotalTransactionAmt(new BigDecimal(transactionDetails[TRANS_TOTAL_AMT_INDEX]));
+							transactionVO.setTotalTransactionAmt(new BigDecimal(transactionDetails[TRANS_TOTAL_AMT_INDEX]));
 					}
 					
 					transactionVO.setCommissionCurrency(commissionCurrency);

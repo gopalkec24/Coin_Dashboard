@@ -9,6 +9,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,10 +53,15 @@ public class GetCurrentRate {
 		coinList.add("BTC");
 		coinList.add("LTC");
 		coinList.add("ETH");
-		//getCurrentPriceFromCoinMarketCap(coinList);
+		System.out.println(getCurrentPriceFromCoinMarketCap(coinList));
 
 	}
-
+    private static List<Map<String,Object>> getCurrentPriceFromBinance(List<String> coinList){
+		List<Map<String,Object>> currentList= new ArrayList<Map<String,Object>>();
+    	
+    	return null;
+    	
+    }
 	private static String getDetailsFromSite(String endpointURL)
 			throws MalformedURLException, IOException, ProtocolException {
 		StringBuffer response = new StringBuffer();
@@ -73,9 +79,9 @@ public class GetCurrentRate {
 			(conn.getInputStream())));
 
 		String output;
-		System.out.println("Output from Server .... \n");
+		//System.out.println("Output from Server .... \n");
 		while ((output = br.readLine()) != null) {
-			System.out.println(output);
+			//System.out.println(output);
 			response.append(output);
 		}
 		System.out.println("Going to disconnect");
@@ -89,35 +95,39 @@ public class GetCurrentRate {
 		String tickerURL="https://api.coinmarketcap.com/v2/ticker/";
 		String response=getDetailsFromSite(endpointURL);
 		JSONObject object= new JSONObject(response);
-		 System.out.println(object.toString());
+		// System.out.println(object.toString());
 		 JSONArray jsoncargo = object.getJSONArray("data");
-
+		 Map<String,BigDecimal> currentPriceMap = new HashMap<String,BigDecimal>();
 		 for(String findSymbol: tradedSymbol){
-			 System.out.println(findSymbol);
+			// System.out.println("Finding symbol from coinMarketcap"+findSymbol);
 		  int id=getCoinId(jsoncargo, findSymbol);
 		  if (id!= -1) {
-			System.out.println(tickerURL + id + "/");
-			String symbolDetails = getDetailsFromSite(tickerURL + id + "/");
-			getDetailForSymbol(symbolDetails);
+			String ticker_url = tickerURL + id + "/";
+			//System.out.println(ticker_url);
+			String symbolDetails = getDetailsFromSite(ticker_url);
+			currentPriceMap.put(findSymbol,getDetailForSymbol(symbolDetails));
 		}
 		 }
-		return null;
+		return currentPriceMap;
 	}
 
-	private static String getDetailForSymbol(String symbolDetails) {
+	private static BigDecimal getDetailForSymbol(String symbolDetails) {
 		
 		
 		JSONObject object= new JSONObject(symbolDetails);
 		System.out.println(object.toString());
 		JSONObject currencyDetails = object.getJSONObject("data").getJSONObject("quotes");
-		 System.out.println(currencyDetails.toString());
+		JSONObject price=currencyDetails.getJSONObject("USD");
+		BigDecimal latestPrice = price.getBigDecimal("price");
 		
-		return null;
+		 //System.out.println(currencyDetails.toString());
+		
+		return latestPrice;
 	}
 
 	private static int getCoinId(JSONArray jsoncargo, String findSymbol) {
 		for (int i = 0; i < jsoncargo.length(); i++) {
-			 	System.out.println(jsoncargo.get(i).toString());
+			 	//System.out.println(jsoncargo.get(i).toString());
 				 String symbol = jsoncargo.getJSONObject(i).getString("symbol");
 				 if(symbol!=null && symbol.equalsIgnoreCase(findSymbol)){
 					 int id= jsoncargo.getJSONObject(i).getInt("id");
