@@ -4,7 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -17,6 +22,13 @@ public class ReadTradeConfig {
 	private Hashtable<String,List<String>> tradeConfig = new Hashtable<String,List<String>>();
 	List<String> nonCryptoList= new ArrayList<String>();
 	String COMMA_SEPEARTOR = ",";
+	
+	private static String PROXY_AUTH_PASSWORD = "Gopalfx@54";
+	private static String PROXY_AUTH_USERNAME = "hcltech\\natarajan_g";
+	private static String PROXY_PORT = "8080";
+	private static String PROXY_HOSTNAME = "10.121.11.32";
+	private static boolean useProxy = true;
+
 	
 	public List<TransactionDetailsVO> getConfigurationDetails(String csvFile) throws Exception{
 
@@ -116,6 +128,9 @@ public class ReadTradeConfig {
 	public List<String> getNonCryptoList(){
 		return nonCryptoList;
 	}
+	public String getNonCryptoListAsString(){
+		return nonCryptoList.toString().substring(1,nonCryptoList.toString().length()-1);
+	}
 	public boolean isTradeCurrency(String exchangeName, String coinName) {
 		   if(tradeConfig.containsKey(exchangeName)){
 			   if(tradeConfig.get(exchangeName).contains(coinName))
@@ -133,4 +148,54 @@ public class ReadTradeConfig {
 		}
 		return true;
 	}
+	
+	
+	
+	
+	public static URLConnection getURLConnection(URL url) throws IOException {
+
+		URLConnection con = url.openConnection();
+
+		if (useProxy) {
+			System.setProperty("http.proxyHost", PROXY_HOSTNAME);
+			System.setProperty("http.proxyPort", PROXY_PORT);
+			System.setProperty("https.proxyHost", PROXY_HOSTNAME);
+			System.setProperty("https.proxyPort", PROXY_PORT);
+			System.out.println("USer naem : "+PROXY_AUTH_USERNAME);
+			System.out.println("PAssword : "+PROXY_AUTH_PASSWORD);
+			String encoded = new String(Base64.getEncoder()
+					.encode((new String(PROXY_AUTH_USERNAME + ":" + PROXY_AUTH_PASSWORD).getBytes())));
+			System.out.println(encoded);
+			con.setRequestProperty("Proxy-Authorization", "Basic " + encoded);
+			System.out.println("using the proxy");
+		}		
+		return con;
+	}
+	public  void setProxyDetails(String hostName,String portNumber,String userName,String password){
+		PROXY_HOSTNAME=hostName;
+		PROXY_PORT=portNumber;
+		PROXY_AUTH_USERNAME=userName;
+		PROXY_AUTH_PASSWORD=password;
+		useProxy=true;
+				
+	}
+
+
+	public static URLConnection getURLConnection(String endpointURL) throws IOException {
+		URL url= new URL(endpointURL);
+		return getURLConnection(url);
+	}
+	public void setUseProxy(boolean value) {
+		useProxy=value;
+	}
+	
+	public static HttpURLConnection getHttpURLConnection(String endPoint) throws IOException  {
+		
+		HttpURLConnection conn= (HttpURLConnection) getURLConnection(endPoint);
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Accept", "application/json");
+		
+		return conn;
+	}
+
 }

@@ -11,6 +11,15 @@ public class CurrencyMean {
 	BigDecimal buyPrice;
 	BigDecimal sellPrice;
 	
+	BigDecimal currentMarketPrice;
+	
+	
+	public BigDecimal getCurrentMarketPrice() {
+		return currentMarketPrice;
+	}
+	public void setCurrentMarketPrice(BigDecimal currentMarketPrice) {
+		this.currentMarketPrice = currentMarketPrice;
+	}
 	public boolean tradeCurrency;
 	
 	BigDecimal tradeVolume;

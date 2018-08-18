@@ -12,7 +12,16 @@ public class ExchangeCurrencyVO {
 	 BigDecimal withdrawalAmt = new BigDecimal("0");
 	
 	 BigDecimal totalAmt = new BigDecimal("0");
-	 //Holds the coins available in exchange here.
+	 
+	 BigDecimal currentMarketValue = new BigDecimal("0");
+	 public BigDecimal getCurrentMarketValue() {
+		return currentMarketValue;
+	}
+	public void setCurrentMarketValue(BigDecimal currentMarketValue) {
+		this.currentMarketValue = currentMarketValue;
+	}
+
+	//Holds the coins available in exchange here.
 	 List<CurrencyMean> currency=new ArrayList<CurrencyMean>();
 	 
 	

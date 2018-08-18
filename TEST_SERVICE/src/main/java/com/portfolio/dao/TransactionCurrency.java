@@ -4,13 +4,40 @@ import java.math.BigDecimal;
 
 public class TransactionCurrency {
 	
+	private static final BigDecimal BIG_DECIMAL_ZERO = new BigDecimal("0");
 	String name;
 	boolean isCrypto;
 	String exchange;
-	BigDecimal buyTransactionAmount =new BigDecimal("0");
-	BigDecimal sellTransactionAmount=new BigDecimal("0");
-	BigDecimal commissionAmount=new BigDecimal("0");
-	BigDecimal currentInvestAmount=new BigDecimal("0");
+	
+	BigDecimal depositVolume= BIG_DECIMAL_ZERO;
+	BigDecimal withdrawalVolume =BIG_DECIMAL_ZERO;
+	
+	public BigDecimal getDepositVolume() {
+		return depositVolume;
+	}
+	public void setDepositVolume(BigDecimal depositVolume) {
+		this.depositVolume = depositVolume;
+	}
+	public BigDecimal getWithdrawalVolume() {
+		return withdrawalVolume;
+	}
+	public void setWithdrawalVolume(BigDecimal withdrawalVolume) {
+		this.withdrawalVolume = withdrawalVolume;
+	}
+	BigDecimal buyTransactionAmount =BIG_DECIMAL_ZERO;	
+	BigDecimal sellTransactionAmount=BIG_DECIMAL_ZERO;
+	BigDecimal commissionAmount=BIG_DECIMAL_ZERO;
+	BigDecimal currentInvestAmount=BIG_DECIMAL_ZERO;
+	BigDecimal soldInvestment=BIG_DECIMAL_ZERO;
+	
+	public BigDecimal getSoldInvestment() {
+		return soldInvestment;
+	}
+	public void setSoldInvestment(BigDecimal soldInvestment) {
+		this.soldInvestment = soldInvestment;
+	}
+	BigDecimal overallGainPercent= BIG_DECIMAL_ZERO;
+	
 	
 	public BigDecimal getCurrentInvestAmount() {
 		return currentInvestAmount;
@@ -54,7 +81,12 @@ public class TransactionCurrency {
 	public void setCommissionAmount(BigDecimal commissionAmount) {
 		this.commissionAmount = commissionAmount;
 	}
-	
+	public BigDecimal getOverallGainPercent() {
+		return overallGainPercent;
+	}
+	public void setOverallGainPercent(BigDecimal overallGainPercent) {
+		this.overallGainPercent = overallGainPercent;
+	}
 	
 	
 
