@@ -28,6 +28,7 @@ public class GetCurrentRate {
 	
 	private static final Map<String,Integer> CACHED_COIN_ID = Collections.synchronizedMap(new HashMap<String,Integer>());
 	private static final String CONFIG_DIRECTORY = "C:/Documents/";
+	
 	public static String api_key="CMC_PRO_API_KEY=9afba42a-ebdc-4bf0-a742-d110c154dc49";
 
 	public static void main(String[] args) throws Exception {
@@ -58,16 +59,17 @@ public class GetCurrentRate {
                " \"percent_change_1h\": 0.05,\"percent_change_24h\": 2.8, \"percent_change_7d\": 19.45}"+
         "},\"last_updated\": 1532318722},\"metadata\": {\"timestamp\": 1532318365,\"error\": null}"+
 "}";
-		/*getDetailForSymbol(responseStr);
+		//getDetailForSymbol(responseStr);
 		List<String> coinList= new ArrayList<String>();
 		coinList.add("BTC");
 		coinList.add("LTC");
 		coinList.add("ETH");
 		coinList.add("USDT");
-		getMarketPriceFromCoinMarketCap(coinList);*/
+		coinList.add("VEN");
+		System.out.println(getMarketPriceFromCoinMarketCap(coinList));
 		
 		//cacheCoinIdFromMarketPlace();
-		getNonCryptoCurrencyValue("USD","MXN");
+		//getNonCryptoCurrencyValue("USD","MXN");
 
 	}
 
@@ -81,6 +83,7 @@ public class GetCurrentRate {
 
 		if (conn==null || conn.getResponseCode() != 200) {
 			System.out.println("Error in retreive result for :"+endpointURL);
+			
 			throw new RuntimeException("Failed : HTTP error code : "
 					+ conn.getResponseCode());
 		}
@@ -100,24 +103,31 @@ public class GetCurrentRate {
 	}
 
 	public static Map<String, BigDecimal> getCurrentPriceFromCoinMarketCap(List<String> tradedSymbol) throws Exception {
-		String endpointURL = "https://api.coinmarketcap.com/v2/listings/";
-		String tickerURL="https://api.coinmarketcap.com/v2/ticker/";
-		String response=getDetailsFromSite(endpointURL);
-		JSONObject object= new JSONObject(response);
-		// System.out.println(object.toString());
-		 JSONArray jsoncargo = object.getJSONArray("data");
-		 cacheCoinId();
-		 Map<String,BigDecimal> currentPriceMap = new HashMap<String,BigDecimal>();
-		 for(String findSymbol: tradedSymbol){
-			 System.out.println(findSymbol);
-		  //int id=getCoinId(jsoncargo, findSymbol);
-			 int id=getCoinId(findSymbol);	 
-		  if (id!= -1) {
-			System.out.println(tickerURL + id + "/");
-			String symbolDetails = getDetailsFromSite(tickerURL + id + "/");
-			currentPriceMap.put(findSymbol,getDetailForSymbol(symbolDetails));
+		if(ReadTradeConfig.useLatestVersion)
+		{
+			return getMarketPriceFromCoinMarketCap(tradedSymbol);
 		}
-		 }
+		else
+		{
+			return getCurrentPriceFromCoinMapV2(tradedSymbol);
+		 
+		}
+	}
+
+	private static Map<String, BigDecimal> getCurrentPriceFromCoinMapV2(List<String> tradedSymbol)
+			throws Exception, MalformedURLException, ProtocolException, IOException {
+		String tickerURL="https://api.coinmarketcap.com/v2/ticker/";		
+		cacheCoinId();
+		Map<String,BigDecimal> currentPriceMap = new HashMap<String,BigDecimal>();
+		for(String findSymbol: tradedSymbol){
+			System.out.println(findSymbol);			
+			int id=getCoinId(findSymbol);	 
+			if (id!= -1) {
+				System.out.println(tickerURL + id + "/");
+				String symbolDetails = getDetailsFromSite(tickerURL + id + "/");
+				currentPriceMap.put(findSymbol,getDetailForSymbolV2(symbolDetails));
+			}
+		}
 		return currentPriceMap;
 	}
 
@@ -126,23 +136,27 @@ public class GetCurrentRate {
 		//CMC_PRO_API_KEY=9afba42a-ebdc-4bf0-a742-d110c154dc49&id=1,2,1027,825&convert=USD"
 		String tickerURL="https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?"+api_key;
 		cacheCoinId();
-		List<Integer> idList= new ArrayList<Integer>();		
+		List<Integer> idList= new ArrayList<Integer>();	
+		StringBuffer ids= new StringBuffer();
 		for(String findSymbol: tradedSymbol)
 		{
 			int id=getCoinId(findSymbol);
 			if (id!= -1) 
 			{
-				idList.add(id);				
+				ids.append(","+id);
+				idList.add(id);		
+				
 			}
 		}
-		String marketData= getDetailsFromSite(tickerURL+"&id="+idList.toString().substring(1, idList.toString().length()-1));
+		String marketData= getDetailsFromSite(tickerURL+"&id="+ids.toString().substring(1));
 		
-		return null;
+		
+		return getDetailForSymbols(marketData);
 	}
 	private static int getCoinId(String findSymbol) throws MalformedURLException, ProtocolException, IOException {
 		
 		
-		if(CACHED_COIN_ID.containsKey(findSymbol))
+		if(!ReadTradeConfig.excludedCoinList.contains(findSymbol) && CACHED_COIN_ID.containsKey(findSymbol))
 		{
 			return CACHED_COIN_ID.get(findSymbol);
 		}
@@ -252,7 +266,7 @@ public class GetCurrentRate {
 		
 		
 	}
-	private static BigDecimal getDetailForSymbol(String symbolDetails) {
+	private static BigDecimal getDetailForSymbolV2(String symbolDetails) {
   
 		JSONObject object= new JSONObject(symbolDetails);
 		System.out.println(object.toString());
@@ -269,6 +283,33 @@ public class GetCurrentRate {
 		
 		return latestPrice;
 	}
+	
+	private static Map<String, BigDecimal> getDetailForSymbols(String symbolDetails) {
+		  
+		JSONObject object= new JSONObject(symbolDetails);
+		System.out.println(object.toString());
+		String[] ids = JSONObject.getNames(object.getJSONObject("data"));
+		BigDecimal latestPrice = null;
+		 Map<String,BigDecimal> currentPriceMap = new HashMap<String,BigDecimal>();
+		for(String id: ids)
+		{
+			System.out.println("Symbol ID: "+id);
+		JSONObject currencyDetails = object.getJSONObject("data").getJSONObject(id).getJSONObject("quote").getJSONObject("USD");		 
+		String coinName= object.getJSONObject("data").getJSONObject(id).getString("symbol");
+		Object objPrice = currencyDetails.get("price");
+		
+		
+		if(objPrice!= null && objPrice instanceof Double) {
+			latestPrice  = new BigDecimal(objPrice.toString());
+			currentPriceMap.put(coinName, latestPrice);
+		}
+		
+		}
+		 //System.out.println(currencyDetails.toString());
+		
+		return currentPriceMap;
+	}
+	
 
 	public static Map<String,BigDecimal> getNonCryptoCurrencyValue(String source,String coinName) throws Exception, ProtocolException, IOException {
 		Map<String,BigDecimal> nonCyptoCurrentValue= new TreeMap<String,BigDecimal>();

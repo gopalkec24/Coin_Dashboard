@@ -6,14 +6,15 @@ import java.util.List;
 
 public class ExchangeCurrencyVO {
 
-	 String exchangeName;
+	 private static final BigDecimal BIG_DECIMAL_ZERO = new BigDecimal("0");
+	String exchangeName;
 	 String coinName;
-	 BigDecimal depositAmt = new BigDecimal("0");
-	 BigDecimal withdrawalAmt = new BigDecimal("0");
+	 BigDecimal depositAmt = BIG_DECIMAL_ZERO;
+	 BigDecimal withdrawalAmt = BIG_DECIMAL_ZERO;
 	
-	 BigDecimal totalAmt = new BigDecimal("0");
+	 BigDecimal totalAmt = BIG_DECIMAL_ZERO;
 	 
-	 BigDecimal currentMarketValue = new BigDecimal("0");
+	 BigDecimal currentMarketValue = BIG_DECIMAL_ZERO;
 	 public BigDecimal getCurrentMarketValue() {
 		return currentMarketValue;
 	}
@@ -47,7 +48,7 @@ public class ExchangeCurrencyVO {
 			this.xchangeTransferCommission = xchangeTransferCommission;
 		}
 	 
-		BigDecimal xchangeTransferCommission = new BigDecimal("0");
+		BigDecimal xchangeTransferCommission = BIG_DECIMAL_ZERO;
 	public boolean isTradeCurrency() {
 		return tradeCurrency;
 	}

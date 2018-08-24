@@ -29,6 +29,8 @@ public class ReadTradeConfig {
 	private static String PROXY_HOSTNAME = "10.121.11.32";
 	private static boolean useProxy = true;
 
+	public static final boolean useLatestVersion = true;
+	public static List<String> excludedCoinList = new ArrayList<String>();
 	
 	public List<TransactionDetailsVO> getConfigurationDetails(String csvFile) throws Exception{
 
