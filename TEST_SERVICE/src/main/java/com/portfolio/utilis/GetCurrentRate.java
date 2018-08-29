@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -17,10 +18,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.portfolio.dao.FetchConfiguration;
+
 import org.apache.commons.io.FileUtils;
 
 
@@ -60,24 +67,27 @@ public class GetCurrentRate {
         "},\"last_updated\": 1532318722},\"metadata\": {\"timestamp\": 1532318365,\"error\": null}"+
 "}";
 		//getDetailForSymbol(responseStr);
-		List<String> coinList= new ArrayList<String>();
+		/*List<String> coinList= new ArrayList<String>();
 		coinList.add("BTC");
 		coinList.add("LTC");
 		coinList.add("ETH");
 		coinList.add("USDT");
 		coinList.add("VEN");
-		System.out.println(getMarketPriceFromCoinMarketCap(coinList));
-		
+		System.out.println(getMarketPriceFromCoinMarketCap(coinList));*/
+		List<String> exchagne = new ArrayList();
+		exchagne.add("BINANCE");
+		getCurrentMarketPriceFromExchange(exchagne);
 		//cacheCoinIdFromMarketPlace();
 		//getNonCryptoCurrencyValue("USD","MXN");
 
 	}
 
-	private static String getDetailsFromSite(String endpointURL)
+	public static String getDetailsFromSite(String endpointURL)
 			throws MalformedURLException, IOException, ProtocolException {
 		StringBuffer response = new StringBuffer();
 		
 		HttpURLConnection conn =  ReadTradeConfig.getHttpURLConnection(endpointURL);
+		conn.addRequestProperty("User-Agent", "Mozilla/4.0");
 		//conn.setRequestMethod("GET");
 		//conn.setRequestProperty("Accept", "application/json");
 
@@ -229,29 +239,70 @@ public class GetCurrentRate {
 		return null;
 	}*/
 
-	private static int getCoinId(JSONArray jsoncargo, String findSymbol) {
-		for (int i = 0; i < jsoncargo.length(); i++) {
-			 	System.out.println(jsoncargo.get(i).toString());
-				 String symbol = jsoncargo.getJSONObject(i).getString("symbol");
-				 if(symbol!=null && symbol.equalsIgnoreCase(findSymbol)){
-					 int id= jsoncargo.getJSONObject(i).getInt("id");
-					 System.out.println(id);
-					 return id;
-				 }
-		 }
-		return -1;
+	
+	
+	
+	
+	public static Map<String,Map<String,Map<String,Object>>> getCurrentMarketPriceFromExchange(List<String> exchangeName) 
+	{
+		
+		Map<String, Map<String, Map<String, Object>>> xchangeCurrentValueMap = new TreeMap<String, Map<String,Map<String,Object>>>();
+		
+		
+		List<FetchConfiguration> fetchConfig = getExchangeConfigData();
+		
+		for(FetchConfiguration config : fetchConfig)
+		{
+		 //FetchConfiguration fetchConfig=  gson.fromJson(response, FetchConfiguration.class);
+		/*	System.out.println(config.getFetchURL());
+			System.out.println(config.getName());
+			System.out.println(config.getAttributeFetch().length);*/
+			if(exchangeName.contains(config.getName())) {
+			GetCurrentMarketPrice cmp= new GetCurrentMarketPrice();
+			try {
+				 xchangeCurrentValueMap.put(config.getName(), cmp.getCurrentMarketPrice(config));
+				
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+		}
+		
+		
+		return xchangeCurrentValueMap;
 	}
+
+	public static List<FetchConfiguration> getExchangeConfigData() {
+		File lastUpdated= new File(CONFIG_DIRECTORY+"configurationURL1.json");
+		String response= null;
+		List<FetchConfiguration> fetchConfig = null;
+		if(lastUpdated.exists())
+		{
+		 try {
+			response = FileUtils.readFileToString(lastUpdated, "utf-8");
+			System.out.println(response);
+			 Gson gson = new Gson();
+			 Type listType = new TypeToken<List<FetchConfiguration>>(){}.getType();
+			 
+			 fetchConfig= gson.fromJson(response,listType);
+			 
+			
+			
+		 	} 
+		 	catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
-	
-	public static Map<String,Map<String,Object>> getPriceFromBinance(String symbol) {
-		//key be symbol/currency 
-		Map<String,Map<String,Object>> currentPriceMap = new HashMap<String,Map<String,Object>>();
-		
-		
-		
-		
-		
-		return null;
+		}
+		return fetchConfig;
 	}
 	
 	public void getDataFromJSON(String response) {
@@ -331,5 +382,10 @@ public class GetCurrentRate {
 		return nonCyptoCurrentValue;
 		
 		
+	}
+
+	public static Map<String, Map<String, Map<String, Object>>> getCurrentMarketPriceFromExchange(Set<String> keySet) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	}

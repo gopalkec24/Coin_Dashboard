@@ -12,8 +12,14 @@ public class CurrencyMean {
 	BigDecimal sellPrice;
 	
 	BigDecimal currentMarketPrice;
+	BigDecimal lastPrice;
 	
-	
+	public BigDecimal getLastPrice() {
+		return lastPrice;
+	}
+	public void setLastPrice(BigDecimal lastPrice) {
+		this.lastPrice = lastPrice;
+	}
 	public BigDecimal getCurrentMarketPrice() {
 		return currentMarketPrice;
 	}
@@ -35,7 +41,22 @@ public class CurrencyMean {
 	BigDecimal profitRealPercentage;
 	
 	
+	BigDecimal priceDiffer;
+	BigDecimal priceDifferPercentage;
 	
+	
+	public BigDecimal getPriceDiffer() {
+		return priceDiffer;
+	}
+	public void setPriceDiffer(BigDecimal priceDiffer) {
+		this.priceDiffer = priceDiffer;
+	}
+	public BigDecimal getPriceDifferPercentage() {
+		return priceDifferPercentage;
+	}
+	public void setPriceDifferPercentage(BigDecimal priceDifferPercentage) {
+		this.priceDifferPercentage = priceDifferPercentage;
+	}
 	public BigDecimal getTradeVolume() {
 		return tradeVolume;
 	}

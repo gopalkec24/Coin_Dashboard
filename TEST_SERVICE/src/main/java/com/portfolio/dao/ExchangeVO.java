@@ -4,7 +4,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class ExchangeVO {
-	
+	String exchangeName;
+	public String getExchangeName() {
+		return exchangeName;
+	}
+	public void setExchangeName(String exchangeName) {
+		this.exchangeName = exchangeName;
+	}
 	List<ExchangeCurrencyVO> coinList;
 	List<TransactionCurrency> transCurrency;
 	List<String> tradeCoinList ;

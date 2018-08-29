@@ -23,7 +23,7 @@ public class ReadTradeConfig {
 	List<String> nonCryptoList= new ArrayList<String>();
 	String COMMA_SEPEARTOR = ",";
 	
-	private static String PROXY_AUTH_PASSWORD = "Gopalfx@54";
+	private static String PROXY_AUTH_PASSWORD = "Gopalmp@54";
 	private static String PROXY_AUTH_USERNAME = "hcltech\\natarajan_g";
 	private static String PROXY_PORT = "8080";
 	private static String PROXY_HOSTNAME = "10.121.11.32";
@@ -163,8 +163,8 @@ public class ReadTradeConfig {
 			System.setProperty("http.proxyPort", PROXY_PORT);
 			System.setProperty("https.proxyHost", PROXY_HOSTNAME);
 			System.setProperty("https.proxyPort", PROXY_PORT);
-			System.out.println("USer naem : "+PROXY_AUTH_USERNAME);
-			System.out.println("PAssword : "+PROXY_AUTH_PASSWORD);
+			/*System.out.println("USer naem : "+PROXY_AUTH_USERNAME);
+			System.out.println("PAssword : "+PROXY_AUTH_PASSWORD);*/
 			String encoded = new String(Base64.getEncoder()
 					.encode((new String(PROXY_AUTH_USERNAME + ":" + PROXY_AUTH_PASSWORD).getBytes())));
 			System.out.println(encoded);
