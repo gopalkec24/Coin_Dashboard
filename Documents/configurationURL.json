@@ -1,0 +1,31 @@
+{
+"BINANCE" :{
+"attributeFetch":[{"attr_name" : "symbol","attr_src_dataType" : "String","attr_tgt_dataType" : "String","path" : "symbol"},
+{"attr_name" : "lastPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "lastPrice"},
+{"attr_name" : "openPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "openPrice"},
+{"attr_name" : "lowPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "lowPrice"},
+{"attr_name" : "highPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "highPrice"},
+{"attr_name" : "prevClosePrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "prevClosePrice"},
+{"attr_name" : "priceChange","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "priceChange"},
+{"attr_name" : "priceChangePercent","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "priceChangePercent"}] ,
+"fetchURL": "https://api.binance.com/api/v1/ticker/24hr",
+"securityRequired" : true,
+"name" : "BINANCE"
+},
+"BITBNS": {
+"attributeFetch":[{"attr_name" : "symbol","attr_src_dataType" : "String","attr_tgt_dataType" : "String","path" : "symbol"},
+{"attr_name" : "lastPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "lastPrice"},
+{"attr_name" : "openPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "openPrice"},
+{"attr_name" : "lowPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "lowPrice"},
+{"attr_name" : "highPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "highPrice"},
+{"attr_name" : "prevClosePrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "prevClosePrice"},
+{"attr_name" : "priceChange","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "priceChange"},
+{"attr_name" : "priceChangePercent","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "priceChangePercent"}] ,
+"fetchURL": "https://api.binance.com/api/v1/ticker/24hr",
+"securityRequired" : false,
+"name" : "BITBNS"
+}
+
+}
+
+

@@ -23,9 +23,9 @@ var exchangeListData="";
 for(var exchange in result.exchangeList)
 { 
 var exchangeObj = result.exchangeList[exchange];
-var dataRow="<tr> <th> Exchange Name :  </th> <td>" +exchange +"</td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td> <th>Total Investment value in USD </th> <td>"+exchangeObj.nonCryptoInvestValue +"</td> <th>Total Current Fund value in USD</th> <td>"+exchangeObj.currentMarketValue +"</td></tr>";
+var dataRow="<tr> <th> Exchange Name :  </th> <td>" +exchange +"</td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td><th>Total Investment value in USD </th> <td>"+exchangeObj.nonCryptoInvestValue +"</td> <th>Total Current Fund value in USD</th> <td>"+exchangeObj.currentMarketValue +"</td></tr>";
  dataRow=dataRow+"<tr><th>Coin/Currency Traded</th><th>Buy Price</th><th>Buy Volume</th><th>Buy Avg Price </th><th>Sell Avg Price</th><th>Sell Volume</th><th>Sell Price</th><th>Amount spend on Commission</th>"+
- "<th>Amt sold from Investment</th><th>Current Amt from Investment</th><th>Profit </th> <th>Profit % </th> <th> Deposit Amt </th> <th>Withdrawal</th> <th>Commission Spend on transfers</th> <th>Total volume available</th>"+
+ "<th>Amt sold from Investment</th><th>Current Amt from Investment</th><th>Profit </th> <th>Profit % </th> <th>Price Differ </th>  <th>Price Differ % </th>  <th>Current Market unitPrice </th>  <th> Deposit Amt </th> <th>Withdrawal</th> <th>Commission Spend on transfers</th> <th>Total volume available</th>"+
  "<th>Current Fund value in USD</th></tr>";  
 	
    
@@ -35,6 +35,16 @@ var dataRow="<tr> <th> Exchange Name :  </th> <td>" +exchange +"</td> <td class=
 		for(var j=0; j <coin.currency.length ; j++)
 		{
 				var coinTraded = coin.currency[j];
+				
+				var lastPrice= coinTraded.lastPrice;
+				var priceDiffPer= coinTraded.priceDifferPercentage;
+				var priceDiff = coinTraded.priceDiffer;
+				if(typeof lastPrice == "undefined")
+				{
+				  lastPrice="NA";
+				  priceDiff="- -";
+				  priceDiffPer="%";
+				}
 				dataRow= dataRow+ "<tr><td>"+coin.coinName+"/"+coinTraded.currencyName+"</td><td>"+
 				coinTraded.buyPrice+"</td><td>"+
 				coinTraded.buyVolume+"</td><td>"+
@@ -46,10 +56,14 @@ var dataRow="<tr> <th> Exchange Name :  </th> <td>" +exchange +"</td> <td class=
 				coinTraded.soldInvestment+"</td><td>"+
 				coinTraded.currentInvestment+"</td><td>"+                           
                 coinTraded.profitRealised+"</td><td>"+
-                coinTraded.profitRealPercentage+"</td><td></td><td></td><td></td><td></td><td></td></tr>";
+                coinTraded.profitRealPercentage+"</td><td>"+
+				priceDiff+"</td><td>"+
+				priceDiffPer+"</td><td>"+
+				lastPrice+"</td><td>"+
+				"</td><td></td><td></td><td></td><td></td><td></td></tr>";
                     
 		}	
-		dataRow=dataRow+"<tr><td>"+coin.coinName+"</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>"+coin.depositAmt+"</td><td>"+coin.withdrawalAmt+"</td><td>"+coin.xchangeTransferCommission+"</td><td>"+coin.totalAmt+"</td><td>"+coin.currentMarketValue+"</td></tr>";
+		dataRow=dataRow+"<tr><td>"+coin.coinName+"</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>"+coin.depositAmt+"</td><td>"+coin.withdrawalAmt+"</td><td>"+coin.xchangeTransferCommission+"</td><td>"+coin.totalAmt+"</td><td>"+coin.currentMarketValue+"</td></tr>";
 	
 	if(dataRow.length > 0 )
 	{

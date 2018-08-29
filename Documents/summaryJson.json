@@ -45,7 +45,6 @@
                 "GXS/ETH",
                 "LTC/USDT",
                 "KEY/ETH",
-                "ETH/XRP",
                 "DOCK/ETH",
                 "QKC/ETH",
                 "EOS/ETH",
@@ -54,21 +53,23 @@
                 "VET/ETH",
                 "BQX/ETH"
             ],
-            "currentMarketValue": 199.56,
+            "currentMarketValue": 238.17,
             "nonCryptoInvestValue": 0,
             "coinList": [
                 {
                     "withdrawalAmt": 0E-8,
-                    "totalAmt": 0.11576999,
-                    "currentMarketValue": 0.04,
+                    "totalAmt": 0E-8,
+                    "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [
                         {
                             "buyPrice": 0,
                             "sellVolume": 124,
-                            "commissionRate": 0.0001302976,
+                            "commissionRate": 0.0001303,
                             "soldInvestment": 0E-8,
                             "currentInvestment": 0E-8,
+                            "priceDiffer": 0.00118742,
                             "sellMean": 0.00105079,
                             "sellPrice": 0.1302976,
                             "profitRealised": 0.13029796,
@@ -77,7 +78,8 @@
                             "price": 0,
                             "buyMean": 0E-8,
                             "buyVolume": 0,
-                            "profitRealPercentage": 0
+                            "profitRealPercentage": 0,
+                            "lastPrice": 0.00118742
                         },
                         {
                             "buyPrice": 0,
@@ -85,6 +87,7 @@
                             "commissionRate": 0.001503,
                             "soldInvestment": 0E-8,
                             "currentInvestment": 0E-8,
+                            "priceDiffer": 0.03082,
                             "sellMean": 0.03342162,
                             "sellPrice": 3.04069925,
                             "profitRealised": 3.04069899,
@@ -93,36 +96,21 @@
                             "price": 0,
                             "buyMean": 0E-8,
                             "buyVolume": 0,
-                            "profitRealPercentage": 0
+                            "profitRealPercentage": 0,
+                            "lastPrice": 0.03082
                         }
                     ],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 214.98,
                     "coinName": "XRP",
                     "tradeCurrency": false
                 },
                 {
                     "withdrawalAmt": 0E-8,
-                    "totalAmt": 0.16323901,
-                    "currentMarketValue": 46.08,
+                    "totalAmt": 0.163239,
+                    "currentMarketValue": 48.48,
                     "xchangeTransferCommission": 0E-8,
-                    "currency": [{
-                        "buyPrice": 0,
-                        "sellVolume": 0,
-                        "commissionRate": 0,
-                        "soldInvestment": 0E-8,
-                        "currentInvestment": 0E-8,
-                        "sellMean": 0E-8,
-                        "sellPrice": 0,
-                        "profitRealised": 0E-8,
-                        "tradeCurrency": false,
-                        "currencyName": "XRP",
-                        "price": 0,
-                        "buyMean": 0E-8,
-                        "buyVolume": 0,
-                        "profitRealPercentage": 0
-                    }],
                     "exchangeName": "BINANCE",
+                    "currency": [],
                     "depositAmt": 0.32032757,
                     "coinName": "ETH",
                     "tradeCurrency": true
@@ -130,24 +118,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 28.524932,
-                    "currentMarketValue": 61.41,
+                    "currentMarketValue": 80.81,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [
                         {
                             "buyPrice": 0.01510824,
                             "sellVolume": 1.35,
-                            "commissionRate": 0.00003130824,
+                            "commissionRate": 0.00003131,
                             "soldInvestment": 0.01501216,
                             "currentInvestment": 0.00009608,
+                            "priceDiffer": -0.00153212,
                             "sellMean": 0.012,
                             "sellPrice": 0.0162,
                             "profitRealised": 0.00118784,
                             "tradeCurrency": false,
                             "currencyName": "ETH",
                             "price": 0.01510824,
+                            "priceDifferPercentage": -13.78,
                             "buyMean": 0.01112012,
                             "buyVolume": 1.35864,
-                            "profitRealPercentage": 7.86
+                            "profitRealPercentage": 7.86,
+                            "lastPrice": 0.009588
                         },
                         {
                             "buyPrice": 42.6685,
@@ -155,18 +147,20 @@
                             "commissionRate": 0.029447,
                             "soldInvestment": 28.5173555,
                             "currentInvestment": 14.1511445,
+                            "priceDiffer": -0.00673555,
                             "sellMean": 3.6,
                             "sellPrice": 36,
                             "profitRealised": 7.4826445,
                             "tradeCurrency": false,
                             "currencyName": "USDT",
                             "price": 42.6685,
+                            "priceDifferPercentage": -0.24,
                             "buyMean": 2.85173555,
                             "buyVolume": 14.962292,
-                            "profitRealPercentage": 17.54
+                            "profitRealPercentage": 17.54,
+                            "lastPrice": 2.845
                         }
                     ],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 23.554,
                     "coinName": "ONT",
                     "tradeCurrency": false
@@ -174,25 +168,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 59.82,
-                    "currentMarketValue": 0.85,
+                    "currentMarketValue": 0.99,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.01503,
                         "sellVolume": 120,
                         "commissionRate": 0.00002517,
                         "soldInvestment": 0.0100296,
                         "currentInvestment": 0.0050004,
+                        "priceDiffer": -0.0000282,
                         "sellMean": 0.0000845,
                         "sellPrice": 0.01014,
                         "profitRealised": 0.0001104,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.01503,
+                        "priceDifferPercentage": -33.74,
                         "buyMean": 0.00008358,
                         "buyVolume": 179.82,
-                        "profitRealPercentage": 0.73
+                        "profitRealPercentage": 0.73,
+                        "lastPrice": 0.00005538
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "IOST",
                     "tradeCurrency": false
@@ -200,25 +197,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 413.479,
-                    "currentMarketValue": 5.63,
+                    "currentMarketValue": 6.5,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.04889593,
                         "sellVolume": 107,
-                        "commissionRate": 0.00006173593,
+                        "commissionRate": 0.00006174,
                         "soldInvestment": 0.01005158,
                         "currentInvestment": 0.03884435,
+                        "priceDiffer": -0.0000411,
                         "sellMean": 0.00012,
                         "sellPrice": 0.01284,
                         "profitRealised": 0.00278842,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.04889593,
+                        "priceDifferPercentage": -43.75,
                         "buyMean": 0.00009394,
                         "buyVolume": 520.479,
-                        "profitRealPercentage": 5.7
+                        "profitRealPercentage": 5.7,
+                        "lastPrice": 0.00005284
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "XVG",
                     "tradeCurrency": false
@@ -226,25 +226,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 43.948,
-                    "currentMarketValue": 7.37,
+                    "currentMarketValue": 8.3,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.05463735,
                         "sellVolume": 8,
-                        "commissionRate": 0.00006523383,
+                        "commissionRate": 0.00006524,
                         "soldInvestment": 0.00841416,
                         "currentInvestment": 0.04622319,
+                        "priceDiffer": -0.00041335,
                         "sellMean": 0.00132456,
                         "sellPrice": 0.01059648,
                         "profitRealised": 0.00218232,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.05463735,
+                        "priceDifferPercentage": -39.3,
                         "buyMean": 0.00105177,
                         "buyVolume": 51.948,
-                        "profitRealPercentage": 3.99
+                        "profitRealPercentage": 3.99,
+                        "lastPrice": 0.00063842
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "SUB",
                     "tradeCurrency": false
@@ -252,25 +255,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 200.799,
-                    "currentMarketValue": 4.42,
+                    "currentMarketValue": 5.3,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.0263883,
                         "sellVolume": 0,
-                        "commissionRate": 0.0000263883,
+                        "commissionRate": 0.00002639,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 0.0263883,
+                        "priceDiffer": -0.00004232,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.0263883,
+                        "priceDifferPercentage": -32.2,
                         "buyMean": 0.00013142,
                         "buyVolume": 200.799,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 0.0000891
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "DNT",
                     "tradeCurrency": false
@@ -278,25 +284,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 283.716,
-                    "currentMarketValue": 2.31,
+                    "currentMarketValue": 2.71,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.0206412,
                         "sellVolume": 0,
-                        "commissionRate": 0.0000206412,
+                        "commissionRate": 0.00002064,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 0.0206412,
+                        "priceDiffer": -0.00004071,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.0206412,
+                        "priceDifferPercentage": -55.96,
                         "buyMean": 0.00007275,
                         "buyVolume": 283.716,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 0.00003204
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "STORM",
                     "tradeCurrency": false
@@ -304,24 +313,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 151.848,
-                    "currentMarketValue": 2.1,
+                    "currentMarketValue": 2.53,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [
                         {
                             "buyPrice": 0.02290848,
                             "sellVolume": 65,
-                            "commissionRate": 0.00003571348,
+                            "commissionRate": 0.00003572,
                             "soldInvestment": 0.00683735,
                             "currentInvestment": 0.01607113,
+                            "priceDiffer": -0.00004977,
                             "sellMean": 0.000197,
                             "sellPrice": 0.012805,
                             "profitRealised": 0.00596765,
                             "tradeCurrency": false,
                             "currencyName": "ETH",
                             "price": 0.02290848,
+                            "priceDifferPercentage": -47.31,
                             "buyMean": 0.00010519,
                             "buyVolume": 217.782,
-                            "profitRealPercentage": 26.05
+                            "profitRealPercentage": 26.05,
+                            "lastPrice": 0.00005542
                         },
                         {
                             "buyPrice": 0,
@@ -340,7 +353,6 @@
                             "profitRealPercentage": 0
                         }
                     ],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "CHAT",
                     "tradeCurrency": false
@@ -350,6 +362,7 @@
                     "totalAmt": 0E-8,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [
                         {
                             "buyPrice": 0.01525,
@@ -357,15 +370,18 @@
                             "commissionRate": 0.00001525,
                             "soldInvestment": 0.015015,
                             "currentInvestment": 0.000235,
+                            "priceDiffer": 0.00000461,
                             "sellMean": 0.000275,
                             "sellPrice": 0.0165,
                             "profitRealised": 0.001485,
                             "tradeCurrency": false,
                             "currencyName": "ETH",
                             "price": 0.01525,
+                            "priceDifferPercentage": 1.84,
                             "buyMean": 0.00025025,
                             "buyVolume": 60.939,
-                            "profitRealPercentage": 9.74
+                            "profitRealPercentage": 9.74,
+                            "lastPrice": 0.00025486
                         },
                         {
                             "buyPrice": 0,
@@ -384,7 +400,6 @@
                             "profitRealPercentage": 0
                         }
                     ],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "MANA",
                     "tradeCurrency": false
@@ -392,24 +407,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 24.40557,
-                    "currentMarketValue": 16.69,
+                    "currentMarketValue": 22.66,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [
                         {
                             "buyPrice": 0.0412925,
                             "sellVolume": 0,
-                            "commissionRate": 0.0000412925,
+                            "commissionRate": 0.0000413,
                             "soldInvestment": 0E-8,
                             "currentInvestment": 0.0412925,
+                            "priceDiffer": -0.00066156,
                             "sellMean": 0E-8,
                             "sellPrice": 0,
                             "profitRealised": 0E-8,
                             "tradeCurrency": false,
                             "currencyName": "ETH",
                             "price": 0.0412925,
+                            "priceDifferPercentage": -17.4,
                             "buyMean": 0.00380256,
                             "buyVolume": 10.85913,
-                            "profitRealPercentage": 0
+                            "profitRealPercentage": 0,
+                            "lastPrice": 0.003141
                         },
                         {
                             "buyPrice": 26.1708,
@@ -417,18 +436,20 @@
                             "commissionRate": 0.0261708,
                             "soldInvestment": 0E-8,
                             "currentInvestment": 26.1708,
+                            "priceDiffer": -1.00373193,
                             "sellMean": 0E-8,
                             "sellPrice": 0,
                             "profitRealised": 0E-8,
                             "tradeCurrency": false,
                             "currencyName": "USDT",
                             "price": 26.1708,
+                            "priceDifferPercentage": -51.95,
                             "buyMean": 1.93193193,
                             "buyVolume": 13.54644,
-                            "profitRealPercentage": 0
+                            "profitRealPercentage": 0,
+                            "lastPrice": 0.9282
                         }
                     ],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "ICX",
                     "tradeCurrency": false
@@ -436,25 +457,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 27.972,
-                    "currentMarketValue": 3.01,
+                    "currentMarketValue": 3.32,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.01148,
                         "sellVolume": 0,
                         "commissionRate": 0.00001148,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 0.01148,
+                        "priceDiffer": -0.00001041,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.01148,
+                        "priceDifferPercentage": -2.54,
                         "buyMean": 0.00041041,
                         "buyVolume": 27.972,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 0.0004
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "BTS",
                     "tradeCurrency": false
@@ -464,8 +488,8 @@
                     "totalAmt": 0.00000461,
                     "currentMarketValue": 0.03,
                     "xchangeTransferCommission": 0E-8,
-                    "currency": [],
                     "exchangeName": "BINANCE",
+                    "currency": [],
                     "depositAmt": 0.0058294,
                     "coinName": "BTC",
                     "tradeCurrency": true
@@ -473,24 +497,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 72,
-                    "currentMarketValue": 2.93,
+                    "currentMarketValue": 3.21,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [
                         {
                             "buyPrice": 0.0010001,
                             "sellVolume": 0,
-                            "commissionRate": 0.0000010001,
+                            "commissionRate": 0.000001,
                             "soldInvestment": 0E-8,
                             "currentInvestment": 0.0010001,
+                            "priceDiffer": -0.00000744,
                             "sellMean": 0E-8,
                             "sellPrice": 0,
                             "profitRealised": 0E-8,
                             "tradeCurrency": false,
                             "currencyName": "BTC",
                             "price": 0.0010001,
+                            "priceDifferPercentage": -54.27,
                             "buyMean": 0.00001371,
                             "buyVolume": 72.927,
-                            "profitRealPercentage": 0
+                            "profitRealPercentage": 0,
+                            "lastPrice": 0.00000627
                         },
                         {
                             "buyPrice": 0,
@@ -509,7 +537,6 @@
                             "profitRealPercentage": 0
                         }
                     ],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "SNT",
                     "tradeCurrency": false
@@ -519,23 +546,26 @@
                     "totalAmt": 0.00467,
                     "currentMarketValue": 0.01,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.00188682,
                         "sellVolume": 5.32,
-                        "commissionRate": 0.00000396162,
+                        "commissionRate": 0.00000396,
                         "soldInvestment": 0.00188514,
                         "currentInvestment": 0.00000168,
+                        "priceDiffer": -0.00017445,
                         "sellMean": 0.00039,
                         "sellPrice": 0.0020748,
                         "profitRealised": 0.00018966,
                         "tradeCurrency": false,
                         "currencyName": "BTC",
                         "price": 0.00188682,
+                        "priceDifferPercentage": -49.23,
                         "buyMean": 0.00035435,
                         "buyVolume": 5.32467,
-                        "profitRealPercentage": 10.05
+                        "profitRealPercentage": 10.05,
+                        "lastPrice": 0.0001799
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "KMD",
                     "tradeCurrency": false
@@ -545,23 +575,26 @@
                     "totalAmt": 1.998,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.00103,
                         "sellVolume": 0,
                         "commissionRate": 0.00000103,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 0.00103,
+                        "priceDiffer": -0.0002755,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "BTC",
                         "price": 0.00103,
+                        "priceDifferPercentage": -53.44,
                         "buyMean": 0.00051552,
                         "buyVolume": 1.998,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 0.00024002
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "VEN",
                     "tradeCurrency": false
@@ -569,25 +602,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 1033.965,
-                    "currentMarketValue": 1.81,
+                    "currentMarketValue": 2.34,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.00104535,
                         "sellVolume": 0,
-                        "commissionRate": 0.00000104535,
+                        "commissionRate": 0.00000105,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 0.00104535,
+                        "priceDiffer": -7.0E-7,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "BTC",
                         "price": 0.00104535,
+                        "priceDifferPercentage": -69.31,
                         "buyMean": 0.00000101,
                         "buyVolume": 1033.965,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 3.1E-7
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "BCN",
                     "tradeCurrency": false
@@ -597,6 +633,7 @@
                     "totalAmt": 0E-8,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [
                         {
                             "buyPrice": 0.01071,
@@ -604,15 +641,18 @@
                             "commissionRate": 0.00002135,
                             "soldInvestment": 0.00952952,
                             "currentInvestment": 0.00118048,
+                            "priceDiffer": -0.00043563,
                             "sellMean": 0.00133,
                             "sellPrice": 0.01064,
                             "profitRealised": 0.00111048,
                             "tradeCurrency": false,
                             "currencyName": "ETH",
                             "price": 0.01071,
+                            "priceDifferPercentage": -36.57,
                             "buyMean": 0.00119119,
                             "buyVolume": 8.991,
-                            "profitRealPercentage": 10.37
+                            "profitRealPercentage": 10.37,
+                            "lastPrice": 0.00075556
                         },
                         {
                             "buyPrice": 0,
@@ -620,6 +660,7 @@
                             "commissionRate": 0,
                             "soldInvestment": 0E-8,
                             "currentInvestment": 0E-8,
+                            "priceDiffer": 0.01944,
                             "sellMean": 0.0337806,
                             "sellPrice": 0.03347657,
                             "profitRealised": 0.03347657,
@@ -628,10 +669,10 @@
                             "price": 0,
                             "buyMean": 0E-8,
                             "buyVolume": 0,
-                            "profitRealPercentage": 0
+                            "profitRealPercentage": 0,
+                            "lastPrice": 0.01944
                         }
                     ],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "WABI",
                     "tradeCurrency": false
@@ -641,22 +682,26 @@
                     "totalAmt": 0E-8,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [
                         {
                             "buyPrice": 0.014789,
                             "sellVolume": 22,
-                            "commissionRate": 0.000030409,
+                            "commissionRate": 0.00003041,
                             "soldInvestment": 0.01416008,
                             "currentInvestment": 0.00062892,
+                            "priceDiffer": -0.00025696,
                             "sellMean": 0.00071,
                             "sellPrice": 0.01562,
                             "profitRealised": 0.00145992,
                             "tradeCurrency": false,
                             "currencyName": "ETH",
                             "price": 0.014789,
+                            "priceDifferPercentage": -39.92,
                             "buyMean": 0.00064364,
                             "buyVolume": 22.977,
-                            "profitRealPercentage": 9.87
+                            "profitRealPercentage": 9.87,
+                            "lastPrice": 0.00038668
                         },
                         {
                             "buyPrice": 0,
@@ -664,6 +709,7 @@
                             "commissionRate": 0,
                             "soldInvestment": 0E-8,
                             "currentInvestment": 0E-8,
+                            "priceDiffer": 0.01009,
                             "sellMean": 0.0165522,
                             "sellPrice": 0.0161715,
                             "profitRealised": 0.0161715,
@@ -672,10 +718,10 @@
                             "price": 0,
                             "buyMean": 0E-8,
                             "buyVolume": 0,
-                            "profitRealPercentage": 0
+                            "profitRealPercentage": 0,
+                            "lastPrice": 0.01009
                         }
                     ],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "LOOM",
                     "tradeCurrency": false
@@ -683,25 +729,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 1.84715,
-                    "currentMarketValue": 3.62,
+                    "currentMarketValue": 4.43,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.0029298,
                         "sellVolume": 1,
-                        "commissionRate": 0.0000040532,
+                        "commissionRate": 0.00000405,
                         "soldInvestment": 0.00102903,
                         "currentInvestment": 0.00190077,
+                        "priceDiffer": -0.00068833,
                         "sellMean": 0.0011234,
                         "sellPrice": 0.0011234,
                         "profitRealised": 0.00009437,
                         "tradeCurrency": false,
                         "currencyName": "BTC",
                         "price": 0.0029298,
+                        "priceDifferPercentage": -66.89,
                         "buyMean": 0.00102903,
                         "buyVolume": 2.84715,
-                        "profitRealPercentage": 3.22
+                        "profitRealPercentage": 3.22,
+                        "lastPrice": 0.0003407
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "NEBL",
                     "tradeCurrency": false
@@ -711,22 +760,26 @@
                     "totalAmt": 0E-8,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [
                         {
                             "buyPrice": 0.01110522,
                             "sellVolume": 136,
-                            "commissionRate": 0.00002647322,
+                            "commissionRate": 0.00002648,
                             "soldInvestment": 0.01103504,
                             "currentInvestment": 0.00007018,
+                            "priceDiffer": -0.00003004,
                             "sellMean": 0.000113,
                             "sellPrice": 0.015368,
                             "profitRealised": 0.00433296,
                             "tradeCurrency": false,
                             "currencyName": "ETH",
                             "price": 0.01110522,
+                            "priceDifferPercentage": -37.02,
                             "buyMean": 0.00008114,
                             "buyVolume": 136.863,
-                            "profitRealPercentage": 39.02
+                            "profitRealPercentage": 39.02,
+                            "lastPrice": 0.0000511
                         },
                         {
                             "buyPrice": 0,
@@ -745,7 +798,6 @@
                             "profitRealPercentage": 0
                         }
                     ],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "FUEL",
                     "tradeCurrency": false
@@ -755,6 +807,7 @@
                     "totalAmt": 0E-8,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [
                         {
                             "buyPrice": 0.01602,
@@ -762,15 +815,18 @@
                             "commissionRate": 0.000032,
                             "soldInvestment": 0.01514513,
                             "currentInvestment": 0.00087487,
+                            "priceDiffer": -0.00027749,
                             "sellMean": 0.00094,
                             "sellPrice": 0.01598,
                             "profitRealised": 0.00083487,
                             "tradeCurrency": false,
                             "currencyName": "ETH",
                             "price": 0.01602,
+                            "priceDifferPercentage": -31.15,
                             "buyMean": 0.00089089,
                             "buyVolume": 17.982,
-                            "profitRealPercentage": 5.21
+                            "profitRealPercentage": 5.21,
+                            "lastPrice": 0.0006134
                         },
                         {
                             "buyPrice": 0,
@@ -789,7 +845,6 @@
                             "profitRealPercentage": 0
                         }
                     ],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "OAX",
                     "tradeCurrency": false
@@ -797,25 +852,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 1.82817,
-                    "currentMarketValue": 2.79,
+                    "currentMarketValue": 3.1,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.015372,
                         "sellVolume": 0,
-                        "commissionRate": 0.000015372,
+                        "commissionRate": 0.00001537,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 0.015372,
+                        "priceDiffer": -0.00270941,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.015372,
+                        "priceDifferPercentage": -32.22,
                         "buyMean": 0.00840841,
                         "buyVolume": 1.82817,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 0.005699
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "STRAT",
                     "tradeCurrency": false
@@ -823,25 +881,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 4.01598,
-                    "currentMarketValue": 3.57,
+                    "currentMarketValue": 4.03,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.017286,
                         "sellVolume": 0,
-                        "commissionRate": 0.000017286,
+                        "commissionRate": 0.00001729,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 0.017286,
+                        "priceDiffer": -0.0008983,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.017286,
+                        "priceDifferPercentage": -20.87,
                         "buyMean": 0.0043043,
                         "buyVolume": 4.01598,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 0.003406
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "STEEM",
                     "tradeCurrency": false
@@ -851,22 +912,26 @@
                     "totalAmt": 0E-8,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [
                         {
                             "buyPrice": 0.0011305,
                             "sellVolume": 6,
-                            "commissionRate": 0.00000219694,
+                            "commissionRate": 0.0000022,
                             "soldInvestment": 0.00096996,
                             "currentInvestment": 0.00016054,
+                            "priceDiffer": -0.00011225,
                             "sellMean": 0.00017774,
                             "sellPrice": 0.00106644,
                             "profitRealised": 0.00009648,
                             "tradeCurrency": false,
                             "currencyName": "BTC",
                             "price": 0.0011305,
+                            "priceDifferPercentage": -69.44,
                             "buyMean": 0.00016166,
                             "buyVolume": 6.993,
-                            "profitRealPercentage": 8.53
+                            "profitRealPercentage": 8.53,
+                            "lastPrice": 0.00004941
                         },
                         {
                             "buyPrice": 0,
@@ -885,7 +950,6 @@
                             "profitRealPercentage": 0
                         }
                     ],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "ARN",
                     "tradeCurrency": false
@@ -893,25 +957,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 40.959,
-                    "currentMarketValue": 4.42,
+                    "currentMarketValue": 4.34,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.02635746,
                         "sellVolume": 0,
-                        "commissionRate": 0.00002635746,
+                        "commissionRate": 0.00002636,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 0.02635746,
+                        "priceDiffer": -0.00028536,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.02635746,
+                        "priceDifferPercentage": -44.34,
                         "buyMean": 0.00064351,
                         "buyVolume": 40.959,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 0.00035815
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "CMT",
                     "tradeCurrency": false
@@ -919,24 +986,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 135.846,
-                    "currentMarketValue": 1.89,
+                    "currentMarketValue": 1.94,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [
                         {
                             "buyPrice": 0.0010626,
                             "sellVolume": 0,
-                            "commissionRate": 0.0000010626,
+                            "commissionRate": 0.00000106,
                             "soldInvestment": 0E-8,
                             "currentInvestment": 0.0010626,
+                            "priceDiffer": -0.00000489,
                             "sellMean": 0E-8,
                             "sellPrice": 0,
                             "profitRealised": 0E-8,
                             "tradeCurrency": false,
                             "currencyName": "BTC",
                             "price": 0.0010626,
+                            "priceDifferPercentage": -70.77,
                             "buyMean": 0.00000691,
                             "buyVolume": 153.846,
-                            "profitRealPercentage": 0
+                            "profitRealPercentage": 0,
+                            "lastPrice": 0.00000202
                         },
                         {
                             "buyPrice": 0.017776,
@@ -944,18 +1015,20 @@
                             "commissionRate": 0,
                             "soldInvestment": 0.018568,
                             "currentInvestment": -0.000792,
+                            "priceDiffer": 0.00000437,
                             "sellMean": 0.00004751,
                             "sellPrice": 0.02004722,
                             "profitRealised": 0.00148122,
                             "tradeCurrency": false,
                             "currencyName": "ETH",
                             "price": 0.017776,
+                            "priceDifferPercentage": 9.93,
                             "buyMean": 0.000044,
                             "buyVolume": 404,
-                            "profitRealPercentage": 8.33
+                            "profitRealPercentage": 8.33,
+                            "lastPrice": 0.00004837
                         }
                     ],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "IOTX",
                     "tradeCurrency": false
@@ -965,12 +1038,14 @@
                     "totalAmt": 0.00005713,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0,
                         "sellVolume": 3.18159132,
                         "commissionRate": 0,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 0E-8,
+                        "priceDiffer": 11.395,
                         "sellMean": 16.46176229,
                         "sellPrice": 52.3746,
                         "profitRealised": 52.37460001,
@@ -979,9 +1054,9 @@
                         "price": 0,
                         "buyMean": 0E-8,
                         "buyVolume": 0,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 11.395
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "BNB",
                     "tradeCurrency": true
@@ -991,8 +1066,8 @@
                     "totalAmt": 0.000841,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0,
-                    "currency": [],
                     "exchangeName": "BINANCE",
+                    "currency": [],
                     "depositAmt": 0,
                     "coinName": "USDT",
                     "tradeCurrency": true
@@ -1000,25 +1075,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 35.97299,
-                    "currentMarketValue": 8.01,
+                    "currentMarketValue": 8.47,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 36.265665,
                         "sellVolume": 115.53,
-                        "commissionRate": 0.026163765,
+                        "commissionRate": 0.02616377,
                         "soldInvestment": 27.65471648,
                         "currentInvestment": 8.61094852,
+                        "priceDiffer": -0.0053526,
                         "sellMean": 0.2502,
                         "sellPrice": 28.905606,
                         "profitRealised": 1.25088952,
                         "tradeCurrency": false,
                         "currencyName": "USDT",
                         "price": 36.265665,
+                        "priceDifferPercentage": -2.24,
                         "buyMean": 0.2393726,
                         "buyVolume": 151.50299,
-                        "profitRealPercentage": 3.45
+                        "profitRealPercentage": 3.45,
+                        "lastPrice": 0.23402
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "XLM",
                     "tradeCurrency": false
@@ -1028,23 +1106,26 @@
                     "totalAmt": 0E-8,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.01032,
                         "sellVolume": 0.02,
                         "commissionRate": 0,
                         "soldInvestment": 0.01032,
                         "currentInvestment": 0E-8,
+                        "priceDiffer": 0.1326,
                         "sellMean": 0.5677,
                         "sellPrice": 0.011354,
                         "profitRealised": 0.001034,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.01032,
+                        "priceDifferPercentage": 25.7,
                         "buyMean": 0.516,
                         "buyVolume": 0.02,
-                        "profitRealPercentage": 10.02
+                        "profitRealPercentage": 10.02,
+                        "lastPrice": 0.6486
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "DASH",
                     "tradeCurrency": false
@@ -1052,25 +1133,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 1.67,
-                    "currentMarketValue": 2.32,
+                    "currentMarketValue": 2.5,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.01002,
                         "sellVolume": 0,
                         "commissionRate": 0,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 0.01002,
+                        "priceDiffer": -0.000838,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.01002,
+                        "priceDifferPercentage": -13.97,
                         "buyMean": 0.006,
                         "buyVolume": 1.67,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 0.005162
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "GXS",
                     "tradeCurrency": false
@@ -1078,25 +1162,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 0.15218,
-                    "currentMarketValue": 8.81,
+                    "currentMarketValue": 9.62,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 12.1744,
                         "sellVolume": 0,
                         "commissionRate": 0,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 12.1744,
+                        "priceDiffer": -16.68,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "USDT",
                         "price": 12.1744,
+                        "priceDifferPercentage": -20.85,
                         "buyMean": 80,
                         "buyVolume": 0.15218,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 63.32
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "LTC",
                     "tradeCurrency": false
@@ -1106,23 +1193,26 @@
                     "totalAmt": 371,
                     "currentMarketValue": 0.91,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.010017,
                         "sellVolume": 0,
                         "commissionRate": 0,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 0.010017,
+                        "priceDiffer": -0.00000101,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.010017,
+                        "priceDifferPercentage": -3.74,
                         "buyMean": 0.000027,
                         "buyVolume": 371,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 0.00002599
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "KEY",
                     "tradeCurrency": false
@@ -1130,25 +1220,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 96.598,
-                    "currentMarketValue": 1.69,
+                    "currentMarketValue": 1.81,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.02666045,
                         "sellVolume": 305,
-                        "commissionRate": 0.0000459212,
+                        "commissionRate": 0.00004592,
                         "soldInvestment": 0.02024895,
                         "currentInvestment": 0.0064115,
+                        "priceDiffer": -0.00000344,
                         "sellMean": 0.00006315,
                         "sellPrice": 0.01926075,
                         "profitRealised": -0.0009882,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.02666045,
+                        "priceDifferPercentage": -5.18,
                         "buyMean": 0.00006639,
                         "buyVolume": 401.598,
-                        "profitRealPercentage": -3.71
+                        "profitRealPercentage": -3.71,
+                        "lastPrice": 0.00006295
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "DOCK",
                     "tradeCurrency": false
@@ -1156,25 +1249,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 62.937,
-                    "currentMarketValue": 1.71,
+                    "currentMarketValue": 2.49,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.01011087,
                         "sellVolume": 0,
-                        "commissionRate": 0.00001011087,
+                        "commissionRate": 0.00001011,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 0.01011087,
+                        "priceDiffer": -0.00002811,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.01011087,
+                        "priceDifferPercentage": -17.5,
                         "buyMean": 0.00016065,
                         "buyVolume": 62.937,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 0.00013254
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "QKC",
                     "tradeCurrency": false
@@ -1184,23 +1280,26 @@
                     "totalAmt": 0.00911,
                     "currentMarketValue": 0.05,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.014863,
                         "sellVolume": 0.88,
-                        "commissionRate": 0.0000306942,
+                        "commissionRate": 0.00003069,
                         "soldInvestment": 0.01471071,
                         "currentInvestment": 0.00015229,
+                        "priceDiffer": 0.00325228,
                         "sellMean": 0.01799,
                         "sellPrice": 0.0158312,
                         "profitRealised": 0.00112049,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.014863,
+                        "priceDifferPercentage": 19.46,
                         "buyMean": 0.01671672,
                         "buyVolume": 0.88911,
-                        "profitRealPercentage": 7.54
+                        "profitRealPercentage": 7.54,
+                        "lastPrice": 0.019969
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "EOS",
                     "tradeCurrency": false
@@ -1208,25 +1307,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 6.12395,
-                    "currentMarketValue": 5.87,
+                    "currentMarketValue": 8.23,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.0212711,
                         "sellVolume": 0,
-                        "commissionRate": 0.0000209935,
+                        "commissionRate": 0.00002099,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 0.0212711,
+                        "priceDiffer": 0.00106857,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.0212711,
+                        "priceDifferPercentage": 30.76,
                         "buyMean": 0.00347343,
                         "buyVolume": 6.12395,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 0.004542
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "WAN",
                     "tradeCurrency": false
@@ -1234,25 +1336,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 0.00683,
-                    "currentMarketValue": 0.01,
+                    "currentMarketValue": 0.02,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.0824311,
                         "sellVolume": 13.15,
-                        "commissionRate": 0.0001744811,
+                        "commissionRate": 0.00017448,
                         "soldInvestment": 0.0823883,
                         "currentInvestment": 0.0000428,
+                        "priceDiffer": 0.00276973,
                         "sellMean": 0.007,
                         "sellPrice": 0.09205,
                         "profitRealised": 0.0096617,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.0824311,
+                        "priceDifferPercentage": 44.21,
                         "buyMean": 0.00626527,
                         "buyVolume": 13.15683,
-                        "profitRealPercentage": 11.72
+                        "profitRealPercentage": 11.72,
+                        "lastPrice": 0.009035
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "CLOAK",
                     "tradeCurrency": false
@@ -1260,25 +1365,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": -55.385,
-                    "currentMarketValue": -0.8,
+                    "currentMarketValue": -0.99,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.0154,
                         "sellVolume": 440,
                         "commissionRate": 0.00003476,
                         "soldInvestment": 0.0176176,
                         "currentInvestment": -0.0022176,
+                        "priceDiffer": 0.00002069,
                         "sellMean": 0.000044,
                         "sellPrice": 0.01936,
                         "profitRealised": 0.0017424,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.0154,
+                        "priceDifferPercentage": 51.67,
                         "buyMean": 0.00004004,
                         "buyVolume": 384.615,
-                        "profitRealPercentage": 11.31
+                        "profitRealPercentage": 11.31,
+                        "lastPrice": 0.00006073
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "VET",
                     "tradeCurrency": false
@@ -1288,47 +1396,51 @@
                     "totalAmt": 0.967,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BINANCE",
                     "currency": [{
                         "buyPrice": 0.0509091,
                         "sellVolume": 32,
-                        "commissionRate": 0.0001024291,
+                        "commissionRate": 0.00010243,
                         "soldInvestment": 0.04941568,
                         "currentInvestment": 0.00149342,
+                        "priceDiffer": 0.00036516,
                         "sellMean": 0.00161,
                         "sellPrice": 0.05152,
                         "profitRealised": 0.00210432,
                         "tradeCurrency": false,
                         "currencyName": "ETH",
                         "price": 0.0509091,
+                        "priceDifferPercentage": 23.65,
                         "buyMean": 0.00154424,
                         "buyVolume": 32.967,
-                        "profitRealPercentage": 4.13
+                        "profitRealPercentage": 4.13,
+                        "lastPrice": 0.0019094
                     }],
-                    "exchangeName": "BINANCE",
                     "depositAmt": 0E-8,
                     "coinName": "BQX",
                     "tradeCurrency": false
                 }
             ],
+            "exchangeName": "BINANCE",
             "transCurrency": [
                 {
                     "currentInvestAmount": 0.3245514339,
                     "soldInvestment": 0.3284988661,
-                    "sellTransactionAmount": 0.49641025,
                     "withdrawalVolume": 0,
+                    "sellTransactionAmount": 0.49641025,
                     "name": "ETH",
                     "exchange": "BINANCE",
                     "buyTransactionAmount": 0.6530503,
                     "depositVolume": 0,
-                    "overallGainPercent": 51.435347,
-                    "commissionAmount": 0.00105314873,
+                    "overallGainPercent": 51.435357,
+                    "commissionAmount": 0.00105318,
                     "crypto": true
                 },
                 {
                     "currentInvestAmount": 0,
                     "soldInvestment": 0,
-                    "sellTransactionAmount": 3.19070597,
                     "withdrawalVolume": 0,
+                    "sellTransactionAmount": 3.19070597,
                     "name": "BNB",
                     "exchange": "BINANCE",
                     "buyTransactionAmount": 0,
@@ -1338,42 +1450,29 @@
                     "crypto": true
                 },
                 {
-                    "currentInvestAmount": 0,
-                    "soldInvestment": 0,
-                    "sellTransactionAmount": 0,
-                    "withdrawalVolume": 0,
-                    "name": "XRP",
-                    "exchange": "BINANCE",
-                    "buyTransactionAmount": 0,
-                    "depositVolume": 0,
-                    "overallGainPercent": 0,
-                    "commissionAmount": 0,
-                    "crypto": true
-                },
-                {
                     "currentInvestAmount": 61.107293022,
                     "soldInvestment": 56.172071978,
-                    "sellTransactionAmount": 117.280206,
                     "withdrawalVolume": 0,
+                    "sellTransactionAmount": 117.280206,
                     "name": "USDT",
                     "exchange": "BINANCE",
                     "buyTransactionAmount": 117.279365,
                     "depositVolume": 0,
                     "overallGainPercent": 108.932987,
-                    "commissionAmount": 0.081781565,
+                    "commissionAmount": 0.08178157,
                     "crypto": true
                 },
                 {
                     "currentInvestAmount": 0.006201038,
                     "soldInvestment": 0.003884132,
-                    "sellTransactionAmount": 0.00426464,
                     "withdrawalVolume": 0,
+                    "sellTransactionAmount": 0.00426464,
                     "name": "BTC",
                     "exchange": "BINANCE",
                     "buyTransactionAmount": 0.01008517,
                     "depositVolume": 0,
-                    "overallGainPercent": 10.165921,
-                    "commissionAmount": 0.00001434981,
+                    "overallGainPercent": 10.165926,
+                    "commissionAmount": 0.00001435,
                     "crypto": true
                 }
             ]
@@ -1396,16 +1495,16 @@
                 "ADA/INR",
                 "ACT/INR"
             ],
-            "currentMarketValue": 41.54,
-            "nonCryptoInvestValue": 171.98,
+            "currentMarketValue": 64.35,
+            "nonCryptoInvestValue": 170.78,
             "coinList": [
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 1246.2790175,
-                    "currentMarketValue": 0,
+                    "currentMarketValue": 17.74,
                     "xchangeTransferCommission": 0E-8,
-                    "currency": [],
                     "exchangeName": "BITBNS",
+                    "currency": [],
                     "depositAmt": 12000,
                     "coinName": "INR",
                     "tradeCurrency": true
@@ -1415,6 +1514,7 @@
                     "totalAmt": 0E-8,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 1070.4,
                         "sellVolume": 240,
@@ -1431,7 +1531,6 @@
                         "buyVolume": 240,
                         "profitRealPercentage": 15.02
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "ZIL",
                     "tradeCurrency": false
@@ -1439,8 +1538,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 3,
-                    "currentMarketValue": 2.87,
+                    "currentMarketValue": 4.03,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 1709.1,
                         "sellVolume": 1.2,
@@ -1457,7 +1557,6 @@
                         "buyVolume": 4.2,
                         "profitRealPercentage": 1.27
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "WAN",
                     "tradeCurrency": false
@@ -1465,8 +1564,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 184,
-                    "currentMarketValue": 4.04,
+                    "currentMarketValue": 4.6,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 1507.42,
                         "sellVolume": 0,
@@ -1483,7 +1583,6 @@
                         "buyVolume": 184,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "WPR",
                     "tradeCurrency": false
@@ -1493,6 +1592,7 @@
                     "totalAmt": 5,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 3235.45,
                         "sellVolume": 12,
@@ -1509,7 +1609,6 @@
                         "buyVolume": 17,
                         "profitRealPercentage": 7.28
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "VEN",
                     "tradeCurrency": false
@@ -1517,8 +1616,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 518,
-                    "currentMarketValue": 2.88,
+                    "currentMarketValue": 3.37,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 737.48,
                         "sellVolume": 0,
@@ -1535,7 +1635,6 @@
                         "buyVolume": 518,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "SC",
                     "tradeCurrency": false
@@ -1543,8 +1642,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 30,
-                    "currentMarketValue": 9.82,
+                    "currentMarketValue": 10.52,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 1483.8,
                         "sellVolume": 0,
@@ -1561,7 +1661,6 @@
                         "buyVolume": 30,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "XRP",
                     "tradeCurrency": false
@@ -1571,6 +1670,7 @@
                     "totalAmt": 163.5,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 933.215,
                         "sellVolume": 0,
@@ -1587,7 +1687,6 @@
                         "buyVolume": 163.5,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "RPX",
                     "tradeCurrency": false
@@ -1595,8 +1694,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 10,
-                    "currentMarketValue": 1.94,
+                    "currentMarketValue": 2.16,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 365.1,
                         "sellVolume": 0,
@@ -1613,7 +1713,6 @@
                         "buyVolume": 10,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "POWR",
                     "tradeCurrency": false
@@ -1623,6 +1722,7 @@
                     "totalAmt": 0E-8,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 2342,
                         "sellVolume": 7,
@@ -1639,7 +1739,6 @@
                         "buyVolume": 7,
                         "profitRealPercentage": 10.14
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "ONT",
                     "tradeCurrency": false
@@ -1647,8 +1746,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 50,
-                    "currentMarketValue": 5.12,
+                    "currentMarketValue": 5.59,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 1157.5,
                         "sellVolume": 0,
@@ -1665,7 +1765,6 @@
                         "buyVolume": 50,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "XEM",
                     "tradeCurrency": false
@@ -1673,8 +1772,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 150,
-                    "currentMarketValue": 0.9,
+                    "currentMarketValue": 0.94,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 282,
                         "sellVolume": 0,
@@ -1691,7 +1791,6 @@
                         "buyVolume": 150,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "ETN",
                     "tradeCurrency": false
@@ -1699,8 +1798,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 2500,
-                    "currentMarketValue": 6.06,
+                    "currentMarketValue": 6.53,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 975,
                         "sellVolume": 0,
@@ -1717,7 +1817,6 @@
                         "buyVolume": 2500,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "DOGE",
                     "tradeCurrency": false
@@ -1725,8 +1824,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 100,
-                    "currentMarketValue": 2.62,
+                    "currentMarketValue": 2.94,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 260,
                         "sellVolume": 0,
@@ -1743,7 +1843,6 @@
                         "buyVolume": 100,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "DGB",
                     "tradeCurrency": false
@@ -1751,8 +1850,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 46,
-                    "currentMarketValue": 4.32,
+                    "currentMarketValue": 4.84,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 1470,
                         "sellVolume": 30,
@@ -1769,7 +1869,6 @@
                         "buyVolume": 76,
                         "profitRealPercentage": 6.04
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "ADA",
                     "tradeCurrency": false
@@ -1777,8 +1876,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 27.23,
-                    "currentMarketValue": 0.97,
+                    "currentMarketValue": 1.08,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITBNS",
                     "currency": [{
                         "buyPrice": 669.858,
                         "sellVolume": 0,
@@ -1795,17 +1895,17 @@
                         "buyVolume": 27.23,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "BITBNS",
                     "depositAmt": 0E-8,
                     "coinName": "ACT",
                     "tradeCurrency": false
                 }
             ],
+            "exchangeName": "BITBNS",
             "transCurrency": [{
                 "currentInvestAmount": 11433.498497614,
                 "soldInvestment": 6764.824502386,
-                "sellTransactionAmount": 7508.87,
                 "withdrawalVolume": 0,
+                "sellTransactionAmount": 7508.87,
                 "name": "INR",
                 "exchange": "BITBNS",
                 "buyTransactionAmount": 18198.323,
@@ -1817,104 +1917,105 @@
         },
         "LIVECOIN": {
             "tradeCoinList": [
-                "DIG/LTC",
-                "DIG/ETH"
+                "DIG/ETH",
+                "DIG/LTC"
             ],
-            "currentMarketValue": 40.18,
+            "currentMarketValue": 49.45,
             "nonCryptoInvestValue": 0,
             "coinList": [
                 {
                     "withdrawalAmt": 0E-8,
-                    "totalAmt": 0.04268369,
-                    "currentMarketValue": 12.05,
+                    "totalAmt": -1E-8,
+                    "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
-                    "currency": [],
                     "exchangeName": "LIVECOIN",
+                    "currency": [],
                     "depositAmt": 0.0204833,
                     "coinName": "ETH",
                     "tradeCurrency": false
                 },
                 {
                     "withdrawalAmt": 0E-8,
-                    "totalAmt": 0.48575685,
-                    "currentMarketValue": 28.14,
+                    "totalAmt": 0.57274667,
+                    "currentMarketValue": 36.2,
                     "xchangeTransferCommission": 0E-8,
-                    "currency": [],
                     "exchangeName": "LIVECOIN",
+                    "currency": [],
                     "depositAmt": 0.37489275,
                     "coinName": "LTC",
                     "tradeCurrency": false
                 },
                 {
                     "withdrawalAmt": 0E-8,
-                    "totalAmt": 0E-8,
-                    "currentMarketValue": 0,
+                    "totalAmt": 192.72913011,
+                    "currentMarketValue": 13.25,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "LIVECOIN",
                     "currency": [
                         {
-                            "buyPrice": 0.166799151519,
-                            "sellVolume": 138.30703963,
-                            "commissionRate": 0.00080147498922442746,
-                            "soldInvestment": 0.17979915,
-                            "currentInvestment": -0.013,
-                            "sellMean": 0.00201338,
-                            "sellPrice": 0.2784647313834597,
-                            "profitRealised": 0.09866548,
-                            "tradeCurrency": false,
-                            "currencyName": "LTC",
-                            "price": 0.166799151519,
-                            "buyMean": 0.0013,
-                            "buyVolume": 128.30703963,
-                            "profitRealPercentage": 59.15
-                        },
-                        {
-                            "buyPrice": 0.0402140646819718,
-                            "sellVolume": 199.41658501,
-                            "commissionRate": 0.00018506443821222924,
-                            "soldInvestment": 0.03829397,
-                            "currentInvestment": 0.0019201,
-                            "sellMean": 0.00031391,
-                            "sellPrice": 0.0625995121026,
-                            "profitRealised": 0.02430489,
+                            "buyPrice": 0.1281124,
+                            "sellVolume": 354.35108472,
+                            "commissionRate": 0.0004251,
+                            "soldInvestment": 0.08149012,
+                            "currentInvestment": 0.04662228,
+                            "sellMean": 0.00030494,
+                            "sellPrice": 0.10805419,
+                            "profitRealised": 0.0265657,
                             "tradeCurrency": false,
                             "currencyName": "ETH",
-                            "price": 0.0402140646819718,
-                            "buyMean": 0.00019203,
-                            "buyVolume": 209.41658501,
-                            "profitRealPercentage": 60.44
+                            "price": 0.1281124,
+                            "buyMean": 0.00022997,
+                            "buyVolume": 557.08021483,
+                            "profitRealPercentage": 20.74
+                        },
+                        {
+                            "buyPrice": 0.65168322,
+                            "sellVolume": 542.37709686,
+                            "commissionRate": 0.00270707,
+                            "soldInvestment": 0.6639238,
+                            "currentInvestment": -0.01224058,
+                            "sellMean": 0.00157131,
+                            "sellPrice": 0.85224421,
+                            "profitRealised": 0.18831875,
+                            "tradeCurrency": false,
+                            "currencyName": "LTC",
+                            "price": 0.65168322,
+                            "buyMean": 0.0012241,
+                            "buyVolume": 532.37709686,
+                            "profitRealPercentage": 28.9
                         }
                     ],
-                    "exchangeName": "LIVECOIN",
                     "depositAmt": 0E-8,
                     "coinName": "DIG",
                     "tradeCurrency": false
                 }
             ],
+            "exchangeName": "LIVECOIN",
             "transCurrency": [
                 {
-                    "currentInvestAmount": -0.013,
-                    "soldInvestment": 0.179799151519,
-                    "sellTransactionAmount": 0.2784647313834597,
+                    "currentInvestAmount": 0.0466222810469416,
+                    "soldInvestment": 0.0814901189530584,
                     "withdrawalVolume": 0,
-                    "name": "LTC",
+                    "sellTransactionAmount": 0.10805419,
+                    "name": "ETH",
                     "exchange": "LIVECOIN",
-                    "buyTransactionAmount": 0.166799151519,
+                    "buyTransactionAmount": 0.1281124,
                     "depositVolume": 0,
-                    "overallGainPercent": 55.321204,
-                    "commissionAmount": 0.00080147498922442746,
+                    "overallGainPercent": 33.119563,
+                    "commissionAmount": 0.0004251,
                     "crypto": true
                 },
                 {
-                    "currentInvestAmount": 0.0019200978625015,
-                    "soldInvestment": 0.0382939668194703,
-                    "sellTransactionAmount": 0.0625995121026,
+                    "currentInvestAmount": -0.012240584266326,
+                    "soldInvestment": 0.663923804266326,
                     "withdrawalVolume": 0,
-                    "name": "ETH",
+                    "sellTransactionAmount": 0.85224421,
+                    "name": "LTC",
                     "exchange": "LIVECOIN",
-                    "buyTransactionAmount": 0.0402140646819718,
+                    "buyTransactionAmount": 0.65168322,
                     "depositVolume": 0,
-                    "overallGainPercent": 63.954225,
-                    "commissionAmount": 0.00018506443821222924,
+                    "overallGainPercent": 28.7725,
+                    "commissionAmount": 0.00270707,
                     "crypto": true
                 }
             ]
@@ -1947,16 +2048,16 @@
                 "TRX/INR",
                 "XRP/INR"
             ],
-            "currentMarketValue": 307.59,
-            "nonCryptoInvestValue": 713.72,
+            "currentMarketValue": 361.69,
+            "nonCryptoInvestValue": 708.75,
             "coinList": [
                 {
                     "withdrawalAmt": 0E-8,
-                    "totalAmt": 492.61165884,
-                    "currentMarketValue": 0,
+                    "totalAmt": 492.61165882,
+                    "currentMarketValue": 7.01,
                     "xchangeTransferCommission": 0E-8,
-                    "currency": [],
                     "exchangeName": "KOINEX",
+                    "currency": [],
                     "depositAmt": 49800,
                     "coinName": "INR",
                     "tradeCurrency": true
@@ -1964,13 +2065,14 @@
                 {
                     "withdrawalAmt": 23.554,
                     "totalAmt": 15.613,
-                    "currentMarketValue": 33.61,
+                    "currentMarketValue": 44.23,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [
                         {
                             "buyPrice": 47.996763,
                             "sellVolume": 0,
-                            "commissionRate": 0E-9,
+                            "commissionRate": 0E-8,
                             "soldInvestment": 0E-8,
                             "currentInvestment": 47.996763,
                             "sellMean": 0E-8,
@@ -2000,7 +2102,6 @@
                             "profitRealPercentage": 4.74
                         }
                     ],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "ONT",
                     "tradeCurrency": false
@@ -2010,6 +2111,7 @@
                     "totalAmt": 0.003237,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0.02,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 3971.5,
                         "sellVolume": 33,
@@ -2026,7 +2128,6 @@
                         "buyVolume": 106,
                         "profitRealPercentage": 1.01
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "XRP",
                     "tradeCurrency": true
@@ -2034,8 +2135,9 @@
                 {
                     "withdrawalAmt": 0.025,
                     "totalAmt": 0.05,
-                    "currentMarketValue": 14.11,
+                    "currentMarketValue": 14.85,
                     "xchangeTransferCommission": 0.003,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 3344.50048,
                         "sellVolume": 0.025,
@@ -2052,7 +2154,6 @@
                         "buyVolume": 0.1,
                         "profitRealPercentage": 9.38
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "ETH",
                     "tradeCurrency": true
@@ -2060,8 +2161,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 15,
-                    "currentMarketValue": 15.58,
+                    "currentMarketValue": 18.1,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 12287.7,
                         "sellVolume": 56,
@@ -2078,7 +2180,6 @@
                         "buyVolume": 71,
                         "profitRealPercentage": 12.06
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "AE",
                     "tradeCurrency": false
@@ -2086,8 +2187,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 90,
-                    "currentMarketValue": 1.28,
+                    "currentMarketValue": 1.48,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 139.5,
                         "sellVolume": 0,
@@ -2104,7 +2206,6 @@
                         "buyVolume": 90,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "IOST",
                     "tradeCurrency": false
@@ -2112,8 +2213,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 53,
-                    "currentMarketValue": 11.19,
+                    "currentMarketValue": 12.31,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 5901.6025,
                         "sellVolume": 258.55,
@@ -2130,7 +2232,6 @@
                         "buyVolume": 311.55,
                         "profitRealPercentage": 11.16
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "BAT",
                     "tradeCurrency": false
@@ -2138,8 +2239,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 1,
-                    "currentMarketValue": 0.38,
+                    "currentMarketValue": 0.45,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 1653,
                         "sellVolume": 49,
@@ -2156,7 +2258,6 @@
                         "buyVolume": 50,
                         "profitRealPercentage": 19.15
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "ELF",
                     "tradeCurrency": false
@@ -2164,8 +2265,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 304.16,
-                    "currentMarketValue": 12.92,
+                    "currentMarketValue": 15.22,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 6024.85,
                         "sellVolume": 270,
@@ -2182,7 +2284,6 @@
                         "buyVolume": 574.16,
                         "profitRealPercentage": 17.03
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "REQ",
                     "tradeCurrency": false
@@ -2190,8 +2291,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 27.5,
-                    "currentMarketValue": 17.32,
+                    "currentMarketValue": 18.13,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 4529.432,
                         "sellVolume": 9.84,
@@ -2208,7 +2310,6 @@
                         "buyVolume": 37.34,
                         "profitRealPercentage": 20.23
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "AION",
                     "tradeCurrency": false
@@ -2216,8 +2317,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 464,
-                    "currentMarketValue": 6.94,
+                    "currentMarketValue": 7.17,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 2427.11,
                         "sellVolume": 0,
@@ -2234,7 +2336,6 @@
                         "buyVolume": 464,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "ZCO",
                     "tradeCurrency": false
@@ -2242,8 +2343,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 1839.9,
-                    "currentMarketValue": 11.17,
+                    "currentMarketValue": 13.81,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 5164.112,
                         "sellVolume": 500,
@@ -2260,7 +2362,6 @@
                         "buyVolume": 2339.9,
                         "profitRealPercentage": -1.04
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "NCASH",
                     "tradeCurrency": false
@@ -2268,8 +2369,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 147,
-                    "currentMarketValue": 32.75,
+                    "currentMarketValue": 34.63,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 5235.83,
                         "sellVolume": 149,
@@ -2286,7 +2388,6 @@
                         "buyVolume": 296,
                         "profitRealPercentage": 1.09
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "XLM",
                     "tradeCurrency": false
@@ -2294,8 +2395,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 20,
-                    "currentMarketValue": 4.08,
+                    "currentMarketValue": 4.68,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 1114,
                         "sellVolume": 0,
@@ -2312,7 +2414,6 @@
                         "buyVolume": 20,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "POLY",
                     "tradeCurrency": false
@@ -2322,6 +2423,7 @@
                     "totalAmt": 4.5,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 5958.5,
                         "sellVolume": 11.5,
@@ -2338,7 +2440,6 @@
                         "buyVolume": 16,
                         "profitRealPercentage": 18.92
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "XRB",
                     "tradeCurrency": false
@@ -2346,8 +2447,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 2,
-                    "currentMarketValue": 7.91,
+                    "currentMarketValue": 9.04,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 6123.06,
                         "sellVolume": 5.25,
@@ -2364,7 +2466,6 @@
                         "buyVolume": 7.25,
                         "profitRealPercentage": 1.83
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "OMG",
                     "tradeCurrency": false
@@ -2372,8 +2473,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 3.2,
-                    "currentMarketValue": 16.17,
+                    "currentMarketValue": 18.86,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 7140.56,
                         "sellVolume": 9.6,
@@ -2390,7 +2492,6 @@
                         "buyVolume": 12.8,
                         "profitRealPercentage": 1.65
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "EOS",
                     "tradeCurrency": false
@@ -2400,6 +2501,7 @@
                     "totalAmt": 0E-8,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 6920.30404,
                         "sellVolume": 105.564,
@@ -2416,7 +2518,6 @@
                         "buyVolume": 105.564,
                         "profitRealPercentage": 7.53
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "ZRX",
                     "tradeCurrency": false
@@ -2424,8 +2525,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 35,
-                    "currentMarketValue": 5.35,
+                    "currentMarketValue": 6.22,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 7332,
                         "sellVolume": 255,
@@ -2442,7 +2544,6 @@
                         "buyVolume": 290,
                         "profitRealPercentage": 43.41
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "GNT",
                     "tradeCurrency": false
@@ -2450,8 +2551,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 2.06,
-                    "currentMarketValue": 11.76,
+                    "currentMarketValue": 15.47,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 7334.75,
                         "sellVolume": 2.841,
@@ -2468,7 +2570,6 @@
                         "buyVolume": 4.901,
                         "profitRealPercentage": 6.94
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "GAS",
                     "tradeCurrency": false
@@ -2476,8 +2577,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 0.625,
-                    "currentMarketValue": 11.16,
+                    "currentMarketValue": 13.29,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 6946.76,
                         "sellVolume": 1.105,
@@ -2494,7 +2596,6 @@
                         "buyVolume": 1.73,
                         "profitRealPercentage": 10.95
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "NEO",
                     "tradeCurrency": false
@@ -2502,8 +2603,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 0.027,
-                    "currentMarketValue": 14.41,
+                    "currentMarketValue": 15.25,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 4408.5,
                         "sellVolume": 0.03,
@@ -2520,7 +2622,6 @@
                         "buyVolume": 0.057,
                         "profitRealPercentage": -5.47
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "BCH",
                     "tradeCurrency": false
@@ -2528,8 +2629,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 0.003,
-                    "currentMarketValue": 20.1,
+                    "currentMarketValue": 21.22,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 1806,
                         "sellVolume": 0,
@@ -2546,7 +2648,6 @@
                         "buyVolume": 0.003,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "BTC",
                     "tradeCurrency": true
@@ -2554,12 +2655,13 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 0.44,
-                    "currentMarketValue": 25.49,
+                    "currentMarketValue": 27.81,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 12952.8574,
                         "sellVolume": 0.946,
-                        "commissionRate": 36.00139475,
+                        "commissionRate": 36.00139476,
                         "soldInvestment": 8840.83917778,
                         "currentInvestment": 4112.01822222,
                         "sellMean": 9884.84936575,
@@ -2572,7 +2674,6 @@
                         "buyVolume": 1.386,
                         "profitRealPercentage": 3.94
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "LTC",
                     "tradeCurrency": false
@@ -2580,8 +2681,9 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 1570,
-                    "currentMarketValue": 33.91,
+                    "currentMarketValue": 42.44,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "KOINEX",
                     "currency": [{
                         "buyPrice": 4711.4,
                         "sellVolume": 0,
@@ -2598,37 +2700,37 @@
                         "buyVolume": 1570,
                         "profitRealPercentage": 0
                     }],
-                    "exchangeName": "KOINEX",
                     "depositAmt": 0E-8,
                     "coinName": "TRX",
                     "tradeCurrency": false
                 }
             ],
+            "exchangeName": "KOINEX",
             "transCurrency": [
                 {
                     "currentInvestAmount": 47.996763,
                     "soldInvestment": 0E-8,
-                    "sellTransactionAmount": 0,
                     "withdrawalVolume": 0,
+                    "sellTransactionAmount": 0,
                     "name": "XRP",
                     "exchange": "KOINEX",
                     "buyTransactionAmount": 47.996763,
                     "depositVolume": 0,
                     "overallGainPercent": 0,
-                    "commissionAmount": 0E-9,
+                    "commissionAmount": 0E-8,
                     "crypto": true
                 },
                 {
                     "currentInvestAmount": 60926.30432832583,
                     "soldInvestment": 76243.53363167417,
-                    "sellTransactionAmount": 88252.5629,
                     "withdrawalVolume": 0,
+                    "sellTransactionAmount": 88252.5629,
                     "name": "INR",
                     "exchange": "KOINEX",
                     "buyTransactionAmount": 137169.83796,
                     "depositVolume": 0,
                     "overallGainPercent": 16.198834,
-                    "commissionAmount": 341.53428117,
+                    "commissionAmount": 341.53428118,
                     "crypto": false
                 }
             ]
@@ -2641,16 +2743,16 @@
                 "BCH/MXN",
                 "BTC/MXN"
             ],
-            "currentMarketValue": 84.19,
-            "nonCryptoInvestValue": 719.06,
+            "currentMarketValue": 90.47,
+            "nonCryptoInvestValue": 712.85,
             "coinList": [
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 0.00810535,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0E-8,
-                    "currency": [],
                     "exchangeName": "BITSO",
+                    "currency": [],
                     "depositAmt": 13600,
                     "coinName": "MXN",
                     "tradeCurrency": true
@@ -2658,25 +2760,28 @@
                 {
                     "withdrawalAmt": 90,
                     "totalAmt": 161.74700522,
-                    "currentMarketValue": 52.97,
+                    "currentMarketValue": 56.74,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITSO",
                     "currency": [{
                         "buyPrice": 2800.00002166,
                         "sellVolume": 0,
-                        "commissionRate": 16.4000001338,
+                        "commissionRate": 16.40000013,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 2800.00002166,
+                        "priceDiffer": -4.62227738,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "MXN",
                         "price": 2800.00002166,
+                        "priceDifferPercentage": -41.56,
                         "buyMean": 11.12227738,
                         "buyVolume": 251.747005214,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 6.5
                     }],
-                    "exchangeName": "BITSO",
                     "depositAmt": 0E-8,
                     "coinName": "XRP",
                     "tradeCurrency": false
@@ -2684,25 +2789,28 @@
                 {
                     "withdrawalAmt": 0.37547171,
                     "totalAmt": 0.36165161,
-                    "currentMarketValue": 20.95,
+                    "currentMarketValue": 22.86,
                     "xchangeTransferCommission": 0.00057896,
+                    "exchangeName": "BITSO",
                     "currency": [{
-                        "buyPrice": 1600.000028902,
+                        "buyPrice": 1600.0000289,
                         "sellVolume": 0,
-                        "commissionRate": 8.00000014451,
+                        "commissionRate": 8.00000015,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 1600.0000289,
+                        "priceDiffer": -993.78022553,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "MXN",
-                        "price": 1600.000028902,
+                        "price": 1600.0000289,
+                        "priceDifferPercentage": -45.78,
                         "buyMean": 2170.60022553,
                         "buyVolume": 0.73712331275,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 1176.82
                     }],
-                    "exchangeName": "BITSO",
                     "depositAmt": 0E-8,
                     "coinName": "LTC",
                     "tradeCurrency": false
@@ -2710,25 +2818,28 @@
                 {
                     "withdrawalAmt": 0.53782938,
                     "totalAmt": 0.00065516,
-                    "currentMarketValue": 0.18,
+                    "currentMarketValue": 0.19,
                     "xchangeTransferCommission": 0.0023688,
+                    "exchangeName": "BITSO",
                     "currency": [{
-                        "buyPrice": 7699.9902642192,
+                        "buyPrice": 7699.99026422,
                         "sellVolume": 0,
-                        "commissionRate": 76.999902642192,
+                        "commissionRate": 76.99990265,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 7699.99026422,
+                        "priceDiffer": -8749.37103257,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "MXN",
-                        "price": 7699.9902642192,
+                        "price": 7699.99026422,
+                        "priceDifferPercentage": -61.19,
                         "buyMean": 14299.37103257,
                         "buyVolume": 0.5384845422,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 5550
                     }],
-                    "exchangeName": "BITSO",
                     "depositAmt": 0E-8,
                     "coinName": "ETH",
                     "tradeCurrency": false
@@ -2736,25 +2847,28 @@
                 {
                     "withdrawalAmt": 0E-8,
                     "totalAmt": 0.01890197,
-                    "currentMarketValue": 10.09,
+                    "currentMarketValue": 10.68,
                     "xchangeTransferCommission": 0E-8,
+                    "exchangeName": "BITSO",
                     "currency": [{
-                        "buyPrice": 500.000103939,
+                        "buyPrice": 500.00010394,
                         "sellVolume": 0,
-                        "commissionRate": 2.500000519695,
+                        "commissionRate": 2.50000052,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 500.00010394,
+                        "priceDiffer": -15852.31140709,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "MXN",
-                        "price": 500.000103939,
-                        "buyMean": 26452.28140704,
+                        "price": 500.00010394,
+                        "priceDifferPercentage": -59.93,
+                        "buyMean": 26452.28140709,
                         "buyVolume": 0.01890196525,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 10599.97
                     }],
-                    "exchangeName": "BITSO",
                     "depositAmt": 0E-8,
                     "coinName": "BCH",
                     "tradeCurrency": false
@@ -2764,61 +2878,65 @@
                     "totalAmt": 0E-8,
                     "currentMarketValue": 0,
                     "xchangeTransferCommission": 0.00006816,
+                    "exchangeName": "BITSO",
                     "currency": [{
-                        "buyPrice": 1000.0014759258,
+                        "buyPrice": 1000.00147593,
                         "sellVolume": 0,
-                        "commissionRate": 10.000014759258,
+                        "commissionRate": 10.00001476,
                         "soldInvestment": 0E-8,
                         "currentInvestment": 1000.00147593,
+                        "priceDiffer": -36361.93686211,
                         "sellMean": 0E-8,
                         "sellPrice": 0,
                         "profitRealised": 0E-8,
                         "tradeCurrency": false,
                         "currencyName": "MXN",
-                        "price": 1000.0014759258,
-                        "buyMean": 169561.9368614,
+                        "price": 1000.00147593,
+                        "priceDifferPercentage": -21.44,
+                        "buyMean": 169561.93686211,
                         "buyVolume": 0.0058975587,
-                        "profitRealPercentage": 0
+                        "profitRealPercentage": 0,
+                        "lastPrice": 133200
                     }],
-                    "exchangeName": "BITSO",
                     "depositAmt": 0E-8,
                     "coinName": "BTC",
                     "tradeCurrency": true
                 }
             ],
+            "exchangeName": "BITSO",
             "transCurrency": [{
-                "currentInvestAmount": 13599.991894646,
+                "currentInvestAmount": 13599.99189465,
                 "soldInvestment": 0E-8,
-                "sellTransactionAmount": 0,
                 "withdrawalVolume": 0,
+                "sellTransactionAmount": 0,
                 "name": "MXN",
                 "exchange": "BITSO",
-                "buyTransactionAmount": 13599.991894646,
+                "buyTransactionAmount": 13599.99189465,
                 "depositVolume": 0,
                 "overallGainPercent": 0,
-                "commissionAmount": 113.899918199455,
+                "commissionAmount": 113.89991821,
                 "crypto": false
             }]
         }
     },
-    "currentMarketValue": 673.06,
+    "currentMarketValue": 804.13,
     "conversionList": [
         {
-            "investmentAmt": 1604.76,
-            "currentMarketValue": 673.06,
+            "investmentAmt": 1592.38,
+            "currentMarketValue": 804.13,
             "currency": "USD"
         },
         {
-            "investmentAmt": 111972.19,
-            "currentMarketValue": 46962.79,
+            "investmentAmt": 111887.94,
+            "currentMarketValue": 56501.87,
             "currency": "INR"
         },
         {
-            "investmentAmt": 30351.63,
-            "currentMarketValue": 12729.92,
+            "investmentAmt": 30380.17,
+            "currentMarketValue": 15341.57,
             "currency": "MXN"
         }
     ],
-    "profit": -58,
-    "nonCryptoInvstAmt": 1604.76
+    "profit": -50,
+    "nonCryptoInvstAmt": 1592.38
 }

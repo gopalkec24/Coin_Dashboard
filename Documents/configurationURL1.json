@@ -1,0 +1,34 @@
+[
+{
+"attributeFetch":[{"attr_name" : "symbol","tgt_attr_name" : "symbol","attr_src_dataType" : "String","attr_tgt_dataType" : "String","path" : ""},
+{"attr_name" : "lastPrice","tgt_attr_name" : "lastPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : ""},
+{"attr_name" : "openPrice","tgt_attr_name" : "openPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : ""},
+{"attr_name" : "lowPrice","tgt_attr_name" : "lowPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : ""},
+{"attr_name" : "highPrice","tgt_attr_name" : "highPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : ""},
+{"attr_name" : "prevClosePrice","tgt_attr_name" : "prevClosePrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : ""},
+{"attr_name" : "priceChange","tgt_attr_name" : "priceChange","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : ""},
+{"attr_name" : "priceChangePercent","tgt_attr_name" : "priceChangePercent","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : ""}] ,
+"fetchURL": "https://api.binance.com/api/v1/ticker/24hr",
+"securityRequired" : false,
+"result":"JSONARRAY",
+"transCurrency":["BNB","ETH","BTC","USDT"],
+"allFetch":true,
+"name" : "BINANCE"
+},
+{
+"attributeFetch":[{"attr_name" : "book","tgt_attr_name" : "symbol","attr_src_dataType" : "String","attr_tgt_dataType" : "String","path" : "payload"},
+{"attr_name" : "last","tgt_attr_name" : "lastPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "payload"},
+{"attr_name" : "low","tgt_attr_name" : "lowPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "payload"},
+{"attr_name" : "high","tgt_attr_name" : "highPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "payload"}
+],
+"result":"JSONOBJECT",
+"securityRequired": false,
+"allFetch":false,
+"name" : "BITSO",
+"transCurrency":["ETH","MXN"],
+"fetchURL":"https://api.bitso.com/v3/ticker/"
+}
+
+
+
+]
