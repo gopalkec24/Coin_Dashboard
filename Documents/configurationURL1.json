@@ -12,6 +12,7 @@
 "securityRequired" : false,
 "result":"JSONARRAY",
 "transCurrency":["BNB","ETH","BTC","USDT"],
+"currencyAlias":{"BNB":"BNB","BTC":"BTC","ETH":"ETH","USDT":"USDT"},
 "allFetch":true,
 "name" : "BINANCE"
 },
@@ -26,7 +27,50 @@
 "allFetch":false,
 "name" : "BITSO",
 "transCurrency":["ETH","MXN"],
+"currencyAlias" : { "ETH":"ETH","MXN":"MXN"},
 "fetchURL":"https://api.bitso.com/v3/ticker/"
+},
+{
+"attributeFetch":[{"attr_name" : "currency_short_form","tgt_attr_name" : "symbol","attr_src_dataType" : "String","attr_tgt_dataType" : "String","path" : "stats.<<CURRENCY>>.<<COINNAME>>"},
+{"attr_name" : "last_traded_price","tgt_attr_name" : "lastPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "stats.<<CURRENCY>>.<<COINNAME>>"},
+{"attr_name" : "min_24hrs","tgt_attr_name" : "lowPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "stats.<<CURRENCY>>.<<COINNAME>>"},
+{"attr_name" : "max_24hrs","tgt_attr_name" : "highPrice","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "stats.<<CURRENCY>>.<<COINNAME>>"},
+{"attr_name" : "per_change","tgt_attr_name" : "priceChangePercent","attr_src_dataType" : "String","attr_tgt_dataType" : "BigDecimal","path" : "stats.<<CURRENCY>>.<<COINNAME>>"}
+],
+"result":"JSONOBJECT",
+"securityRequired": false,
+"allFetch":true,
+"name" : "KOINEX",
+"transCurrency":["ETH","INR","XRP","BTC"],
+"currencyAlias" : { "bitcoin" : "BTC","ripple": "XRP","ether" :"ETH","inr":"INR"},
+"fetchURL":"https://koinex.in/api/ticker/"
+},
+{
+"attributeFetch":[
+{"attr_name" : "lastTradePrice","tgt_attr_name" : "lastPrice","attr_src_dataType" : "Number","attr_tgt_dataType" : "BigDecimal","path" : "lastPrice"}
+],
+"fetchURL": "https://bitbns.com/order/getTickerAll",
+"securityRequired" : false,
+"result":"JSONARRAY",
+"transCurrency":["ETH","BTC"],
+"name" : "BITBNS",
+"allFetch":true,
+"currencyAlias" : {"INR":"INR"}
+},
+{
+"attributeFetch":[
+{"attr_name" : "symbol","tgt_attr_name" : "symbol","attr_src_dataType" : "String","attr_tgt_dataType" : "String","path" : ""},
+{"attr_name" : "low","tgt_attr_name" : "lowPrice","attr_src_dataType" : "Number","attr_tgt_dataType" : "BigDecimal","path" : ""},
+{"attr_name" : "last","tgt_attr_name" : "lastPrice","attr_src_dataType" : "Number","attr_tgt_dataType" : "BigDecimal","path" : ""},
+{"attr_name" : "high","tgt_attr_name" : "highPrice","attr_src_dataType" : "Number","attr_tgt_dataType" : "BigDecimal","path" : ""}
+],
+"fetchURL": "https://api.livecoin.net/exchange/ticker",
+"securityRequired" : false,
+"result":"JSONARRAY",
+"transCurrency":["ETH","LTC","BTC","USD","EUR","WAVES"],
+"name" : "LIVECOIN",
+"allFetch":true,
+"currencyAlias" : {"LTC":"LTC", "ETH":"ETH"}
 }
 
 
