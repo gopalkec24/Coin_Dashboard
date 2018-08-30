@@ -224,10 +224,6 @@ public class ReportGeneration {
 						BigDecimal profitPercentage = (compare == 1) ? profitRealised
 								.divide(currMean.getBuyPrice(), 4, RoundingMode.HALF_UP).multiply(BIG_DECIMAL_100)
 								: ZERO_BIGDECIMAL;
-
-								
-						
-						
 						
 								
 						transVO.setBuyTransactionAmount(transVO.getBuyTransactionAmount().add(currMean.getBuyPrice()));
@@ -242,7 +238,7 @@ public class ReportGeneration {
 						currMean.setProfitRealised(profitRealised.setScale(8, RoundingMode.HALF_UP));
 						currMean.setProfitRealPercentage(profitPercentage);
 						
-						//Get Current Price for traded pair of coin Name
+						//Get Current Price for traded pair of coin Name from Exchange Site
 						if(xchangeCurrent!= null) {
 							String tradedPair = exVO.getCoinName()+"/"+currMean.getCurrencyName();
 							if(xchangeCurrent.get(tradedPair)!= null  && xchangeCurrent.get(tradedPair).containsKey("lastPrice"))
@@ -289,8 +285,7 @@ public class ReportGeneration {
 							currentValue= nonCryptoCurrencyValue.get(exVO.getCoinName()) ;
 							if(currentValue!= null) {
 							System.out.println(exVO.getCoinName()+" Current Value : "+ currentValue);
-							nonCryptoInvAmt= nonCryptoInvAmt.add(exVO.getDepositAmt().divide(currentValue,2, RoundingMode.HALF_UP));
-							
+							nonCryptoInvAmt= nonCryptoInvAmt.add(exVO.getDepositAmt().divide(currentValue,2, RoundingMode.HALF_UP));							
 							BigDecimal currentMarketValue = exVO.getTotalAmt().divide(currentValue,2, RoundingMode.HALF_UP);
 							totalAmt= totalAmt.add(currentMarketValue);
 							exVO.setCurrentMarketValue(currentMarketValue);

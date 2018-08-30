@@ -1,6 +1,7 @@
 package com.portfolio.dao;
 
 import java.util.List;
+import java.util.Map;
 
 public class FetchConfiguration {
 
@@ -11,7 +12,14 @@ public class FetchConfiguration {
 	String result;
 	List<String> transCurrency;
 	boolean allFetch;
+	Map<String,String> currencyAlias;
 	
+	public Map<String, String> getCurrencyAlias() {
+		return currencyAlias;
+	}
+	public void setCurrencyAlias(Map<String, String> currencyAlias) {
+		this.currencyAlias = currencyAlias;
+	}
 	public boolean isAllFetch() {
 		return allFetch;
 	}
