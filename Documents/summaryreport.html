@@ -94,6 +94,34 @@ var summmaryData= "<tr><td> Current  Market  Value in USD </td><td>"+result.curr
 
 $("#summary").append(summmaryData);
 $("#summary").addClass("summary-class");
+
+var dataList="<tr><th>Coin Name</th><th>Transaction Coin </th><th>Initial Traded currency volume</th><th>Initial Traded Coin Volume </th><th>Commission Coin </th> <th>Initial commission Volume</th><th> Transaction Type</th> <th>Commission Type </th> <th>Trade Volume</th><th>Effective Trade vol</th><th>Commission Value</th><th> Transaction Amount</th><th>Final Volume</th><th>Final commission Volume </th><th>Final Traded coin Volume </th></tr>";
+
+
+for(i=0; i<result.listCryptoTransactions.length; i++)
+{
+
+var transObj = result.listCryptoTransactions[i];
+
+dataList = dataList+"<tr><td> "+result.listCryptoTransactions[i].coinName+"</td><td>"+ 
+result.listCryptoTransactions[i].transactionCoin+"</td><td>" +
+result.listCryptoTransactions[i].initialTradeVol  + "</td><td>"+
+result.listCryptoTransactions[i].initialVol+"</td><td>"+
+result.listCryptoTransactions[i].commissionCoin+"</td><td>"+
+result.listCryptoTransactions[i].initialCommissionVol+"</td><td>" +
+result.listCryptoTransactions[i].transactionType+"</td><td>" +
+result.listCryptoTransactions[i].commissionType+"</td><td>" +
+result.listCryptoTransactions[i].tradeVol+"</td><td>" +
+result.listCryptoTransactions[i].effectiveTradeVol+"</td><td>" +
+result.listCryptoTransactions[i].commissionValue+"</td><td>"+
+result.listCryptoTransactions[i].transactionAmt+"</td><td>"+
+result.listCryptoTransactions[i].finalVol+"</td><td>"+
+result.listCryptoTransactions[i].finalCommissionVol+"</td><td>" +
+result.listCryptoTransactions[i].finalTradeVol+"</td></tr>";
+}
+$("#transactionsummary").append(dataList);
+$("#transactionsummary").addClass("summary-class");
+
 }
 });
 
@@ -108,6 +136,7 @@ $("#summary").addClass("summary-class");
 		   <table id="summary"> </table>
 		   <br>
 		   <table id="exchange"> </table>
+		    <table id="transactionsummary"> </table>
 		  
 		   
 </body>
