@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="refresh" content="3000">
+<title>Summary of the CryptoCurrency Transaction</title>
+	<link rel="stylesheet" type="text/css" href="vendor/css/normalize.css">
+ <link rel="stylesheet" type="text/css" href="resources/css/coinstyle.css">
+ <link rel="stylesheet" type="text/css" href="vendor/css/sortable.css">
+
+</head>
+
+<body>
+<script src="resources/js/jquery.js" > </script>
+<script src="resources/js/customcoin.js" > </script>
+<script src="vendor/js/sortable.js"></script>
+<script>
+$(document).ready(function (){
+
+$.ajax({
+	
+url:"/test/MyBadLuck",
+dataType:"json",
+success:function(result)
+{
+var exchangeListData="";
+
+for(var exchange in result.exchangeList)
+{ 
+var exchangeObj = result.exchangeList[exchange];
+var dataRow="<tr> <th> Exchange Name :  </th> <td class='exchange_text'>" +exchange +"</td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td><td class='blank' &nbsp </td> <td class='blank' &nbsp </td><th>Total Investment value in USD </th> <td>"+exchangeObj.nonCryptoInvestValue +"</td> <th>Total Current Fund value in USD</th> <td>"+exchangeObj.currentMarketValue +"</td></tr>";
+ dataRow=dataRow+"<tr><th>Coin/Currency Traded</th><th>Buy Price</th><th>Buy Volume</th><th>Buy Avg Price </th><th>Sell Avg Price</th><th>Sell Volume</th><th>Sell Price</th><th>Amount spend on Commission</th>"+
+ "<th>Amt sold from Investment</th><th>Current Amt from Investment</th><th>Profit </th> <th>Profit % </th> <th>Price Differ </th>  <th>Price Differ % </th>  <th>Current Market unitPrice </th>  <th> Deposit Amt </th> <th>Withdrawal</th> <th>Commission Spend on transfers</th> <th>Total volume available</th>"+
+ "<th>Unit Mkt Price </th><th>Current Fund value in USD</th></tr>";  
+	
+   
+    for(var i=0; i< exchangeObj.coinList.length; i++)
+	{
+		var  coin = exchangeObj.coinList[i];
+		for(var j=0; j <coin.currency.length ; j++)
+		{
+				var coinTraded = coin.currency[j];
+				
+				var lastPrice= coinTraded.lastPrice;
+				var priceDiffPer= coinTraded.priceDifferPercentage;
+				var priceDiff = coinTraded.priceDiffer;
+				/*if(typeof lastPrice == "undefined")
+				{
+				  lastPrice="NA";
+				  priceDiff="- -";
+				  priceDiffPer="%";
+				}*/
+				dataRow= dataRow+ "<tr><td>"+coin.coinName+"/"+coinTraded.currencyName+"</td><td>"+
+				coinTraded.buyPrice+"</td><td>"+
+				coinTraded.buyVolume+"</td><td>"+
+				coinTraded.buyMean+"</td><td>"+
+				coinTraded.sellMean+"</td><td>"+
+				coinTraded.sellVolume+"</td><td>"+
+				coinTraded.sellPrice+"</td><td>"+
+				coinTraded.commissionRate+"</td><td>"+
+				coinTraded.soldInvestment+"</td><td>"+
+				coinTraded.currentInvestment+"</td><td>"+                           
+                coinTraded.profitRealised+"</td><td>"+
+                coinTraded.profitRealPercentage+"</td><td>"+
+                replaceUndefinedData(coinTraded.priceDiffer)+"</td><td>"+
+                replaceUndefinedData(coinTraded.priceDifferPercentage)+"</td><td>"+
+                replaceUndefinedData(coinTraded.lastPrice)+"</td><td>"+
+				"</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
+                    
+		}	
+		dataRow=dataRow+"<tr><td>"+coin.coinName+"</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>"+coin.depositAmt+"</td><td>"+coin.withdrawalAmt+"</td><td>"+coin.xchangeTransferCommission+"</td><td>"+coin.totalAmt+"</td><td>"+ coin.marketCapPrice +"</td><td>"+coin.currentMarketValue+"</td></tr>";
+	
+	if(dataRow.length > 0 )
+	{
+	   dataRow=dataRow+"<tr><td></td> </tr><tr><td></td> </tr>";	
+	}
+	
+	  
+  } 
+  $("#exchange").append(dataRow); 
+}
+$("#exchange").addClass("summary-class");
+
+//investment data Table formation
+var currentInvValMap= result.conversionList;
+var priceList = "<tr><th>Currency </th> <th> Current Market Value </th> <th> Invested Amount </th> </tr>";
+for(i=0;i<currentInvValMap.length;i++)
+{
+
+priceList = priceList + "<tr><td> "+currentInvValMap[i].currency+"</td><td>"+currentInvValMap[i].currentMarketValue+"</td><td>"+currentInvValMap[i].investmentAmt+"</td></tr>";
+
+}
+$("#investamt").append(priceList);
+$("#investamt").addClass("summary-class");
+
+//Summary Data construction
+var summmaryData= "<tr><th> Current  Market  Value in USD </th><td>"+result.currentMarketValue+" </td></tr> <tr><th>Current Investment Amount in  USD </th> <td>"+ result.nonCryptoInvstAmt +
+					"</td> </tr> <tr> <th> Profit Percentage</th>  <td> "+result.profit+"</td></tr>";
+
+$("#summary").append(summmaryData);
+$("#summary").addClass("summary-class");
+$("#result").text("Welcome .....");
+
+
+var dataList="<tr><th>Coin Name</th><th>Transaction Coin </th><th>Initial Traded currency volume</th><th>Initial Traded Coin Volume </th><th>Commission Coin </th> <th>Initial commission Volume</th><th> Transaction Type</th> <th>Commission Type </th> <th>Trade Volume</th><th>Effective Trade vol</th><th>Commission Value</th><th> Transaction Amount</th><th>Final Volume</th><th>Final commission Volume </th><th>Final Traded coin Volume </th></tr>";
+
+if(typeof result.listCryptoTransactions != "undefined"){
+for(i=0; i<result.listCryptoTransactions.length; i++)
+{
+
+var transObj = result.listCryptoTransactions[i];
+
+dataList = dataList+"<tr><td> "+result.listCryptoTransactions[i].coinName+"</td><td>"+ 
+result.listCryptoTransactions[i].transactionCoin+"</td><td>" +
+result.listCryptoTransactions[i].initialTradeVol  + "</td><td>"+
+result.listCryptoTransactions[i].initialVol+"</td><td>"+
+result.listCryptoTransactions[i].commissionCoin+"</td><td>"+
+result.listCryptoTransactions[i].initialCommissionVol+"</td><td>" +
+result.listCryptoTransactions[i].transactionType+"</td><td>" +
+result.listCryptoTransactions[i].commissionType+"</td><td>" +
+result.listCryptoTransactions[i].tradeVol+"</td><td>" +
+result.listCryptoTransactions[i].effectiveTradeVol+"</td><td>" +
+result.listCryptoTransactions[i].commissionValue+"</td><td>"+
+result.listCryptoTransactions[i].transactionAmt+"</td><td>"+
+result.listCryptoTransactions[i].finalVol+"</td><td>"+
+result.listCryptoTransactions[i].finalCommissionVol+"</td><td>" +
+result.listCryptoTransactions[i].finalTradeVol+"</td></tr>";
+}
+$("#transactionsummary").append(dataList);
+$("#transactionsummary").addClass("summary-class");
+}
+}// success function Method close
+});
+
+
+
+/* $('#exchange').sortable({
+	divBeforeTable: '#divbeforeid',
+	divAfterTable: '#divafterid',
+	initialSort: 4,
+	locale: 'th',
+	negativeSort: [1, 2]
+});
+ */
+});
+
+</script>
+<div class="container">
+          <div class="header">
+          <p class="header_text">
+          	 <h1> Summary Data for CryptoCurrency Transaction </h1> 
+          	 <label id="result" > Loading the summary data............. </label>
+           </p> 	 
+          </div>
+		    
+		    
+		    
+		   <!-- <h2> Investment Details</h2> -->
+		   <div>
+			   <div>
+			    <table id="investamt" >  <thead> Investment Details </thead></table>
+				</div>
+			
+				<div id="profit_section">
+				<!-- <h2>Profit Details</h2> -->
+			   <table id="summary">  <thead> Profit Details </thead></table>
+			   </div>
+			   
+			 </div>   
+		 <!--   	<div id="divbeforeid">
+		   	  </div> -->
+		   <table id="exchange">  <thead> Exchange Coin Details </thead> </table>
+		 <!--  <div id="divafterid">
+		   	  </div> -->
+			<table id="transactionsummary">  <thead> Transaction Details </thead> </table>							   
+		  
+		   </div>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="refresh" content="300">
+<title>Exchange WatchList</title>
+	<link rel="stylesheet" type="text/css" href="vendor/css/normalize.css">
+ <link rel="stylesheet" type="text/css" href="resources/css/coinstyle.css">
+
+
+</head>
+
+<body>
+<script src="resources/js/jquery.js" > </script>
+<script src="resources/js/customcoin.js" > </script>
+<script>
+
+$(document).ready(function (){
+
+$.ajax({	
+url:"/test/DisplayServlet",
+dataType:"json",
+success:function(result)
+{
+var exchangeListData="";
+var dataRow;
+for(var exchange in result)
+{ 
+   var exchangeData = result[exchange];
+	
+	dataRow = dataRow +"<tr> <td> Exchange Name </td> <td> "+exchange+"</td></tr>";
+   for(var coin in exchangeData)
+   {
+	dataRow = dataRow +"<tr><td>"+coin+"</td><td>" +exchangeData[coin].lastPrice + "</td><td>" +replaceUndefinedData(exchangeData[coin].lowPrice) + "</td><td>" +replaceUndefinedData(exchangeData[coin].highPrice) + 
+"</td><td>" +replaceUndefinedData(exchangeData[coin].openPrice) + "</td><td>" +replaceUndefinedData(exchangeData[coin].prevClosePrice) + "</td><td>" +replaceUndefinedData(exchangeData[coin].priceChange)
++"</td><td>" +replaceUndefinedData(exchangeData[coin].priceChangePercent)+"</td></tr>";   
+   }
+
+	
+	
+   
+}
+ $("#exchange").append(dataRow); 
+}
+});
+
+
+
+});
+
+</script>
+
+           <br> <h1> WatchList Data </h1>
+		  
+		    <table id="investamt" > </table>
+			<br>
+		   <table id="summary"> </table>
+		   <br>
+		   <table id="exchange"> </table>
+		  
+		   
+</body>
+
+</html>
