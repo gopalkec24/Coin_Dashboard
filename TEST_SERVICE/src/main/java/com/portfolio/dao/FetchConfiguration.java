@@ -11,21 +11,34 @@ public class FetchConfiguration {
 	String name;
 	String result;
 	List<String> transCurrency;
-	boolean allFetch;
+	int allFetch;
 	Map<String,String> currencyAlias;
+	String getSymbolParameter;
 	
+	public String getGetSymbolParameter() {
+		return getSymbolParameter;
+	}
+	public void setGetSymbolParameter(String getSymbolParameter) {
+		this.getSymbolParameter = getSymbolParameter;
+	}
 	public Map<String, String> getCurrencyAlias() {
 		return currencyAlias;
 	}
 	public void setCurrencyAlias(Map<String, String> currencyAlias) {
 		this.currencyAlias = currencyAlias;
 	}
-	public boolean isAllFetch() {
+	public int getAllFetch() {
+		return allFetch;
+	}
+	public void setAllFetch(int allFetch) {
+		this.allFetch = allFetch;
+	}
+	/*public boolean isAllFetch() {
 		return allFetch;
 	}
 	public void setAllFetch(boolean allFetch) {
 		this.allFetch = allFetch;
-	}
+	}*/
 	public List<String> getTransCurrency() {
 		return transCurrency;
 	}

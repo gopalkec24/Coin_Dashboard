@@ -28,9 +28,13 @@ public class ReadTradeConfig {
 	private static String PROXY_PORT = "8080";
 	private static String PROXY_HOSTNAME = "10.121.11.32";
 	private static boolean useProxy = true;
-
+	
+	public static  String CONFIG_DIRECTORY = "C:/Documents/";
+	public static String api_key="CMC_PRO_API_KEY=9afba42a-ebdc-4bf0-a742-d110c154dc49";
 	public static final boolean useLatestVersion = true;
 	public static List<String> excludedCoinList = new ArrayList<String>();
+	public static final String COINMARKETCAP_CRYPTOCURRENCY_MAP = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?";
+	public static final String COINMARKETCAP_QUOTES_LATEST = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?";
 	
 	public List<TransactionDetailsVO> getConfigurationDetails(String csvFile) throws Exception{
 
@@ -58,6 +62,10 @@ public class ReadTradeConfig {
 					}
 					else if(line.startsWith("NON_CYRPTO_CURRENCY")){
 						loadNonCyptoCurrency(line);
+					}
+					else if(line.startsWith("TRADE_CONFIG_DIRECTORY")) {
+						String[] tradeCon=line.split(KEY_VALUE_PAIR_SEPERATOR);
+						CONFIG_DIRECTORY=tradeCon[1];
 					}
 					else
 					{
@@ -167,7 +175,7 @@ public class ReadTradeConfig {
 			System.out.println("PAssword : "+PROXY_AUTH_PASSWORD);*/
 			String encoded = new String(Base64.getEncoder()
 					.encode((new String(PROXY_AUTH_USERNAME + ":" + PROXY_AUTH_PASSWORD).getBytes())));
-			System.out.println(encoded);
+			//System.out.println(encoded);
 			con.setRequestProperty("Proxy-Authorization", "Basic " + encoded);
 			System.out.println("using the proxy");
 		}		

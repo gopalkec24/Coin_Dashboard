@@ -14,6 +14,7 @@ public class SummaryVO {
 	BigDecimal currentMarketValue = BIG_DECIMAL_ZERO;
 	BigDecimal profit = BIG_DECIMAL_ZERO;
 	List<InvestmentConversion> conversionList = new ArrayList<InvestmentConversion>();
+	List<CryptoTransactionVO> listCryptoTransactions;
 	public List<InvestmentConversion> getConversionList() {
 		return conversionList;
 	}
@@ -73,5 +74,13 @@ public class SummaryVO {
 	public void setProfit(BigDecimal profit) {
 		this.profit = profit;
 	}
-	
+
+	public List<CryptoTransactionVO> getListCryptoTransactions() {
+		return listCryptoTransactions;
+	}
+
+	public void setListCryptoTransactions(List<CryptoTransactionVO> listCryptoTransactions) {
+		this.listCryptoTransactions = listCryptoTransactions;
+	}
+
 }

@@ -2,12 +2,16 @@ package com.portfolio.utilis;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.TreeMap;
 import org.apache.commons.io.FileUtils;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -15,8 +19,11 @@ import org.codehaus.jackson.type.TypeReference;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.portfolio.dao.AttributeVO;
 import com.portfolio.dao.FetchConfiguration;
+import com.portfolio.dao.WatchListVO;
 
 public class GetCurrentMarketPrice {
 	
@@ -28,14 +35,18 @@ public class GetCurrentMarketPrice {
 		
 		GetCurrentMarketPrice cmp = new GetCurrentMarketPrice();
 		List<String> coinList= new ArrayList<String>();
-		/*coinList.add("XRP/ETH");
-		coinList.add("ONT/ETH")*/;
-		coinList.add("ETH/INR");
+		coinList.add("XRP/ETH");
+		coinList.add("ONT/ETH");
+		/*coinList.add("ETH/INR");
 		coinList.add("BCH/ETH");
-		coinList.add("BTC/XRP");
+		coinList.add("BTC/XRP");*/
 		
-		System.out.println(cmp.getCurrentMarketPrice("LIVECOIN",coinList));
+		//System.out.println(cmp.getCurrentMarketPrice("BINANCE",coinList,1));
 		//System.out.println(GetCurrentRate.getDetailsFromSite("https://api.bitso.com/v3/ticker/?book=btc_mxn"));
+		
+		
+		File summaryJson = new File("C:/Documents/watchListData.json");
+		FileUtils.write(summaryJson,cmp.javaToJson(cmp.getDataForWatchList()));
 		
 	}
 	
@@ -58,6 +69,7 @@ public class GetCurrentMarketPrice {
 
 	private Map<String,Map<String,Object>> getDataForAll(FetchConfiguration configVO) throws MalformedURLException, ProtocolException, IOException {
 		
+	  System.out.println("In ALL FETCH");
 		Map<String,Map<String,Object>> exchangeValue = null;
 		
 		String response = null;				
@@ -72,27 +84,28 @@ public class GetCurrentMarketPrice {
 		{
 			response = GetCurrentRate.getDetailsFromSite(configVO.getFetchURL());
 		}
-		System.out.println(response);
-		List<String> transCurrency = configVO.getTransCurrency();
+	//	System.out.println(response);
+	
 		exchangeValue= new TreeMap<String,Map<String,Object>>();
 		if(configVO.getName().equalsIgnoreCase("KOINEX")) {
 			ObjectMapper mapper = new ObjectMapper();
 			 Map<String,Object> resultMap = mapper.readValue(response, new TypeReference<Map<String,Object>>(){
 			});
 			 
-			System.out.println(resultMap); 
+		//	System.out.println(resultMap); 
 			mapResultToTargetMap(resultMap,configVO,exchangeValue);
 		}
 		else if(configVO.getName().equalsIgnoreCase("BITBNS")) {
 			JSONArray arr= new JSONArray(response);
 			mapBitBnsResultToTargetMap(arr,configVO,exchangeValue);
 		}
-		else {
+		else 
+		{
 			if(configVO.getResult().equalsIgnoreCase("JSONARRAY")) {
 		
 			JSONArray object = new JSONArray(response);
 			//System.out.println("object : "+ object.toString(4));
-			System.out.println(object.getClass() +" " + object.length());
+			//System.out.println(object.getClass() +" " + object.length());
 			for(int i=0;i<object.length(); i++) {
 				Object symbolDetails = object.get(i);
 				if(symbolDetails instanceof JSONObject) {
@@ -130,14 +143,14 @@ public class GetCurrentMarketPrice {
 		
 			Map<String, Object> statsMap = (Map<String, Object>)resultMap.get("stats");
 			for(String currency : statsMap.keySet()) {
-				System.out.println("In Currency :"+ currency );
+				//System.out.println("In Currency :"+ currency );
 				Map<String,Object> coinMap=(Map<String, Object>) statsMap.get(currency);
-				System.out.println("In currecny Map details"+coinMap);
+				//System.out.println("In currecny Map details"+coinMap);
 				 for(String coinName : coinMap.keySet()) {
-					 System.out.println("In coin NAme >>>>>>>>"+ coinName);
+					 //System.out.println("In coin NAme >>>>>>>>"+ coinName);
 					
 					 Map<String,Object> coinDetails = (Map<String, Object>) coinMap.get(coinName);
-					 System.out.println("In coin details  >>>>>>>>"+ coinDetails);
+					 //System.out.println("In coin details  >>>>>>>>"+ coinDetails);
 					 exchangeValue.put(coinName.toUpperCase()+"/"+configVO.getCurrencyAlias().get(currency),getCoinDetailsForTarget(coinDetails,configVO.getAttributeFetch()));
 					 
 				 }
@@ -167,14 +180,14 @@ public class GetCurrentMarketPrice {
 
 
 
-	private String getDataFromJsonFile(String jsonCompletePath) {
+	public String getDataFromJsonFile(String jsonCompletePath) {
 		File lastUpdated= new File(jsonCompletePath);
 		String response= null;		
 		if(lastUpdated.exists())
 		{
 		 try {
 			response = FileUtils.readFileToString(lastUpdated, "utf-8");
-			System.out.println(response);			
+			//System.out.println(response);			
 		 	} 
 		 	catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -188,16 +201,33 @@ public class GetCurrentMarketPrice {
 
 
 
-	public  Map<String,Map<String,Object>> getCurrentMarketPrice(String exchangeName,List<String> tradedPair){
+	public  Map<String,Map<String,Object>> getCurrentMarketPrice(String exchangeName,List<String> tradedPair,int fetchMode){
 		
 		
 		FetchConfiguration configVO = getFetchConfigurationForExchange(exchangeName);
 		Map<String,Map<String,Object>> exchangeValue = null;
 		
 		if(configVO != null) {		
-			if(configVO.isAllFetch()) {
+			if(configVO.getAllFetch() ==1  ||  (configVO.getAllFetch() == 2  && fetchMode== 1)) 
+			{
 				try {
 					exchangeValue = getDataForAll(configVO);
+					if(fetchMode ==2 ) {
+						Iterator<String> iter = exchangeValue.keySet().iterator();
+						List<String> removeList = new ArrayList<String>();
+						while(iter.hasNext()) {
+							String coinPair = iter.next();
+							if(tradedPair.contains(coinPair))
+							{
+								
+							}
+							else {
+								removeList.add(coinPair);
+							}
+						}
+						System.out.println(removeList);
+						System.out.println("Removal Success " +exchangeValue.values().removeAll(removeList));
+					}
 				} catch (MalformedURLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -223,7 +253,7 @@ public class GetCurrentMarketPrice {
 	private Map<String, Map<String, Object>> getDataForSpecificList(List<String> tradedPair, FetchConfiguration configVO) {
 		Map<String, Map<String, Object>> exchangeValue =null;
 		String requestSymbol= null;
-		for(AttributeVO attr :configVO.getAttributeFetch())
+		/*for(AttributeVO attr :configVO.getAttributeFetch())
 		{
 			if(attr.getTgt_attr_name().equalsIgnoreCase("symbol"))
 			{
@@ -232,7 +262,9 @@ public class GetCurrentMarketPrice {
 			}
 			
 			
-		}
+		}*/
+	System.out.println("IN Specific List");
+		requestSymbol = configVO.getGetSymbolParameter();
 		if(requestSymbol!= null) 
 		{
 			String requestURL= null;
@@ -308,7 +340,7 @@ public class GetCurrentMarketPrice {
 		Map<String,Object> coinstat = new TreeMap<String, Object>();
 		String symbolStr = null;
 		String currencyStr  =null;
-		System.out.println("sumbol "+symbol.toString());
+		//System.out.println("sumbol "+symbol.toString());
 		for(AttributeVO attrVO : configVO.getAttributeFetch()) 
 		{
 			
@@ -322,7 +354,7 @@ public class GetCurrentMarketPrice {
 					   Map<Integer,Object> jsonObject = new TreeMap<Integer,Object>();
 					   int count = 0;
 					   
-					   System.out.println("Dynamic variable count "+count);
+					   //System.out.println("Dynamic variable count "+count);
 					   
 				   }
 				   else
@@ -330,19 +362,19 @@ public class GetCurrentMarketPrice {
 					   
 					   if (attrVO.getPath().length() > 0) {
 						String[] pathValues = attrVO.getPath().split("\\.");
-						System.out.println("Path " + attrVO.getPath() + "path values " + pathValues.length);
+						//System.out.println("Path " + attrVO.getPath() + "path values " + pathValues.length);
 						for (int i = 0; i < pathValues.length; i++) {
 							//TODO jsonArray  type. determine JsonArray or JSONObject 
 							//Let see for it
-							System.out.println("Path values " + pathValues[i]);
+							//System.out.println("Path values " + pathValues[i]);
 							json = json.getJSONObject(pathValues[i]);
-							System.out.println(json.toString());
+							//System.out.println(json.toString());
 						} 
 					}
 					if(attrVO.getAttr_src_dataType().equalsIgnoreCase("String"))
 					   {
-						System.out.println(json.toString(4));
-						   System.out.println("String Value for attribute : "+attrVO.getAttr_name() +"is "+json.getString(attrVO.getAttr_name()));
+						//System.out.println(json.toString(4));
+						  // System.out.println("String Value for attribute : "+attrVO.getAttr_name() +"is "+json.getString(attrVO.getAttr_name()));
 						   coinstat.put(attrVO.getTgt_attr_name(), getTargetObjectType(attrVO.getAttr_tgt_dataType(),json.getString(attrVO.getAttr_name())));
 
 					   }
@@ -359,34 +391,25 @@ public class GetCurrentMarketPrice {
 					   if(attrVO.getTgt_attr_name().equalsIgnoreCase(("symbol")))
 					   {
 						   String symbolVal= json.getString(attrVO.getAttr_name());
-						   System.out.println(symbolVal);
-						   /*if (configVO.getName().equalsIgnoreCase("LIVECOIN")) {
-							   symbolStr =symbolVal.substring(0, symbolVal.indexOf("/"));
-									   currencyStr= symbolVal.substring(symbolVal.indexOf("/"));
-									   symbolStr=removeSpecialCharacters(symbolStr);
-									   currencyStr=removeSpecialCharacters(currencyStr);
-									   coinstat.put("symbol", symbolStr);
-										coinstat.put("tradeCurrency", currencyStr);
-						   }
-						   else {*/
+						   //System.out.println(symbolVal);
+						   
 							for (String currency : configVO.getTransCurrency()) {
-								System.out.println(currency);
+								//System.out.println(currency);
 								if (symbolVal.toLowerCase().endsWith(currency.toLowerCase())) {
-									System.out.println(symbolVal.substring(0,
-											symbolVal.toLowerCase().lastIndexOf(currency.toLowerCase())));
+									//System.out.println(symbolVal.substring(0,	symbolVal.toLowerCase().lastIndexOf(currency.toLowerCase())));
 									symbolStr = symbolVal.substring(0,
 											symbolVal.toLowerCase().lastIndexOf(currency.toLowerCase()));
-									symbolStr = removeSpecialCharacters(symbolStr);
+									symbolStr = removeSpecialCharacters(symbolStr).toUpperCase();
 									currencyStr = symbolVal
-											.substring(symbolVal.toLowerCase().lastIndexOf(currency.toLowerCase()));
+											.substring(symbolVal.toLowerCase().lastIndexOf(currency.toLowerCase())).toUpperCase();
 									coinstat.put("symbol", symbolStr);
 									coinstat.put("tradeCurrency", currencyStr);
 								}
 							} 
-						//}
+						
 					   }
 					   if(symbolStr!= null && currencyStr!= null) {
-						   exchangeValue.put(symbolStr.toUpperCase()+"/"+currencyStr.toUpperCase(),coinstat);
+						   exchangeValue.put(symbolStr+"/"+currencyStr,coinstat);
 
 					   }
 					   else
@@ -406,7 +429,7 @@ public class GetCurrentMarketPrice {
 	private String removeSpecialCharacters(String symbolStr) {
 		
 		String alphaOnly = symbolStr.replaceAll("[^a-zA-Z]+","");
-		System.out.println("afterRemoveing the speial"+alphaOnly);
+		//System.out.println("afterRemoveing the speial"+alphaOnly);
 		
 		return alphaOnly;
 	}
@@ -432,8 +455,35 @@ public class GetCurrentMarketPrice {
 		
 	}
 	
+	public Map<String,Map<String,Map<String,Object>>> getDataForWatchList()
+	{
+		
+		Map<String,Map<String,Map<String,Object>>>  exchangeDataMap = new TreeMap<String, Map<String,Map<String,Object>>>();
+		
+		String response = getDataFromJsonFile("C:/Documents/watchlist.json");
+		Gson gson = new Gson();
+		 Type listType = new TypeToken<List<WatchListVO>>(){}.getType();
+		 
+		 List<WatchListVO> fetchConfig= gson.fromJson(response,listType);
+		 
+		 for(WatchListVO watchVO : fetchConfig) {
+		/*	 System.out.println(watchVO.getExchangeName());
+			 System.out.println(watchVO.getWatchlist());*/
+			 exchangeDataMap.put(watchVO.getExchangeName(), getCurrentMarketPrice(watchVO.getExchangeName(),watchVO.getWatchlist(),2));
+			 
+		 }
+		
+		
+		//System.out.println(exchangeDataMap);
+		
+		return exchangeDataMap;
+		
+	}
 	
-	
-	
+	public String javaToJson(Map obj) {
+		JSONObject jsonObj = new JSONObject(obj);
+	//System.out.println(jsonObj.toString(2));
+		return jsonObj.toString(4);
+	}
 
 }

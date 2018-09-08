@@ -6,49 +6,60 @@ import java.util.List;
 
 public class ExchangeCurrencyVO {
 
-	 private static final BigDecimal BIG_DECIMAL_ZERO = new BigDecimal("0");
+	private static final BigDecimal BIG_DECIMAL_ZERO = new BigDecimal("0");
 	String exchangeName;
-	 String coinName;
-	 BigDecimal depositAmt = BIG_DECIMAL_ZERO;
-	 BigDecimal withdrawalAmt = BIG_DECIMAL_ZERO;
-	
-	 BigDecimal totalAmt = BIG_DECIMAL_ZERO;
-	 
-	 BigDecimal currentMarketValue = BIG_DECIMAL_ZERO;
-	 public BigDecimal getCurrentMarketValue() {
-		return currentMarketValue;
-	}
-	public void setCurrentMarketValue(BigDecimal currentMarketValue) {
-		this.currentMarketValue = currentMarketValue;
-	}
+	String coinName;
+	BigDecimal depositAmt = BIG_DECIMAL_ZERO;
+	BigDecimal withdrawalAmt = BIG_DECIMAL_ZERO;
+
+	BigDecimal totalAmt = BIG_DECIMAL_ZERO;
+
+	BigDecimal currentMarketValue = BIG_DECIMAL_ZERO;
 
 	//Holds the coins available in exchange here.
-	 List<CurrencyMean> currency=new ArrayList<CurrencyMean>();
-	 
+	List<CurrencyMean> currency=new ArrayList<CurrencyMean>();
+	BigDecimal xchangeTransferCommission = BIG_DECIMAL_ZERO;
 	
-	
-	
+	BigDecimal marketCapPrice = BIG_DECIMAL_ZERO;
+
+
+
+	public BigDecimal getMarketCapPrice() {
+		return marketCapPrice;
+	}
+	public void setMarketCapPrice(BigDecimal marketCapPrice) {
+		this.marketCapPrice = marketCapPrice;
+	}
+
+
+
 	public boolean tradeCurrency = false;
-	 
-	 public BigDecimal getTotalAmt() {
+
+	public BigDecimal getTotalAmt() {
 		return totalAmt;
 	}
 	public void setTotalAmt(BigDecimal totalAmt) {
 		this.totalAmt = totalAmt;
 	}
 
-	
-	 
-	
-	 
-	 public BigDecimal getXchangeTransferCommission() {
-			return xchangeTransferCommission;
-		}
-		public void setXchangeTransferCommission(BigDecimal xchangeTransferCommission) {
-			this.xchangeTransferCommission = xchangeTransferCommission;
-		}
-	 
-		BigDecimal xchangeTransferCommission = BIG_DECIMAL_ZERO;
+	public BigDecimal getCurrentMarketValue() {
+		return currentMarketValue;
+	}
+	public void setCurrentMarketValue(BigDecimal currentMarketValue) {
+		this.currentMarketValue = currentMarketValue;
+	}
+
+
+
+
+	public BigDecimal getXchangeTransferCommission() {
+		return xchangeTransferCommission;
+	}
+	public void setXchangeTransferCommission(BigDecimal xchangeTransferCommission) {
+		this.xchangeTransferCommission = xchangeTransferCommission;
+	}
+
+
 	public boolean isTradeCurrency() {
 		return tradeCurrency;
 	}
@@ -88,9 +99,9 @@ public class ExchangeCurrencyVO {
 	public void addCurrencyVO(CurrencyMean mean){
 		this.currency.add(mean);
 	}
-	
-	
-	
+
+
+
 	public String toString()
 	{
 		return this.exchangeName+","+this.coinName+","+this.currency.toString();

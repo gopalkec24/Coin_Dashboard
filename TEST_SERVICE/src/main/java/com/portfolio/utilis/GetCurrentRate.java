@@ -33,10 +33,11 @@ import org.apache.commons.io.FileUtils;
 
 public class GetCurrentRate {
 	
-	private static final Map<String,Integer> CACHED_COIN_ID = Collections.synchronizedMap(new HashMap<String,Integer>());
-	private static final String CONFIG_DIRECTORY = "C:/Documents/";
 	
-	public static String api_key="CMC_PRO_API_KEY=9afba42a-ebdc-4bf0-a742-d110c154dc49";
+
+	private static final Map<String,Integer> CACHED_COIN_ID = Collections.synchronizedMap(new HashMap<String,Integer>());
+		
+	public static List<FetchConfiguration> fetchConfig = null;
 
 	public static void main(String[] args) throws Exception {
 
@@ -85,7 +86,7 @@ public class GetCurrentRate {
 	public static String getDetailsFromSite(String endpointURL)
 			throws MalformedURLException, IOException, ProtocolException {
 		StringBuffer response = new StringBuffer();
-		
+		System.out.println(endpointURL);
 		HttpURLConnection conn =  ReadTradeConfig.getHttpURLConnection(endpointURL);
 		conn.addRequestProperty("User-Agent", "Mozilla/4.0");
 		//conn.setRequestMethod("GET");
@@ -104,7 +105,7 @@ public class GetCurrentRate {
 		String output;
 		System.out.println("Output from Server .... \n");
 		while ((output = br.readLine()) != null) {
-			System.out.println(output);
+			//System.out.println(output);
 			response.append(output);
 		}
 		System.out.println("Going to disconnect");		
@@ -130,10 +131,10 @@ public class GetCurrentRate {
 		cacheCoinId();
 		Map<String,BigDecimal> currentPriceMap = new HashMap<String,BigDecimal>();
 		for(String findSymbol: tradedSymbol){
-			System.out.println(findSymbol);			
+			//System.out.println(findSymbol);			
 			int id=getCoinId(findSymbol);	 
 			if (id!= -1) {
-				System.out.println(tickerURL + id + "/");
+				//System.out.println(tickerURL + id + "/");
 				String symbolDetails = getDetailsFromSite(tickerURL + id + "/");
 				currentPriceMap.put(findSymbol,getDetailForSymbolV2(symbolDetails));
 			}
@@ -144,7 +145,7 @@ public class GetCurrentRate {
 	
 	public static Map<String, BigDecimal> getMarketPriceFromCoinMarketCap(List<String> tradedSymbol) throws Exception {
 		//CMC_PRO_API_KEY=9afba42a-ebdc-4bf0-a742-d110c154dc49&id=1,2,1027,825&convert=USD"
-		String tickerURL="https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?"+api_key;
+		String tickerURL=ReadTradeConfig.COINMARKETCAP_QUOTES_LATEST+ReadTradeConfig.api_key;
 		cacheCoinId();
 		List<Integer> idList= new ArrayList<Integer>();	
 		StringBuffer ids= new StringBuffer();
@@ -155,7 +156,10 @@ public class GetCurrentRate {
 			{
 				ids.append(","+id);
 				idList.add(id);		
-				
+				System.out.println("Coin Market ID  found for Coin "+findSymbol + " with ID"+id);
+			}
+			else {
+				System.out.println("Coin Market ID not found for Coin "+findSymbol);
 			}
 		}
 		String marketData= getDetailsFromSite(tickerURL+"&id="+ids.toString().substring(1));
@@ -189,8 +193,8 @@ public class GetCurrentRate {
 	}
 
 	private static String cacheCoinIdFromMarketPlace() throws Exception {
-		String endpointURL = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/map?"+api_key;
-		File lastUpdated= new File(CONFIG_DIRECTORY+"lastCacheUpdate.json");
+		String endpointURL = ReadTradeConfig.COINMARKETCAP_CRYPTOCURRENCY_MAP+ReadTradeConfig.api_key;
+		File lastUpdated= new File(ReadTradeConfig.CONFIG_DIRECTORY+"lastCacheUpdate.json");
 		long lastUpdateInMS =0;
 		String response  = null;
 		String timeStamp = null;
@@ -202,7 +206,7 @@ public class GetCurrentRate {
 			 timeStamp = cacheObj.getJSONObject("status").getString("timestamp");
 			 lastUpdateInMS= getTimeinMilliseconds(timeStamp);
 			 Date ne = new Date(lastUpdateInMS);
-			System.out.println("Value got from Cache "+ timeStamp + " Date " + ne);
+			//System.out.println("Value got from Cache "+ timeStamp + " Date " + ne);
 		}	
 		}
 	    System.out.println("Last updated time " +lastUpdateInMS);
@@ -249,8 +253,9 @@ public class GetCurrentRate {
 		Map<String, Map<String, Map<String, Object>>> xchangeCurrentValueMap = new TreeMap<String, Map<String,Map<String,Object>>>();
 		
 		
-		List<FetchConfiguration> fetchConfig = getExchangeConfigData();
-		
+		if (fetchConfig == null) {
+			fetchConfig = getExchangeConfigData();
+		}
 		for(FetchConfiguration config : fetchConfig)
 		{
 		 //FetchConfiguration fetchConfig=  gson.fromJson(response, FetchConfiguration.class);
@@ -280,14 +285,15 @@ public class GetCurrentRate {
 	}
 
 	public static List<FetchConfiguration> getExchangeConfigData() {
-		File lastUpdated= new File(CONFIG_DIRECTORY+"configurationURL1.json");
+		File lastUpdated= new File(ReadTradeConfig.CONFIG_DIRECTORY+"configurationURL1.json");
 		String response= null;
-		List<FetchConfiguration> fetchConfig = null;
+		if(fetchConfig== null) {
 		if(lastUpdated.exists())
 		{
-		 try {
+		 try {			 
+			 
 			response = FileUtils.readFileToString(lastUpdated, "utf-8");
-			System.out.println(response);
+			//System.out.println(response);
 			 Gson gson = new Gson();
 			 Type listType = new TypeToken<List<FetchConfiguration>>(){}.getType();
 			 
@@ -302,8 +308,11 @@ public class GetCurrentRate {
 		}
 	
 		}
+		}
 		return fetchConfig;
 	}
+	
+	
 	
 	public void getDataFromJSON(String response) {
 		JSONObject symbolList = new JSONObject(response);
@@ -320,7 +329,7 @@ public class GetCurrentRate {
 	private static BigDecimal getDetailForSymbolV2(String symbolDetails) {
   
 		JSONObject object= new JSONObject(symbolDetails);
-		System.out.println(object.toString());
+		//System.out.println(object.toString());
 		JSONObject currencyDetails = object.getJSONObject("data").getJSONObject("quotes");
 		JSONObject price=currencyDetails.getJSONObject("USD");
 		Object objPrice = price.get("price");
@@ -338,13 +347,13 @@ public class GetCurrentRate {
 	private static Map<String, BigDecimal> getDetailForSymbols(String symbolDetails) {
 		  
 		JSONObject object= new JSONObject(symbolDetails);
-		System.out.println(object.toString());
+		//System.out.println(object.toString());
 		String[] ids = JSONObject.getNames(object.getJSONObject("data"));
 		BigDecimal latestPrice = null;
 		 Map<String,BigDecimal> currentPriceMap = new HashMap<String,BigDecimal>();
 		for(String id: ids)
 		{
-			System.out.println("Symbol ID: "+id);
+		//System.out.println("Symbol ID: "+id);
 		JSONObject currencyDetails = object.getJSONObject("data").getJSONObject(id).getJSONObject("quote").getJSONObject("USD");		 
 		String coinName= object.getJSONObject("data").getJSONObject(id).getString("symbol");
 		Object objPrice = currencyDetails.get("price");
@@ -372,7 +381,7 @@ public class GetCurrentRate {
 			if(fetch) {
 			 
 			 for(String currency: coinName.split(",")) {
-				 System.out.println(object.getJSONObject("quotes").getBigDecimal(source+currency));
+				// System.out.println(object.getJSONObject("quotes").getBigDecimal(source+currency));
 				 nonCyptoCurrentValue.put(currency,object.getJSONObject("quotes").getBigDecimal(source+currency));
 			 }
 			}
