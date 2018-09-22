@@ -1,0 +1,82 @@
+Short forms :
+
+$ or jquery
+$() or $(document).ready()
+
+Anaynous Function
+
+$(document).ready(function(){
+
+});
+
+Named Function
+function NamedFun(jquery){
+
+}
+$(document).ready(NamedFun);
+
+<!-- Putting jQuery into no-conflict mode. -->
+<script src="prototype.js"></script>
+<script src="jquery.js"></script>
+<script>
+ 
+var $j = jQuery.noConflict();
+// $j is now an alias to the jQuery function; creating the new alias is optional.
+
+
+
+<!-- Another way to put jQuery into no-conflict mode. -->
+<script src="prototype.js"></script>
+<script src="jquery.js"></script>
+<script>
+jQuery.noConflict();
+
+
+<!-- Using the $ inside an immediately-invoked function expression. -->
+<script src="prototype.js"></script>
+<script src="jquery.js"></script>
+<script>
+ 
+jQuery.noConflict();
+ 
+(function( $ ) {
+    // Your jQuery code here, using the $
+})( jQuery );
+ 
+</script>
+
+
+
+
+
+<script src="jquery.js"></script>
+<script src="prototype.js"></script>
+<script>
+ 
+jQuery(document).ready(function( $ ) {
+    // Your jQuery code here, using $ to refer to jQuery.
+});
+ 
+</script> 
+
+
+Including jQuery Before Other Libraries:
+
+<script src="jquery.js"></script>
+<script src="prototype.js"></script>
+<script>
+ 
+// Use full jQuery function name to reference jQuery.
+jQuery( document ).ready(function() {
+    jQuery( "div" ).hide();
+});
+
+
+$("table tr").filter(":even").addClass("alt");
+
+$("#transactionSummary").filter(":nth-child(odd)").addClass("alt");
+
+$(document).ready()
+
+
+

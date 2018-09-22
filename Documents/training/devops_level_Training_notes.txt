@@ -1,0 +1,248 @@
+LEVEL 0 DEVOPS
+Training
+
+Why DEVOPS is required
+how DEVOPS is defined
+key concepts
+industry analyst say about devops
+
+Challenges facing business and IT
+Agility
+Time to market
+Quality
+
+Ensure the quality , splint or Iteration how it is ensure 
+Cost
+Reduce the cost in SDLC 
+
+Automation
+Manuall error is reduced Manuall error is reduced 
+Hiow automatation is insured and reduce the work effort
+
+DEVOPS-
+stability of
+
+Goal - Very high quality delivery in quick time
+features should have customer ask for , high level quality with comparator 
+
+Features with Quick time
+
+
+dev/test/qa interaction problem
+challenges faced 
+
+Developers 
+  Need infra   2-8 weeks
+  
+  developes -> release Manager -> <<< deployment request >>- > Deploy on the Environments
+  
+  QA-> release Manager -> <<deployment request>> -> QA enivirnment
+  
+  
+  Manual handoff 
+  jira
+No coolarbiration
+Disintgerate tools & procees
+Limited Automation
+Delayed Time to production
+
+  
+  
+  Issues with pre Devops processes
+  
+  
+  DEv environment works, but not in production,QA etc
+  
+  No collaboration .
+  Production log data time constraints is involved
+  Every body is either own goals
+  Requirement 
+  Tools are different at different level
+  
+  
+  Quick as possible
+  Deliver
+  Stability
+  No outage/production issue. 
+  Checklist to be followed
+  
+  So much is effort involved in deliver to Production
+  Different processes
+  
+  DEV & QA
+  
+  Dev-ops is collaboration between Dev and ops team members
+  is Mind set
+  it is set philosophies that emphasis on   Team culture 
+  LEan PRocesses
+  Automation
+  product focus
+  
+  Every role in company to work in company
+  
+  collective they work in DEV ops worlds.
+  
+  people transformation(Culture,collaboration,communication,one team)
+  one team and One goals
+  transparency in communication 
+  Culture of organization has to be changed
+  process transformation
+  LEan processes,Continuous feed back, continuous improvement)
+  
+  Tools and technology transformation(automation)
+  Product focus
+  Fail Fast,Experimentation,MVP )
+  
+  
+  Dev ops philosophies
+  
+  People transformation
+  Break the walks
+   common goals
+    
+	QA is first class citizen
+	Testing :Functional and  non Functional 
+	
+	APplication functionality and features
+	what is required to delivered
+	
+	Experimentation
+	skilled people in team
+	common Portal 
+	
+  PRocesses & practices
+  
+  Agility
+  Definition of done
+  Definition of Ready
+  Continuous integration
+  Check the quality of code
+  Agile planning is important
+  
+  Tools & technology
+  
+  Whole functionality  
+  
+  
+  Microservices and containers
+  oeprational analytics
+  intergarion of tolls 
+  scripting
+  autatomation
+  
+  PRodcut focus
+  
+  Identify the fetautes to startt with that
+  increatment  
+  
+  CALMS
+  
+  cultures
+  Automation
+  Lean
+  MEsaurement
+  sharing
+  
+  Continuous planning
+  continuous integrationc
+  Continuous releaseand deployment
+  continuous testing
+  continuous feedback
+  continous monitoring
+  continuous improvement
+  API management
+  cloud
+  
+  
+  Path to Dev-ops
+  Waterfall-> agile -> continuous 0>Integrated platform
+  Legacy -> consulting-> Enterprise transformation road map -> Integrated platform
+  
+  Maintenance & support -> assessment -> Point/e2e solutions  
+  
+  Planning
+  
+  Rally
+  JIIRA
+  HP agileMS TGS
+  Version one
+  
+  IBM RTC
+  
+  
+  DevelopersEclipse
+  IBM RTC
+  Im
+  NEtneans
+  
+  SCM -cpde repsotty
+  
+  
+  Git
+  SVM
+  MS TFS
+  CVS
+  perforce
+  ACCrev
+  
+  Build CI code quality 
+  
+  JEnkins
+  Bamboo
+  team city
+  IBM CLM
+  HP aLm
+  Sonar
+  PMD
+  CAST
+  Forty
+  GO CD
+  
+  
+  Artificat repsostory 
+  
+  Nexus
+  Artificatory
+  BuGEt
+  NPM
+  
+  provission
+  
+  
+  Continuous delvioery Vs continuous deplument
+  
+  Delivery -> Manual deployment
+  
+  Deployment -> automatic deployment
+  
+  Continuous Delivery
+  unit test -> Platform test -> deliver to staging -> application acceptance tests >> deploy to production(Manual process) => Post deploy tests
+  
+  Continuous Deployment
+  unit test -> Platform test -> deliver to staging -> application acceptance tests >> deploy to production(Automatic process) => Post deploy tests
+  
+  otjer process are automatic
+  
+  
+  Businee requirment- > plamming tool -> dev ops(dev,Qa.Ops.BA,SA, PO,S<) ->Planning, Local development & BUg Fix ing -> local scm 0< code review -> public SCM
+   -> build ->
+   MAven
+   Gradle
+   
+   Build fails  - 15 mins is SLA ->    Automated unit testing -> Code quality (Sonar ) -> Arificat repostory -> Environemnt provisiing-< automated deployment-> functionality& non functionality testing 
+   
+   
+   PContunuous planningC
+   Integration
+   En
+   
+   sCM
+   laac
+   Container  and vM
+  
+  
+  
+  
+  
+  
+  

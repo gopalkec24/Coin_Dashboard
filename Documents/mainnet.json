@@ -1,0 +1,27 @@
+[
+{
+  "exchangeName" : "BINANCE",
+  "coinName": "VEN",
+  "order" : 1,
+  "replaceCoin" : true,
+  "replaceCoinName" : "VET",
+ "coinFactor" : 100.00  
+},
+{
+  "exchangeName" : "BITBNS",
+  "coinName": "VEN",
+  "order" : 1,
+  "replaceCoin" : false,
+  "replaceCoinName" : "VEN",
+ "coinFactor" : 100.00  
+},
+{
+  "exchangeName" : "BITBNS",
+  "coinName": "RPX",
+  "order" : 1,
+  "replaceCoin" : true,
+  "replaceCoinName" : "PHX",
+ "coinFactor" : 1.00  
+}
+
+]

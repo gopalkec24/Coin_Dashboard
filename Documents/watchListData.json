@@ -1,0 +1,666 @@
+{
+    "BINANCE": {
+        "SC/ETH": {
+            "priceChange": 0.00000113,
+            "symbol": "SC",
+            "lowPrice": 0.00002553,
+            "highPrice": 0.00002759,
+            "openPrice": 0.00002558,
+            "prevClosePrice": 0.00002557,
+            "tradeCurrency": "ETH",
+            "priceChangePercent": 4.418,
+            "lastPrice": 0.00002671
+        },
+        "ETH/USDT": {
+            "priceChange": -3.99,
+            "symbol": "ETH",
+            "lowPrice": 283,
+            "highPrice": 292.64,
+            "openPrice": 289.23,
+            "prevClosePrice": 289.22,
+            "tradeCurrency": "USDT",
+            "priceChangePercent": -1.38,
+            "lastPrice": 285.24
+        },
+        "BNB/USDT": {
+            "priceChange": 0.1497,
+            "symbol": "BNB",
+            "lowPrice": 11.2106,
+            "highPrice": 11.4494,
+            "openPrice": 11.2181,
+            "prevClosePrice": 11.2317,
+            "tradeCurrency": "USDT",
+            "priceChangePercent": 1.334,
+            "lastPrice": 11.3678
+        },
+        "SNT/BTC": {
+            "priceChange": 1.0E-7,
+            "symbol": "SNT",
+            "lowPrice": 0.00000589,
+            "highPrice": 0.00000607,
+            "openPrice": 0.00000595,
+            "prevClosePrice": 0.00000595,
+            "tradeCurrency": "BTC",
+            "priceChangePercent": 1.681,
+            "lastPrice": 0.00000605
+        }
+    },
+    "BITBNS": {
+        "DOGE/INR": {"lastPrice": 0.38},
+        "SIA/INR": {"lastPrice": 0.54},
+        "WAN/INR": {"lastPrice": 103.61},
+        "XEM/INR": {"lastPrice": 9.46},
+        "QLC/INR": {"lastPrice": 5.42},
+        "WPR/INR": {"lastPrice": 1.84},
+        "EOSD/INR": {"lastPrice": 3.93},
+        "LTC/INR": {"lastPrice": 4960},
+        "VET/INR": {"lastPrice": 1.38},
+        "TST/INR": {"lastPrice": 24},
+        "ZRX/INR": {"lastPrice": 58.89},
+        "QTUM/INR": {"lastPrice": 356.28},
+        "WAVES/INR": {"lastPrice": 163.5},
+        "ADA/INR": {"lastPrice": 7.67},
+        "BTC/INR": {"lastPrice": 526639.5},
+        "OMG/INR": {"lastPrice": 352.29},
+        "BLZ/INR": {"lastPrice": 11.6},
+        "XMR/INR": {"lastPrice": 10000},
+        "ETC/INR": {"lastPrice": 1015},
+        "GAS/INR": {"lastPrice": 647.65},
+        "NPXS/INR": {"lastPrice": 0.14},
+        "POLY/INR": {"lastPrice": 15.32},
+        "CLOAK/INR": {"lastPrice": 170},
+        "GNT/INR": {"lastPrice": 13.99},
+        "POWR/INR": {"lastPrice": 15.3},
+        "EOS/INR": {"lastPrice": 467.29},
+        "PHX/INR": {"lastPrice": 1.38},
+        "XVG/INR": {"lastPrice": 1.31},
+        "DASH/INR": {"lastPrice": 15002},
+        "RPX/INR": {"lastPrice": 1.38},
+        "REQ/INR": {"lastPrice": 3.6},
+        "LRC/INR": {"lastPrice": 9},
+        "SUB/INR": {"lastPrice": 11.3},
+        "QKC/INR": {"lastPrice": 3.1},
+        "TRX/INR": {"lastPrice": 1.86},
+        "XLM/INR": {"lastPrice": 16.9},
+        "REP/INR": {"lastPrice": 1599},
+        "RAM/INR": {"lastPrice": 0.55},
+        "USDT/INR": {"lastPrice": 71.32},
+        "ETH/INR": {"lastPrice": 20799.96},
+        "VEN/INR": {"lastPrice": 1.38},
+        "DBC/INR": {"lastPrice": 1.07},
+        "KMD/INR": {"lastPrice": 92.2},
+        "ACT/INR": {"lastPrice": 3.57},
+        "ONT/INR": {"lastPrice": 178.29},
+        "LSK/INR": {"lastPrice": 339},
+        "NCASH/INR": {"lastPrice": 0.58},
+        "DGB/INR": {"lastPrice": 2.29},
+        "ICX/INR": {"lastPrice": 68.79},
+        "BCH/INR": {"lastPrice": 44500},
+        "LOOM/INR": {"lastPrice": 8.73},
+        "STORM/INR": {"lastPrice": 0.73},
+        "XRP/INR": {"lastPrice": 24.17},
+        "NEO/INR": {"lastPrice": 1809.84},
+        "GRS/INR": {"lastPrice": 51.95},
+        "DENT/INR": {"lastPrice": 0.23},
+        "SOUL/INR": {"lastPrice": 2.89},
+        "NEXO/INR": {"lastPrice": 4.6},
+        "ZIL/INR": {"lastPrice": 3.35},
+        "LET/INR": {"lastPrice": 0.92},
+        "CPX/INR": {"lastPrice": 1.58},
+        "EFX/INR": {"lastPrice": 1.03},
+        "DGD/INR": {"lastPrice": 4000},
+        "ETN/INR": {"lastPrice": 0.45}
+    },
+    "LIVECOIN": {
+        "DIG/USD": {
+            "highPrice": 0.07487,
+            "symbol": "DIG",
+            "lowPrice": 0.06901,
+            "tradeCurrency": "USD",
+            "lastPrice": 0.074
+        },
+        "DIG/ETH": {
+            "highPrice": 0.00026197,
+            "symbol": "DIG",
+            "lowPrice": 0.000242,
+            "tradeCurrency": "ETH",
+            "lastPrice": 0.00026107
+        },
+        "DOGE/BTC": {
+            "highPrice": 7.3E-7,
+            "symbol": "DOGE",
+            "lowPrice": 6.6E-7,
+            "tradeCurrency": "BTC",
+            "lastPrice": 7.2E-7
+        },
+        "DIG/LTC": {
+            "highPrice": 0.00115779,
+            "symbol": "DIG",
+            "lowPrice": 0.00102002,
+            "tradeCurrency": "LTC",
+            "lastPrice": 0.00115755
+        }
+    },
+    "KOINEX": {
+        "ONT/XRP": {
+            "highPrice": 7.1,
+            "symbol": "ONT",
+            "lowPrice": 7.1,
+            "priceChangePercent": 0,
+            "lastPrice": 7.1
+        },
+        "ZCO/ETH": {
+            "highPrice": 0.000063,
+            "symbol": "ZCO",
+            "lowPrice": 0.000063,
+            "priceChangePercent": 0,
+            "lastPrice": 0.000063
+        },
+        "REQ/XRP": {
+            "highPrice": 0.148,
+            "symbol": "REQ",
+            "lowPrice": 0.142,
+            "priceChangePercent": 0,
+            "lastPrice": 0.148
+        },
+        "XRB/INR": {
+            "highPrice": 239,
+            "symbol": "XRB",
+            "lowPrice": 220,
+            "priceChangePercent": -1.7857142857142858,
+            "lastPrice": 220
+        },
+        "LTC/INR": {
+            "highPrice": 4900.02,
+            "symbol": "LTC",
+            "lowPrice": 4700.01,
+            "priceChangePercent": 0.25072947061275,
+            "lastPrice": 4810.03
+        },
+        "EOS/BTC": {
+            "highPrice": 0.00147825,
+            "symbol": "EOS",
+            "lowPrice": 0.00147825,
+            "priceChangePercent": 0,
+            "lastPrice": 0.00147825
+        },
+        "XRP/ETH": {
+            "highPrice": 0.0012,
+            "symbol": "XRP",
+            "lowPrice": 0.001186,
+            "priceChangePercent": 1.1804384485666026,
+            "lastPrice": 0.0012
+        },
+        "ELF/INR": {
+            "highPrice": 33.18,
+            "symbol": "ELF",
+            "lowPrice": 29.16,
+            "priceChangePercent": -7.428571428571429,
+            "lastPrice": 29.16
+        },
+        "ZRX/INR": {
+            "highPrice": 59.94,
+            "symbol": "ZRX",
+            "lowPrice": 58.95,
+            "priceChangePercent": -0.08474576271185959,
+            "lastPrice": 58.95
+        },
+        "IOST/XRP": {
+            "highPrice": 0.04750001,
+            "symbol": "IOST",
+            "lowPrice": 0.04750001,
+            "priceChangePercent": 0,
+            "lastPrice": 0.04750001
+        },
+        "SNT/XRP": {
+            "highPrice": 0.0888,
+            "symbol": "SNT",
+            "lowPrice": 0.0888,
+            "priceChangePercent": 0,
+            "lastPrice": 0.0888
+        },
+        "BTC/INR": {
+            "highPrice": 534940,
+            "symbol": "BTC",
+            "lowPrice": 522802,
+            "priceChangePercent": 1.8925714285714286,
+            "lastPrice": 534936
+        },
+        "OMG/INR": {
+            "highPrice": 350,
+            "symbol": "OMG",
+            "lowPrice": 321.05,
+            "priceChangePercent": 5.757575757575758,
+            "lastPrice": 349
+        },
+        "GAS/INR": {
+            "highPrice": 650,
+            "symbol": "GAS",
+            "lowPrice": 560.01,
+            "priceChangePercent": -5.083050847457629,
+            "lastPrice": 560.01
+        },
+        "TUSD/INR": {
+            "highPrice": 73.99,
+            "symbol": "TUSD",
+            "lowPrice": 71.32,
+            "priceChangePercent": -2.2879846554322536,
+            "lastPrice": 71.32
+        },
+        "POLY/INR": {
+            "highPrice": 15.42,
+            "symbol": "POLY",
+            "lowPrice": 15.32,
+            "priceChangePercent": -0.19543973941367662,
+            "lastPrice": 15.32
+        },
+        "GNT/INR": {
+            "highPrice": 13.3,
+            "symbol": "GNT",
+            "lowPrice": 12.85,
+            "priceChangePercent": 3.5019455252918372,
+            "lastPrice": 13.3
+        },
+        "EOS/INR": {
+            "highPrice": 485.98,
+            "symbol": "EOS",
+            "lowPrice": 466,
+            "priceChangePercent": 4.287553648068673,
+            "lastPrice": 485.98
+        },
+        "ELF/XRP": {
+            "highPrice": 1.2,
+            "symbol": "ELF",
+            "lowPrice": 1.2,
+            "priceChangePercent": 0,
+            "lastPrice": 1.2
+        },
+        "REQ/BTC": {
+            "highPrice": 0.0000077,
+            "symbol": "REQ",
+            "lowPrice": 0.0000077,
+            "priceChangePercent": 0,
+            "lastPrice": 0.0000077
+        },
+        "LTC/BTC": {
+            "highPrice": 0.00750052,
+            "symbol": "LTC",
+            "lowPrice": 0.00750051,
+            "priceChangePercent": -0.00013332408952900082,
+            "lastPrice": 0.00750051
+        },
+        "BCH/ETH": {
+            "highPrice": 2.04979999,
+            "symbol": "BCH",
+            "lowPrice": 2.04979999,
+            "priceChangePercent": 0,
+            "lastPrice": 2.04979999
+        },
+        "AE/INR": {
+            "highPrice": 86,
+            "symbol": "AE",
+            "lowPrice": 80,
+            "priceChangePercent": -0.012498437695294483,
+            "lastPrice": 80
+        },
+        "ZCO/INR": {
+            "highPrice": 1.41,
+            "symbol": "ZCO",
+            "lowPrice": 1.32,
+            "priceChangePercent": 5.223880597014913,
+            "lastPrice": 1.41
+        },
+        "CMT/INR": {
+            "highPrice": 7.28,
+            "symbol": "CMT",
+            "lowPrice": 7.28,
+            "priceChangePercent": 0,
+            "lastPrice": 7.28
+        },
+        "LTC/XRP": {
+            "highPrice": 203.4989,
+            "symbol": "LTC",
+            "lowPrice": 190,
+            "priceChangePercent": 7.104684210526312,
+            "lastPrice": 203.4989
+        },
+        "REQ/INR": {
+            "highPrice": 3.7,
+            "symbol": "REQ",
+            "lowPrice": 3.37,
+            "priceChangePercent": -5.420054200541998,
+            "lastPrice": 3.49
+        },
+        "TUSD/ETH": {
+            "highPrice": 0.0075,
+            "symbol": "TUSD",
+            "lowPrice": 0.0075,
+            "priceChangePercent": 0,
+            "lastPrice": 0.0075
+        },
+        "XRP/BTC": {
+            "highPrice": 0.000035,
+            "symbol": "XRP",
+            "lowPrice": 0.000035,
+            "priceChangePercent": 0,
+            "lastPrice": 0.000035
+        },
+        "OMG/BTC": {
+            "highPrice": 0.00042611,
+            "symbol": "OMG",
+            "lowPrice": 0.00042611,
+            "priceChangePercent": 0,
+            "lastPrice": 0.00042611
+        },
+        "QKC/INR": {
+            "highPrice": 3.19,
+            "symbol": "QKC",
+            "lowPrice": 2.8,
+            "priceChangePercent": 10.763888888888891,
+            "lastPrice": 3.19
+        },
+        "TRX/INR": {
+            "highPrice": 1.88,
+            "symbol": "TRX",
+            "lowPrice": 1.82,
+            "priceChangePercent": 0.5434782608695656,
+            "lastPrice": 1.85
+        },
+        "XLM/INR": {
+            "highPrice": 16.8,
+            "symbol": "XLM",
+            "lowPrice": 16,
+            "priceChangePercent": 2.127659574468094,
+            "lastPrice": 16.8
+        },
+        "OMG/XRP": {
+            "highPrice": 9.97800001,
+            "symbol": "OMG",
+            "lowPrice": 9.97800001,
+            "priceChangePercent": 0,
+            "lastPrice": 9.97800001
+        },
+        "REP/INR": {
+            "highPrice": 1431,
+            "symbol": "REP",
+            "lowPrice": 1431,
+            "priceChangePercent": 0,
+            "lastPrice": 1431
+        },
+        "XZC/INR": {
+            "highPrice": 950,
+            "symbol": "XZC",
+            "lowPrice": 860.01,
+            "priceChangePercent": 10.463831815909117,
+            "lastPrice": 950
+        },
+        "POLY/XRP": {
+            "highPrice": 0.6062,
+            "symbol": "POLY",
+            "lowPrice": 0.6062,
+            "priceChangePercent": 0,
+            "lastPrice": 0.6062
+        },
+        "ETH/INR": {
+            "highPrice": 21400,
+            "symbol": "ETH",
+            "lowPrice": 20757,
+            "priceChangePercent": -3.0001401934669842,
+            "lastPrice": 20757
+        },
+        "AION/INR": {
+            "highPrice": 42.02,
+            "symbol": "AION",
+            "lowPrice": 42.01,
+            "priceChangePercent": 0,
+            "lastPrice": 42.02
+        },
+        "TRX/XRP": {
+            "highPrice": 0.07699999,
+            "symbol": "TRX",
+            "lowPrice": 0.076,
+            "priceChangePercent": -1.2986884803491612,
+            "lastPrice": 0.076
+        },
+        "ZIL/XRP": {
+            "highPrice": 0.145,
+            "symbol": "ZIL",
+            "lowPrice": 0.145,
+            "priceChangePercent": 0,
+            "lastPrice": 0.145
+        },
+        "ACT/INR": {
+            "highPrice": 3.5,
+            "symbol": "ACT",
+            "lowPrice": 3.31,
+            "priceChangePercent": 5.740181268882173,
+            "lastPrice": 3.5
+        },
+        "BAT/INR": {
+            "highPrice": 16.68,
+            "symbol": "BAT",
+            "lowPrice": 16.12,
+            "priceChangePercent": 2.3573200992555767,
+            "lastPrice": 16.5
+        },
+        "NCASH/BTC": {
+            "highPrice": 0.0000013,
+            "symbol": "NCASH",
+            "lowPrice": 0.0000013,
+            "priceChangePercent": 0,
+            "lastPrice": 0.0000013
+        },
+        "ONT/INR": {
+            "highPrice": 170,
+            "symbol": "ONT",
+            "lowPrice": 160,
+            "priceChangePercent": -5.294117647058823,
+            "lastPrice": 161
+        },
+        "LTC/ETH": {
+            "highPrice": 0.22200909,
+            "symbol": "LTC",
+            "lowPrice": 0.22200877,
+            "priceChangePercent": 0.00014413845002523982,
+            "lastPrice": 0.22200909
+        },
+        "TUSD/XRP": {
+            "highPrice": 3.15,
+            "symbol": "TUSD",
+            "lowPrice": 3.15,
+            "priceChangePercent": 0,
+            "lastPrice": 3.15
+        },
+        "NCASH/INR": {
+            "highPrice": 0.64,
+            "symbol": "NCASH",
+            "lowPrice": 0.58,
+            "priceChangePercent": -7.936507936507944,
+            "lastPrice": 0.58
+        },
+        "EOS/ETH": {
+            "highPrice": 0.02796925,
+            "symbol": "EOS",
+            "lowPrice": 0.02796924,
+            "priceChangePercent": 0.00003575356356366972,
+            "lastPrice": 0.02796925
+        },
+        "BCH/INR": {
+            "highPrice": 47000,
+            "symbol": "BCH",
+            "lowPrice": 44000,
+            "priceChangePercent": 2.396514161220044,
+            "lastPrice": 47000
+        },
+        "TRX/BTC": {
+            "highPrice": 0.00000395,
+            "symbol": "TRX",
+            "lowPrice": 0.00000394,
+            "priceChangePercent": -0.2531645569620229,
+            "lastPrice": 0.00000394
+        },
+        "XRP/INR": {
+            "highPrice": 24.75,
+            "symbol": "XRP",
+            "lowPrice": 23.89,
+            "priceChangePercent": -2.505050505050509,
+            "lastPrice": 24.13
+        },
+        "ZCO/BTC": {
+            "highPrice": 0.00000235,
+            "symbol": "ZCO",
+            "lowPrice": 0.00000235,
+            "priceChangePercent": 0,
+            "lastPrice": 0.00000235
+        },
+        "IOST/INR": {
+            "highPrice": 1.21,
+            "symbol": "IOST",
+            "lowPrice": 1.16,
+            "priceChangePercent": 1.6806722689075646,
+            "lastPrice": 1.21
+        },
+        "NEO/INR": {
+            "highPrice": 1749,
+            "symbol": "NEO",
+            "lowPrice": 1619,
+            "priceChangePercent": 8.029647930821495,
+            "lastPrice": 1749
+        },
+        "SNT/INR": {
+            "highPrice": 3.2,
+            "symbol": "SNT",
+            "lowPrice": 3.06,
+            "priceChangePercent": -4.3750000000000036,
+            "lastPrice": 3.06
+        },
+        "OMG/ETH": {
+            "highPrice": 0.014,
+            "symbol": "OMG",
+            "lowPrice": 0.014,
+            "priceChangePercent": 0,
+            "lastPrice": 0.014
+        },
+        "TRX/ETH": {
+            "highPrice": 0.0000633,
+            "symbol": "TRX",
+            "lowPrice": 0.0000633,
+            "priceChangePercent": 0,
+            "lastPrice": 0.0000633
+        },
+        "AE/XRP": {
+            "highPrice": 3.47,
+            "symbol": "AE",
+            "lowPrice": 3.47,
+            "priceChangePercent": 0,
+            "lastPrice": 3.47
+        },
+        "NCASH/XRP": {
+            "highPrice": 0.02499999,
+            "symbol": "NCASH",
+            "lowPrice": 0.024,
+            "priceChangePercent": 4.166624999999996,
+            "lastPrice": 0.02499999
+        },
+        "ETH/BTC": {
+            "highPrice": 0.0285,
+            "symbol": "ETH",
+            "lowPrice": 0.0285,
+            "priceChangePercent": 0,
+            "lastPrice": 0.0285
+        },
+        "QKC/XRP": {
+            "highPrice": 0.037,
+            "symbol": "QKC",
+            "lowPrice": 0.037,
+            "priceChangePercent": 0,
+            "lastPrice": 0.037
+        },
+        "CMT/XRP": {
+            "highPrice": 0.27020001,
+            "symbol": "CMT",
+            "lowPrice": 0.27020001,
+            "priceChangePercent": 0,
+            "lastPrice": 0.27020001
+        },
+        "ZIL/INR": {
+            "highPrice": 3.39,
+            "symbol": "ZIL",
+            "lowPrice": 3.08,
+            "priceChangePercent": 1.8072289156626522,
+            "lastPrice": 3.38
+        },
+        "BCH/BTC": {
+            "highPrice": 0.06000013,
+            "symbol": "BCH",
+            "lowPrice": 0.06000013,
+            "priceChangePercent": 0,
+            "lastPrice": 0.06000013
+        },
+        "EOS/XRP": {
+            "highPrice": 15.00000001,
+            "symbol": "EOS",
+            "lowPrice": 15.00000001,
+            "priceChangePercent": 0,
+            "lastPrice": 15.00000001
+        },
+        "XZC/XRP": {
+            "highPrice": 150,
+            "symbol": "XZC",
+            "lowPrice": 150,
+            "priceChangePercent": 0,
+            "lastPrice": 150
+        },
+        "ZCO/XRP": {
+            "highPrice": 0.057,
+            "symbol": "ZCO",
+            "lowPrice": 0.0549,
+            "priceChangePercent": 3.8251366120218666,
+            "lastPrice": 0.057
+        },
+        "ACT/XRP": {
+            "highPrice": 0.12,
+            "symbol": "ACT",
+            "lowPrice": 0.12,
+            "priceChangePercent": 0,
+            "lastPrice": 0.12
+        },
+        "GNT/XRP": {
+            "highPrice": 0.59699999,
+            "symbol": "GNT",
+            "lowPrice": 0.59699999,
+            "priceChangePercent": 0,
+            "lastPrice": 0.59699999
+        },
+        "REP/XRP": {
+            "highPrice": 165,
+            "symbol": "REP",
+            "lowPrice": 165,
+            "priceChangePercent": 0,
+            "lastPrice": 165
+        },
+        "TUSD/BTC": {
+            "highPrice": 0.00013001,
+            "symbol": "TUSD",
+            "lowPrice": 0.000119,
+            "priceChangePercent": -8.468579340050768,
+            "lastPrice": 0.000119
+        }
+    },
+    "BITSO": {
+        "TUSD/MXN": {
+            "highPrice": 19.6,
+            "symbol": "TUSD",
+            "lowPrice": 19,
+            "tradeCurrency": "MXN",
+            "lastPrice": 19.59
+        },
+        "ETH/MXN": {
+            "highPrice": 5614.64,
+            "symbol": "ETH",
+            "lowPrice": 5399.99,
+            "tradeCurrency": "MXN",
+            "lastPrice": 5589.95
+        }
+    }
+}

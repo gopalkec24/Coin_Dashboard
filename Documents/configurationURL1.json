@@ -13,7 +13,8 @@
 "result":"JSONARRAY",
 "transCurrency":["BNB","ETH","BTC","USDT"],
 "currencyAlias":{"BNB":"BNB","BTC":"BTC","ETH":"ETH","USDT":"USDT"},
-"allFetch":true,
+"allFetch":2,
+"getSymbolParameter" :"symbol",
 "name" : "BINANCE"
 },
 {
@@ -24,10 +25,11 @@
 ],
 "result":"JSONOBJECT",
 "securityRequired": false,
-"allFetch":false,
+"allFetch":0,
 "name" : "BITSO",
 "transCurrency":["ETH","MXN"],
 "currencyAlias" : { "ETH":"ETH","MXN":"MXN"},
+"getSymbolParameter" :"book",
 "fetchURL":"https://api.bitso.com/v3/ticker/"
 },
 {
@@ -39,11 +41,12 @@
 ],
 "result":"JSONOBJECT",
 "securityRequired": false,
-"allFetch":true,
+"allFetch":1,
 "name" : "KOINEX",
 "transCurrency":["ETH","INR","XRP","BTC"],
 "currencyAlias" : { "bitcoin" : "BTC","ripple": "XRP","ether" :"ETH","inr":"INR"},
-"fetchURL":"https://koinex.in/api/ticker/"
+"fetchURL":"https://koinex.in/api/ticker/",
+"getSymbolParameter" :"currency_short_form"
 },
 {
 "attributeFetch":[
@@ -52,10 +55,11 @@
 "fetchURL": "https://bitbns.com/order/getTickerAll",
 "securityRequired" : false,
 "result":"JSONARRAY",
-"transCurrency":["ETH","BTC"],
+"transCurrency":["INR"],
 "name" : "BITBNS",
-"allFetch":true,
-"currencyAlias" : {"INR":"INR"}
+"allFetch":1,
+"currencyAlias" : {"INR":"INR","SIA":"SC"},
+"getSymbolParameter" :""
 },
 {
 "attributeFetch":[
@@ -67,10 +71,11 @@
 "fetchURL": "https://api.livecoin.net/exchange/ticker",
 "securityRequired" : false,
 "result":"JSONARRAY",
-"transCurrency":["ETH","LTC","BTC","USD","EUR","WAVES"],
+"transCurrency":["ETH","LTC","BTC","USD","EUR","WAVES","DANC","RUR","XMR","EURN","BCH","ZBC","VRC","LEO"],
 "name" : "LIVECOIN",
-"allFetch":true,
-"currencyAlias" : {"LTC":"LTC", "ETH":"ETH"}
+"allFetch":0,
+"currencyAlias" : {"LTC":"LTC", "ETH":"ETH"},
+"getSymbolParameter" :"currencyPair"
 }
 
 

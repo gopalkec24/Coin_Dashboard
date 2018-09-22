@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<title>Exchange Live Rate</title>
+	<link rel="stylesheet" type="text/css" href="vendor/css/normalize.css">
+ <link rel="stylesheet" type="text/css" href="resources/css/coinstyle.css">
+
+
+</head>
+
+<body>
+<script src="jquery.js" > </script>
+<script>
+$.support.cors = true;
+$(document).ready(function(){
+
+$.ajax({
+type:"GET",
+url:"https://api.binance.com/api/v1/ticker/24hr",
+crossDomain : true,
+headers : {
+"Origin":"https://www.hcl.com"
+}
+
+}).done(function (result) {
+
+console.log(result);
+
+});
+
+});
+
+</script>
+
+          <br> <h1> Live Xchange Rates Testing </h1>
+		   
+		    <table id="investamt" > </table>
+			<br>
+		   <table id="summary"> </table>
+		   <br>
+		   <table id="exchange"> </table>
+		  
+		   
+</body>
+
+</html>

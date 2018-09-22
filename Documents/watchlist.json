@@ -1,0 +1,23 @@
+[
+{
+	"exchangeName" : "BINANCE",
+	"watchlist" : [ "ETH/USDT","TRX/USDT","BNB/USDT","SC/ETH","SNT/BTC","ONT/USDT","ICX/ETH"]
+},
+{
+	"exchangeName" : "KOINEX",
+	"watchlist" : ["ETH/INR","ACT/INR"]
+},
+{
+	"exchangeName" : "BITBNS",
+	"watchlist" : ["ETH/INR","DOGE/INR"]
+},
+{
+	"exchangeName" : "LIVECOIN",
+	"watchlist" : ["DIG/USD","DIG/ETH","DIG/LTC","DOGE/BTC"]
+},
+{
+	"exchangeName" : "BITSO",
+	"watchlist" : ["ETH/MXN","LTC/MXN","XRP/MXN","TUSD/MXN"]
+}
+
+]
