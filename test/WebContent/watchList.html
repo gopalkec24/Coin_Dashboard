@@ -40,6 +40,10 @@ for(var exchange in result)
    
 }
  $("#exchange").append(dataRow); 
+ 
+
+ var dt = new Date();
+ $("#timestamp").text(dt.toLocaleString());
 }
 });
 
@@ -50,7 +54,7 @@ for(var exchange in result)
 </script>
 
            <br> <h1> WatchList Data </h1>
-		  
+		   <label id="timestamp"></label>
 		    <table id="investamt" > </table>
 			<br>
 		   <table id="summary"> </table>

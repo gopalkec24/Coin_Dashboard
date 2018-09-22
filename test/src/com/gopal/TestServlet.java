@@ -71,10 +71,13 @@ public class TestServlet extends HttpServlet
 					
 			String json = ReportGeneration.generateReport(transactionFile,configurationFile, sumJsonLocation, saveReport);
 			response.getWriter().write(json);
+			response.setStatus(200);
 		
 } catch (Exception e) {
 	// TODO Auto-generated catch block
 	e.printStackTrace();
+	response.setStatus(500);
+	response.getWriter().write(e.getMessage());
 } 
 	finally {
 		System.out.println("I am frustrated");

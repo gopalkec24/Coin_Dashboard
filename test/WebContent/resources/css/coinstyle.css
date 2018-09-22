@@ -18,7 +18,9 @@ text-align:center;
 {
 border-collapse: collapse;
 }
-
+.alt {
+	background-color: #c0ecef;
+}
 html{
 	background-color:#fff;
 	color :#555;
@@ -58,12 +60,13 @@ td {
 body{
 font-family: Helvetica Neue,Arial;
 font-size : 18px;	
-background-color: #c0ecef;
+/*background-color: #c0ecef;
+*/
 }
 
 table
 {
-font-size : 15px;		
+font-size : 13px;		
 }
 h1,h2{
 	color: rgba(255,60,40);
@@ -80,4 +83,18 @@ h1{
 
 h2{
 	font-size : 20px;
+}
+
+
+
+.transactionsummary tr:nth-child(even) {
+    background-color: #c0ecef;
+}
+
+#enableDivBlock{
+	display: block;
+	}
+#disableDivBlock{
+	display: none;
+	}
 }
