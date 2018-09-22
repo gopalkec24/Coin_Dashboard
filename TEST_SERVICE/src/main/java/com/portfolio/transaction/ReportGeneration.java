@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -18,6 +19,7 @@ import com.portfolio.dao.CurrencyMean;
 import com.portfolio.dao.ExchangeCurrencyVO;
 import com.portfolio.dao.ExchangeVO;
 import com.portfolio.dao.InvestmentConversion;
+import com.portfolio.dao.MainnetConfiguration;
 import com.portfolio.dao.SummaryVO;
 import com.portfolio.dao.TransactionCurrency;
 import com.portfolio.dao.TransactionDetailsVO;
@@ -28,7 +30,8 @@ import com.portfolio.utilis.ReadTransactionDetails;
 
 public class ReportGeneration {
 
-	private static final String TRANSACT_AMT = "TRANS_CURR";
+	private static final String TRANS_VOLUME = "VOL";
+	private static final String TRANSACT_AMT = "CUR";
 	private static final BigDecimal BIG_DECIMAL_100 = new BigDecimal(100);
 	private static final BigDecimal BIG_DECIMAL_1 = new BigDecimal(1);
 	private static final String CSV_DELIMITER = ",";
@@ -89,7 +92,12 @@ public class ReportGeneration {
 		String coinName = null;
 		String tradeCurrency = null;
 		List<TransactionDetailsVO> transactionList = readTransaction.getTransactionDetails(transactionFile,filterExchange, coinName, tradeCurrency);
+		
 		Map<String, ExchangeVO> exchangeList = reGeneration.processTransactions(transactionList);
+		
+		//MAINNET RELEASE
+		reGeneration.processMainNet(exchangeList);
+		
 		//System.out.println(exchangeList);
 		SummaryVO summaryVO= reGeneration.calculateMeanValue(exchangeList);
 		//reGeneration.calculateCurrentValue(exchangeList);
@@ -105,6 +113,100 @@ public class ReportGeneration {
 	}
 
 	
+	private void processMainNet(Map<String, ExchangeVO> exchangeList) {
+		for(MainnetConfiguration mainData : GetCurrentRate.getMainNetConfigData())
+		{
+			if(exchangeList.containsKey(mainData.getExchangeName())){
+				System.out.println("Exchange found for mainnet processing ....");
+			ExchangeVO exchangeVO = exchangeList.get(mainData.getExchangeName());
+			if(exchangeVO ==null) {
+				System.out.println("No Data for Exchange :"+exchangeVO);
+				continue;
+			}
+			else {
+				System.out.println("exchange data "+exchangeVO.getExchangeName());
+			}
+			
+			ExchangeCurrencyVO replaceCoin =null;
+			ExchangeCurrencyVO cloneCoin= null;
+			boolean notFound=false;
+			for(ExchangeCurrencyVO  originalCoin : exchangeVO.getCoinList()) {
+				if(originalCoin.getCoinName().equalsIgnoreCase( mainData.getCoinName())) {
+					if(mainData.isReplaceCoin()) {
+						System.out.println("Replace is true condition here ");
+						if(mainData.getReplaceCoinName()!= null && !mainData.getReplaceCoinName().equalsIgnoreCase("")) {
+							if(mainData.getReplaceCoinName().equalsIgnoreCase(originalCoin.getCoinName())) {
+								System.out.println("Symbol name is same , ideally cwrong configuration");
+								originalCoin.setTotalAmt(originalCoin.getTotalAmt().multiply(mainData.getCoinFactor()));
+								
+							}
+							else
+							{
+								replaceCoin =  getXChangeCurrency(exchangeVO.getCoinList(), mainData.getReplaceCoinName());
+								if(replaceCoin== null) {
+									System.out.println("Replacing coin is null");
+									System.out.println("Need to create the coin");
+									cloneCoin=originalCoin;
+									notFound=true;
+									break;
+										
+										
+								
+								}
+								else {
+									System.out.println("Replaced coin found from list : replacing it..");
+									//currently updating upon number of coin by coin factor value
+									//TODO May be required to update the buy ,sell volume and amt to replacing coin 
+									replaceCoin.setTotalAmt(replaceCoin.getTotalAmt().add(originalCoin.getTotalAmt().multiply(mainData.getCoinFactor())));									
+									originalCoin.setTotalAmt(ZERO_BIGDECIMAL);
+								}
+							}
+							
+						}
+					}
+					else {
+						System.out.println("Replace is false condition here ");
+						originalCoin.setTotalAmt(originalCoin.getTotalAmt().multiply(mainData.getCoinFactor()));
+						updateMainNetDetails(originalCoin.getCurrency(),mainData.getCoinFactor());
+					}
+				}
+				
+				
+			}
+			
+		
+			if(cloneCoin != null && notFound)
+			{
+			replaceCoin = new ExchangeCurrencyVO();
+			 //System.out.println("Coin Not Found : "+ coinName);
+		replaceCoin.setCoinName(mainData.getReplaceCoinName());
+		replaceCoin.setExchangeName(mainData.getExchangeName());
+		replaceCoin.setTotalAmt(cloneCoin.getTotalAmt().multiply(mainData.getCoinFactor()));
+		exchangeVO.getCoinList().add(replaceCoin);
+		cloneCoin.setTotalAmt(ZERO_BIGDECIMAL);
+		tradedSymbol.add(mainData.getReplaceCoinName());
+			}
+			
+			}
+			else
+			{
+				System.out.println("No Exchange Found : "+mainData.getExchangeName());
+			}
+			
+		}
+		
+	}
+
+	private void updateMainNetDetails(List<CurrencyMean> currency, BigDecimal coinFactor) {
+		for(CurrencyMean transCurr: currency) {
+			
+			transCurr.setBuyVolume(transCurr.getBuyVolume().multiply(coinFactor));
+			transCurr.setSellVolume(transCurr.getSellVolume().multiply(coinFactor));
+			
+		}
+		
+	}
+
 	private String summaryDataToJson(SummaryVO summaryVO) {
 		
 		JSONObject summaryJson = new JSONObject(summaryVO);
@@ -172,7 +274,7 @@ public class ReportGeneration {
 		Map<String,BigDecimal> nonCryptoCurrencyValue = null;
 		Map<String,Map<String,Map<String,Object>>> currentMarketValueAllExchange = null;
 		GetCurrentMarketPrice gcmp= new GetCurrentMarketPrice();
-		
+		SummaryVO summaryVO = new SummaryVO();
 		try 
 		{
 			//get the current MarketValue from CoinMarketCap site
@@ -190,12 +292,13 @@ public class ReportGeneration {
 		}
 		int i=0;
 		   
-		SummaryVO summaryVO = new SummaryVO();
+		
 		//Get all the Exchanges values here
 			for (ExchangeVO exchangeVO : exchangeList.values())
 			{
 				BigDecimal nonCryptoInvAmt=ZERO_BIGDECIMAL;
 				BigDecimal totalAmt = ZERO_BIGDECIMAL;
+				BigDecimal netInvestAmt = ZERO_BIGDECIMAL;
 				String exchangeName= exchangeVO.getExchangeName();
 			
 				Map<String,Map<String,Object>> xchangeCurrent = null;
@@ -312,7 +415,8 @@ public class ReportGeneration {
 							currentValue= nonCryptoCurrencyValue.get(exVO.getCoinName()) ;
 							if(currentValue!= null) {
 							System.out.println(exVO.getCoinName()+" Current Value : "+ currentValue);
-							nonCryptoInvAmt= nonCryptoInvAmt.add(exVO.getDepositAmt().divide(currentValue,2, RoundingMode.HALF_UP));							
+							nonCryptoInvAmt= nonCryptoInvAmt.add(exVO.getDepositAmt().divide(currentValue,2, RoundingMode.HALF_UP));
+							netInvestAmt=netInvestAmt.add(exVO.getDepositAmt().subtract(exVO.getWithdrawalAmt()).divide(currentValue,2, RoundingMode.HALF_UP));
 							BigDecimal currentMarketValue = exVO.getTotalAmt().divide(currentValue,2, RoundingMode.HALF_UP);
 							totalAmt= totalAmt.add(currentMarketValue);
 							exVO.setCurrentMarketValue(currentMarketValue);
@@ -343,26 +447,30 @@ public class ReportGeneration {
 				totalAmt= totalAmt.setScale(2, RoundingMode.HALF_UP);
 				exchangeVO.setNonCryptoInvestValue(nonCryptoInvAmt);
 				exchangeVO.setCurrentMarketValue(totalAmt);
+				exchangeVO.setNetInvestValue(netInvestAmt);
 				
 				summaryVO.setNonCryptoInvstAmt(summaryVO.getNonCryptoInvstAmt().add(nonCryptoInvAmt));
 				summaryVO.setCurrentMarketValue(summaryVO.getCurrentMarketValue().add(totalAmt));
+				summaryVO.setNetInvestValue(summaryVO.getNetInvestValue().add(netInvestAmt));
 		
 			}
 			summaryVO.setExchangeList(exchangeList);
 			int compare = summaryVO.getNonCryptoInvstAmt().compareTo(ZERO_BIGDECIMAL);
 			if(compare== 1) 
 			{
-			summaryVO.setProfit((summaryVO.getCurrentMarketValue().subtract(summaryVO.getNonCryptoInvstAmt())).divide(summaryVO.getNonCryptoInvstAmt(),2,RoundingMode.HALF_UP).multiply(BIG_DECIMAL_100));
+			summaryVO.setProfit((summaryVO.getCurrentMarketValue().subtract(summaryVO.getNetInvestValue())).divide(summaryVO.getNetInvestValue(),2,RoundingMode.HALF_UP).multiply(BIG_DECIMAL_100));
 			}
 			else
 			{
 				summaryVO.setProfit(ZERO_BIGDECIMAL);
 			}
-			InvestmentConversion con= new InvestmentConversion();			
-			con.setCurrentMarketValue(summaryVO.getCurrentMarketValue());
+			InvestmentConversion con= null;			
+			/*con.setCurrentMarketValue(summaryVO.getCurrentMarketValue());
 			con.setInvestmentAmt(summaryVO.getNonCryptoInvstAmt());
+			con.setNetInvestAmt(summaryVO.getNetInvestValue());
+			con.setCurrencyValue(BIG_DECIMAL_1);
 			con.setCurrency("USD");
-			summaryVO.addInvestmentConversion(con);
+			summaryVO.addInvestmentConversion(con);*/
 			if (nonCryptoCurrencyValue!= null) {
 				for (String currency : nonCryptoCurrencyValue.keySet()) {
 					BigDecimal currecnyValue = nonCryptoCurrencyValue.get(currency);
@@ -370,6 +478,8 @@ public class ReportGeneration {
 						 con= new InvestmentConversion();
 						con.setCurrentMarketValue(summaryVO.getCurrentMarketValue().multiply(currecnyValue).setScale(2, RoundingMode.HALF_UP));
 						con.setInvestmentAmt(summaryVO.getNonCryptoInvstAmt().multiply(currecnyValue).setScale(2, RoundingMode.HALF_UP));
+						con.setNetInvestAmt(summaryVO.getNetInvestValue().multiply(currecnyValue).setScale(2, RoundingMode.HALF_UP));
+						con.setCurrencyValue(currecnyValue);
 						con.setCurrency(currency);
 						summaryVO.addInvestmentConversion(con);
 						}
@@ -513,7 +623,8 @@ public class ReportGeneration {
 			BigDecimal buyVolume;
 			BigDecimal sellVolume;
 			BigDecimal totalCommissionSpend;
-			CryptoTransactionVO crypto= new CryptoTransactionVO();				  
+			CryptoTransactionVO crypto= new CryptoTransactionVO();		
+			crypto.setXchangeName(exchangeName);
 			
 			if (currencyMean != null) {
 				
@@ -590,7 +701,7 @@ public class ReportGeneration {
 					//System.out.println("effectiveVolume : "+effectiveVolume);
 					System.out.print("BUY ORDER");
 					System.out.print("\t comission value ="+" ");
-					crypto.setCommissionType("VOLUME");											
+					crypto.setCommissionType(TRANS_VOLUME);											
 				}
 				else if(detailsVO.getCommissionType() == 3 || detailsVO.getCommissionType() == 5) {		
 					//transaction coin as commission , but commission is fixed amount
@@ -599,7 +710,7 @@ public class ReportGeneration {
 					System.out.print("BUY ORDER");
 					System.out.print("\t"+commissionRate);
 					crypto.setCommissionValue(commissionRate);
-					crypto.setCommissionType("VOLUME");																	 
+					crypto.setCommissionType(TRANS_VOLUME);																	 
 					
 				}
 				else if(detailsVO.getCommissionType() == 4 ) {				
@@ -609,7 +720,7 @@ public class ReportGeneration {
 					System.out.print("BUY ORDER");
 					System.out.print("\t"+commissionRate);
 					crypto.setCommissionValue(commissionRate);
-					crypto.setCommissionType("VOLUME");										   
+					crypto.setCommissionType(TRANS_VOLUME);										   
 				}
 				crypto.setTransactionType("BUY");
 				/*System.out.println("Actual Volume :"+volume);
@@ -653,7 +764,7 @@ public class ReportGeneration {
 					System.out.print("SELL ORDER");
 					System.out.print("\t"+commissionValue);
 					crypto.setCommissionValue(commissionValue);
-					crypto.setCommissionType("VOLUME");	
+					crypto.setCommissionType(TRANS_VOLUME);	
 				}
 				else if(detailsVO.getCommissionType() == 3 || detailsVO.getCommissionType() == 5) {
 					if(detailsVO.getCommissionType() == 3) 
@@ -672,7 +783,7 @@ public class ReportGeneration {
 					System.out.print("SELL ORDER");
 					System.out.print("\t"+commissionRate);
 	                crypto.setCommissionValue(commissionRate);
-					crypto.setCommissionType("VOLUME");
+					crypto.setCommissionType(TRANS_VOLUME);
 				}
 				else if(detailsVO.getCommissionType() == 4 ) {
 					
@@ -694,7 +805,7 @@ public class ReportGeneration {
 					System.out.print("SELL ORDER");
 					System.out.print("\t"+commissionRate);
 					crypto.setCommissionValue(commissionRate);
-					crypto.setCommissionType("VOLUME");				  
+					crypto.setCommissionType(TRANS_VOLUME);				  
 				}
 				
 				
@@ -719,7 +830,7 @@ public class ReportGeneration {
 				xChangeTransferRate=xChangeTransferRate.add(commissionRate);
 				System.out.print("\t"+commissionRate);
 				crypto.setCommissionValue(commissionRate);
-				crypto.setCommissionType("VOLUME");								
+				crypto.setCommissionType(TRANS_VOLUME);								
 				
 			}
 			//TODO withdrawal Transaction
@@ -730,7 +841,7 @@ public class ReportGeneration {
 				tradeCurrencyAmt=tradeCurrencyAmt.subtract(volume);
 				System.out.print("WITHDRAWAL ORDER");
 				crypto.setTransactionType("WITHDRAWAL");
-				crypto.setCommissionType("VOLUME");						  
+				crypto.setCommissionType(TRANS_VOLUME);						  
 				//TODO commission for Withdrawal Rate needs to be calculated
 				xChangeTransferRate=xChangeTransferRate.add(commissionRate);
 				System.out.print("\t"+effectiveVolume);
@@ -747,7 +858,7 @@ public class ReportGeneration {
 				
 				System.out.print("SELL ORDER");
 				crypto.setTransactionType("SELL");
-				crypto.setCommissionType("VOLUME");
+				crypto.setCommissionType(TRANS_VOLUME);
 				System.out.print("\t"+commissionValue);
 				crypto.setCommissionValue(commissionValue);
 			}
@@ -795,7 +906,7 @@ public class ReportGeneration {
 			//System.out.println("***********************************************************");
 			}
 			}
-			System.out.println("Before returniing"+listTrans.toString());
+			//System.out.println("Before returniing"+listTrans.toString());
 		
 		
 		return exchangeList;

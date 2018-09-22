@@ -56,6 +56,14 @@ public class CryptoTransactionVO {
 	String coinName;
 	String transactionCoin;
 	String commissionCoin;
+	String xchangeName;
+	
+	public String getXchangeName() {
+		return xchangeName;
+	}
+	public void setXchangeName(String xchangeName) {
+		this.xchangeName = xchangeName;
+	}
 	public BigDecimal getInitialVol() {
 		return initialVol;
 	}

@@ -2,19 +2,45 @@ package com.portfolio.dao;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class SummaryVO {
 
+	public SummaryVO() {
+		timestamp=new Date();
+	}
+	
 	private static final BigDecimal BIG_DECIMAL_ZERO = new BigDecimal("0");
 	Map<String, ExchangeVO> exchangeList ;
 	BigDecimal nonCryptoInvstAmt = BIG_DECIMAL_ZERO;
 	BigDecimal currentMarketValue = BIG_DECIMAL_ZERO;
+	BigDecimal netInvestValue=BIG_DECIMAL_ZERO;
 	BigDecimal profit = BIG_DECIMAL_ZERO;
 	List<InvestmentConversion> conversionList = new ArrayList<InvestmentConversion>();
 	List<CryptoTransactionVO> listCryptoTransactions;
+	Date timestamp;
+	
+	
+	
+	public Date getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public BigDecimal getNetInvestValue() {
+		return netInvestValue;
+	}
+
+	public void setNetInvestValue(BigDecimal netInvestValue) {
+		this.netInvestValue = netInvestValue;
+	}
+
 	public List<InvestmentConversion> getConversionList() {
 		return conversionList;
 	}

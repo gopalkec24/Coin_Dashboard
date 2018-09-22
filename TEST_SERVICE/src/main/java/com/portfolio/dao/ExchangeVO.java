@@ -17,7 +17,14 @@ public class ExchangeVO {
 	public static final BigDecimal ZERO_BIGDECIMAL = new BigDecimal(0);
 	BigDecimal currentMarketValue =  ZERO_BIGDECIMAL;
 	BigDecimal nonCryptoInvestValue = ZERO_BIGDECIMAL;
+	BigDecimal netInvestValue = ZERO_BIGDECIMAL;
 	
+	public BigDecimal getNetInvestValue() {
+		return netInvestValue;
+	}
+	public void setNetInvestValue(BigDecimal netInvestValue) {
+		this.netInvestValue = netInvestValue;
+	}
 	public BigDecimal getCurrentMarketValue() {
 		return currentMarketValue;
 	}

@@ -27,6 +27,7 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.portfolio.dao.FetchConfiguration;
+import com.portfolio.dao.MainnetConfiguration;
 
 import org.apache.commons.io.FileUtils;
 
@@ -35,9 +36,26 @@ public class GetCurrentRate {
 	
 	
 
+	private static final String CM_ID = "id";
+
+	private static final String CM_SYMBOL = "symbol";
+
+	private static final String CM_STATUS = "status";
+
+	private static final String CM_PRICE = "price";
+
+	private static final String CURRENCY_USD = "USD";
+
+	private static final String CM_QUOTES = "quotes";
+
+	private static final String CM_DATA = "data";
+
+	private static final BigDecimal BIG_DECIMAL_ONE = new BigDecimal("1");
+
 	private static final Map<String,Integer> CACHED_COIN_ID = Collections.synchronizedMap(new HashMap<String,Integer>());
 		
 	public static List<FetchConfiguration> fetchConfig = null;
+	public static List<MainnetConfiguration> mainnetData = null;
 
 	public static void main(String[] args) throws Exception {
 
@@ -75,12 +93,16 @@ public class GetCurrentRate {
 		coinList.add("USDT");
 		coinList.add("VEN");
 		System.out.println(getMarketPriceFromCoinMarketCap(coinList));*/
-		List<String> exchagne = new ArrayList();
+	/*List<String> exchagne = new ArrayList();
 		exchagne.add("BINANCE");
-		getCurrentMarketPriceFromExchange(exchagne);
+		getCurrentMarketPriceFromExchange(exchagne);*/
 		//cacheCoinIdFromMarketPlace();
 		//getNonCryptoCurrencyValue("USD","MXN");
 
+		for(MainnetConfiguration mainData : GetCurrentRate.getMainNetConfigData())
+		{
+			System.out.println(mainData.getExchangeName());
+		}
 	}
 
 	public static String getDetailsFromSite(String endpointURL)
@@ -184,10 +206,10 @@ public class GetCurrentRate {
 		String response = cacheCoinIdFromMarketPlace();
 		JSONObject object= new JSONObject(response);
 		// System.out.println(object.toString());
-		JSONArray jsoncargo = object.getJSONArray("data");
+		JSONArray jsoncargo = object.getJSONArray(CM_DATA);
 		for (int i = 0; i < jsoncargo.length(); i++) {
-			 String symbol = jsoncargo.getJSONObject(i).getString("symbol");
-			 int id= jsoncargo.getJSONObject(i).getInt("id");			 
+			 String symbol = jsoncargo.getJSONObject(i).getString(CM_SYMBOL);
+			 int id= jsoncargo.getJSONObject(i).getInt(CM_ID);			 
 			 CACHED_COIN_ID.put(symbol,id);
 		}
 	}
@@ -203,7 +225,7 @@ public class GetCurrentRate {
 		 response = FileUtils.readFileToString(lastUpdated, "utf-8");
 		if(response!= null && !response.equalsIgnoreCase("") && response.length() > 0) {
 			JSONObject cacheObj = new JSONObject(response);
-			 timeStamp = cacheObj.getJSONObject("status").getString("timestamp");
+			 timeStamp = cacheObj.getJSONObject(CM_STATUS).getString("timestamp");
 			 lastUpdateInMS= getTimeinMilliseconds(timeStamp);
 			 Date ne = new Date(lastUpdateInMS);
 			//System.out.println("Value got from Cache "+ timeStamp + " Date " + ne);
@@ -233,20 +255,7 @@ public class GetCurrentRate {
 		    
 	}
 
-	/*private static String getDetailForSymbol(String symbolDetails) {		
-		
-		JSONObject object= new JSONObject(symbolDetails);
-		System.out.println(object.toString());
-		JSONObject currencyDetails = object.getJSONObject("data").getJSONObject("quotes");
-		 System.out.println(currencyDetails.toString());
-		
-		return null;
-	}*/
 
-	
-	
-	
-	
 	public static Map<String,Map<String,Map<String,Object>>> getCurrentMarketPriceFromExchange(List<String> exchangeName) 
 	{
 		
@@ -312,27 +321,41 @@ public class GetCurrentRate {
 		return fetchConfig;
 	}
 	
-	
-	
-	public void getDataFromJSON(String response) {
-		JSONObject symbolList = new JSONObject(response);
-		
-		JSONObject dataList =  (JSONObject) symbolList.get("data");
-		for(int i=0; i < dataList.length() ; i++) 
+	public static List<MainnetConfiguration> getMainNetConfigData() {
+		File lastUpdated= new File(ReadTradeConfig.CONFIG_DIRECTORY+"mainnet.json");
+		String response= null;
+		if(mainnetData== null) {
+		if(lastUpdated.exists())
 		{
+		 try {			 
+			 
+			response = FileUtils.readFileToString(lastUpdated, "utf-8");
+			//System.out.println(response);
+			 Gson gson = new Gson();
+			 Type listType = new TypeToken<List<MainnetConfiguration>>(){}.getType();
+			 
+			 mainnetData= gson.fromJson(response,listType);
+			 
 			
+			
+		 	} 
+		 	catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		
-		
+	
+		}
+		}
+		return mainnetData;
 	}
+	
 	private static BigDecimal getDetailForSymbolV2(String symbolDetails) {
   
 		JSONObject object= new JSONObject(symbolDetails);
 		//System.out.println(object.toString());
-		JSONObject currencyDetails = object.getJSONObject("data").getJSONObject("quotes");
-		JSONObject price=currencyDetails.getJSONObject("USD");
-		Object objPrice = price.get("price");
+		JSONObject currencyDetails = object.getJSONObject(CM_DATA).getJSONObject(CM_QUOTES);
+		JSONObject price=currencyDetails.getJSONObject(CURRENCY_USD);
+		Object objPrice = price.get(CM_PRICE);
 		
 		BigDecimal latestPrice = null;
 		if(objPrice!= null && objPrice instanceof Double) {
@@ -348,15 +371,15 @@ public class GetCurrentRate {
 		  
 		JSONObject object= new JSONObject(symbolDetails);
 		//System.out.println(object.toString());
-		String[] ids = JSONObject.getNames(object.getJSONObject("data"));
+		String[] ids = JSONObject.getNames(object.getJSONObject(CM_DATA));
 		BigDecimal latestPrice = null;
 		 Map<String,BigDecimal> currentPriceMap = new HashMap<String,BigDecimal>();
 		for(String id: ids)
 		{
 		//System.out.println("Symbol ID: "+id);
-		JSONObject currencyDetails = object.getJSONObject("data").getJSONObject(id).getJSONObject("quote").getJSONObject("USD");		 
-		String coinName= object.getJSONObject("data").getJSONObject(id).getString("symbol");
-		Object objPrice = currencyDetails.get("price");
+		JSONObject currencyDetails = object.getJSONObject(CM_DATA).getJSONObject(id).getJSONObject("quote").getJSONObject(CURRENCY_USD);		 
+		String coinName= object.getJSONObject(CM_DATA).getJSONObject(id).getString(CM_SYMBOL);
+		Object objPrice = currencyDetails.get(CM_PRICE);
 		
 		
 		if(objPrice!= null && objPrice instanceof Double) {
@@ -378,12 +401,18 @@ public class GetCurrentRate {
 		if(reponse!= null) {
 			JSONObject object= new JSONObject(reponse);
 			boolean  fetch = object.getBoolean("success");
-			if(fetch) {
+			if(fetch) {			 
+			 getCurrencyValueFromResponse(source, coinName, nonCyptoCurrentValue, object);
 			 
-			 for(String currency: coinName.split(",")) {
-				// System.out.println(object.getJSONObject("quotes").getBigDecimal(source+currency));
-				 nonCyptoCurrentValue.put(currency,object.getJSONObject("quotes").getBigDecimal(source+currency));
-			 }
+			}
+			else {
+				int code= object.getJSONObject("error").getInt("code");
+				if(code == 104) {
+					reponse= getDetailsFromSite("http://www.apilayer.net/api/live?access_key=c036cb4353fa9f7a4583407bc18baa95&source="+source+"&format=1&currencies="+coinName);
+					 object= new JSONObject(reponse);
+					fetch = object.getBoolean("success");
+					 getCurrencyValueFromResponse(source, coinName, nonCyptoCurrentValue, object);						
+				}
 			}
 			
 		}
@@ -393,8 +422,14 @@ public class GetCurrentRate {
 		
 	}
 
-	public static Map<String, Map<String, Map<String, Object>>> getCurrentMarketPriceFromExchange(Set<String> keySet) {
-		// TODO Auto-generated method stub
-		return null;
+	private static void getCurrencyValueFromResponse(String source, String coinName,
+			Map<String, BigDecimal> nonCyptoCurrentValue, JSONObject object) {
+		for(String currency: coinName.split(",")) {
+			// System.out.println(object.getJSONObject("quotes").getBigDecimal(source+currency));
+			 nonCyptoCurrentValue.put(currency,object.getJSONObject(CM_QUOTES).getBigDecimal(source+currency));
+		 }
+		nonCyptoCurrentValue.put(source, BIG_DECIMAL_ONE);
 	}
+
+	
 	}

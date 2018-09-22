@@ -122,12 +122,23 @@ public class GetCurrentMarketPrice {
 
 	private void mapBitBnsResultToTargetMap(JSONArray arr, FetchConfiguration configVO,
 			Map<String, Map<String, Object>> exchangeValue) {
+		boolean checkAlias = true;
+		if(configVO.getCurrencyAlias() == null)
+		{
+			checkAlias=false;
+		}
 		for(int i=0; i<arr.length() ; i++) {
 			JSONObject obj = arr.getJSONObject(i);
 			 String[] currenucyLot = JSONObject.getNames(obj);
 			 String coin = currenucyLot.length ==1 ? currenucyLot[0]:"";
+			
 			 Map<String,Object> returnMap= new TreeMap<String,Object>();
 			 returnMap.put("lastPrice",obj.getJSONObject(coin).getBigDecimal("lastTradePrice"));
+			 
+			 if(checkAlias && configVO.getCurrencyAlias().containsKey(coin)) {
+				 coin=configVO.getCurrencyAlias().get(coin);
+			 }
+			 
 			 exchangeValue.put(coin+"/"+"INR",returnMap);
 		}
 		
@@ -165,9 +176,9 @@ public class GetCurrentMarketPrice {
 
 	private Map<String, Object> getCoinDetailsForTarget(Map<String, Object> coinDetails, AttributeVO[] attributeFetch) {
 		Map<String,Object> returnMap= new TreeMap<String, Object>();
-		System.out.println(coinDetails);
+		//System.out.println(coinDetails);
 		for(AttributeVO attributeVO : attributeFetch) {
-			System.out.println(attributeVO.getAttr_name());
+			//System.out.println(attributeVO.getAttr_name());
 			if(attributeVO.getAttr_src_dataType().equalsIgnoreCase("String"))
 			{	
 				returnMap.put(attributeVO.getTgt_attr_name(),getTargetObjectType(attributeVO.getAttr_tgt_dataType(),(String)coinDetails.get(attributeVO.getAttr_name())));
@@ -207,10 +218,11 @@ public class GetCurrentMarketPrice {
 		FetchConfiguration configVO = getFetchConfigurationForExchange(exchangeName);
 		Map<String,Map<String,Object>> exchangeValue = null;
 		
-		if(configVO != null) {		
+		if(configVO != null) {	
+			try {
 			if(configVO.getAllFetch() ==1  ||  (configVO.getAllFetch() == 2  && fetchMode== 1)) 
 			{
-				try {
+				
 					exchangeValue = getDataForAll(configVO);
 					if(fetchMode ==2 ) {
 						Iterator<String> iter = exchangeValue.keySet().iterator();
@@ -228,20 +240,24 @@ public class GetCurrentMarketPrice {
 						System.out.println(removeList);
 						System.out.println("Removal Success " +exchangeValue.values().removeAll(removeList));
 					}
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ProtocolException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 			}
 			else
 			{	
 				exchangeValue = getDataForSpecificList(tradedPair, configVO);
+			}
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
 			}
 		}
 		return exchangeValue;
@@ -328,7 +344,7 @@ public class GetCurrentMarketPrice {
 		}
 		else
 		{
-		  System.out.println("No Equivalent Symbol Communicate Found for Exchange :"+exchangeName);
+		  //System.out.println("No Equivalent Symbol Communicate Found for Exchange :"+exchangeName);
 		  symbolValue=pair;
 		}
 		
