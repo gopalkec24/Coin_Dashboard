@@ -1,4 +1,4 @@
-table tr th,
+/*table tr th,
 td,
 .summary-class
 {
@@ -7,17 +7,21 @@ border : 1px solid black;
 color:red;
 text-align:center;
 
+}*/
+*{
+	margin :0;
+	padding : 0;
+	box-sizing : border-box;
 }
 
-
-.blank
-{
-border-collapse: collapse;
+.alt {
+	background-color: #c0ecef;
+	/* background-color: #ffddff; */
+	color : #ff00ff;
 }
-
 html{
-	background-color:#fff;
-	color :#555;
+	background-color:#000;
+	color :#ffffff;
 	font-weight: 300;
 	font-size: 20 px;
 	text-rendering: optimizeLegibility;
@@ -29,3 +33,105 @@ html{
 	padding:0;
 	box-sizing:border-box;
 }
+
+th {
+	color: #9595ff;
+}
+
+td {
+	text-align: center;
+} 
+.header{
+	width:1140px;
+	margin-left:auto;
+	margin-right:auto;
+}
+.header_text{
+	text-align:center;
+	border-top: 1px solid #808080;
+}
+
+
+body{
+font-family: Helvetica Neue,Arial;
+font-size : 18px;	
+/*background-color: #c0ecef;
+*/
+}
+
+table
+{
+font-size : 13px;		
+}
+h1,h2{
+	color: rgba(255,60,40);
+	margin-bottom: 20px;
+	
+	
+}
+.exchange_text{
+	font-size:22px;
+}
+h1{
+	font-size : 40px;
+}
+
+h2{
+	font-size : 20px;
+}
+
+
+
+.transactionsummary tr:nth-child(even) {
+    background-color: #c0ecef;
+}
+
+#enableDivBlock{
+	display: block;
+	}
+#disableDivBlock{
+	display: none;
+	}
+	
+	
+	
+.blank{
+	display: inline-block;
+}
+
+.profit{
+	color:#0f0;
+}
+
+.loss{
+	color:#f00;
+}
+
+
+.neutral{
+	color:#81fcf5;
+}
+
+.toggleEmptyCoin{
+	float: right;
+}
+
+/*.profitSection{
+	float:right;
+}*/
+.investdetails{
+	float : left;
+	border : double red;
+	
+}
+.investAmtDetails{
+	float:left;
+	}
+	
+.exchangeDetails{
+	float: left;
+}
+.transactionDetails{
+	float: left;
+}	
+

@@ -1,7 +1,7 @@
 [
 {
 	"exchangeName" : "BINANCE",
-	"watchlist" : [ "ETH/USDT","TRX/USDT","BNB/USDT","SC/ETH","SNT/BTC","ONT/USDT","ICX/ETH"]
+	"watchlist" : [ "ETH/USDT","TRX/USDT","TRX/BTC","BNB/USDT","SC/ETH","SNT/BTC","ONT/USDT","ONT/USDT","ICX/ETH","STEEM/ETH","STORM/ETH","LTC/USDT","TRX/ETH","BCN/ETH","BCN/BTC","SUB/ETH"]
 },
 {
 	"exchangeName" : "KOINEX",

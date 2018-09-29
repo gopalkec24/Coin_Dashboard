@@ -1,0 +1,240 @@
+Dockers
+
+Facing issues before Dockers
+
+Why we need Dockers
+
+Industry problems
+
+product is working in DEV,but not in PROD
+
+Micro services: 
+larger application into smaller services
+
+small processes with each other over network
+
+ACcount service
+Product catalog
+CartServer
+Order server
+
+Benefit of micro services
+
+1. Applications are easy to build when broken into smaller piece
+2. easier upgrade the one particular module in application
+3. Any of the Service is one down , whole application is largely unaffected .
+
+Problems
+
+Host machine
+Multiple VM for multiple micro services
+
+Lot of resources are used , means resources not completely used  by services .
+
+
+Multiple Docker containers - Light weight alternative of  Virtual Machine(VM)
+ No RAM and space is required
+Virtual MAchine - 
+Host MAchine - Dockers containers runs on Unix and Linux Hosted machine
+RAM , Hard disk
+64 GB , 20 TB
+20 GB, 200 GB  virtual Machine runs  Docker containers
+
+Dockers:
+
+Containers are developed by developer
+Through out whole SDLC process.
+
+Container 1 Container 2
+App1		App2
+
+Docker Engine
+Host OS 
+
+
+Docker file -> Docker image -> Docker Hub  
+				Dockers container is running instance of Docker image
+				
+
+Docker Hub -Git Repository for Docker image . Public and private repo. upload the image to repo.
+
+Develop same environment -> through SDLC
+
+Cloud based service provided by Docker.
+
+JEnkins Server
+
+Complex requirements for micro-service are written in easy to write the docker file
+
+custom script to deploy the application in  Various VM
+Environment teas 
+
+
+
+Monolithic architecture
+
+
+Docker Data center
+
+Docker Registry
+storage component for Docker images
+
+hub.docker,com
+Create repository
+Explore Repositories
+
+
+Docker images : Read only Template used to create Containers
+containers : Built from one or More Images
+
+
+sudo apt -get update
+clear
+sudo apt-get install lin
+
+Docker compose
+
+
+Virtualization vs Containerization
+
+Virtualization : Guest OS on host os
+
+disadvantge:
+Mutliple VM leats to unstable performance
+Long Bootuo process
+
+Virtualization : abstraction to hardware
+
+containerization : abstatction to software
+
+What is Docker:
+packages ur application and adll it sdependencues togther in the form if contauiners
+
+number of system can be scaledd
+
+size space is 
+startup
+Integration
+
+16gb 3 vm
+to ram
+6 GB RAM 4
+4 GB RAM 3
+6 GB RAM 2
+
+VM is tied to RAM
+
+Docker uses such much as required
+
+Startup
+
+Integration:
+jenkins Multiple instamce
+puppet
+
+Muliple instance s Integration
+
+Dockers developers and system administrator
+
+How Dockers works
+
+Docker Daemon - Docker Client
+
+Rest API
+
+cli comands
+
+Docker Toolbox component on IOS system/Windows
+
+DockerHost 
+
+Rest API,socket.IO and TCP : Remote request
+
+Docker Images and Containers
+Images : Template
+Containers : Instance of images
+
+Docker Regisrtry
+Public/private repostiories
+cloud reoistoru
+
+
+Docker ARchitecture
+
+Docker DaemonImages and cintainers
+
+build images to registry 
+
+
+To Pull image from Docker hub
+docker pull <image-name:tag>
+
+tag is version of the image
+
+To run the image 
+docker run <image-name:tag> or docker run <image-id>
+
+To list down all the images in our system
+docker images
+
+to list down all the running containers
+docker ps
+
+all the containers
+docker ps -a 
+
+Build images
+
+
+Creating Dockerfile
+
+FROM
+RUN
+
+DockerFile
+
+FROM ubuntu
+
+RUN
+
+ccurl
+jaba
+Tomcat
+
+EXPOSE 8080
+
+
+ENV JABA_OPTS
+
+WORKDIR
+
+
+docker build edu:1.0 .
+
+To docker the start and stop
+
+docker start <containerID>
+docker stop <comtainerID>
+
+To docker the run 
+docker run -p 8080:8080 --name "bars" edu:10
+
+docker run 
+
+P is default port
+
+To remove the containers
+docker rm <cottaineer name<
+
+docker rmi <image-id>
+docker rmi <image:tag>
+
+
+
+
+
+
+
+
+
+
