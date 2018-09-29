@@ -146,6 +146,17 @@ public class GetCurrentRate {
 		 
 		}
 	}
+	public static Map<String, Map<String,Object>> getCurrentPriceFromCoinMarketCapV1(List<String> tradedSymbol) throws Exception {
+		if(ReadTradeConfig.useLatestVersion)
+		{
+			return getMarketPriceFromCoinMarketCapV1(tradedSymbol);
+		}
+		else
+		{
+			return getCurrentPriceFromCoinMapV21(tradedSymbol);
+		 
+		}
+	}
 
 	private static Map<String, BigDecimal> getCurrentPriceFromCoinMapV2(List<String> tradedSymbol)
 			throws Exception, MalformedURLException, ProtocolException, IOException {
@@ -156,7 +167,7 @@ public class GetCurrentRate {
 			//System.out.println(findSymbol);			
 			int id=getCoinId(findSymbol);	 
 			if (id!= -1) {
-				//System.out.println(tickerURL + id + "/");
+				System.out.println(tickerURL + id + "/");
 				String symbolDetails = getDetailsFromSite(tickerURL + id + "/");
 				currentPriceMap.put(findSymbol,getDetailForSymbolV2(symbolDetails));
 			}
@@ -164,6 +175,23 @@ public class GetCurrentRate {
 		return currentPriceMap;
 	}
 
+	
+	private static Map<String, Map<String,Object>> getCurrentPriceFromCoinMapV21(List<String> tradedSymbol)
+			throws Exception, MalformedURLException, ProtocolException, IOException {
+		String tickerURL="https://api.coinmarketcap.com/v2/ticker/";		
+		cacheCoinId();
+		Map<String, Map<String,Object>> currentPriceMap = new HashMap<String, Map<String,Object>>();
+		for(String findSymbol: tradedSymbol){
+			//System.out.println(findSymbol);			
+			int id=getCoinId(findSymbol);	 
+			if (id!= -1) {
+				System.out.println(tickerURL + id + "/");
+				String symbolDetails = getDetailsFromSite(tickerURL + id + "/");
+				currentPriceMap.put(findSymbol,getDetailForSymbolV21(symbolDetails));
+			}
+		}
+		return currentPriceMap;
+	}
 	
 	public static Map<String, BigDecimal> getMarketPriceFromCoinMarketCap(List<String> tradedSymbol) throws Exception {
 		//CMC_PRO_API_KEY=9afba42a-ebdc-4bf0-a742-d110c154dc49&id=1,2,1027,825&convert=USD"
@@ -186,9 +214,47 @@ public class GetCurrentRate {
 		}
 		String marketData= getDetailsFromSite(tickerURL+"&id="+ids.toString().substring(1));
 		
+		saveMarketData(marketData);
 		
 		return getDetailForSymbols(marketData);
 	}
+	
+	public static Map<String, Map<String,Object>> getMarketPriceFromCoinMarketCapV1(List<String> tradedSymbol) throws Exception {
+		//CMC_PRO_API_KEY=9afba42a-ebdc-4bf0-a742-d110c154dc49&id=1,2,1027,825&convert=USD"
+		String tickerURL=ReadTradeConfig.COINMARKETCAP_QUOTES_LATEST+ReadTradeConfig.api_key;
+		cacheCoinId();
+		List<Integer> idList= new ArrayList<Integer>();	
+		StringBuffer ids= new StringBuffer();
+		for(String findSymbol: tradedSymbol)
+		{
+			int id=getCoinId(findSymbol);
+			if (id!= -1) 
+			{
+				ids.append(","+id);
+				idList.add(id);		
+				System.out.println("Coin Market ID  found for Coin "+findSymbol + " with ID"+id);
+			}
+			else {
+				System.out.println("Coin Market ID not found for Coin "+findSymbol);
+			}
+		}
+		String marketData= getDetailsFromSite(tickerURL+"&id="+ids.toString().substring(1));
+		
+		saveMarketData(marketData);
+		
+		return getDetailForSymbolsV1(marketData);
+	}
+	private static void saveMarketData(String marketData) {
+		
+		File lastUpdated= new File(ReadTradeConfig.CONFIG_DIRECTORY+"lastMarketStatics.json");
+		try {
+			FileUtils.writeStringToFile(lastUpdated,marketData);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	private static int getCoinId(String findSymbol) throws MalformedURLException, ProtocolException, IOException {
 		
 		
@@ -367,6 +433,14 @@ public class GetCurrentRate {
 		return latestPrice;
 	}
 	
+	private static Map<String,Object> getDetailForSymbolV21(String symbolDetails) {
+		  
+		JSONObject object= new JSONObject(symbolDetails);
+		//System.out.println(object.toString());
+		JSONObject currencyDetails = object.getJSONObject(CM_DATA).getJSONObject(CM_QUOTES);
+		JSONObject price=currencyDetails.getJSONObject(CURRENCY_USD);		
+		return price.toMap();
+	}
 	private static Map<String, BigDecimal> getDetailForSymbols(String symbolDetails) {
 		  
 		JSONObject object= new JSONObject(symbolDetails);
@@ -382,6 +456,7 @@ public class GetCurrentRate {
 		Object objPrice = currencyDetails.get(CM_PRICE);
 		
 		
+		
 		if(objPrice!= null && objPrice instanceof Double) {
 			latestPrice  = new BigDecimal(objPrice.toString());
 			currentPriceMap.put(coinName, latestPrice);
@@ -393,6 +468,26 @@ public class GetCurrentRate {
 		return currentPriceMap;
 	}
 	
+	private static Map<String,  Map<String,Object>> getDetailForSymbolsV1(String symbolDetails) {
+		  
+		JSONObject object= new JSONObject(symbolDetails);
+		//System.out.println(object.toString());
+		String[] ids = JSONObject.getNames(object.getJSONObject(CM_DATA));
+		
+		 Map<String, Map<String,Object>> currentPriceMap = new HashMap<String, Map<String,Object>>();
+		for(String id: ids)
+		{
+		//System.out.println("Symbol ID: "+id);
+		JSONObject currencyDetails = object.getJSONObject(CM_DATA).getJSONObject(id).getJSONObject("quote").getJSONObject(CURRENCY_USD);		 
+		String coinName= object.getJSONObject(CM_DATA).getJSONObject(id).getString(CM_SYMBOL);			
+		currentPriceMap.put(coinName, currencyDetails.toMap());
+		
+		
+		}
+		 //System.out.println(currencyDetails.toString());
+		
+		return currentPriceMap;
+	}
 
 	public static Map<String,BigDecimal> getNonCryptoCurrencyValue(String source,String coinName) throws Exception, ProtocolException, IOException {
 		Map<String,BigDecimal> nonCyptoCurrentValue= new TreeMap<String,BigDecimal>();

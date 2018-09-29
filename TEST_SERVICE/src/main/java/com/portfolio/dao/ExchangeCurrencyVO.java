@@ -22,8 +22,30 @@ public class ExchangeCurrencyVO {
 	
 	BigDecimal marketCapPrice = BIG_DECIMAL_ZERO;
 
+	BigDecimal percent1hChange = BIG_DECIMAL_ZERO;
+	
+	BigDecimal percent24hChange = BIG_DECIMAL_ZERO;
+	
+	BigDecimal percent7dChange = BIG_DECIMAL_ZERO;
 
-
+	public BigDecimal getPercent1hChange() {
+		return percent1hChange;
+	}
+	public void setPercent1hChange(BigDecimal percent1hChange) {
+		this.percent1hChange = percent1hChange;
+	}
+	public BigDecimal getPercent24hChange() {
+		return percent24hChange;
+	}
+	public void setPercent24hChange(BigDecimal percent24hChange) {
+		this.percent24hChange = percent24hChange;
+	}
+	public BigDecimal getPercent7dChange() {
+		return percent7dChange;
+	}
+	public void setPercent7dChange(BigDecimal percent7dChange) {
+		this.percent7dChange = percent7dChange;
+	}
 	public BigDecimal getMarketCapPrice() {
 		return marketCapPrice;
 	}

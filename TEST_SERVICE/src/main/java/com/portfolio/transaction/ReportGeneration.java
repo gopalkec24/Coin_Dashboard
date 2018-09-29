@@ -271,6 +271,7 @@ public class ReportGeneration {
 
 	private  SummaryVO calculateMeanValue(Map<String, ExchangeVO> exchangeList) {
 		Map<String,BigDecimal> currentMap= null;
+		Map<String,Map<String,Object>> currentMapObject= null;
 		Map<String,BigDecimal> nonCryptoCurrencyValue = null;
 		Map<String,Map<String,Map<String,Object>>> currentMarketValueAllExchange = null;
 		GetCurrentMarketPrice gcmp= new GetCurrentMarketPrice();
@@ -279,6 +280,7 @@ public class ReportGeneration {
 		{
 			//get the current MarketValue from CoinMarketCap site
 			currentMap = GetCurrentRate.getCurrentPriceFromCoinMarketCap(tradedSymbol);
+			currentMapObject= GetCurrentRate.getCurrentPriceFromCoinMarketCapV1(tradedSymbol);
 			//Forex value for Non CryptoCurrency like INR,MXN
 			//This map will be having conversion value in USD
 			nonCryptoCurrencyValue = GetCurrentRate.getNonCryptoCurrencyValue("USD","MXN,INR");
@@ -288,208 +290,246 @@ public class ReportGeneration {
 		} 
 		catch (Exception e)
 		{
-			System.out.println("No Internet Problem" + e.getMessage());
+			System.out.println("No Internet is a Problem" + e.getMessage());
 		}
 		int i=0;
-		   
-		
+
+
 		//Get all the Exchanges values here
-			for (ExchangeVO exchangeVO : exchangeList.values())
-			{
-				BigDecimal nonCryptoInvAmt=ZERO_BIGDECIMAL;
-				BigDecimal totalAmt = ZERO_BIGDECIMAL;
-				BigDecimal netInvestAmt = ZERO_BIGDECIMAL;
-				String exchangeName= exchangeVO.getExchangeName();
-			
-				Map<String,Map<String,Object>> xchangeCurrent = null;
-				/*if(currentMarketValueAllExchange.containsKey(exchangeName)) {
+		for (ExchangeVO exchangeVO : exchangeList.values())
+		{
+			BigDecimal nonCryptoInvAmt=ZERO_BIGDECIMAL;
+			BigDecimal totalAmt = ZERO_BIGDECIMAL;
+			BigDecimal netInvestAmt = ZERO_BIGDECIMAL;
+			String exchangeName= exchangeVO.getExchangeName();
+
+			Map<String,Map<String,Object>> xchangeCurrent = null;
+			/*if(currentMarketValueAllExchange.containsKey(exchangeName)) {
 					xchangeCurrent=currentMarketValueAllExchange.get(exchangeName);
 				}*/
-				//Get the Current Xchange for traded Coins
-				xchangeCurrent=gcmp.getCurrentMarketPrice(exchangeName, exchangeVO.getTradeCoinList(),1);
-				//get the list of the coin in Exchange and Loop it here
-				for (ExchangeCurrencyVO exVO : exchangeVO.getCoinList()) 
+			//Get the Current Xchange for traded Coins
+			xchangeCurrent=gcmp.getCurrentMarketPrice(exchangeName, exchangeVO.getTradeCoinList(),1);
+			//get the list of the coin in Exchange and Loop it here
+			for (ExchangeCurrencyVO exVO : exchangeVO.getCoinList()) 
+			{
+
+				BigDecimal totalBuyVolume = ZERO_BIGDECIMAL;
+				BigDecimal totalSellVolume = ZERO_BIGDECIMAL;
+				for (CurrencyMean currMean : exVO.getCurrency()) 
 				{
+					totalBuyVolume = totalBuyVolume.add(currMean.getBuyVolume());
+					totalSellVolume = totalSellVolume.add(currMean.getSellVolume());
 
-					BigDecimal totalBuyVolume = ZERO_BIGDECIMAL;
-					BigDecimal totalSellVolume = ZERO_BIGDECIMAL;
-					for (CurrencyMean currMean : exVO.getCurrency()) 
-					{
-						totalBuyVolume = totalBuyVolume.add(currMean.getBuyVolume());
-						totalSellVolume = totalSellVolume.add(currMean.getSellVolume());
-						
-						 TransactionCurrency transVO = getTransactionCurrency(exchangeVO.getTransCurrency(),currMean.getCurrencyName());
-						 
-						 if(transVO== null) {
-							 transVO = new TransactionCurrency();
-							 transVO.setExchange(exVO.getExchangeName());
-							 transVO.setName(currMean.getCurrencyName());
-							 transVO.setCrypto(tradeConfiguration.isCryptoCurrency(currMean.getCurrencyName()));	
-							 exchangeVO.addTransactionCurrencyVO(transVO);
-						 }
-						 
-						int compare = currMean.getBuyPrice().compareTo(ZERO_BIGDECIMAL);
-						int compare2 = currMean.getBuyVolume().compareTo(ZERO_BIGDECIMAL);
-						int compare3 = currMean.getSellPrice().compareTo(ZERO_BIGDECIMAL);
+					TransactionCurrency transVO = getTransactionCurrency(exchangeVO.getTransCurrency(),currMean.getCurrencyName());
 
-						BigDecimal buyMean = (compare == 1 && compare2 == 1)
-								? currMean.getBuyPrice().divide(currMean.getBuyVolume(), 8, RoundingMode.HALF_UP)
-								: ZERO_BIGDECIMAL;
-						BigDecimal sellMean = (compare3 == 1)
-								? currMean.getSellPrice().divide(currMean.getSellVolume(), 8, RoundingMode.HALF_UP)
-								: ZERO_BIGDECIMAL;
-                        //Amount sold volume from investment, Buy avg price * sold volume
-						BigDecimal soldInvestement = buyMean.multiply(currMean.getSellVolume());
-						//Current invested Amount
-						BigDecimal currentInvestmentAmt = currMean.getBuyPrice().subtract(soldInvestement);
-						// Profit Realised 
-						BigDecimal profitRealised = (currMean.getSellVolume().multiply(sellMean))
-								.subtract(soldInvestement);
+					if(transVO== null) {
+						transVO = new TransactionCurrency();
+						transVO.setExchange(exVO.getExchangeName());
+						transVO.setName(currMean.getCurrencyName());
+						transVO.setCrypto(tradeConfiguration.isCryptoCurrency(currMean.getCurrencyName()));	
+						exchangeVO.addTransactionCurrencyVO(transVO);
+					}
 
-						BigDecimal profitPercentage = (compare == 1) ? profitRealised
-								.divide(currMean.getBuyPrice(), 4, RoundingMode.HALF_UP).multiply(BIG_DECIMAL_100)
-								: ZERO_BIGDECIMAL;
-						
-								
-						transVO.setBuyTransactionAmount(transVO.getBuyTransactionAmount().add(currMean.getBuyPrice()));
-						transVO.setSellTransactionAmount(transVO.getSellTransactionAmount().add(currMean.getSellPrice()));
-						transVO.setCommissionAmount(transVO.getCommissionAmount().add(currMean.getCommissionRate()));
-						transVO.setCurrentInvestAmount(transVO.getCurrentInvestAmount().add(currentInvestmentAmt));
-						transVO.setSoldInvestment(transVO.getSoldInvestment().add(soldInvestement));
-						currMean.setBuyMean(buyMean.setScale(8, RoundingMode.HALF_UP));
-						currMean.setSellMean(sellMean.setScale(8, RoundingMode.HALF_UP));
-						currMean.setSoldInvestment(soldInvestement.setScale(8, RoundingMode.HALF_UP));
-						currMean.setCurrentInvestment(currentInvestmentAmt.setScale(8, RoundingMode.HALF_UP));
-						currMean.setProfitRealised(profitRealised.setScale(8, RoundingMode.HALF_UP));
-						currMean.setProfitRealPercentage(profitPercentage);
-						
-						//Get Current Price for traded pair of coin Name from Exchange Site
-						if(xchangeCurrent!= null) {
-							String tradedPair = exVO.getCoinName()+"/"+currMean.getCurrencyName();
-							if(xchangeCurrent.get(tradedPair)!= null  && xchangeCurrent.get(tradedPair).containsKey("lastPrice"))
-							{
-								Object value= xchangeCurrent.get(tradedPair).get("lastPrice");
-								if(value != null) {
-									currMean.setLastPrice((BigDecimal) value);
-									/*System.out.println(currMean.getLastPrice());
+					int compare = currMean.getBuyPrice().compareTo(ZERO_BIGDECIMAL);
+					int compare2 = currMean.getBuyVolume().compareTo(ZERO_BIGDECIMAL);
+					int compare3 = currMean.getSellPrice().compareTo(ZERO_BIGDECIMAL);
+
+					BigDecimal buyMean = (compare == 1 && compare2 == 1)
+							? currMean.getBuyPrice().divide(currMean.getBuyVolume(), 8, RoundingMode.HALF_UP)
+									: ZERO_BIGDECIMAL;
+							BigDecimal sellMean = (compare3 == 1)
+									? currMean.getSellPrice().divide(currMean.getSellVolume(), 8, RoundingMode.HALF_UP)
+											: ZERO_BIGDECIMAL;
+									//Amount sold volume from investment, Buy avg price * sold volume
+									BigDecimal soldInvestement = buyMean.multiply(currMean.getSellVolume());
+									//Current invested Amount
+									BigDecimal currentInvestmentAmt = currMean.getBuyPrice().subtract(soldInvestement);
+									// Profit Realised 
+									BigDecimal profitRealised = (currMean.getSellVolume().multiply(sellMean))
+											.subtract(soldInvestement);
+
+									BigDecimal profitPercentage = (compare == 1) ? profitRealised
+											.divide(currMean.getBuyPrice(), 4, RoundingMode.HALF_UP).multiply(BIG_DECIMAL_100)
+											: ZERO_BIGDECIMAL;
+
+
+											transVO.setBuyTransactionAmount(transVO.getBuyTransactionAmount().add(currMean.getBuyPrice()));
+											transVO.setSellTransactionAmount(transVO.getSellTransactionAmount().add(currMean.getSellPrice()));
+											transVO.setCommissionAmount(transVO.getCommissionAmount().add(currMean.getCommissionRate()));
+											transVO.setCurrentInvestAmount(transVO.getCurrentInvestAmount().add(currentInvestmentAmt));
+											transVO.setSoldInvestment(transVO.getSoldInvestment().add(soldInvestement));
+											currMean.setBuyMean(buyMean.setScale(8, RoundingMode.HALF_UP));
+											currMean.setSellMean(sellMean.setScale(8, RoundingMode.HALF_UP));
+											currMean.setSoldInvestment(soldInvestement.setScale(8, RoundingMode.HALF_UP));
+											currMean.setCurrentInvestment(currentInvestmentAmt.setScale(8, RoundingMode.HALF_UP));
+											currMean.setProfitRealised(profitRealised.setScale(8, RoundingMode.HALF_UP));
+											currMean.setProfitRealPercentage(profitPercentage);
+
+											//Get Current Price for traded pair of coin Name from Exchange Site
+											if(xchangeCurrent!= null) {
+												String tradedPair = exVO.getCoinName()+"/"+currMean.getCurrencyName();
+												if(xchangeCurrent.get(tradedPair)!= null  && xchangeCurrent.get(tradedPair).containsKey("lastPrice"))
+												{
+													Object value= xchangeCurrent.get(tradedPair).get("lastPrice");
+													if(value != null) {
+														currMean.setLastPrice((BigDecimal) value);
+														/*System.out.println(currMean.getLastPrice());
 									System.out.println(currMean.getBuyMean());*/
-									BigDecimal priceDiffer = currMean.getLastPrice().subtract(currMean.getBuyMean());
-									currMean.setPriceDiffer(priceDiffer);
-									if(compare==1) {
-									currMean.setPriceDifferPercentage(priceDiffer.divide(currMean.getBuyMean(),4,RoundingMode.HALF_UP).multiply(BIG_DECIMAL_100));
-									}
-									
-								}
-							}
-							else {
-								System.out.println("Missing current value for this pair"+ tradedPair);
+														BigDecimal priceDiffer = currMean.getLastPrice().subtract(currMean.getBuyMean());
+														currMean.setPriceDiffer(priceDiffer);
+														if(compare==1) {
+															currMean.setPriceDifferPercentage(priceDiffer.divide(currMean.getBuyMean(),4,RoundingMode.HALF_UP).multiply(BIG_DECIMAL_100));
+														}
+
+													}
+												}
+												else {
+													System.out.println("Missing current value for this pair"+ tradedPair);
+												}
+											}
+
+											//System.out.println();
+				}
+
+				BigDecimal currentValue=ZERO_BIGDECIMAL;
+				//if (currentMap!= null) 
+				if (currentMapObject!= null) 
+				{
+					Map<String,Object> coinstats= currentMapObject.get(exVO.getCoinName());
+					
+					BigDecimal marketValue = ZERO_BIGDECIMAL;
+					if (tradeConfiguration.isCryptoCurrency(exVO.getCoinName()) )
+					{
+						if(coinstats!= null) 
+						{
+							marketValue=getBigDecimalFromObject(coinstats.get("price"),true);
+							System.out.println(coinstats);
+							if(marketValue != null) 
+							{
+								currentValue = exVO.getTotalAmt().multiply(marketValue);
+								totalAmt= totalAmt.add(currentValue);
+								exVO.setCurrentMarketValue(currentValue.setScale(2, RoundingMode.HALF_UP));
+								exVO.setMarketCapPrice(marketValue.setScale(2, RoundingMode.HALF_UP));
+								exVO.setPercent1hChange(getBigDecimalFromObject(coinstats.get("percent_change_1h"),false).setScale(2, RoundingMode.HALF_UP));
+								exVO.setPercent24hChange(getBigDecimalFromObject(coinstats.get("percent_change_24h"),false).setScale(2, RoundingMode.HALF_UP));
+								exVO.setPercent7dChange(getBigDecimalFromObject(coinstats.get("percent_change_7d"),false).setScale(2, RoundingMode.HALF_UP));
+								
 							}
 						}
-						
-						//System.out.println();
-					}
-					
-					BigDecimal currentValue=ZERO_BIGDECIMAL;
-					if (currentMap!= null) 
-					{
-						BigDecimal marketValue = currentMap.get(exVO.getCoinName());
-						if (tradeConfiguration.isCryptoCurrency(exVO.getCoinName()) )
-						{
-							if(marketValue != null) {
-							currentValue = exVO.getTotalAmt().multiply(marketValue);
-							totalAmt= totalAmt.add(currentValue);
-							exVO.setCurrentMarketValue(currentValue.setScale(2, RoundingMode.HALF_UP));
-							exVO.setMarketCapPrice(marketValue.setScale(2, RoundingMode.HALF_UP));
-							}
-							else
-							{
-							 System.out.println("Market Cap value not found for coin :"+ exVO.getCoinName());
-							}
-						} 
 						else
 						{
-							
-							
-							if(nonCryptoCurrencyValue!= null)
-							{
-							currentValue= nonCryptoCurrencyValue.get(exVO.getCoinName()) ;
-							if(currentValue!= null) {
-							System.out.println(exVO.getCoinName()+" Current Value : "+ currentValue);
-							nonCryptoInvAmt= nonCryptoInvAmt.add(exVO.getDepositAmt().divide(currentValue,2, RoundingMode.HALF_UP));
-							netInvestAmt=netInvestAmt.add(exVO.getDepositAmt().subtract(exVO.getWithdrawalAmt()).divide(currentValue,2, RoundingMode.HALF_UP));
-							BigDecimal currentMarketValue = exVO.getTotalAmt().divide(currentValue,2, RoundingMode.HALF_UP);
-							totalAmt= totalAmt.add(currentMarketValue);
-							exVO.setCurrentMarketValue(currentMarketValue);
-							exVO.setMarketCapPrice(BIG_DECIMAL_1.divide(currentValue,4, RoundingMode.HALF_UP));
-							}
-						}
+							System.out.println("Market Cap value not found for coin :"+ exVO.getCoinName());
 						}
 						
+					} 
+					else
+					{
+
+
+						if(nonCryptoCurrencyValue!= null)
+						{
+							currentValue= nonCryptoCurrencyValue.get(exVO.getCoinName()) ;
+							if(currentValue!= null) {
+								System.out.println(exVO.getCoinName()+" Current Value : "+ currentValue);
+								nonCryptoInvAmt= nonCryptoInvAmt.add(exVO.getDepositAmt().divide(currentValue,2, RoundingMode.HALF_UP));
+								netInvestAmt=netInvestAmt.add(exVO.getDepositAmt().subtract(exVO.getWithdrawalAmt()).divide(currentValue,2, RoundingMode.HALF_UP));
+								BigDecimal currentMarketValue = exVO.getTotalAmt().divide(currentValue,2, RoundingMode.HALF_UP);
+								totalAmt= totalAmt.add(currentMarketValue);
+								exVO.setCurrentMarketValue(currentMarketValue);
+								exVO.setMarketCapPrice(BIG_DECIMAL_1.divide(currentValue,4, RoundingMode.HALF_UP));
+							}
+						}
 					}
-					/*System.out.println("\n" + i + " exchange " + exVO.getExchangeName() + " => " + exVO.getCoinName()
+
+				}
+				/*System.out.println("\n" + i + " exchange " + exVO.getExchangeName() + " => " + exVO.getCoinName()
 							+ " Total vol ===> " + totalVolume + " Transaction Amt ======>" + exVO.getTotalAmt()
 							+ " Deposit Amt=======>" + exVO.getDepositAmt()+"======>" +exVO.getCurrentMarketValue());*/
-					/*System.out.println("\n" + i + " exchange " + exVO.getExchangeName() + " => " + exVO.getCoinName()
+				/*System.out.println("\n" + i + " exchange " + exVO.getExchangeName() + " => " + exVO.getCoinName()
 					+ " Transaction Amt ======>" + exVO.getTotalAmt()
 					+ " Deposit Amt=======>" + exVO.getDepositAmt()+"======>" +exVO.getCurrentMarketValue());*/
-					i++;
-					//System.out.println();
-				} 
-				for(TransactionCurrency transVO: exchangeVO.getTransCurrency()) {
-					int compare1 =transVO.getBuyTransactionAmount().compareTo(ZERO_BIGDECIMAL);
-					int compare2 =transVO.getSoldInvestment().compareTo(ZERO_BIGDECIMAL);
-					//BigDecimal overall= (compare1 == 1 && compare2 == 1)? (transVO.getSellTransactionAmount().add(transVO.getCommissionAmount()).subtract(transVO.getBuyTransactionAmount().subtract(transVO.getCurrentInvestAmount()))).divide(transVO.getBuyTransactionAmount().subtract(transVO.getCurrentInvestAmount()), 8, RoundingMode.HALF_UP): ZERO_BIGDECIMAL;
-					BigDecimal overall= (compare1 == 1 && compare2 == 1)? (transVO.getSellTransactionAmount().add(transVO.getCommissionAmount()).subtract(transVO.getSoldInvestment())).divide(transVO.getSoldInvestment(), 8, RoundingMode.HALF_UP): ZERO_BIGDECIMAL;
-					overall= overall.multiply(BIG_DECIMAL_100);
-					transVO.setOverallGainPercent(overall);
-					
-				}
-				totalAmt= totalAmt.setScale(2, RoundingMode.HALF_UP);
-				exchangeVO.setNonCryptoInvestValue(nonCryptoInvAmt);
-				exchangeVO.setCurrentMarketValue(totalAmt);
-				exchangeVO.setNetInvestValue(netInvestAmt);
-				
-				summaryVO.setNonCryptoInvstAmt(summaryVO.getNonCryptoInvstAmt().add(nonCryptoInvAmt));
-				summaryVO.setCurrentMarketValue(summaryVO.getCurrentMarketValue().add(totalAmt));
-				summaryVO.setNetInvestValue(summaryVO.getNetInvestValue().add(netInvestAmt));
-		
+				i++;
+				//System.out.println();
+			} 
+			for(TransactionCurrency transVO: exchangeVO.getTransCurrency()) {
+				int compare1 =transVO.getBuyTransactionAmount().compareTo(ZERO_BIGDECIMAL);
+				int compare2 =transVO.getSoldInvestment().compareTo(ZERO_BIGDECIMAL);
+				//BigDecimal overall= (compare1 == 1 && compare2 == 1)? (transVO.getSellTransactionAmount().add(transVO.getCommissionAmount()).subtract(transVO.getBuyTransactionAmount().subtract(transVO.getCurrentInvestAmount()))).divide(transVO.getBuyTransactionAmount().subtract(transVO.getCurrentInvestAmount()), 8, RoundingMode.HALF_UP): ZERO_BIGDECIMAL;
+				BigDecimal overall= (compare1 == 1 && compare2 == 1)? (transVO.getSellTransactionAmount().add(transVO.getCommissionAmount()).subtract(transVO.getSoldInvestment())).divide(transVO.getSoldInvestment(), 8, RoundingMode.HALF_UP): ZERO_BIGDECIMAL;
+				overall= overall.multiply(BIG_DECIMAL_100);
+				transVO.setOverallGainPercent(overall);
+
 			}
-			summaryVO.setExchangeList(exchangeList);
-			int compare = summaryVO.getNonCryptoInvstAmt().compareTo(ZERO_BIGDECIMAL);
-			if(compare== 1) 
-			{
+			totalAmt= totalAmt.setScale(2, RoundingMode.HALF_UP);
+			exchangeVO.setNonCryptoInvestValue(nonCryptoInvAmt);
+			exchangeVO.setCurrentMarketValue(totalAmt);
+			exchangeVO.setNetInvestValue(netInvestAmt);
+
+			summaryVO.setNonCryptoInvstAmt(summaryVO.getNonCryptoInvstAmt().add(nonCryptoInvAmt));
+			summaryVO.setCurrentMarketValue(summaryVO.getCurrentMarketValue().add(totalAmt));
+			summaryVO.setNetInvestValue(summaryVO.getNetInvestValue().add(netInvestAmt));
+
+		}
+		summaryVO.setExchangeList(exchangeList);
+		int compare = summaryVO.getNonCryptoInvstAmt().compareTo(ZERO_BIGDECIMAL);
+		if(compare== 1) 
+		{
 			summaryVO.setProfit((summaryVO.getCurrentMarketValue().subtract(summaryVO.getNetInvestValue())).divide(summaryVO.getNetInvestValue(),2,RoundingMode.HALF_UP).multiply(BIG_DECIMAL_100));
-			}
-			else
-			{
-				summaryVO.setProfit(ZERO_BIGDECIMAL);
-			}
-			InvestmentConversion con= null;			
-			/*con.setCurrentMarketValue(summaryVO.getCurrentMarketValue());
+		}
+		else
+		{
+			summaryVO.setProfit(ZERO_BIGDECIMAL);
+		}
+		InvestmentConversion con= null;			
+		/*con.setCurrentMarketValue(summaryVO.getCurrentMarketValue());
 			con.setInvestmentAmt(summaryVO.getNonCryptoInvstAmt());
 			con.setNetInvestAmt(summaryVO.getNetInvestValue());
 			con.setCurrencyValue(BIG_DECIMAL_1);
 			con.setCurrency("USD");
 			summaryVO.addInvestmentConversion(con);*/
-			if (nonCryptoCurrencyValue!= null) {
-				for (String currency : nonCryptoCurrencyValue.keySet()) {
-					BigDecimal currecnyValue = nonCryptoCurrencyValue.get(currency);
-					if (currecnyValue != null) {
-						 con= new InvestmentConversion();
-						con.setCurrentMarketValue(summaryVO.getCurrentMarketValue().multiply(currecnyValue).setScale(2, RoundingMode.HALF_UP));
-						con.setInvestmentAmt(summaryVO.getNonCryptoInvstAmt().multiply(currecnyValue).setScale(2, RoundingMode.HALF_UP));
-						con.setNetInvestAmt(summaryVO.getNetInvestValue().multiply(currecnyValue).setScale(2, RoundingMode.HALF_UP));
-						con.setCurrencyValue(currecnyValue);
-						con.setCurrency(currency);
-						summaryVO.addInvestmentConversion(con);
-						}
+		if (nonCryptoCurrencyValue!= null) {
+			for (String currency : nonCryptoCurrencyValue.keySet()) {
+				BigDecimal currecnyValue = nonCryptoCurrencyValue.get(currency);
+				if (currecnyValue != null) {
+					con= new InvestmentConversion();
+					con.setCurrentMarketValue(summaryVO.getCurrentMarketValue().multiply(currecnyValue).setScale(2, RoundingMode.HALF_UP));
+					con.setInvestmentAmt(summaryVO.getNonCryptoInvstAmt().multiply(currecnyValue).setScale(2, RoundingMode.HALF_UP));
+					con.setNetInvestAmt(summaryVO.getNetInvestValue().multiply(currecnyValue).setScale(2, RoundingMode.HALF_UP));
+					con.setCurrencyValue(currecnyValue);
+					con.setCurrency(currency);
+					summaryVO.addInvestmentConversion(con);
+				}
 
-				} 
+			} 
+		}
+		summaryVO.setListCryptoTransactions(listTrans);
+		return summaryVO;
+
+
+	}
+
+	private BigDecimal getBigDecimalFromObject(Object object,boolean returnNull) {
+		BigDecimal returnVal =null;
+		if(object ==null) {
+			if(returnNull) {
+				return null;
 			}
-   summaryVO.setListCryptoTransactions(listTrans);
-			return summaryVO;
-			
-			
+			else {
+				returnVal = ZERO_BIGDECIMAL;
+			}
+		}
+		else if(object instanceof Double) {
+			returnVal = new BigDecimal((Double)object);
+		}
+		else if(object instanceof BigDecimal) {
+			returnVal = (BigDecimal)object;
+		}
+		
+		return returnVal;
+	}
+
+	private BigDecimal getBigDecimalFromObject(Map<String, Object> coinstats) {
+		return (BigDecimal) coinstats.get("price");
 	}
 	
 	
@@ -929,14 +969,8 @@ public class ReportGeneration {
 
 	private CurrencyMean createNewCurrecnyMean(String currency) {
 		
-		CurrencyMean xChangeCurrency = new CurrencyMean();
-		xChangeCurrency.setCommissionRate(new BigDecimal("0"));
-		xChangeCurrency.setBuyVolume(new BigDecimal("0"));
-		xChangeCurrency.setSellVolume(new BigDecimal("0"));
-		xChangeCurrency.setBuyPrice(new BigDecimal("0"));
-		xChangeCurrency.setSellPrice(new BigDecimal("0"));
-		xChangeCurrency.setCurrencyName(currency);
-		
+		CurrencyMean xChangeCurrency = new CurrencyMean();		
+		xChangeCurrency.setCurrencyName(currency);		
 		return xChangeCurrency;
 	}
 

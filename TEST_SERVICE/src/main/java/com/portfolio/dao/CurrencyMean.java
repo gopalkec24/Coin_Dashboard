@@ -3,16 +3,16 @@ package com.portfolio.dao;
 import java.math.BigDecimal;
 
 public class CurrencyMean {
-	
+	private static final BigDecimal BIG_DECIMAL_ZERO = new BigDecimal("0");
 	String currencyName;
-	BigDecimal buyVolume;
-	BigDecimal sellVolume;
-	BigDecimal commissionRate;
-	BigDecimal buyPrice;
-	BigDecimal sellPrice;
+	BigDecimal buyVolume =BIG_DECIMAL_ZERO;
+	BigDecimal sellVolume = BIG_DECIMAL_ZERO;
+	BigDecimal commissionRate =BIG_DECIMAL_ZERO;
+	BigDecimal buyPrice = BIG_DECIMAL_ZERO;
+	BigDecimal sellPrice =BIG_DECIMAL_ZERO;
 	
-	BigDecimal currentMarketPrice;
-	BigDecimal lastPrice;
+	BigDecimal currentMarketPrice = BIG_DECIMAL_ZERO;
+	BigDecimal lastPrice =BIG_DECIMAL_ZERO;
 	
 	public BigDecimal getLastPrice() {
 		return lastPrice;
