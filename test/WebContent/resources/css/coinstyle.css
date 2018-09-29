@@ -14,16 +14,14 @@ text-align:center;
 	box-sizing : border-box;
 }
 
-.blank
-{
-border-collapse: collapse;
-}
 .alt {
 	background-color: #c0ecef;
+	/* background-color: #ffddff; */
+	color : #ff00ff;
 }
 html{
-	background-color:#fff;
-	color :#555;
+	background-color:#000;
+	color :#ffffff;
 	font-weight: 300;
 	font-size: 20 px;
 	text-rendering: optimizeLegibility;
@@ -41,8 +39,8 @@ th {
 }
 
 td {
-	color: #d0470d;
-}
+	text-align: center;
+} 
 .header{
 	width:1140px;
 	margin-left:auto;
@@ -53,9 +51,6 @@ td {
 	border-top: 1px solid #808080;
 }
 
-.invest_section{
-	float: left;
-}
 
 body{
 font-family: Helvetica Neue,Arial;
@@ -97,4 +92,46 @@ h2{
 #disableDivBlock{
 	display: none;
 	}
+	
+	
+	
+.blank{
+	display: inline-block;
 }
+
+.profit{
+	color:#0f0;
+}
+
+.loss{
+	color:#f00;
+}
+
+
+.neutral{
+	color:#81fcf5;
+}
+
+.toggleEmptyCoin{
+	float: right;
+}
+
+/*.profitSection{
+	float:right;
+}*/
+.investdetails{
+	float : left;
+	border : double red;
+	
+}
+.investAmtDetails{
+	float:left;
+	}
+	
+.exchangeDetails{
+	float: left;
+}
+.transactionDetails{
+	float: left;
+}	
+

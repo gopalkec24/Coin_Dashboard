@@ -28,6 +28,7 @@ for(var exchange in result)
    var exchangeData = result[exchange];
 	
 	dataRow = dataRow +"<tr> <td> Exchange Name </td> <td> "+exchange+"</td></tr>";
+	dataRow =dataRow+"<tr> <th>Coin Pair</th> <th>Last Price</th> <th>Lowest Price</th> <th>Highest Price</th> <th>Open Price</th> <th>Close Price</th> <th>Price Change</th> <th>Price Change %</th></tr>";
    for(var coin in exchangeData)
    {
 	dataRow = dataRow +"<tr><td>"+coin+"</td><td>" +exchangeData[coin].lastPrice + "</td><td>" +replaceUndefinedData(exchangeData[coin].lowPrice) + "</td><td>" +replaceUndefinedData(exchangeData[coin].highPrice) + 

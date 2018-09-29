@@ -14,16 +14,111 @@
 <script src="resources/js/customcoin.js" > </script>
 <!-- <script src="vendor/js/sortable.js"></script> -->
 <script>
-
+function sortTable(n,tableID) {
+	var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+	table = document.getElementById(tableID);
+	switching = true;
+	// Set the sorting direction to ascending:
+	dir = "asc"; 
+	/* Make a loop that will continue until
+	no switching has been done: */
+while (switching) {
+// Start by saying: no switching is done:
+switching = false;
+rows = table.rows;
+/* Loop through all table rows (except the
+first, which contains table headers): */
+for (i = 1; i < (rows.length - 1); i++) {
+// Start by saying there should be no switching:
+shouldSwitch = false;
+/* Get the two elements you want to compare,
+one from current row and one from the next: */
+x = rows[i].getElementsByTagName("TD")[n];
+y = rows[i + 1].getElementsByTagName("TD")[n];
+/* Check if the two rows should switch place,
+based on the direction, asc or desc: */
+if (dir == "asc") {
+if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+ // If so, mark as a switch and break the loop:
+shouldSwitch = true;
+ break;
+}
+}
+else if (dir == "desc") {
+if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+// If so, mark as a switch and break the loop:
+shouldSwitch = true;
+break;
+}
+}
+if (shouldSwitch) {
+	 /* If a switch has been marked, make the switch
+	 and mark that a switch has been done: */
+ rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+ switching = true;
+ // Each time a switch is done, increase this count by 1:
+ switchcount ++; 
+}else {
+ /* If no switching has been done AND the direction is "asc",
+ set the direction to "desc" and run the while loop again. */
+if (switchcount == 0 && dir == "asc") {
+dir = "desc";
+switching = true;
+}
+}
+}
+}
+}
 $(document).ready(function (){
 	
-	$( "#searchBlock" )
-    .ajaxStart(function() {
+	/* $('th').each(function(col) {
+	    $(this).hover(
+	      function() {
+	        $(this).addClass('focus');
+	      },
+	      function() {
+	        $(this).removeClass('focus');
+	        console.log("removed");
+	      }
+	    );
+
+
+	    $(this).click(function() {
+	      if ($(this).is('.asc')) {
+	        $(this).removeClass('asc');
+	        $(this).addClass('desc selected');
+	        sortOrder = -1;
+	      } else {
+	        $(this).addClass('asc selected');
+	        $(this).removeClass('desc');
+	        sortOrder = 1;
+	      }
+	      $(this).siblings().removeClass('asc selected');
+	      $(this).siblings().removeClass('desc selected');
+	      var arrData = $('table').find('tbody >tr:has(td)').get();
+
+	      arrData.sort(function(a, b) {
+	        var val1 = $(a).children('td').eq(col).text().toUpperCase();
+	        var val2 = $(b).children('td').eq(col).text().toUpperCase();
+	        if ($.isNumeric(val1) && $.isNumeric(val2))
+	          return sortOrder == 1 ? val1 - val2 : val2 - val1;
+	        else
+	          return (val1 < val2) ? -sortOrder : (val1 > val2) ? sortOrder : 0;
+	      });
+	      $.each(arrData, function(index, row) {
+	        $('tbody').append(row);
+	      });
+	    });
+	  }); */
+		
+	
+	/*$( "#searchBlock" ).ajaxStart(function() {
         $( this ).hide();
     })
     .ajaxStop(function() {
         $( this ).show();
-    });
+    });*/
+    $( "#searchBlock").hide();
 $.ajax({
 	
 url:"/test/MyBadLuck",
@@ -31,14 +126,14 @@ dataType:"json",
 success:function(result)
 {
 var exchangeListData="";
-
+var cssclass="loss";
 for(var exchange in result.exchangeList)
 { 
 var exchangeObj = result.exchangeList[exchange];
-var dataRow="<tr> <th> Exchange Name :  </th> <td class='exchange_text'>" +exchange +"</td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td><th>Total Net Investment value(after Withdraw) in USD </th> <td>"+exchangeObj.netInvestValue +"</td><th>Total Investment value in USD </th> <td>"+exchangeObj.nonCryptoInvestValue +"</td> <th>Total Current Fund value in USD</th> <td>"+exchangeObj.currentMarketValue +"</td></tr>";
- dataRow=dataRow+"<tr><th>Coin/Currency Traded</th><th>Buy Price</th><th>Buy Volume</th><th>Buy Avg Price </th><th>Sell Avg Price</th><th>Sell Volume</th><th>Sell Price</th><th>Amount spend on Commission</th>"+
- "<th>Amt sold from Investment</th><th>Current Amt from Investment</th><th>Profit </th> <th>Profit % </th> <th>Price Differ </th>  <th>Price Differ % </th>  <th>Current Market unitPrice </th>  <th> Deposit Amt </th> <th>Withdrawal</th> <th>Commission Spend on transfers</th> <th>Total volume available</th>"+
- "<th>Unit Mkt Price </th><th>Current Fund value in USD</th></tr>";  
+var dataRow="<table> <tr> <th> Exchange Name :  </th> <td class='exchange_text'>" +exchange +"</td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td><th>Total Net Investment value(after Withdraw) in USD </th> <td>"+exchangeObj.netInvestValue +"</td><th>Total Investment value in USD </th> <td>"+exchangeObj.nonCryptoInvestValue +"</td> <th>Total Current Fund value in USD</th> <td>"+exchangeObj.currentMarketValue +"</td></tr> </table>";
+ dataRow=dataRow+"<table id='"+exchange+"'> <tr><th onclick='sortTable("+document+",0,"+exchange+")'>Coin/Currency Traded</th><th>Buy Price</th><th>Buy Volume</th><th>Buy Avg Price </th><th>Sell Avg Price</th><th>Sell Volume</th><th>Sell Price</th><th>Amount spend on Commission</th>"+
+ "<th>Amt sold from Investment</th><th>Current Amt from Investment</th><th>Profit </th> <th  onclick='sortTable("+document+",11,"+exchange+")'>Profit % </th> <th>Price Differ </th>  <th>Price Differ % </th>  <th>Xchange Market unitPrice </th>  <th> Deposit Amt </th> <th>Withdrawal</th> <th>Commission Spend on transfers</th> <th>Total volume available</th>"+
+ "<th>CoinMktCap Mkt Price </th> <th>1 hr change </th> <th>24 hr change</th> <th>Current Fund value in USD</th></tr>";  
 	
    
     for(var i=0; i< exchangeObj.coinList.length; i++)
@@ -48,11 +143,33 @@ var dataRow="<tr> <th> Exchange Name :  </th> <td class='exchange_text'>" +excha
 		for(var j=0; j <coin.currency.length ; j++)
 		{
 				var coinTraded = coin.currency[j];
+				var priceDiff = coinTraded.profitRealPercentage;	
 				
-				var lastPrice= coinTraded.lastPrice;
-				var priceDiffPer= coinTraded.priceDifferPercentage;
-				var priceDiff = coinTraded.priceDiffer;				
-				dataRow= dataRow+ "<tr><td>"+coin.coinName+"/"+coinTraded.currencyName+"</td><td>"+
+				if(priceDiff === 0)
+				{
+					if(coinTraded.priceDiffer === 0){
+					cssclass="neutral";
+					}
+				
+					else if(coinTraded.priceDiffer > 0) {
+					cssclass="profit";
+					}
+					else {
+					cssclass="loss";
+					}
+				}
+				else if(priceDiff > 0)
+				{
+					cssclass="profit";
+				}
+				else{
+					cssclass="loss";
+				}
+				if(coin.totalAmt ===0){
+					cssclass="zerovol "+ cssclass;
+				}	
+				console.log(cssclass)
+				dataRow= dataRow+ "<tr class='" + cssclass+"'><td>"+coin.coinName+"/"+coinTraded.currencyName+"</td><td>"+
 				coinTraded.buyPrice+"</td><td>"+
 				coinTraded.buyVolume+"</td><td>"+
 				coinTraded.buyMean+"</td><td>"+
@@ -70,15 +187,22 @@ var dataRow="<tr> <th> Exchange Name :  </th> <td class='exchange_text'>" +excha
 				"</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
                     
 		}	
-		dataRow=dataRow+"<tr><td>"+coin.coinName+"</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>"+coin.depositAmt+"</td><td>"+coin.withdrawalAmt+"</td><td>"+coin.xchangeTransferCommission+"</td><td>"+coin.totalAmt+"</td><td>"+ coin.marketCapPrice +"</td><td>"+coin.currentMarketValue+"</td></tr>";
+		if(coin.totalAmt ===0){
+			cssclass="zerovol";
+		}
+		else{
+			cssclass="neutral";
+		}
+		dataRow=dataRow+"<tr class='"+cssclass+"'><td>"+coin.coinName+"</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>"+coin.depositAmt+"</td><td>"+coin.withdrawalAmt+"</td><td>"+coin.xchangeTransferCommission+"</td><td>"+coin.totalAmt+"</td><td>"+ coin.marketCapPrice +"</td><td></td><td></td><td>"+coin.currentMarketValue+"</td></tr>";
 	
-	if(dataRow.length > 0 )
+	/*if(dataRow.length > 0 )
 	{
 	   dataRow=dataRow+"<tr><td></td> </tr><tr><td></td> </tr>";	
-	}
+	}*/
 	
 	  
   } 
+    dataRow=dataRow+"</table>";
   $("#exchange").append(dataRow); 
 }
 $("#exchange").addClass("summary-class");
@@ -137,7 +261,7 @@ $("#transactionsummary > tr").filter(":nth-child(odd)").addClass("alt");
 $("#searchBlock").addClass("enableDivBlock");
 dt = new Date();
 $("#timestamp").text(result.timestamp);
-
+$( "#searchBlock").show();
 
 }// success function Method close
 
@@ -185,9 +309,7 @@ $("#search").click( function() {
   });
 
 $('#hideZeroVolume').on('click', function () {
-    var $rowsNo = $('#exchange tr').filter(function () {
-        return $.trim($(this).find('td').eq(20).text()) === "0"
-    }).toggle();
+    var $rowsNo = $('#exchange tr').filter(".zerovol").toggle();
 });
 
 });
@@ -202,24 +324,26 @@ $('#hideZeroVolume').on('click', function () {
            </p> 	 
           </div>
 		    
-		    
+		    <br>
 		    
 		   <!-- <h2> Investment Details</h2> -->
-		   <div>
-			   <div>
-			    <table id="investamt" >  <thead> Investment Details </thead></table>
+		   <div class="investDetails">
+			   <div class="investAmtDetails">
+			    <table id="investamt" >  <caption>Investment Details</caption>  </table>
 				</div>
 			
-				<div id="profit_section">
+				<div class="profitSection">
 				<!-- <h2>Profit Details</h2> -->
-			   <table id="summary">  <thead> Profit Details </thead></table>
+			   <table id="summary">  <caption>Profit Details </caption></table>
 			   </div>
 			   
 			 </div>   
-		 <button id="hideZeroVolume">Hide/Show</button>
-		   <table id="exchange">  <thead> Exchange Coin Details </thead> </table>
 		
-		   	  <div id="searchBlock" class="disableDivBlock" >
+		  
+		<div class="exchangeDetails" id="exchange" >
+		 <button class="toggleEmptyCoin" id="hideZeroVolume">Hide/Show the Empty coin</button>
+		</div>
+		   	<div class="transactionDetails" id="searchBlock">
 		   	<input id="exchangeName" type="text" placeholder="Enter Xchange Name"> 
 		  	<input id="coinName" type="text" placeholder="Enter Symbol of Coin"> <button id="search">Search</button>
 		  	

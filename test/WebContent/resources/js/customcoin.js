@@ -20,4 +20,6 @@ function filterTransactionData($) {
     	console.log(toggle);
       $(this).toggle(toggle);
     });
+    
+    
 }
