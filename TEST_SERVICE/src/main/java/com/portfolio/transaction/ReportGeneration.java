@@ -25,11 +25,13 @@ import com.portfolio.dao.TransactionCurrency;
 import com.portfolio.dao.TransactionDetailsVO;
 import com.portfolio.utilis.GetCurrentMarketPrice;
 import com.portfolio.utilis.GetCurrentRate;
+import com.portfolio.utilis.LossMinimiser;
 import com.portfolio.utilis.ReadTradeConfig;
 import com.portfolio.utilis.ReadTransactionDetails;
 
 public class ReportGeneration {
 
+	private static final BigDecimal DEVIATION = new BigDecimal("0.01");
 	private static final String TRANS_VOLUME = "VOL";
 	private static final String TRANSACT_AMT = "CUR";
 	private static final BigDecimal BIG_DECIMAL_100 = new BigDecimal(100);
@@ -105,8 +107,7 @@ public class ReportGeneration {
 			//reGeneration.calculateCurrentValue(exchangeList);
 			//File transactionJson = new File("D:/Documents/transactionJson.json");
 			//FileUtils.write(transactionJson,reGeneration.anyDataToJson(reGeneration.listTrans));
-		if(saveReport) {
-		
+		if(saveReport) {		
 		FileUtils.write(summaryJson,summaryDataToJson);
 		}
 		return summaryDataToJson;
@@ -364,6 +365,9 @@ public class ReportGeneration {
 											currMean.setCurrentInvestment(currentInvestmentAmt.setScale(8, RoundingMode.HALF_UP));
 											currMean.setProfitRealised(profitRealised.setScale(8, RoundingMode.HALF_UP));
 											currMean.setProfitRealPercentage(profitPercentage);
+											
+											
+											
 
 											//Get Current Price for traded pair of coin Name from Exchange Site
 											if(xchangeCurrent!= null) {
@@ -379,6 +383,17 @@ public class ReportGeneration {
 														currMean.setPriceDiffer(priceDiffer);
 														if(compare==1) {
 															currMean.setPriceDifferPercentage(priceDiffer.divide(currMean.getBuyMean(),4,RoundingMode.HALF_UP).multiply(BIG_DECIMAL_100));
+															if(currMean.getLastPrice().compareTo(currMean.getBuyMean()) == -1 && exVO.getTotalAmt().compareTo(ZERO_BIGDECIMAL) == 1) {
+																BigDecimal effectiveVolume = LossMinimiser.lossFunction1(currMean.getBuyMean(), exVO.getTotalAmt(), currMean.getLastPrice(), DEVIATION);
+																if(effectiveVolume.compareTo(ZERO_BIGDECIMAL) > 0) {
+																	currMean.setAdditionalVol(effectiveVolume);
+																
+																BigDecimal currentMarketValue = currMean.getLastPrice().multiply(effectiveVolume.add(exVO.getTotalAmt()));
+																currMean.setAdditionalAmt(currMean.getLastPrice().multiply(effectiveVolume));
+																BigDecimal total_amt = exVO.getTotalAmt().multiply(currMean.getBuyMean()).add(currMean.getAdditionalAmt());
+																currMean.setEffectiveLoss(((currentMarketValue.subtract(total_amt)).divide(total_amt,2,RoundingMode.HALF_UP)).multiply(BIG_DECIMAL_100));
+																}
+															}
 														}
 
 													}
@@ -573,6 +588,7 @@ public class ReportGeneration {
 					 //System.out.println("Coin Not Found : "+ coinName);
 					xChangeCurrency.setCoinName(coinName);
 					xChangeCurrency.setExchangeName(exchangeName);
+					xChangeCurrency.setCrypto(tradeConfiguration.isCryptoCurrency(coinName));
 					//Since it is reference
 					currencyList.add(xChangeCurrency);
 				}
@@ -630,6 +646,8 @@ public class ReportGeneration {
 				if(tradeConfiguration.isTradeCurrency(exchangeName,coinName)){
 					xChangeCurrency.setTradeCurrency(true);
 				}
+			
+				xChangeCurrency.setCrypto(tradeConfiguration.isCryptoCurrency(coinName));
 				
 				
 				exList.add(xChangeCurrency);

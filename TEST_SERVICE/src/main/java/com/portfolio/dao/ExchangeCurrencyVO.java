@@ -128,4 +128,15 @@ public class ExchangeCurrencyVO {
 	{
 		return this.exchangeName+","+this.coinName+","+this.currency.toString();
 	}
+	
+	
+	public boolean isCrypto;
+
+	public boolean isCrypto() {
+		return isCrypto;
+	}
+	public void setCrypto(boolean isCrypto) {
+		this.isCrypto = isCrypto;
+	}
+	
 }

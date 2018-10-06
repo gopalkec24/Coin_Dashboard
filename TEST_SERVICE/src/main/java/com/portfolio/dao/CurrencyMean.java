@@ -153,4 +153,29 @@ public class CurrencyMean {
 		return this.currencyName+",Sell Volume : "+this.sellVolume.toString()+",Buy Volume : "+this.buyVolume.toString()+",Buy Price : "+this.buyPrice.toString()+ ",Sell Price : "+this.sellPrice.toString() +",Commission Amt :"+this.commissionRate+"\n";
 	}
 
+	public BigDecimal additionalVol = BIG_DECIMAL_ZERO;
+	public BigDecimal additionalAmt = BIG_DECIMAL_ZERO;
+	public BigDecimal effectiveLoss = BIG_DECIMAL_ZERO;
+
+	public BigDecimal getAdditionalVol() {
+		return additionalVol;
+	}
+	public void setAdditionalVol(BigDecimal additionalVol) {
+		this.additionalVol = additionalVol;
+	}
+	public BigDecimal getAdditionalAmt() {
+		return additionalAmt;
+	}
+	public void setAdditionalAmt(BigDecimal additionalAmt) {
+		this.additionalAmt = additionalAmt;
+	}
+	public BigDecimal getEffectiveLoss() {
+		return effectiveLoss;
+	}
+	public void setEffectiveLoss(BigDecimal effectiveLoss) {
+		this.effectiveLoss = effectiveLoss;
+	}
+	
+	
+	
 }
