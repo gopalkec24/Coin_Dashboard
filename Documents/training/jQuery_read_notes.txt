@@ -78,5 +78,284 @@ $("#transactionSummary").filter(":nth-child(odd)").addClass("alt");
 
 $(document).ready()
 
+better to use the script tag between head and body could be fine ,
+
+ready
+
+css selectors and custom selectors is by far the most used and most eloquent solution
+jQuery('a') or $('a')
+
+Multiple selector
+jQuery('selector1, selector2, selector3 ').length
+
+selector engine sizzle, selects DOM elements(s) from an HTML document.
+
+from selection of DOM elements to remove the some of them ,which does not match new specified expressions(s) -> New set of elements to operate on
+
+.filter() method, that allows u to filter  the current set of elements. important distinction from JQuery find method which will reduce a wrapped set of DOM elements by finding new elements,
+including child elements of the current wrapped set.
 
 
+.filter(.external) can be written in another way ,
+Like 
+
+jQuery('a').filter(
+ function(index) {
+ return $(this).hasClass('external');
+ } )
+ function returns  true, element in the set else remove it from set.
+ 
+  function is called with a context equal to the current element.
+  
+  $(this)  within function, actually referring to each DOM element in the wrapper set.
+  
+  Function parameter named index,numerically to index of the element in JQuery Wrapper set.
+  
+  Finding Descendant elemts within the currently selected wrapper set
+  
+  Destructive jQuery method : filter() and find()
+  .find()  will operate/select the children of the current set. => returns  children elements
+  .filter() will only operate on the current set of elements. => current Wrapper set filtering.
+  
+  .end() method - Return to the previous set of DOM elements that were selected before using destructive method.
+  if there is no prior destructive operation is performed then empty set is returned.
+  
+  Destructive operation is any operation that changes the current set of Matched jQuery elements which means any tranversing and manipulation method that returns  a jQuery Object.
+  
+  andSelf() method : will only add into the current set being operated on and the prior set, but not all prior sets.
+  <div>
+       <p>
+	   
+  all <div> elements on the page. 
+<div> and <p> elements found within <div>.
+
+
+Traversing the DOM based on your current context :
+Acquire a New set of DOM elements
+<ul>
+<li> </li>
+<li> </li>
+<li> </li>
+<li> </li>
+</ul>
+jQuery('li:eq(1)') - selects  the second element in the set of <li> by index, index starts at 0 .
+
+.next() selects the third
+.prev() selects the first
+.parent() selects <ul>
+.parent(),children() selects all <li>s
+.nextAll() selects all the <li>s after the second <li>
+.prevAll() selects all the <li>s before the second <li>
+
+traversing method produce a new wrapper set and to return to the previous wrapper set. end()
+
+Creating , Operating on and Inserting DOM Elements:
+
+immediately selected, operated on and then injected into DOM.
+
+jQuery('<p><a> JQuery </a> </p>').find('a').attr('href','http://www.jquery.com');
+
+
+appendTo() 
+end()  - 
+
+append()
+prepend()
+prependTo()
+after()
+before()
+insertAfter()
+insertBefore()
+wrap()
+wrappAll()
+wrapInner()
+
+remove() method - Remove a selected set of  elements and their children elements from the DOM.
+jQuery('a').remove()
+
+replaceWith() select a set of DOM elements for replacement.
+
+jQuery('li.remove').replaceWith('<li>removed</li>');
+
+replaceAll() does the same task with the parameters reversed.
+
+cloning DOM Elements:
+clone/copy a portion  of the DOM.
+
+attr() method for getting and setting attribute values.
+
+removeAttr() : remove attributes from HTML elements.
+
+addClass() : 
+hasClass() : checks the value of the class attribute for a Specific class
+removeClass() : removes a unique class from class
+toogleClass() : adds the specified class if it is not present removes the specified class if it is present.
+
+.html() : getting 
+.html('test')setting chunks.
+
+.text() : Getting the value.
+.text('test') : setting the value.
+
+
+$ alias instead of typing the global name space
+jQuery without fear of global conflicts.
+
+jQuery adds few custom selectors that can be used to select elements based on special states and characteristics.
+
+Selecting childElements only
+One or More direct children of a particular element.
+
+Direct Descendant combinator (>).
+combinator expects two selector expressions. one on either side
+li > a 
+
+<a href="/Category"> Category </a>
+<ul id="nav">
+   <li> <a href="#anchor1"> Anchor 1 </a> </li>
+	<li> <a href="#anchor2"> Anchor 2 </a> </li>
+	 <li><span><a href="#anchor3">Anchor 3</a></span></li> 
+</ul>
+
+jQuery("#nav li > a')  ==> selects two elements as expected.
+
+a child and a descendant :
+A descendant is any elements existing within another element.
+A child is direct descendant . direct children of an element
+
+
+jQuery('p', '#content');
+is equivalent to this
+jQuery('#content > p');
+
+.children() - To select all direct children of the element.It is faster.
+same as jQuery('#content > *') with one important difference.
+
+Getting all direct children of all anchor elements
+1. anchors.children() - It is fastest
+2. jQuery('> *',anchors);
+3. anchors.find('> *');
+
+pass a selector expression to the children() method to filter the results
+jQuery('#content').children('p');
+only paragraph elements that are direct children of #content will be returned.
+
+
+selecting specific siblings:
+set of siblings of a particular element by using adjacent sibling combinator(+) .
+
+
+<div id="content">  
+  <h1>Main title</h1> 
+  <h2>Section title</h2>  
+  <p>Some content...</p> 
+  <h2>Section title</h2>  
+  <p>More content...</p> 
+ </div> 
+
+jQuery('h1 + h2') => Selects ALL H2 elements that immediately follow <h1> elements.
+All H2 elements that are adjacent siblings of H1 elements.
+
+only one <h2> elements will be selected (the first one) 
+second one is not selected because while it is a siblings, it is not an adjacent sibling of the <h1>
+
+it can be conceptually tricky to use because it doesn't follow the top-down hierarchical approach of the most other selector expressions.
+
+The same functionality might be achieved without a selector
+jQuery('h1').next('h2');
+
+
+
+.sibings() select and filter all siblings of an element ,irrespective of adjacent or not
+
+jQuery('h1').siblings('h2,h3,p');
+
+
+General Siblings combinator (`) (Tilt symbol) was added in CSS3
+<ul>   
+ <li>First item</li> 
+ <li class="selected">Second item</li>
+ <li>Third item</li> 
+ <li>Fourth item</li>  
+ <li>Fifth item</li>
+ </ul>
+jQuery('li.selected).nextAll('li') is same as 
+JQuery('li.selected ~ li')
+
+selecting Elements by Index Order:
+Select Elements based on their order among other Elements
+
+filters
+:first:last
+:even :odd
+:eq(n)
+:lt(n)  MAtches all elements with an index below n
+:gt(n) MAtches all elements with an index above n
+
+
+select elements based on animating
+:animated
+
+select element based on what it contains
+
+1)text Contents  :contains()
+<!-- HTML -->
+<span>Hello Bob!</span>
+// Select all SPANs with 'Bob' in:
+jQuery('span:contains("Bob")');
+it is case sensitive.
+
+2)element Contents   :has()
+jQuery('div:has(p a)');
+
+.filter(function() {
+
+/(^|\S)(apple|orange|lemons)(\s|$)/.test(jQuery(this).text());
+});
+
+Selecting Elements by What They Dont Match
+:not filter
+
+jQuery('div:not(#content)'); //select all DIV elements except #content
+
+selecting Elements Based on their Visibilty
+:hidden or : :visible filter
+
+jQuery("#elem").is(":hidden')){
+}
+
+Hiding only elements that are currently visible
+
+display:none but not those that are set to visibility:hidden
+
+jQuery('*').filter(function(){
+return jQuery(this).css('display') === 'none'
+&& jQuery(this).css('visibility') !== 'hidden';
+});
+
+
+jQuery(a[href="http://gog.com"])
+
+[attr] element contain this attributes.
+[attr=val]
+[attr!=val]
+[attr^=val] start with a certain value
+[attr$=val] end with a certain value
+[attr`=val] contains the specified value with spaces on either side(car matches car but not cart)  Need more testing on this
+  
+  
+  
+selecting elements based on type
+:text
+:password
+:radio
+:checkbox
+:submit
+:image
+:reset
+:button
+:file
+:hidden
+:input - Selects all input,textarea , button and select elements
+
+  

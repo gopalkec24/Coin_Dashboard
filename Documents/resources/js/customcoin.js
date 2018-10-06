@@ -23,3 +23,15 @@ function filterTransactionData($) {
     
     
 }
+
+function getStatusCSS(value){
+if(value ===0){
+ return "neutral";
+ }
+ else if(value >0){
+  return "profit";
+ }
+ else{
+  return "loss";
+ }
+}
