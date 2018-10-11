@@ -358,4 +358,15 @@ selecting elements based on type
 :hidden
 :input - Selects all input,textarea , button and select elements
 
+!! that you see is a quick way of converting any type in javascript to its Boolean Expression.
+
+jQuery will only return input elements within that form.
+  
+  Manipulate,traverse and extend jQuery
+  
+  $().each() -> will iterate exclusively through jQuery Objects
+  is not the same as the jQuery utility method  
+  jQuery.each is more generalized iterator method that will iterate through both objects and arrays.
+  
+  $(this) - we can perform jQuery methods/actions against it.
   
