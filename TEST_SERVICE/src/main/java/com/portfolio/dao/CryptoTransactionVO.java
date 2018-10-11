@@ -51,6 +51,17 @@ public class CryptoTransactionVO {
 	BigDecimal effectiveTradeVol= BIG_DECIMAL_ZERO;
 	BigDecimal transactionAmt = BIG_DECIMAL_ZERO;
 	
+	BigDecimal price = BIG_DECIMAL_ZERO;
+	
+	
+			
+	
+	public BigDecimal getPrice() {
+		return price;
+	}
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 	String transactionType;
 	String commissionType;	
 	String coinName;

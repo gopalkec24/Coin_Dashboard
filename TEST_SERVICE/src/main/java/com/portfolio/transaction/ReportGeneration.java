@@ -280,7 +280,7 @@ public class ReportGeneration {
 		try 
 		{
 			//get the current MarketValue from CoinMarketCap site
-			currentMap = GetCurrentRate.getCurrentPriceFromCoinMarketCap(tradedSymbol);
+			//currentMap = GetCurrentRate.getCurrentPriceFromCoinMarketCap(tradedSymbol);
 			currentMapObject= GetCurrentRate.getCurrentPriceFromCoinMarketCapV1(tradedSymbol);
 			//Forex value for Non CryptoCurrency like INR,MXN
 			//This map will be having conversion value in USD
@@ -329,6 +329,12 @@ public class ReportGeneration {
 						transVO.setName(currMean.getCurrencyName());
 						transVO.setCrypto(tradeConfiguration.isCryptoCurrency(currMean.getCurrencyName()));	
 						exchangeVO.addTransactionCurrencyVO(transVO);
+						//TODO update the deposit and withdrawal amount from Exchange Coin
+						ExchangeCurrencyVO tranCurr = getXChangeCurrency(exchangeVO.getCoinList(), currMean.getCurrencyName());
+						if(tranCurr!= null) {
+							transVO.setDepositVolume(tranCurr.getDepositAmt());
+							transVO.setWithdrawalVolume(tranCurr.getWithdrawalAmt());
+						}
 					}
 
 					int compare = currMean.getBuyPrice().compareTo(ZERO_BIGDECIMAL);
@@ -359,6 +365,7 @@ public class ReportGeneration {
 											transVO.setCommissionAmount(transVO.getCommissionAmount().add(currMean.getCommissionRate()));
 											transVO.setCurrentInvestAmount(transVO.getCurrentInvestAmount().add(currentInvestmentAmt));
 											transVO.setSoldInvestment(transVO.getSoldInvestment().add(soldInvestement));
+											
 											currMean.setBuyMean(buyMean.setScale(8, RoundingMode.HALF_UP));
 											currMean.setSellMean(sellMean.setScale(8, RoundingMode.HALF_UP));
 											currMean.setSoldInvestment(soldInvestement.setScale(8, RoundingMode.HALF_UP));
@@ -683,6 +690,7 @@ public class ReportGeneration {
 			BigDecimal totalCommissionSpend;
 			CryptoTransactionVO crypto= new CryptoTransactionVO();		
 			crypto.setXchangeName(exchangeName);
+			crypto.setPrice(price);
 			
 			if (currencyMean != null) {
 				
@@ -927,8 +935,9 @@ public class ReportGeneration {
 			crypto.setFinalVol(totalAmt);
 			crypto.setCoinName(coinName);
 			crypto.setTransactionCoin(currency);
-			if(commissionCurrency==null){
-			crypto.setCommissionCoin(currency);
+			if(commissionCurrency==null)
+			{
+				crypto.setCommissionCoin(currency);
 			}
 			else
 			{
