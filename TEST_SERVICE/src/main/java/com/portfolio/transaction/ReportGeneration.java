@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Logger;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
@@ -44,7 +45,7 @@ public class ReportGeneration {
 	
 	ReadTradeConfig tradeConfiguration= new ReadTradeConfig();
 	
-	
+	public static final Logger LOGGER = Logger.getLogger(ReportGeneration.class.getName());
 	/*Hashtable<String,List<String>> tradeConfig = new Hashtable<String,List<String>>();*/
 	List<String> tradedSymbol= new ArrayList<String>();
 	List<CryptoTransactionVO> listTrans = new ArrayList<CryptoTransactionVO>();
@@ -65,7 +66,7 @@ public class ReportGeneration {
 		try {
 			String transactionFile = "C:/Documents/MultiTransaction_1.csv";
 			String configurationFile = "C:/Documents/config.txt";
-			String sumJsonLocation = "C:/Documents/summaryJson.json";
+			String sumJsonLocation = "C:/Documents/summaryJsonSL.json";
 			if(args.length>=3) {
 				transactionFile= args[0];
 				configurationFile=args[1];
@@ -559,17 +560,26 @@ public class ReportGeneration {
 	public Map<String,ExchangeVO> processTransactions(List<TransactionDetailsVO> transactionList)
 	{
 		Map<String,ExchangeVO> exchangeList = new TreeMap<String,ExchangeVO>();
+		int lowBP;
+		int highBP;
+		String exchangeName;
+		String coinName;
+		BigDecimal price;
+		BigDecimal volume;
+		BigDecimal commissionRate;
+		String currency;
+		String commissionCurrency;
 		System.out.println("Coin \t Currency \t Trade Currency Amt \t Transaction Amt \t Transaction Type \t Total Transaction amt ");
 		for(TransactionDetailsVO detailsVO : transactionList){
 			
 			if(detailsVO != null){
-			String exchangeName=detailsVO.getExchangeName();
-			String coinName = detailsVO.getCoinName();
-			BigDecimal price = detailsVO.getPrice();
-			BigDecimal volume = detailsVO.getVolume();
-			BigDecimal commissionRate = detailsVO.getCommissionRate();
-			String currency = detailsVO.getCurrency();
-			String commissionCurrency= detailsVO.getCommissionCurrency();
+			exchangeName=detailsVO.getExchangeName();
+			 coinName = detailsVO.getCoinName();
+			 price = detailsVO.getPrice();
+			 volume = detailsVO.getVolume();
+			 commissionRate = detailsVO.getCommissionRate();
+			 currency = detailsVO.getCurrency();
+			 commissionCurrency= detailsVO.getCommissionCurrency();
 			if(!tradedSymbol.contains(coinName)&& tradeConfiguration.isCryptoCurrency(coinName)){
 				tradedSymbol.add(coinName);
 			}
@@ -613,6 +623,10 @@ public class ReportGeneration {
 						if(!exchangeVO.getTradeCoinList().contains(coinPair)) {
 							exchangeVO.addTradeCoinList(coinPair);
 						}
+						currencyMean.setLowBuyPrice(price);
+						currencyMean.setLowSellPrice(price);
+						currencyMean.setHighBuyPrice(price);
+						currencyMean.setHighSellPrice(price);
 					}
 					if(tradeConfiguration.isTradeCurrency(exchangeName,coinName)){
 						xChangeCurrency.setTradeCurrency(true);
@@ -649,6 +663,10 @@ public class ReportGeneration {
 					currencyMean = createNewCurrecnyMean(currency);
 					xChangeCurrency.addCurrencyVO(currencyMean);
 					tradeCoinList.add(coinPair);
+					currencyMean.setLowBuyPrice(price);
+					currencyMean.setLowSellPrice(price);
+					currencyMean.setHighBuyPrice(price);
+					currencyMean.setHighSellPrice(price);
 				}
 				if(tradeConfiguration.isTradeCurrency(exchangeName,coinName)){
 					xChangeCurrency.setTradeCurrency(true);
@@ -706,6 +724,7 @@ public class ReportGeneration {
 				buyVolume = ZERO_BIGDECIMAL;
 				sellVolume = ZERO_BIGDECIMAL;
 				totalCommissionSpend = ZERO_BIGDECIMAL;
+				
 			}
 			BigDecimal depositAmt = xChangeCurrency.getDepositAmt();
 			BigDecimal withdrawAmt = xChangeCurrency.getWithdrawalAmt();
@@ -729,6 +748,10 @@ public class ReportGeneration {
 			crypto.setInitialVol(totalAmt);				  
 			System.out.print(" Tra Vol = "+volume+"\t");
 	        crypto.setTradeVol(volume);
+	        
+	       
+	        
+	        
 			// Buy Transaction and Fixed Buy Transaction
 			if(detailsVO.getTransactionType() == 1 || detailsVO.getTransactionType() ==5 )
 			{
@@ -796,6 +819,16 @@ public class ReportGeneration {
 				totalAmt=totalAmt.add(effectiveVolume);
 				buyPrice=buyPrice.add(transactionAmt);
 				
+				 if (currencyMean != null) {
+					lowBP = currencyMean.getLowBuyPrice().compareTo(price);
+					highBP = currencyMean.getHighBuyPrice().compareTo(price);
+					if (lowBP == 1) {
+						currencyMean.setLowBuyPrice(price);
+					}
+					if (highBP <= 0) {
+						currencyMean.setHighBuyPrice(price);
+					} 
+				}
 				
 			}
 			//sell Transaction and fixed sell Transaction
@@ -881,6 +914,16 @@ public class ReportGeneration {
 				sellPrice= sellPrice.add(transactionAmt);
 				totalAmt = totalAmt.subtract(effectiveVolume);
 				
+				 if (currencyMean != null) {
+					lowBP = currencyMean.getLowSellPrice().compareTo(price);
+					highBP = currencyMean.getHighSellPrice().compareTo(price);
+					if (lowBP == 1) {
+						currencyMean.setLowSellPrice(price);
+					}
+					if (highBP <= 0) {
+						currencyMean.setHighSellPrice(price);
+					} 
+				}
 				
 			}
 			//Deposit Transaction

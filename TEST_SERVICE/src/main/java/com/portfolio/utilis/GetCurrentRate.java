@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.logging.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -55,8 +56,11 @@ public class GetCurrentRate {
 	private static final Map<String,Integer> CACHED_COIN_ID = Collections.synchronizedMap(new HashMap<String,Integer>());
 		
 	public static List<FetchConfiguration> fetchConfig = null;
+	
 	public static List<MainnetConfiguration> mainnetData = null;
 
+	public static final Logger LOGGER = Logger.getLogger(GetCurrentRate.class.getName());
+	
 	public static void main(String[] args) throws Exception {
 
 		 /* String endpointURL = "https://api.coinmarketcap.com/v2/listings/";
@@ -358,9 +362,24 @@ public class GetCurrentRate {
 		
 		return xchangeCurrentValueMap;
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
+	//check for error and clean this method after testing 
 	public static List<FetchConfiguration> getExchangeConfigData() {
-		File lastUpdated= new File(ReadTradeConfig.CONFIG_DIRECTORY+"configurationURL1.json");
+		String configFilePath = ReadTradeConfig.CONFIG_DIRECTORY+"configurationURL1.json";		
+		return getExchangeConfigData(configFilePath);
+	}
+	
+	public static Map<String,FetchConfiguration> getExchangeConfigDataV2() {
+		String configFilePath = ReadTradeConfig.CONFIG_DIRECTORY+"configurationURL2.json";		
+		return getExchangeConfigDataV2(configFilePath);
+	}
+	//check for error and clean this method after testing
+	public static List<FetchConfiguration> getExchangeConfigData(String configFilePath) {	
+		System.out.println("called here");
+		File lastUpdated= new File(configFilePath);
 		String response= null;
 		if(fetchConfig== null) {
 		if(lastUpdated.exists())
@@ -385,6 +404,36 @@ public class GetCurrentRate {
 		}
 		}
 		return fetchConfig;
+	}
+	
+	public static Map<String,FetchConfiguration> getExchangeConfigDataV2(String configFilePath) {	
+		LOGGER.finest("called here");
+		File lastUpdated= new File(configFilePath);
+		String response= null;
+		Map<String,FetchConfiguration> configValues = null;
+		
+		if(lastUpdated.exists())
+		{
+		 try {			 
+			 
+			response = FileUtils.readFileToString(lastUpdated, "utf-8");
+			//System.out.println(response);
+			 Gson gson = new Gson();
+			 Type listType = new TypeToken<Map<String,FetchConfiguration>>(){}.getType();
+			 
+			 configValues= gson.fromJson(response,listType);
+			 
+			
+			
+		 	} 
+		 	catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		}
+		
+		return configValues;
 	}
 	
 	public static List<MainnetConfiguration> getMainNetConfigData() {

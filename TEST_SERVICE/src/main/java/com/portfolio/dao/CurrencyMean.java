@@ -176,6 +176,36 @@ public class CurrencyMean {
 		this.effectiveLoss = effectiveLoss;
 	}
 	
+	public BigDecimal lowBuyPrice = BIG_DECIMAL_ZERO;
+	public BigDecimal highBuyPrice = BIG_DECIMAL_ZERO;
+	public BigDecimal lowSellPrice = BIG_DECIMAL_ZERO;
+	public BigDecimal highSellPrice = BIG_DECIMAL_ZERO;
+
+	public BigDecimal getLowBuyPrice() {
+		return lowBuyPrice;
+	}
+	public void setLowBuyPrice(BigDecimal lowBuyPrice) {
+		this.lowBuyPrice = lowBuyPrice;
+	}
+	public BigDecimal getHighBuyPrice() {
+		return highBuyPrice;
+	}
+	public void setHighBuyPrice(BigDecimal highBuyPrice) {
+		this.highBuyPrice = highBuyPrice;
+	}
+	public BigDecimal getLowSellPrice() {
+		return lowSellPrice;
+	}
+	public void setLowSellPrice(BigDecimal lowSellPrice) {
+		this.lowSellPrice = lowSellPrice;
+	}
+	public BigDecimal getHighSellPrice() {
+		return highSellPrice;
+	}
+	public void setHighSellPrice(BigDecimal highSellPrice) {
+		this.highSellPrice = highSellPrice;
+	}
+	
 	
 	
 }

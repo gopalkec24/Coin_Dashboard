@@ -30,6 +30,7 @@ public class GetCurrentMarketPrice {
 	
 	private static final boolean offInternet = false;
 	
+	static Map<String, FetchConfiguration> configList=null;
 
 	public static void main(String[] args) throws MalformedURLException, ProtocolException, IOException {
 		
@@ -47,6 +48,8 @@ public class GetCurrentMarketPrice {
 		
 		File summaryJson = new File("C:/Documents/watchListData.json");
 		FileUtils.write(summaryJson,cmp.javaToJson(cmp.getDataForWatchList()));
+		
+		
 		
 	}
 	
@@ -191,17 +194,15 @@ public class GetCurrentMarketPrice {
 
 
 
-	public String getDataFromJsonFile(String jsonCompletePath) {
+	public static String getDataFromJsonFile(String jsonCompletePath) {
 		File lastUpdated= new File(jsonCompletePath);
 		String response= null;		
 		if(lastUpdated.exists())
 		{
 		 try {
-			response = FileUtils.readFileToString(lastUpdated, "utf-8");
-			//System.out.println(response);			
+			response = FileUtils.readFileToString(lastUpdated, "utf-8");					
 		 	} 
-		 	catch (IOException e) {
-			// TODO Auto-generated catch block
+		 	catch (IOException e) {			
 			e.printStackTrace();
 		}
 	
@@ -215,7 +216,7 @@ public class GetCurrentMarketPrice {
 	public  Map<String,Map<String,Object>> getCurrentMarketPrice(String exchangeName,List<String> tradedPair,int fetchMode){
 		
 		
-		FetchConfiguration configVO = getFetchConfigurationForExchange(exchangeName);
+		FetchConfiguration configVO = getFetchConfigurationForExchangeV2(exchangeName);
 		Map<String,Map<String,Object>> exchangeValue = null;
 		
 		if(configVO != null) {	
@@ -319,7 +320,7 @@ public class GetCurrentMarketPrice {
 	}
 
 
-
+	//TODO check for error and clean this method after testing
 	private FetchConfiguration getFetchConfigurationForExchange(String exchangeName) {
 		List<FetchConfiguration> configList = GetCurrentRate.getExchangeConfigData();
 		FetchConfiguration configVO  = null;
@@ -332,8 +333,16 @@ public class GetCurrentMarketPrice {
 		}
 		return configVO;
 	}
+	
+	private FetchConfiguration getFetchConfigurationForExchangeV2(String exchangeName) {
+		if(configList== null) {
+		configList = GetCurrentRate.getExchangeConfigDataV2();
+		}
+		FetchConfiguration configVO  = configList.get(exchangeName);		
+		return configVO;
+	}
 	  
-	private String getEquivalentSymbol(String pair, String exchangeName) {
+	public String getEquivalentSymbol(String pair, String exchangeName) {
 		
 		String symbolValue;
 		if(exchangeName.equalsIgnoreCase("BINANCE")) {
