@@ -87,7 +87,7 @@ $(document).ready(function (){
     $( "#searchBlock").hide();
 $.ajax({
 	
-url:"summaryJson.json",
+url:"summaryJsonSL.json",
 dataType:"json",
 success:function(result)
 {
@@ -104,7 +104,7 @@ var exchangeObj = result.exchangeList[exchange];
   */ 
   var dataRow="<table> <tr> <th> Exchange Name :  </th> <td class='exchange_text'>" +exchange +"</td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td><th>Total Net Investment value(after Withdraw) in USD </th> <td>"+exchangeObj.netInvestValue +"</td><th>Total Investment value in USD </th> <td>"+exchangeObj.nonCryptoInvestValue +"</td> <th>Total Current Fund value in USD</th> <td>"+exchangeObj.currentMarketValue +"</td></tr> </table>";
   dataRow=dataRow+"<div> <table id='"+exchange+"'> <thead> <tr><th>Coin/Currency Traded</th><th>Buy Price</th><th>Buy Volume</th><th>Buy Avg Price </th><th>Sell Avg Price</th><th>Sell Volume</th><th>Sell Price</th><th>Amount spend on Commission</th>"+
-  "<th>Profit </th> <th>Profit % </th> <th>Price Differ </th>  <th>Price Differ % </th>  <th>Xchange Market unitPrice </th> <th>Additional Vol </th> <th>Additional Amt </th> <th> Effective Loss</th> <th> Deposit Amt </th> <th>Withdrawal</th> <th>Commission Spend on transfers</th> <th>Total volume available</th>"+
+  "<th>Profit </th> <th>Profit % </th> <th>Price Differ </th>  <th>Price Differ % </th>  <th>Xchange Market unitPrice </th> <th>Lowest BuyPrice </th> <th>Highest BuyPrice</th> <th> Lowest Sell Price</th> <th>High SellPrice </th> <th>Additional Vol </th> <th>Additional Amt </th> <th> Effective Loss</th> <th> Deposit Amt </th> <th>Withdrawal</th> <th>Commission Spend on transfers</th> <th>Total volume available</th>"+
   "<th>CoinMktCap Mkt Price </th> <th>1 hr change </th> <th>24 hr change</th>  <th>7d change</th><th>Current Fund value in USD</th></tr> </thead> <tbody>";  
     for(var i=0; i< exchangeObj.coinList.length; i++)
 	{
@@ -154,6 +154,11 @@ var exchangeObj = result.exchangeList[exchange];
                 replaceUndefinedData(coinTraded.priceDiffer)+"</td><td>"+
                 replaceUndefinedData(coinTraded.priceDifferPercentage)+"</td><td>"+
                 replaceUndefinedData(coinTraded.lastPrice)+"</td><td>"+
+				 replaceUndefinedData(coinTraded.lowBuyPrice)+"</td><td>"+
+				  replaceUndefinedData(coinTraded.highBuyPrice)+"</td><td>"+
+				   replaceUndefinedData(coinTraded.lowSellPrice)+"</td><td>"+
+				    replaceUndefinedData(coinTraded.highSellPrice)+"</td><td>"+
+				
 				 replaceUndefinedData(coinTraded.additionalVol)+"</td><td>"+
 				  replaceUndefinedData(coinTraded.additionalAmt)+"</td><td>"+
 				   replaceUndefinedData(coinTraded.effectiveLoss)+"</td><td>"+
@@ -167,7 +172,7 @@ var exchangeObj = result.exchangeList[exchange];
 			cssclass="neutral";
 		}
 				//removed two td from here
-		dataRow=dataRow+"<tr class='"+cssclass+"'><td>"+coin.coinName+"</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>"+coin.depositAmt+"</td><td>"+coin.withdrawalAmt+"</td><td>"+coin.xchangeTransferCommission+"</td><td>"+coin.totalAmt+"</td><td class='"+getStatusCSS(coin.percent1hChange)+"'>"+ coin.marketCapPrice +"</td><td class='"+getStatusCSS(coin.percent1hChange)+"'>"+coin.percent1hChange+"</td><td class='"+getStatusCSS(coin.percent24hChange)+"'>"+coin.percent24hChange+"</td> <td class='"+getStatusCSS(coin.percent7dChange)+"'>"+coin.percent7dChange+"</td><td>"+coin.currentMarketValue+"</td></tr>";
+		dataRow=dataRow+"<tr class='"+cssclass+"'><td>"+coin.coinName+"</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>"+coin.depositAmt+"</td><td>"+coin.withdrawalAmt+"</td><td>"+coin.xchangeTransferCommission+"</td><td>"+coin.totalAmt+"</td><td class='"+getStatusCSS(coin.percent1hChange)+"'>"+ coin.marketCapPrice +"</td><td class='"+getStatusCSS(coin.percent1hChange)+"'>"+coin.percent1hChange+"</td><td class='"+getStatusCSS(coin.percent24hChange)+"'>"+coin.percent24hChange+"</td> <td class='"+getStatusCSS(coin.percent7dChange)+"'>"+coin.percent7dChange+"</td><td>"+coin.currentMarketValue+"</td></tr>";
 	
 	
 	/*if(dataRow.length > 0 )
@@ -332,8 +337,10 @@ $('th').each(function(col)
 $("#search").click( function() {
     var coin = $("#coinName").val().toLowerCase();
     var exchange = $("#exchangeName").val().toLowerCase();
+	var tradeCurr= $("#tradeCurrName").val().toLowerCase();
     $("#transactionsummary tbody tr").filter(function() {
-    	var toggle= ($(this).text().toLowerCase().indexOf(exchange) > -1) && ($(this).text().toLowerCase().indexOf(coin) > -1);    	
+		var toggle= ($(this).children().filter("td:eq(0)").text().toLowerCase().indexOf(exchange) > -1 ) && ($(this).children().filter("td:eq(1)").text().toLowerCase().indexOf(coin) > -1 ) && ($(this).children().filter("td:eq(5)").text().toLowerCase().indexOf(tradeCurr) > -1 );
+    	//var toggle= ($(this).text().toLowerCase().indexOf(exchange) > -1) && ($(this).text().toLowerCase().indexOf(coin) > -1);    	
       $(this).toggle(toggle);	  
     });
     //$("#transactionsummary tr").filter(":nth-child(odd)").addClass("alt");
@@ -377,13 +384,15 @@ $('#hideZeroVolume').on('click', function () {
 		</div>
 		   	<div class="transactionDetails" id="searchBlock">
 		   	<input id="exchangeName" type="text" placeholder="Enter Xchange Name"> 
-		  	<input id="coinName" type="text" placeholder="Enter Symbol of Coin"> <button id="search">Search</button>
+		  	<input id="coinName" type="text" placeholder="Enter Symbol of Coin"> 
+			<input id="tradeCurrName" type="text" placeholder="Enter trade Currency Symbol"> 
+			<button id="search">Search</button>
 		  	
 		 <br>
 			<table id="transactionsummary">  
 			<thead><tr><th>Exchange Name</th><th>Coin Name</th> <th> Transaction Type</th> <th>Initial Traded Coin Volume </th> <th>Initial Traded currency volume</th> <th>Transaction Coin </th> <th>Initial commission Volume</th>  <th>Commission Coin </th> <th>Commission Type </th> <th> Price </th> <th>Trade Volume</th><th>Effective Trade vol</th><th>Commission Value</th><th> Transaction Amount</th><th>Final Volume</th><th>Final commission Volume </th><th>Final Traded coin Volume </th> </tr> </thead>
 			<tbody >
-			</tbody>
+			
 			 </table>							   
 		  </div>
 		   </div>
