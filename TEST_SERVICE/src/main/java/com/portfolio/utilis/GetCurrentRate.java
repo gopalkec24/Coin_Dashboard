@@ -37,6 +37,8 @@ public class GetCurrentRate {
 	
 	
 
+	private static final String BASEURL_CURRENTRATE = "http://www.apilayer.net/api/live?access_key=";
+
 	private static final String CM_ID = "id";
 
 	private static final String CM_SYMBOL = "symbol";
@@ -103,10 +105,14 @@ public class GetCurrentRate {
 		//cacheCoinIdFromMarketPlace();
 		//getNonCryptoCurrencyValue("USD","MXN");
 
-		for(MainnetConfiguration mainData : GetCurrentRate.getMainNetConfigData())
+	/*	for(MainnetConfiguration mainData : GetCurrentRate.getMainNetConfigData())
 		{
 			System.out.println(mainData.getExchangeName());
-		}
+		}*/
+		String apiKey="06773261e0b8ea23e9f73178f8a5d422";
+		String source ="USD";
+		String coinName ="MXN,INR";
+		cacheCurrencyRate(apiKey, source, coinName);
 	}
 
 	public static String getDetailsFromSite(String endpointURL)
@@ -297,8 +303,8 @@ public class GetCurrentRate {
 			JSONObject cacheObj = new JSONObject(response);
 			 timeStamp = cacheObj.getJSONObject(CM_STATUS).getString("timestamp");
 			 lastUpdateInMS= getTimeinMilliseconds(timeStamp);
-			 Date ne = new Date(lastUpdateInMS);
-			//System.out.println("Value got from Cache "+ timeStamp + " Date " + ne);
+			/* Date ne = new Date(lastUpdateInMS);
+			System.out.println("Value got from Cache "+ timeStamp + " Date " + ne);*/
 		}	
 		}
 	    System.out.println("Last updated time " +lastUpdateInMS);
@@ -313,7 +319,66 @@ public class GetCurrentRate {
 		}				
 		return response;
 	}
+	
+	
+	private static String cacheCurrencyRate(String apiKey,String source, String coinName) throws Exception {
+		/*String apiKey= "c036cb4353fa9f7a4583407bc18baa95";
+		String source;*/
+		String endpointURL = BASEURL_CURRENTRATE+apiKey+"&source="+source+"&format=1&currencies="+coinName;
+		File lastUpdated= new File(ReadTradeConfig.CONFIG_DIRECTORY+"lastCacheCurrency.json");
+		long lastUpdateInMS =0;
+		String response  = null;
+		
+		if(lastUpdated.exists())
+		{
+			response = FileUtils.readFileToString(lastUpdated, "utf-8");
+			if(response!= null && !response.equalsIgnoreCase("") && response.length() > 0)
+			{
+				JSONObject cacheObj = new JSONObject(response);
+				lastUpdateInMS = cacheObj.getLong("timestamp");
+				Date ne= new Date(lastUpdateInMS);
+				System.out.println(lastUpdateInMS);
+				System.out.println(ne);
+			}	
+		}
+		else
+		{
+			response=getDetailsFromSite(endpointURL);
+			if(!checkForCurrencyResponseSuccess(response)) {
+				JSONObject object = new JSONObject(response);
+				int code= object.getJSONObject("error").getInt("code");
+				if(code == 104) {
+					String mirrorEndPoint = BASEURL_CURRENTRATE+"c036cb4353fa9f7a4583407bc18baa95&source="+source+"&format=1&currencies="+coinName;
+					response = getDetailsFromSite(mirrorEndPoint);
+					if(!checkForCurrencyResponseSuccess(response)) {
+						throw new Exception("Failed to get the Currency Live Rate");
+					}
+					else {
+						
+					}
 
+				}
+
+			}
+		}
+	    /*System.out.println("Last updated time " +lastUpdateInMS);
+	    System.out.println("Current Time " + System.currentTimeMillis()) ;
+	    System.out.println(new Date(System.currentTimeMillis()));
+		System.out.println("last updated " + (System.currentTimeMillis() - lastUpdateInMS));*/
+		
+		if(lastUpdateInMS==0 || (lastUpdateInMS*1000 +86400000)< System.currentTimeMillis() ) {
+			 			 
+			 FileUtils.writeStringToFile(lastUpdated,response);
+			 System.out.println("New File updated in Cache for Currency rate :"+response);
+		}				
+		return response;
+	}
+	private static boolean checkForCurrencyResponseSuccess(String response) {
+		JSONObject cacheObj = new JSONObject(response);
+		boolean  fetch = cacheObj.getBoolean("success");
+		return fetch;
+		
+	}
 	private static Long getTimeinMilliseconds(String timeStamp) throws Exception {
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 		  Date date = format.parse(timeStamp);
@@ -566,6 +631,18 @@ public class GetCurrentRate {
 		
 	}
 
+	public static Map<String,BigDecimal> getNonCryptoCurrencyValueV1(String source,String coinName) throws Exception, ProtocolException, IOException {
+		Map<String,BigDecimal> nonCyptoCurrentValue= new TreeMap<String,BigDecimal>();
+		String apiKey="06773261e0b8ea23e9f73178f8a5d422";
+				
+		String reponse= cacheCurrencyRate(apiKey, source,coinName);
+		if(reponse!= null) {
+			JSONObject object= new JSONObject(reponse);					 
+			 getCurrencyValueFromResponse(source, coinName, nonCyptoCurrentValue, object);			 
+			}
+		return nonCyptoCurrentValue;
+		
+	}
 	private static void getCurrencyValueFromResponse(String source, String coinName,
 			Map<String, BigDecimal> nonCyptoCurrentValue, JSONObject object) {
 		for(String currency: coinName.split(",")) {

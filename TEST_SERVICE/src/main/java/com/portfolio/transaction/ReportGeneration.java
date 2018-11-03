@@ -285,7 +285,7 @@ public class ReportGeneration {
 			currentMapObject= GetCurrentRate.getCurrentPriceFromCoinMarketCapV1(tradedSymbol);
 			//Forex value for Non CryptoCurrency like INR,MXN
 			//This map will be having conversion value in USD
-			nonCryptoCurrencyValue = GetCurrentRate.getNonCryptoCurrencyValue("USD","MXN,INR");
+			nonCryptoCurrencyValue = GetCurrentRate.getNonCryptoCurrencyValueV1("USD","MXN,INR");
 			//Get the 
 			//currentMarketValueAllExchange= GetCurrentRate.getCurrentMarketPriceFromExchange(new ArrayList<String>(exchangeList.keySet()));
 			//System.out.println(currentMarketValueAllExchange);

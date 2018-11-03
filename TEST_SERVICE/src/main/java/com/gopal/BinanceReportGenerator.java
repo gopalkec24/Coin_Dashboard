@@ -35,7 +35,7 @@ public class BinanceReportGenerator extends ReportGeneratorLive {
 	public final String NON_CYRPTO_CURRENCY = "USD|INR";
 	public static void main(String[] args)
 	{
-		String transactionFile = "D:/Documents/binance_transaction.csv";
+		String transactionFile = "C:/Documents/binance_transaction.csv";
 		try {
 			Map<String,List<TransactionVO>> transactionMap = readTransaction(transactionFile);
 			String exchangeURL = "https://coinmarketcap.com/exchanges/binance/";
@@ -51,7 +51,7 @@ public class BinanceReportGenerator extends ReportGeneratorLive {
 	}
 	private  void processTransactionVO(Map<String, List<TransactionVO>> transactionMap,Map<String,CoinSettingVO> coinSettingMap,CurrencyVO currrentRateVO) throws FileNotFoundException {
 
-		PrintWriter pw = new PrintWriter("D:\\Documents\\report_binance.csv"); 
+		PrintWriter pw = new PrintWriter("C:\\Documents\\report_binance.csv"); 
 		//pw.println("Coin Name, Total volume ,Buy Price,Sell Price,Current Investment Amount, Average Price ,Project Sell value,Current value, Current Portifilo Value,Profit Realised,Profit in Portfolio,Net Profit/loss,Profit Realised Percentage,Profit in Portfolio Percentage,Profit Percentage,StablizeCount,StablizeRate"); 
 		pw.println("Coin, Tot. vol,Curr Invs Amt, Avg Price,Avg 4 Price ,Tgt %,Tgt Sell amt,Tgt Last Sell amt,Curr Mkt Price, Curr Port. Amt,Realised Gain,Gain in Port.,Net Profit/loss,Gain Realised %,Gain in Port. %,Profit %,StablizeCount,StablizeRate"); 
 
