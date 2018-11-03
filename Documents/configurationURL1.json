@@ -12,7 +12,7 @@
 "securityRequired" : false,
 "result":"JSONARRAY",
 "transCurrency":["BNB","ETH","BTC","USDT"],
-"currencyAlias":{"BNB":"BNB","BTC":"BTC","ETH":"ETH","USDT":"USDT"},
+"currencyAlias":{"BNB":"BNB","BTC":"BTC","ETH":"ETH","USDT":"USDT","BCC":"BCH"},
 "allFetch":2,
 "getSymbolParameter" :"symbol",
 "name" : "BINANCE"
