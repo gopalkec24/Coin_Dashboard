@@ -21,9 +21,9 @@ public class TradeLogger {
 			 else {
 				 LOGGER.info("No Logger config properties file found");
 				 Handler handlerObj = new ConsoleHandler();
-				 handlerObj.setLevel(Level.ALL);
+				 handlerObj.setLevel(Level.INFO);
 				 LOGGER.addHandler(handlerObj);
-				 LOGGER.setLevel(Level.ALL);
+				 LOGGER.setLevel(Level.INFO);
 				 LOGGER.setUseParentHandlers(false);
 			 }
 				 
