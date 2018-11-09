@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -21,7 +22,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.portfolio.dao.FetchConfiguration;
+import com.portfolio.utilis.GetCurrentMarketPrice;
 import com.trade.constants.TraderConstants;
+import com.trade.dao.ATOrderDetailsVO;
+import com.trade.dao.MarketStaticsVO;
 import com.trade.dao.TradeDataVO;
 import com.trade.utils.TradeLogger;
 
@@ -29,19 +33,18 @@ public class AutoTrader {
 	
 	
 	
-	private static final int COMPARE_LOWER = -1;
-	private static final int COMPARE_GREATER = 1;
-	private static final int COMPARE_EQUAL = 0;
-	/*public static Logger LOGGER= Logger.getLogger(AutoTrader.class.getName());
-	static{
-		Handler handler = new ConsoleHandler();
-		LOGGER.addHandler(handler);
-		LOGGER.setLevel(Level.ALL);
-	}*/
-	private static final String LAST_PRICE = "lastPrice";
-	private static final String LOW_PRICE = "lowPrice";
-	private static final String HIGH_PRICE = "highPrice";
+	
+	public static final String STR_UNKNOWN = "UNKNOWN";
+	public static final String STR_LESSER = "LESSER";
+	public static final String STR_EQUAL = "EQUAL";
+	public static final String STR_GREATER = "GREATER";
 	private static final int MAXIMUM_BUY_WAIT_COUNT = 10;
+	private static final int MAXIMUM_SELL_WAIT_COUNT = 10;
+	public static final int MAX_RETRIGGER_COUNT = 3;
+	public static final BigDecimal MIN_SELL_PERMISSIBLE_PERCENT = TraderConstants.BIGDECIMAL_ZERO;
+	public static final BigDecimal MAX_SELL_PERMISSIBLE_PERCENT =  new BigDecimal("2.75");
+	public static final BigDecimal MIN_BUY_PERMISSIBLE_PERCENT = TraderConstants.BIGDECIMAL_ZERO;
+	public static final BigDecimal MAX_BUY_PERMISSIBLE_PERCENT = new BigDecimal("2.75");
 
 	public static void main(String[] args){
 	
@@ -50,29 +53,48 @@ public class AutoTrader {
 		TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));
 		//new TradeDataVO for Testing object for sell Scenaio
 		TradeDataVO tradeVO1= new TradeDataVO("BINANCE", "ETH", "USDT", new BigDecimal("0.0125"), new BigDecimal("0.00"));
+		
 		/*TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));
 		TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));
 		TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));*/
-		String jsonFilePath = "D:/Documents/autotradeData.json";
+		String jsonFilePath = "C:/Documents/autotradeData.json";
 		
-		//List<TradeDataVO> list = new ArrayList<TradeDataVO>();
-		List<TradeDataVO> list;
-		try {
-			list = readAutoTradeDataFromJSON(jsonFilePath);
-			TradeLogger.LOGGER.info(list.toString());
-			trader.process(list);
+	/*	List<TradeDataVO> list = new ArrayList<TradeDataVO>();
+		list.add(tradeVO);
+		list.add(tradeVO1);
+		
+		
+		trader.process(list);
+		writeAutoTradeDataToJSON(jsonFilePath,list);*/
+		
+		for (int i = 0; i < 20; i++) {
 			
-			writeAutoTradeDataToJSON(jsonFilePath,list);
 			
-		} catch (JsonSyntaxException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			List<TradeDataVO> list;
+			try {
+				list = readAutoTradeDataFromJSON(jsonFilePath);
+				TradeLogger.LOGGER.info(list.toString());
+				trader.process(list);
+
+				writeAutoTradeDataToJSON(jsonFilePath, list);
+
+			} catch (JsonSyntaxException e) {
+
+				e.printStackTrace();
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			} 
+			
+			try {
+				TradeLogger.LOGGER.info("Going to sleep by 50 second" +new Date());
+				Thread.sleep(50000);
+				TradeLogger.LOGGER.info("Going to wake up" +new Date());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		/*list.add(tradeVO);
-		list.add(tradeVO1);*/
 		
 		
 		
@@ -91,15 +113,15 @@ public class AutoTrader {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			
-			FileUtils.write(new File(jsonFilePath),mapper.writeValueAsString(list));
+			FileUtils.write(new File(jsonFilePath),mapper.defaultPrettyPrintingWriter().writeValueAsString(list));
 		} catch (JsonGenerationException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		
 			e.printStackTrace();
 		}
 	}
@@ -131,97 +153,201 @@ public class AutoTrader {
 			TradeLogger.LOGGER.info(data.toString());
 			checkConditionTriggerTransaction(data);
 		}
-		else if(data.getTriggerEvent() == TraderConstants.LIMITORDER_TRIGGER){
-			
-		}
-		else if(data.getTriggerEvent() == TraderConstants.MARKETORDER_TRIGGER){
+		else if(data.getTriggerEvent() == TraderConstants.ORDER_TRIGGER){
 			
 		}
 		
+		
 	}
 	
-	
+	private String getCompareResultType(int compareResults) {
+		String result;
+		if(compareResults == TraderConstants.COMPARE_GREATER) {
+			result = STR_GREATER;
+		}
+		else if(compareResults == TraderConstants.COMPARE_EQUAL) {
+			result = STR_EQUAL;
+			
+		}
+		else if(compareResults == TraderConstants.COMPARE_LOWER) {
+			result =  STR_LESSER;
+		}
+		else {
+			result =STR_UNKNOWN;
+		}
+		return result;
+	}
 	private void checkConditionTriggerTransaction(TradeDataVO data) {
 		Map<String,Object> values= getExchangePrice(data.getExchange(),data.getCoin(),data.getCurrency());
 		if (values != null) 
 		{	
-			BigDecimal lastPrice = getValidBigDecimal(values,LAST_PRICE);
+			BigDecimal lastPrice = getValidBigDecimal(values,TraderConstants.LAST_PRICE);
 
-			BigDecimal lowPrice = getValidBigDecimal(values,LOW_PRICE);
+			BigDecimal lowPrice = getValidBigDecimal(values,TraderConstants.LOW_PRICE);
 
-			BigDecimal highPrice = getValidBigDecimal(values,HIGH_PRICE);
-			boolean advance= false;
+			BigDecimal highPrice = getValidBigDecimal(values,TraderConstants.HIGH_PRICE);
+			boolean advance= true;
+			ATOrderDetailsVO placeOrder = null;
 			if(isValidMarketData(data.getLastPrice()) && isValidMarketData(lastPrice))
 			{
 				// 1 = current Price is higher than previous last Price
 				// -1 = Current Price is lower than Previous last Price
 				// 0 = Current Price is equal to previous last Price
 				int lastCompare = lastPrice.compareTo(data.getLastPrice());
-
-
+				TradeLogger.LOGGER.finer(" Previous Triggered Price : "+ data.getTriggeredPrice() + " Previous last Price : "+ data.getLastPrice() + " Current Last Price : " +lastPrice);
 				//Trade transaction of type Buy Call
 				if(data.getTransactionType() == TraderConstants.BUY_CALL && data.isLastBuyCall() )
 				{	
-					int lowCompare = -1;
-					if(isValidMarketData(data.getTriggeredPrice()) && isValidMarketData(lowPrice)){
-						
-						lowCompare = data.getTriggeredPrice().compareTo(lowPrice);
-					}
-					if(lowCompare == COMPARE_GREATER){
-						
-						reinitilizeTriggerPrice(data, lowPrice);
-					}
-					else 
+					int lowCompare = -2;
+					TradeLogger.LOGGER.finer("Current Low Price : "+lowPrice);
+					//Check the price gets lower than triggered Price
+					if(isValidMarketData(data.getTriggeredPrice()) && isValidMarketData(lowPrice))
 					{
-						if(lastCompare == COMPARE_GREATER)
+						lowCompare = data.getTriggeredPrice().compareTo(lowPrice);
+						TradeLogger.LOGGER.finest("Comparing the last Triggered Price with Current Low Price "+ getCompareResultType(lowCompare));
+					}
+					TradeLogger.LOGGER.finest("Comparing the Current last Price  with  previous last Price "+ getCompareResultType(lastCompare));
+					//low price is lower than triggered Price
+					if(lowCompare == TraderConstants.COMPARE_GREATER)
+					{
+						
+						//then Reinitialize Trigger Price count
+						TradeLogger.LOGGER.finest("New triggered price with current low Price.");
+						//Initial fresh Trade here
+						//Making new Target here for me
+						initializeFreshTrade(data,lowPrice);				
+					}
+					// low Price is more than triggered Price
+					else 
+					{		
+						//last price is greater than previous Last price
+						//indicating that price moving to upwards direction
+						if(lastCompare == TraderConstants.COMPARE_GREATER)
 						{
-
 							//checking for maximum retry processing 
-							if(data.getWaitCount() <= MAXIMUM_BUY_WAIT_COUNT){
+							if(data.getWaitCount() <= MAXIMUM_BUY_WAIT_COUNT)
+							{
+								TradeLogger.LOGGER.finest("Increasing the wait count with higher Count , adding history as well");
+								data.addPriceHistory(getMarketStaticsVO(values,(data.getReTriggerCount()*10) +data.getWaitCount()));
 								data.increaseHigherCount();
 								data.increaseWaitCount();
+								
 							}
 							else
 							{
-								if(data.getLowCount() >= data.getHighCount())
+
+								//start of advance Trading 
+								//Advanced Trading 
+								//advance 2
+								if(advance)
 								{
-									//advance 2
-									if(advance)
-									{
+									//higher count is more than Low count, price is moving towards up direction very fastly
+									if(data.getLowCount() < data.getHighCount())
+									{									
 										//List of last Price 
-										List<BigDecimal> lastPriceList = new ArrayList<BigDecimal>();
+										List<MarketStaticsVO> lastPriceList = data.getPriceHistory();
 										//take the average the last price
 										BigDecimal avgLastPrice = getAvgPrice(lastPriceList);
 										BigDecimal percentageDiffer = getDifferInPercentage(avgLastPrice, data.getTriggeredPrice());
+										TradeLogger.LOGGER.finest("Differential Percentage is "+percentageDiffer);
 										boolean buyTrigger = percentagePermissible(percentageDiffer, TraderConstants.MIN_PERMISSIBLE_PERCENT, TraderConstants.MAX_PERMISSIBLE_PERCENT);
-										if(buyTrigger){
+										if(buyTrigger)
+										{
 											//buy order with trigger price
+											TradeLogger.LOGGER.info("Condition Met to transact changeing the state alone with TriggerPrice");
+											placeOrder=generateOrderDetails(TraderConstants.BUY_CALL,TraderConstants.LIMIT_ORDER,data.getTriggeredPrice(),null,data);
+											
 										}
-										else{
+										else
+										{
 											//place buy with avg price or Reinitailize the count
-											//
+
+											if(data.isPlaceAvgPriceOrder()) 
+											{
+												////place buy with avg price
+												TradeLogger.LOGGER.info("Condition Met to transact changeing the state alone with Avg price");
+												placeOrder=generateOrderDetails(TraderConstants.BUY_CALL,TraderConstants.LIMIT_ORDER,avgLastPrice,null,data);
+												
+											}
+											else 
+											{
+
+												if(data.getReTriggerCount() < MAX_RETRIGGER_COUNT) {
+													//Found new target here with trigger price as avgLast Price
+													initializeFreshTrade(data,avgLastPrice);
+												}
+												else 
+												{
+													//place buy with avg price
+													TradeLogger.LOGGER.info("Condition Met to transact changeing the state alone with Avg price");
+													placeOrder=generateOrderDetails(TraderConstants.BUY_CALL,TraderConstants.LIMIT_ORDER,avgLastPrice,null,data);
+												}
+											}
 										}
-										
 									}
-									else
-									{
-										
+									
+									else {
+
+										if(data.getReTriggerCount() < MAX_RETRIGGER_COUNT) 
+										{											
+											reinitilizeReTriggerCount(data, data.getTriggeredPrice());
+										}
+										else 
+										{
+											//place buy with triggered Price here
+											TradeLogger.LOGGER.info("Condition Met to transact changeing the state alone");
+											placeOrder=generateOrderDetails(TraderConstants.BUY_CALL,TraderConstants.LIMIT_ORDER,data.getTriggeredPrice(),null,data);
+										}
+
 									}
 								}
+								//End of advance Trading
 								else
 								{
-									
+									//Basic Trade 
+									//Buy order with triggered price here
+									TradeLogger.LOGGER.info("Condition Met to transact changeing the state alone");
+									placeOrder=generateOrderDetails(TraderConstants.BUY_CALL,TraderConstants.LIMIT_ORDER,data.getTriggeredPrice(),null,data);
 								}
+							
+								
 							}
 						}
-						else if(lastCompare == COMPARE_EQUAL){
-							//TODO need to check lower and Higher Count
+					/*	else if(lastCompare == COMPARE_EQUAL){
+							
+							data.addPriceHistory(getMarketStaticsVO(values,data.getWaitCount()));							
 							data.increaseWaitCount();
 							data.increaseLowCount();
 
-						}
-						else if(lastCompare == COMPARE_LOWER){
-							reinitilizeTriggerPrice(data, lastPrice);
+						}*/
+						//indicating price is either moving to downwards or stay there
+						else if(lastCompare == TraderConstants.COMPARE_LOWER || lastCompare == TraderConstants.COMPARE_EQUAL)
+						{
+							int triggerCompare = lastPrice.compareTo(data.getTriggeredPrice());
+							if(triggerCompare == TraderConstants.COMPARE_LOWER) 
+							{
+							TradeLogger.LOGGER.finest("Fresh initailzing the triggered price with current last Price.");
+							//Found New target for me.							
+							initializeFreshTrade(data, lastPrice);
+							}
+							else
+							{
+								if(data.getWaitCount() <= MAXIMUM_BUY_WAIT_COUNT)
+								{
+								data.addPriceHistory(getMarketStaticsVO(values,(data.getReTriggerCount()*10) +data.getWaitCount()));								
+								data.increaseWaitCount();
+								data.increaseLowCount();
+								}
+								else 
+								{
+									//TODO alternate options
+									//Right now reinitializing the triggeredPrice again
+									//Make sure that you wait for triggered price
+									//Check for alternate option 
+									reinitilizeReTriggerCount(data,data.getTriggeredPrice());
+								}
+								
+							}
 						}
 						
 					}
@@ -231,38 +357,127 @@ public class AutoTrader {
 				else if(data.getTransactionType() == TraderConstants.SELL_CALL && data.isLastSellCall())
 				{
 					
-					int highCompare = -1;
+					int highCompare = -2;
 					if(isValidMarketData(data.getTriggeredPrice()) && isValidMarketData(lowPrice)){
 						
 						highCompare = highPrice.compareTo(data.getTriggeredPrice());
 					}
-					if(highCompare == COMPARE_GREATER){
+					if(highCompare == TraderConstants.COMPARE_GREATER){
 						
 						reinitilizeTriggerPrice(data, highPrice);
 					}
 					else
 					{
 
-						if(lastCompare == COMPARE_GREATER)
+						if(lastCompare == TraderConstants.COMPARE_GREATER || lastCompare == TraderConstants.COMPARE_EQUAL)
 						{
+							int triggerCompare = lastPrice.compareTo(data.getTriggeredPrice());
+							if(triggerCompare == TraderConstants.COMPARE_GREATER) 
+							{
 							reinitilizeTriggerPrice(data, lastPrice);
+							}
+							else 
+							{
+								
+								data.addPriceHistory(getMarketStaticsVO(values,(data.getReTriggerCount()*10) +data.getWaitCount()));
+								data.increaseWaitCount();
+								data.increaseHigherCount();
+							}
+							
 						}
-						else if(lastCompare == COMPARE_EQUAL){
+						/*else if(lastCompare == TraderConstants.COMPARE_EQUAL){
+							data.addPriceHistory(getMarketStaticsVO(values,data.getWaitCount()));
 							//TODO need to check lower
 							data.increaseWaitCount();
 							data.increaseHigherCount();
 
-						}
-						else if(lastCompare == COMPARE_LOWER)
+						}*/
+						else if(lastCompare == TraderConstants.COMPARE_LOWER)
 						{
 							//checking for maximum retry processing 
-							if(data.getWaitCount() <= MAXIMUM_BUY_WAIT_COUNT){
+							if(data.getWaitCount() <= MAXIMUM_SELL_WAIT_COUNT){
+								data.addPriceHistory(getMarketStaticsVO(values,(data.getReTriggerCount()*10) +data.getWaitCount()));
 								data.increaseLowCount();
 								data.increaseWaitCount();
 							}
 							else
 							{
 
+
+								//start of advance Trading 
+								//Advanced Trading 
+								//advance 2
+								if(advance)
+								{
+
+									//higher count is more than Low count, price is moving towards down direction very fastly
+									if(data.getLowCount() >= data.getHighCount())
+									{									
+										//List of last Price 
+										List<MarketStaticsVO> lastPriceList = data.getPriceHistory();
+										//take the average the last price
+										BigDecimal avgLastPrice = getAvgPrice(lastPriceList);
+										BigDecimal percentageDiffer = getDifferInPercentage(avgLastPrice, data.getTriggeredPrice());
+										TradeLogger.LOGGER.finest("Differential Percentage is "+percentageDiffer);
+										boolean sellTrigger = percentagePermissible(percentageDiffer, TraderConstants.MIN_PERMISSIBLE_PERCENT, TraderConstants.MAX_PERMISSIBLE_PERCENT);
+										if(sellTrigger)
+										{
+											//sell order with trigger price
+											TradeLogger.LOGGER.info("Condition Met to transact changeing the state alone");
+											placeOrder=generateOrderDetails(TraderConstants.SELL_CALL,TraderConstants.LIMIT_ORDER,data.getTriggeredPrice(),null,data);
+										}
+										else
+										{
+											//place sell with avg price or Reinitailize the count
+
+											if(data.isPlaceAvgPriceOrder()) 
+											{
+												//place sell with avg price
+												TradeLogger.LOGGER.info("Condition Met to transact changeing the state alone");
+												placeOrder=generateOrderDetails(TraderConstants.SELL_CALL,TraderConstants.LIMIT_ORDER,avgLastPrice,null,data);
+											}
+											else 
+											{
+
+												if(data.getReTriggerCount() < MAX_RETRIGGER_COUNT) {
+													//Found new target here with trigger price as avgLast Price
+													initializeFreshTrade(data,avgLastPrice);
+												}
+												else 
+												{
+													//place sell with avg price
+													TradeLogger.LOGGER.info("Condition Met to transact changeing the state alone");
+													placeOrder=generateOrderDetails(TraderConstants.SELL_CALL,TraderConstants.LIMIT_ORDER,avgLastPrice,null,data);
+												}
+											}
+										}
+									}
+									
+									else 
+									{
+
+										if(data.getReTriggerCount() < MAX_RETRIGGER_COUNT) 
+										{											
+											reinitilizeReTriggerCount(data, data.getTriggeredPrice());
+										}
+										else 
+										{
+											//place buy with triggered Price here
+											TradeLogger.LOGGER.info("Condition Met to transact changeing the state alone");
+											placeOrder=generateOrderDetails(TraderConstants.SELL_CALL,TraderConstants.LIMIT_ORDER,data.getTriggeredPrice(),null,data);
+										}
+
+									}
+								}
+								//End of advance Trading
+								else
+								{
+									//Basic Trade 
+									//sell order with triggered price here
+									TradeLogger.LOGGER.info("Condition Met to transact changeing the state alone");
+									placeOrder=generateOrderDetails(TraderConstants.SELL_CALL,TraderConstants.LIMIT_ORDER,data.getTriggeredPrice(),null,data);
+								}
+								
 							}
 
 						}
@@ -278,6 +493,11 @@ public class AutoTrader {
 					//invalid scenario occured
 					TradeLogger.LOGGER.warning("Invalid scenario occured in Trigger Transaction Method");
 				}
+				
+				if(data.getTriggerEvent() == TraderConstants.ORDER_TRIGGER && placeOrder!= null) {
+					placeOrderToExchange(placeOrder);
+				}
+				data.setPreviousLastPrice(data.getLastPrice());				
 				data.setLowPrice(lowPrice);
 				data.setHighPrice(highPrice);
 				data.setLastPrice(lastPrice);
@@ -286,29 +506,97 @@ public class AutoTrader {
 			}
 
 		}
+		else {
+			TradeLogger.LOGGER.severe("Get Exchange Live Data is null. Please check with administrator");
+		}
 		
 	}
-	private BigDecimal getAvgPrice(List<BigDecimal> lastPriceList) {
+	private void placeOrderToExchange(ATOrderDetailsVO placeOrder) {
+		
+		
+	}
+	private ATOrderDetailsVO generateOrderDetails(int transactionType, int orderSubType, BigDecimal orderPrice,
+			BigDecimal stopPrice,TradeDataVO data) {
+		
+		if(data.getProfitType() == 1) {
+			
+		}
+		ATOrderDetailsVO orderDetailsVO = new ATOrderDetailsVO();
+		orderDetailsVO.setCoin(data.getCoin());
+		orderDetailsVO.setCurrency(data.getCurrency());
+		orderDetailsVO.setExchange(data.getExchange());
+		orderDetailsVO.setOrderPrice(orderPrice);
+		orderDetailsVO.setTransactionTime(System.currentTimeMillis());
+		orderDetailsVO.setOrderType(transactionType);
+		orderDetailsVO.setOrderSubType(orderSubType);
+		//TODO based lastBuycall /lastSellCall value
+		if(data.isLastBuyCall()) {
+			//TODO decimal points needs to be taken in both case
+		orderDetailsVO.setQuantity(data.getTradeCurrencyVolume().divide(orderPrice));
+		}
+		else 
+		{
+			orderDetailsVO.setQuantity(data.getCoinVolume().multiply(orderPrice));
+		}
+		data.setOrderTriggeredPrice(orderPrice);
+		data.setTriggerEvent(TraderConstants.ORDER_TRIGGER);
+		return orderDetailsVO;
+		
+	}
+	private void initializeFreshTrade(TradeDataVO data, BigDecimal lowPrice) {
+		
+		data.addTriggerPriceHistory(data.getTriggeredPrice());
+		data.setTriggeredPrice(lowPrice);
+		initializeWLHCountToZero(data);
+		data.setReTriggerCount(TraderConstants.ZERO_COUNT);
+		
+	}
+	private void initializeWLHCountToZero(TradeDataVO data) {
+		data.setHighCount(TraderConstants.ZERO_COUNT);
+		data.setLowCount(TraderConstants.ZERO_COUNT);
+		data.setWaitCount(TraderConstants.ZERO_COUNT);
+	}
+	private void reinitilizeReTriggerCount(TradeDataVO data,BigDecimal price) {
+		
+		data.addTriggerPriceHistory(price);
+		initializeWLHCountToZero(data);
+		data.increaseReTriggerCount();
+		
+		
+	}
+	private MarketStaticsVO getMarketStaticsVO(Map<String, Object> values,int referenceId) {
+		MarketStaticsVO staticsVO = new MarketStaticsVO();
+		staticsVO.setReferenceId(referenceId);
+		staticsVO.setTransactTime(System.currentTimeMillis());
+		staticsVO.setHighPrice(getValidBigDecimal(values,TraderConstants.HIGH_PRICE));
+		staticsVO.setLastPrice(getValidBigDecimal(values,TraderConstants.LAST_PRICE));
+		staticsVO.setLowPrice(getValidBigDecimal(values,TraderConstants.LOW_PRICE));		
+		return staticsVO;
+		
+	}
+	private BigDecimal getAvgPrice(List<MarketStaticsVO> lastPriceList) {
+		
 		BigDecimal totalValue = TraderConstants.BIGDECIMAL_ZERO;
 		for(int i=0; i<lastPriceList.size();i++){
-			totalValue= totalValue.add(lastPriceList.get(i));
+			totalValue= totalValue.add(lastPriceList.get(i).getLastPrice());
 		}
-		if(lastPriceList.size()!= 0){
+		if(lastPriceList.size()!= 0)
+		{
 		totalValue = totalValue.divide(new BigDecimal(lastPriceList.size()),2,RoundingMode.HALF_UP);
 		}
 		return totalValue;
 	}
 	private void reinitilizeTriggerPrice(TradeDataVO data, BigDecimal lastPrice) {		
 		data.setTriggeredPrice(lastPrice);
-		data.setHighCount(TraderConstants.COUNTER_NOINIT);
-		data.setLowCount(TraderConstants.COUNTER_NOINIT);
-		data.setWaitCount(TraderConstants.COUNTER_NOINIT);
-		data.increaseReTriggerCount();
+		//Clearing all price history not necessary on  reinitilaize need fresh values
+		data.getPriceHistory().clear();
+		reinitilizeReTriggerCount(data,lastPrice);
+		
 	}
 	private boolean isValidMarketData(BigDecimal value){
 		boolean valid = false;
 		int compare=value.compareTo(TraderConstants.NEGATIVE_ONE);
-		if(compare!= COMPARE_EQUAL)
+		if(compare!= TraderConstants.COMPARE_EQUAL)
 		{
 			valid = true;
 		}
@@ -320,11 +608,11 @@ public class AutoTrader {
 		
 		Map<String,Object> values= getExchangePrice(data.getExchange(),data.getCoin(),data.getCurrency());
 		if (values != null) {			
-			BigDecimal lastPrice = getValidBigDecimal(values,LAST_PRICE);
+			BigDecimal lastPrice = getValidBigDecimal(values,TraderConstants.LAST_PRICE);
 			
-			BigDecimal lowPrice = getValidBigDecimal(values,LOW_PRICE);
+			BigDecimal lowPrice = getValidBigDecimal(values,TraderConstants.LOW_PRICE);
 			
-			BigDecimal highPrice = getValidBigDecimal(values,HIGH_PRICE);
+			BigDecimal highPrice = getValidBigDecimal(values,TraderConstants.HIGH_PRICE);
 			
 			
 			boolean buyTrigger=false;
@@ -335,16 +623,16 @@ public class AutoTrader {
 				//last price can be equal or more than low price , 
 				//but could not be less than low price
 				// so buyCompare cannot be -1, it should be either 0 or 1								
-				if(buyCompare == COMPARE_EQUAL){
+				if(buyCompare == TraderConstants.COMPARE_EQUAL){
 					buyTrigger= true;
 					TradeLogger.LOGGER.finest("Buy Order @Last Price : "+lastPrice);
 				}
-				else if(buyCompare == COMPARE_GREATER){
+				else if(buyCompare == TraderConstants.COMPARE_GREATER){
 					BigDecimal percent = getDifferInPercentage(lastPrice,lowPrice);
-					buyTrigger = percentagePermissible(percent,TraderConstants.MIN_PERMISSIBLE_PERCENT,TraderConstants.MAX_PERMISSIBLE_PERCENT);
+					buyTrigger = percentagePermissible(percent,MIN_BUY_PERMISSIBLE_PERCENT,MAX_BUY_PERMISSIBLE_PERCENT);
 					TradeLogger.LOGGER.finest("Differential Percentage is "+percent);
 					if (buyTrigger) {
-						TradeLogger.LOGGER.finest("Differential Buy Order @Last Price : " + lastPrice  +" with Percent"+percent);
+						TradeLogger.LOGGER.finest("Differential Buy Order @Last Price : " + lastPrice  +" with Percent "+percent);
 					}
 					
 				}
@@ -357,13 +645,13 @@ public class AutoTrader {
 				//last price can be equal or less than high Price, 
 				//but could not be more than highprice
 				// so sellCompare cannot be 1, it should be either 0 or -1	
-					if(sellCompare == COMPARE_EQUAL){
+					if(sellCompare == TraderConstants.COMPARE_EQUAL){
 						sellTrigger=true;
 						TradeLogger.LOGGER.finest("Sell Order @Last Price : " + lastPrice);
 					}
-					else if(sellCompare == COMPARE_LOWER){
+					else if(sellCompare == TraderConstants.COMPARE_LOWER){
 						BigDecimal percent = getDifferInPercentage(highPrice, lastPrice);
-						sellTrigger = percentagePermissible(percent,TraderConstants.MIN_PERMISSIBLE_PERCENT,TraderConstants.MAX_PERMISSIBLE_PERCENT);
+						sellTrigger = percentagePermissible(percent,MIN_SELL_PERMISSIBLE_PERCENT,MAX_SELL_PERMISSIBLE_PERCENT);
 						TradeLogger.LOGGER.finest("Differential Percentage is "+percent);
 						if (sellTrigger) {
 							TradeLogger.LOGGER.finest("Differential Sell Order @Last Price : " + lastPrice +" with Percent"+percent);
@@ -386,9 +674,11 @@ public class AutoTrader {
 			data.setWaitCount(TraderConstants.ZERO_COUNT);
 			data.setLowCount(TraderConstants.ZERO_COUNT);
 			data.setHighCount(TraderConstants.ZERO_COUNT);
+			data.setReTriggerCount(TraderConstants.ZERO_COUNT);
 			TradeLogger.LOGGER.warning("TRIGGERED SCENARIO");
 			}
-			else{
+			else
+			{
 				TradeLogger.LOGGER.warning("NO Scenario TRIGGERED ");
 			}
 			
@@ -434,12 +724,22 @@ public class AutoTrader {
 
 	private Map<String,Object> getExchangePrice(String exchange, String coin, String currency) {
 		
-		Map<String,Object> values = new TreeMap<String, Object>();
+		Map<String,Object> values = null;
+		
+		 /*values = new TreeMap<String, Object>();
 		
 		values.put(LAST_PRICE,new BigDecimal("6660.00"));
 		values.put(LOW_PRICE,new BigDecimal("6650.00"));
-		values.put(HIGH_PRICE,new BigDecimal("6675.00"));
-		
+		values.put(HIGH_PRICE,new BigDecimal("6675.00"));*/
+		ArrayList<String> tradePair = new ArrayList<String>();
+		String coinPair = coin+"/"+currency;
+		tradePair.add(coinPair);
+		GetCurrentMarketPrice get= new GetCurrentMarketPrice();
+		Map<String,Map<String,Object>> exchangeValues = get.getCurrentMarketPrice(exchange,tradePair,2);
+			if(exchangeValues!= null && exchangeValues.containsKey(coinPair)) 
+			{
+				values = exchangeValues.get(coinPair);
+			}
 		return values;
 		
 		

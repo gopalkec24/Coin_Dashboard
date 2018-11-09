@@ -1,6 +1,8 @@
 package com.trade.dao;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.trade.constants.TraderConstants;
 
@@ -16,15 +18,34 @@ public class TradeDataVO {
 	BigDecimal lowPrice = TraderConstants.NEGATIVE_ONE;
 	BigDecimal highPrice= TraderConstants.NEGATIVE_ONE;
 	BigDecimal triggeredPrice= TraderConstants.NEGATIVE_ONE;
+	BigDecimal previousLastPrice = TraderConstants.NEGATIVE_ONE;
 	BigDecimal orderTriggeredPrice= TraderConstants.NEGATIVE_ONE;
 	
 	BigDecimal tradeCurrencyVolume= TraderConstants.NEGATIVE_ONE;
 	BigDecimal coinVolume = TraderConstants.NEGATIVE_ONE;
 	
+	int profitType=1;
 	
+	
+	public int getProfitType() {
+		return profitType;
+	}
+
+	public void setProfitType(int profitType) {
+		this.profitType = profitType;
+	}
+
+	public BigDecimal getPreviousLastPrice() {
+		return previousLastPrice;
+	}
+
+	public void setPreviousLastPrice(BigDecimal previousLastPrice) {
+		this.previousLastPrice = previousLastPrice;
+	}
 	String coin;
 	String currency;
 	String exchange;
+	
 	int triggerEvent = TraderConstants.COUNTER_NOINIT;
 	
 	int waitCount = TraderConstants.COUNTER_NOINIT;
@@ -33,6 +54,61 @@ public class TradeDataVO {
 	
 	int retryLoopCount = TraderConstants.COUNTER_NOINIT;
 	int reTriggerCount = TraderConstants.COUNTER_NOINIT;
+	
+	boolean placeAvgPriceOrder = false;
+	
+	
+	
+	public boolean isPlaceAvgPriceOrder() {
+		return placeAvgPriceOrder;
+	}
+
+	public void setPlaceAvgPriceOrder(boolean placeAvgPriceOrder) {
+		this.placeAvgPriceOrder = placeAvgPriceOrder;
+	}
+	List<MarketStaticsVO> priceHistory = new ArrayList<MarketStaticsVO>();
+	List<BigDecimal> triggerPriceHistory  = new ArrayList<BigDecimal>();
+	
+	public void addTriggerPriceHistory(BigDecimal price) {
+		if(this.triggerPriceHistory== null) {
+			this.triggerPriceHistory = new ArrayList<BigDecimal>();
+		}
+		this.triggerPriceHistory.add(price);
+	}
+	
+	public int getReTriggerCount() {
+		return reTriggerCount;
+	}
+
+	public void setReTriggerCount(int reTriggerCount) {
+		this.reTriggerCount = reTriggerCount;
+	}
+
+	public List<BigDecimal> getTriggerPriceHistory() {
+		return triggerPriceHistory;
+	}
+
+	public void setTriggerPriceHistory(List<BigDecimal> triggerPriceHistory) {
+		this.triggerPriceHistory = triggerPriceHistory;
+	}
+
+	public void addPriceHistory(MarketStaticsVO staticsVO) {
+		if(this.priceHistory== null) {
+			this.priceHistory = new ArrayList<MarketStaticsVO>();
+		}
+		
+		this.priceHistory.add(staticsVO);
+		
+	}
+	
+	public List<MarketStaticsVO> getPriceHistory() {
+		return priceHistory;
+	}
+
+	public void setPriceHistory(List<MarketStaticsVO> priceHistory) {
+		this.priceHistory = priceHistory;
+	}
+	
 	
 	public TradeDataVO(String exchange,String coinName,String currency,BigDecimal coinVol,BigDecimal currencyVolume)
 	{
@@ -191,7 +267,7 @@ public class TradeDataVO {
 		return "Coin Name : "+this.coin+" Currency :"+this.currency
 				+" Exchange : "+this.exchange +" Transaction Type : " +this.transactionType +
 				" Trigger Condition : " +this.triggerEvent +" Waiting Count : " +this.waitCount+
-				"Last Price : "+this.lastPrice +"Triggered Price : "+this.triggeredPrice;
+				" Last Price : "+this.lastPrice +" Triggered Price : "+this.triggeredPrice;
 	}
 	
 	public void increaseHigherCount(){
