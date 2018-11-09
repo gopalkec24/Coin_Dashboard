@@ -1,1 +1,551 @@
-[{"transactionType":1,"lastBuyCall":true,"lastSellCall":false,"lastPrice":6660.00,"lowPrice":6650.00,"highPrice":6675.00,"triggeredPrice":6660.00,"orderTriggeredPrice":-1,"tradeCurrencyVolume":100.00,"coinVolume":0.00,"coin":"BTC","currency":"USDT","exchange":"BINANCE","triggerEvent":0,"waitCount":0,"highCount":0,"lowCount":0},{"transactionType":2,"lastBuyCall":false,"lastSellCall":true,"lastPrice":6660.00,"lowPrice":6650.00,"highPrice":6675.00,"triggeredPrice":6660.00,"orderTriggeredPrice":-1,"tradeCurrencyVolume":0.00,"coinVolume":0.0125,"coin":"ETH","currency":"USDT","exchange":"BINANCE","triggerEvent":0,"waitCount":0,"highCount":0,"lowCount":0}]
+[ {
+  "transactionType" : 1,
+  "triggeredPrice" : 6391.01000000,
+  "highCount" : 6,
+  "lowCount" : 4,
+  "currency" : "USDT",
+  "lastBuyCall" : true,
+  "triggerEvent" : 2,
+  "exchange" : "BINANCE",
+  "lastPrice" : 6424.52000000,
+  "waitCount" : 11,
+  "coin" : "BTC",
+  "placeAvgPriceOrder" : true,
+  "reTriggerCount" : 3,
+  "lastSellCall" : false,
+  "priceHistory" : [ {
+    "lastPrice" : 6434.92000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : -1,
+    "transactTime" : 1541795828636
+  }, {
+    "lastPrice" : 6434.91000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 0,
+    "transactTime" : 1541795845298
+  }, {
+    "lastPrice" : 6434.92000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 1,
+    "transactTime" : 1541795880965
+  }, {
+    "lastPrice" : 6434.91000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 2,
+    "transactTime" : 1541795901951
+  }, {
+    "lastPrice" : 6434.05000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 3,
+    "transactTime" : 1541795944172
+  }, {
+    "lastPrice" : 6434.04000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 4,
+    "transactTime" : 1541795966143
+  }, {
+    "lastPrice" : 6433.33000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 5,
+    "transactTime" : 1541795980390
+  }, {
+    "lastPrice" : 6428.48000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 6,
+    "transactTime" : 1541796264546
+  }, {
+    "lastPrice" : 6425.85000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 7,
+    "transactTime" : 1541796287426
+  }, {
+    "lastPrice" : 6427.88000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 8,
+    "transactTime" : 1541796301413
+  }, {
+    "lastPrice" : 6425.87000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 9,
+    "transactTime" : 1541796312885
+  }, {
+    "lastPrice" : 6426.35000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 10,
+    "transactTime" : 1541796331871
+  }, {
+    "lastPrice" : 6424.91000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : -1,
+    "transactTime" : 1541796367713
+  }, {
+    "lastPrice" : 6424.19000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 0,
+    "transactTime" : 1541796387341
+  }, {
+    "lastPrice" : 6424.20000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 1,
+    "transactTime" : 1541796402529
+  }, {
+    "lastPrice" : 6422.02000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 2,
+    "transactTime" : 1541796415133
+  }, {
+    "lastPrice" : 6423.57000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 3,
+    "transactTime" : 1541796429852
+  }, {
+    "lastPrice" : 6424.08000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 4,
+    "transactTime" : 1541796442599
+  }, {
+    "lastPrice" : 6424.87000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 5,
+    "transactTime" : 1541796452321
+  }, {
+    "lastPrice" : 6424.84000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 6,
+    "transactTime" : 1541796461686
+  }, {
+    "lastPrice" : 6424.86000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 7,
+    "transactTime" : 1541796481300
+  }, {
+    "lastPrice" : 6424.82000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 8,
+    "transactTime" : 1541796493934
+  }, {
+    "lastPrice" : 6423.09000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 9,
+    "transactTime" : 1541796504015
+  }, {
+    "lastPrice" : 6424.85000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 10,
+    "transactTime" : 1541796512691
+  }, {
+    "lastPrice" : 6427.76000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : -1,
+    "transactTime" : 1541796782933
+  }, {
+    "lastPrice" : 6431.54000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 0,
+    "transactTime" : 1541796833701
+  }, {
+    "lastPrice" : 6427.95000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 1,
+    "transactTime" : 1541796884356
+  }, {
+    "lastPrice" : 6432.36000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 2,
+    "transactTime" : 1541796935008
+  }, {
+    "lastPrice" : 6430.96000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 3,
+    "transactTime" : 1541796985672
+  }, {
+    "lastPrice" : 6429.71000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 4,
+    "transactTime" : 1541797036346
+  }, {
+    "lastPrice" : 6429.70000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 5,
+    "transactTime" : 1541797087002
+  }, {
+    "lastPrice" : 6429.55000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 6,
+    "transactTime" : 1541797138012
+  }, {
+    "lastPrice" : 6426.91000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 7,
+    "transactTime" : 1541797188656
+  }, {
+    "lastPrice" : 6428.94000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6513.98000000,
+    "referenceId" : 8,
+    "transactTime" : 1541797239219
+  }, {
+    "lastPrice" : 6414.79000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.50000000,
+    "referenceId" : 9,
+    "transactTime" : 1541798235058
+  }, {
+    "lastPrice" : 6417.00000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.50000000,
+    "referenceId" : 10,
+    "transactTime" : 1541798285803
+  }, {
+    "lastPrice" : 6414.77000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.50000000,
+    "referenceId" : -1,
+    "transactTime" : 1541798387088
+  }, {
+    "lastPrice" : 6404.60000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.50000000,
+    "referenceId" : 0,
+    "transactTime" : 1541798437853
+  }, {
+    "lastPrice" : 6406.06000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.50000000,
+    "referenceId" : 1,
+    "transactTime" : 1541798488401
+  }, {
+    "lastPrice" : 6403.03000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.50000000,
+    "referenceId" : 2,
+    "transactTime" : 1541798539399
+  }, {
+    "lastPrice" : 6404.60000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.50000000,
+    "referenceId" : 3,
+    "transactTime" : 1541798590381
+  }, {
+    "lastPrice" : 6405.93000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.50000000,
+    "referenceId" : 34,
+    "transactTime" : 1541798644510
+  }, {
+    "lastPrice" : 6400.90000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.50000000,
+    "referenceId" : 5,
+    "transactTime" : 1541798695379
+  }, {
+    "lastPrice" : 6401.35000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.50000000,
+    "referenceId" : 36,
+    "transactTime" : 1541798745862
+  }, {
+    "lastPrice" : 6401.72000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.50000000,
+    "referenceId" : 37,
+    "transactTime" : 1541798796423
+  }, {
+    "lastPrice" : 6398.68000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.50000000,
+    "referenceId" : 8,
+    "transactTime" : 1541798846895
+  }, {
+    "lastPrice" : 6393.20000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.00000000,
+    "referenceId" : 9,
+    "transactTime" : 1541798897382
+  }, {
+    "lastPrice" : 6394.82000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.00000000,
+    "referenceId" : 40,
+    "transactTime" : 1541798947998
+  }, {
+    "lastPrice" : 6395.56000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.00000000,
+    "referenceId" : 39,
+    "transactTime" : 1541799049255
+  }, {
+    "lastPrice" : 6396.63000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6512.00000000,
+    "referenceId" : 40,
+    "transactTime" : 1541799099855
+  }, {
+    "lastPrice" : 6399.78000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 41,
+    "transactTime" : 1541799150415
+  }, {
+    "lastPrice" : 6399.02000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 2,
+    "transactTime" : 1541799201047
+  }, {
+    "lastPrice" : 6398.88000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 3,
+    "transactTime" : 1541799251753
+  }, {
+    "lastPrice" : 6396.61000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 4,
+    "transactTime" : 1541799302419
+  }, {
+    "lastPrice" : 6396.33000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 5,
+    "transactTime" : 1541799353099
+  }, {
+    "lastPrice" : 6396.32000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 6,
+    "transactTime" : 1541799403780
+  }, {
+    "lastPrice" : 6398.65000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 47,
+    "transactTime" : 1541799455033
+  }, {
+    "lastPrice" : 6398.67000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 48,
+    "transactTime" : 1541799505794
+  }, {
+    "lastPrice" : 6398.88000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 49,
+    "transactTime" : 1541799556370
+  }, {
+    "lastPrice" : 6401.44000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 50,
+    "transactTime" : 1541799606946
+  }, {
+    "lastPrice" : 6413.99000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 29,
+    "transactTime" : 1541800544749
+  }, {
+    "lastPrice" : 6413.86000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 30,
+    "transactTime" : 1541800595655
+  }, {
+    "lastPrice" : 6425.00000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 29,
+    "transactTime" : 1541801002653
+  }, {
+    "lastPrice" : 6422.20000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 30,
+    "transactTime" : 1541801053443
+  }, {
+    "lastPrice" : 6420.46000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 30,
+    "transactTime" : 1541801255947
+  }, {
+    "lastPrice" : 6420.51000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 30,
+    "transactTime" : 1541801340138
+  }, {
+    "lastPrice" : 6422.36000000,
+    "lowPrice" : 6391.01000000,
+    "highPrice" : 6511.53000000,
+    "referenceId" : 40,
+    "transactTime" : 1541801441486
+  } ],
+  "orderTriggeredPrice" : 6416.98,
+  "triggerPriceHistory" : [ 6436.53000000, 6391.01000000, 6391.01000000, 6391.01000000, 6391.01000000, 6391.01000000 ],
+  "tradeCurrencyVolume" : 100.00,
+  "previousLastPrice" : 6422.36000000,
+  "lowPrice" : 6391.01000000,
+  "highPrice" : 6511.53000000,
+  "coinVolume" : 0.00
+}, {
+  "transactionType" : 2,
+  "triggeredPrice" : 215.51000000,
+  "highCount" : 4,
+  "lowCount" : 0,
+  "currency" : "USDT",
+  "lastBuyCall" : false,
+  "triggerEvent" : 0,
+  "exchange" : "BINANCE",
+  "lastPrice" : 210.64000000,
+  "waitCount" : 4,
+  "coin" : "ETH",
+  "placeAvgPriceOrder" : false,
+  "reTriggerCount" : 2,
+  "lastSellCall" : true,
+  "priceHistory" : [ {
+    "lastPrice" : 210.67000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 10,
+    "transactTime" : 1541802790100
+  }, {
+    "lastPrice" : 210.51000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 11,
+    "transactTime" : 1541802840427
+  }, {
+    "lastPrice" : 210.46000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 12,
+    "transactTime" : 1541802891003
+  }, {
+    "lastPrice" : 210.47000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 13,
+    "transactTime" : 1541802941336
+  }, {
+    "lastPrice" : 210.51000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 14,
+    "transactTime" : 1541802991635
+  }, {
+    "lastPrice" : 210.51000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 15,
+    "transactTime" : 1541803041959
+  }, {
+    "lastPrice" : 210.45000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 16,
+    "transactTime" : 1541803092280
+  }, {
+    "lastPrice" : 210.40000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 17,
+    "transactTime" : 1541803142625
+  }, {
+    "lastPrice" : 210.43000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 18,
+    "transactTime" : 1541803192938
+  }, {
+    "lastPrice" : 210.46000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 19,
+    "transactTime" : 1541803243311
+  }, {
+    "lastPrice" : 210.28000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 20,
+    "transactTime" : 1541803293631
+  }, {
+    "lastPrice" : 210.40000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 21,
+    "transactTime" : 1541803343974
+  }, {
+    "lastPrice" : 210.41000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 22,
+    "transactTime" : 1541803394299
+  }, {
+    "lastPrice" : 210.31000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 20,
+    "transactTime" : 1541803494997
+  }, {
+    "lastPrice" : 210.32000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 21,
+    "transactTime" : 1541803545333
+  }, {
+    "lastPrice" : 210.55000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 22,
+    "transactTime" : 1541803595636
+  }, {
+    "lastPrice" : 210.64000000,
+    "lowPrice" : 209.10000000,
+    "highPrice" : 215.51000000,
+    "referenceId" : 23,
+    "transactTime" : 1541803645973
+  } ],
+  "orderTriggeredPrice" : -1,
+  "triggerPriceHistory" : [ 215.51000000, 215.51000000 ],
+  "tradeCurrencyVolume" : 0.00,
+  "previousLastPrice" : 210.55000000,
+  "lowPrice" : 209.10000000,
+  "highPrice" : 215.51000000,
+  "coinVolume" : 0.0125
+} ]

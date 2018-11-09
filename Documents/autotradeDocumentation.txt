@@ -14,11 +14,13 @@ scenario , When maximum retry count is reached,
 									//Now we have two options here,
 									//1. Place BUY ORDER for triggered Price 
 									//2. Take average of last prices and compare with triggered price.
-									//		aIf percentage differs between them is very less than permissible limit. then place a BUY order with triggered price .
-									// 		If Percentage differs between them is more than permissible limit, 
+									//		 If percentage differs between them is very less than permissible limit. 
+													then place a BUY order with triggered price .
+									// 		 	If Percentage differs between them is more than permissible limit, 
 												//Here we have 2 options 
 														//a. Place a BUY order with average Price. if difference between 
 														//b. Reinitialize count alone , not the price. Let triggered price remains same and wait.
+																modified : Reinitialize entrie with avg price and wait for same time maximum retry
 														
  Based on above analysis 
 		1. option One (1) as BASIC mode of operation

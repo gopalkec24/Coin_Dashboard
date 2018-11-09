@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="refresh" content="45">
+<title>Auto trade Data </title>
+	<!-- <link rel="stylesheet" type="text/css" href="vendor/css/normalize.css"> -->
+ <link rel="stylesheet" type="text/css" href="resources/css/coinstyle.css">
+<!--  <link rel="stylesheet" type="text/css" href="vendor/css/sortable.css"> -->
+
+</head>
+
+<body>
+<script src="resources/js/jquery.js" > </script>
+<script src="resources/js/customcoin.js" > </script>
+<script>
+$(document).ready(function (){
+
+$.ajax({
+	
+url:"autotradeData.json",
+dataType:"json",
+success:function(result)
+{
+
+console.log(result);
+
+ var dataRow="<div> <table> <thead> <tr> <th>Exchange  </th><th>Coin </th><th>Currency Traded </th> <th>Transaction Type </th> <th>Coin Volume </th> <th>TradeCurrency Quantity </th>  <th>Triggered Price </th> <th>Last Price</th> <th> Previous Last Price</th><th> Low Price </th>  <th> High Price </th> <th>Last SellCall </th><th>last BuyCall </th> <th>Wait Count </th>"+
+ "<th>Trigger Event </th> <th> Low Count</th> <th> High Count</th> <th>Re-Trigger Count</th>  <th> Trigger Price History</th> <th> Order triggered Price </th> </tr> </thead> <tbody>";  
+ 
+ var priceHistory = "<table><thead> <tr> <th>Reference ID </th> <th>Transaction Time</th>   <th>Low Price </th>  <th>High Price</th> <th>Last Price</th> </tr> </thead> <tbody> ";
+    for(var i=0; i< result.length; i++)
+	{
+		var  coinTraded = result[i];
+			
+				//console.log(cssclass)
+				dataRow= dataRow+ "<tr><td>"+coinTraded.exchange+"</td><td>"+
+				coinTraded.coin+"</td><td>"+
+				coinTraded.currency+"</td><td>"+
+				coinTraded.transactionType+"</td><td>"+
+				coinTraded.coinVolume+"</td><td>"+
+				coinTraded.tradeCurrencyVolume+"</td><td>"+
+				coinTraded.triggeredPrice+"</td><td>"+
+				coinTraded.lastPrice+"</td><td>"+
+				coinTraded.previousLastPrice+"</td><td>"+
+				coinTraded.lowPrice+"</td><td>"+
+				coinTraded.highPrice+"</td><td>"+
+				coinTraded.lastSellCall+"</td><td>"+
+				coinTraded.lastBuyCall+"</td><td>"+                           
+                coinTraded.waitCount+"</td><td>"+
+                coinTraded.triggerEvent+"</td><td>"+
+				 coinTraded.lowCount+"</td><td>"+
+				  coinTraded.highCount+"</td><td>"+
+				   coinTraded.reTriggerCount+"</td><td>"+
+				    coinTraded.triggerPriceHistory+"</td><td>"+
+					coinTraded.orderTriggeredPrice+"</td><td>"+"</td></tr>";
+					
+					for(var j=0; j < coinTraded.priceHistory.length ; j++){
+					
+					 var ph = coinTraded.priceHistory[j];
+					 var  date= new Date(ph.transactTime);
+					 priceHistory = priceHistory +"<tr> <td> "+ph.referenceId +"</td><td>"+
+						date.toString()+"</td><td>"+
+						ph.lowPrice+"</td><td>"+
+						ph.highPrice+"</td><td>"+
+						ph.lastPrice+"</td><td>"+
+						"</td></tr>";
+					}
+                
+				
+                    
+		}	
+	  
+    priceHistory=priceHistory+"</tbody></table>";
+    dataRow=dataRow+"</tbody></table> </div>";
+  $("#exchange").append(dataRow); 
+  $("#pricehistory").append(priceHistory);
+  
+  
+
+	 
+}// success function Method close
+
+
+
+});//ajax close
+
+});
+
+</script>
+<div class="container">
+          <div class="header">
+				<div class="header_text">
+				<h1> Auto trade Data </h1> 
+				<label id="result" > Loading the summary data............. </label>
+				<label id="timestamp"></label>
+            
+				</div>		   
+          </div>
+		    
+		    <br>
+		  		  
+		<div class="exchangeDetails" id="exchange" >
+		 
+		</div>
+		
+		<div class="pricehistory" id="pricehistory" >
+		 
+		</div>
+</div>	  
+</body>
+
+</html>
