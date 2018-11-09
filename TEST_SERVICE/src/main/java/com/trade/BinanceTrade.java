@@ -28,7 +28,7 @@ public class BinanceTrade extends BaseTrade
 	private static final String X_MBX_APIKEY_HEADER_KEY = "X-MBX-APIKEY";
 	private static final String API_ENDPOINT = "https://api.binance.com";
 	private static final String API_KEY= "QdBH7lUSI8Ya64yabxhed5tawXU0bwyGeoBrZ8dn4olAPPHroV5wP9TmEfL51T7J";
-	private static final String SECRET_KEY="bckalzV0qErfvEHe4Xqflj7cDgYzrcGgr7vtaoDysXv8fLwcSVXm32QFw2nTe6Rm";
+	private static final String SECRET_KEY="";
 	private static final String ALGORITHM="HmacSHA256";
 	public static WebTarget target = null;
 	public static Mac mac = null;
