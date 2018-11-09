@@ -1,0 +1,29 @@
+scenario , When maximum retry count is reached, 
+//incase low count is more or equal than high count ,there is two opinion that
+									// 1.Consider that Triggered price is best price in maximum retry process in current loop and place a BUY order with Triggered Price
+									//2. Look another best low price , with help of retry loop Count .
+									  //compare the retry loop count with maximum allowable loop
+										// a if it is less,Reinitialize count alone , not the price. Let triggered price remains same and wait.
+										//b. if it is more , Place a BUY order with Triggered Price.
+									
+									
+									//incase high count is more than low count, there is a opinion that
+									//triggered price is maximum low price got in maximum retry process in current loop
+									//and also there is chance that Market is moving towards upwards.
+									//Price increase may occur
+									//Now we have two options here,
+									//1. Place BUY ORDER for triggered Price 
+									//2. Take average of last prices and compare with triggered price.
+									//		aIf percentage differs between them is very less than permissible limit. then place a BUY order with triggered price .
+									// 		If Percentage differs between them is more than permissible limit, 
+												//Here we have 2 options 
+														//a. Place a BUY order with average Price. if difference between 
+														//b. Reinitialize count alone , not the price. Let triggered price remains same and wait.
+														
+ Based on above analysis 
+		1. option One (1) as BASIC mode of operation
+		2. Option Two (2) as ADVANCED mode of operation.
+		
+		by default operation mode is BASIC. it is specific to Individual transaction details.
+		For advanced mode , user has to explicit specify in transaction trade data config
+ 
