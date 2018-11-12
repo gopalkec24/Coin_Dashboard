@@ -1,5 +1,7 @@
 package com.trade;
 
+import com.trade.dao.ATOrderDetailsVO;
+
 public class BitsoTrade extends BaseTrade{
 
 	
@@ -18,6 +20,12 @@ public class BitsoTrade extends BaseTrade{
 	public void sellCoin() {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	public ATOrderDetailsVO placeOrder(ATOrderDetailsVO orderDetails) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

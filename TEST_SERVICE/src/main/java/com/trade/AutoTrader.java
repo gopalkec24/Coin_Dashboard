@@ -57,7 +57,7 @@ public class AutoTrader {
 		/*TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));
 		TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));
 		TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));*/
-		String jsonFilePath = "C:/Documents/autotradeData.json";
+		String jsonFilePath = "D:/Documents/autotradeData.json";
 		
 	/*	List<TradeDataVO> list = new ArrayList<TradeDataVO>();
 		list.add(tradeVO);
@@ -67,7 +67,7 @@ public class AutoTrader {
 		trader.process(list);
 		writeAutoTradeDataToJSON(jsonFilePath,list);*/
 		
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 1; i++) {
 			
 			
 			List<TradeDataVO> list;
@@ -358,30 +358,49 @@ public class AutoTrader {
 				{
 					
 					int highCompare = -2;
-					if(isValidMarketData(data.getTriggeredPrice()) && isValidMarketData(lowPrice)){
+					if(isValidMarketData(data.getTriggeredPrice()) && isValidMarketData(highPrice)){
 						
 						highCompare = highPrice.compareTo(data.getTriggeredPrice());
-					}
-					if(highCompare == TraderConstants.COMPARE_GREATER){
 						
-						reinitilizeTriggerPrice(data, highPrice);
+					}
+					TradeLogger.LOGGER.finest("Comparing the last Triggered Price with Current High Price "+ getCompareResultType(highCompare));
+					TradeLogger.LOGGER.finest("Comparing the Current last Price  with  previous last Price "+ getCompareResultType(lastCompare));
+					if(highCompare == TraderConstants.COMPARE_GREATER)
+					{
+						//then Reinitialize Trigger Price count
+						TradeLogger.LOGGER.finest("New triggered price with current High Price.");
+						//Initial fresh Trade here
+						//Making new Target here for me
+						initializeFreshTrade(data,highPrice);
 					}
 					else
 					{
-
+						//last price is greater or equal than Previous last price
 						if(lastCompare == TraderConstants.COMPARE_GREATER || lastCompare == TraderConstants.COMPARE_EQUAL)
 						{
 							int triggerCompare = lastPrice.compareTo(data.getTriggeredPrice());
 							if(triggerCompare == TraderConstants.COMPARE_GREATER) 
 							{
-							reinitilizeTriggerPrice(data, lastPrice);
+								TradeLogger.LOGGER.finest("Fresh initailzing the triggered price with current last Price.");
+								//Found New target for me.							
+								initializeFreshTrade(data, lastPrice);
 							}
 							else 
 							{
-								
+								if(data.getWaitCount() <= MAXIMUM_SELL_WAIT_COUNT)
+								{
 								data.addPriceHistory(getMarketStaticsVO(values,(data.getReTriggerCount()*10) +data.getWaitCount()));
 								data.increaseWaitCount();
 								data.increaseHigherCount();
+								}
+								else
+								{
+									//TODO alternate options
+									//Right now reinitializing the triggeredPrice again
+									//Make sure that you wait for triggered price
+									//Check for alternate option 
+									reinitilizeReTriggerCount(data,data.getTriggeredPrice());
+								}
 							}
 							
 						}
@@ -395,7 +414,8 @@ public class AutoTrader {
 						else if(lastCompare == TraderConstants.COMPARE_LOWER)
 						{
 							//checking for maximum retry processing 
-							if(data.getWaitCount() <= MAXIMUM_SELL_WAIT_COUNT){
+							if(data.getWaitCount() <= MAXIMUM_SELL_WAIT_COUNT)
+							{
 								data.addPriceHistory(getMarketStaticsVO(values,(data.getReTriggerCount()*10) +data.getWaitCount()));
 								data.increaseLowCount();
 								data.increaseWaitCount();
@@ -410,8 +430,8 @@ public class AutoTrader {
 								if(advance)
 								{
 
-									//higher count is more than Low count, price is moving towards down direction very fastly
-									if(data.getLowCount() >= data.getHighCount())
+									//low count is more than high count, price is moving towards down direction very fastly
+									if(data.getHighCount() < data.getLowCount())
 									{									
 										//List of last Price 
 										List<MarketStaticsVO> lastPriceList = data.getPriceHistory();
@@ -511,8 +531,13 @@ public class AutoTrader {
 		}
 		
 	}
-	private void placeOrderToExchange(ATOrderDetailsVO placeOrder) {
+	private void placeOrderToExchange(ATOrderDetailsVO placeOrder) 
+	{
+		ITrade trade = ExchangeFactory.getInstance(placeOrder.getExchange());
 		
+		if(trade!= null){
+			
+		}
 		
 	}
 	private ATOrderDetailsVO generateOrderDetails(int transactionType, int orderSubType, BigDecimal orderPrice,

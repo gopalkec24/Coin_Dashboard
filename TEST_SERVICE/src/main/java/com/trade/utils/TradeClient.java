@@ -31,7 +31,7 @@ public class TradeClient {
 		
 		Client client = null;
 		if(proxy) {
-		client = new ResteasyClientBuilder().defaultProxy("10.121.11.32", 8080).build();
+		//client = new ResteasyClientBuilder().defaultProxy("10.121.11.32", 8080).build();
 		}
 		else {
 		client= ClientBuilder.newBuilder().build();

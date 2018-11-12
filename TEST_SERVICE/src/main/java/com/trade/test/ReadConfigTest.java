@@ -37,8 +37,8 @@ public class ReadConfigTest {
 		
 		
 		BinanceTrade trade = new BinanceTrade();
-		//trade.getOrderDetails("ETHUSDT");
-		System.out.println(trade.deleteOrder("ETHUSDT", "134499982"));
+		trade.getOrderDetails("BNBBTC");
+		//System.out.println(trade.deleteOrder("ETHUSDT", "134499982"));
 		//new BigDecimal("240.44")
 	//	trade.sellCoin("ETHUSDT",2, new BigDecimal("0.1"),new BigDecimal("240.44") , new BigDecimal("235.50"));
 
