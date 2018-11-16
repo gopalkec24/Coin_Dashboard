@@ -2,6 +2,8 @@ package com.trade;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Base64;
+import java.util.List;
 
 import javax.crypto.Mac;
 import javax.ws.rs.client.WebTarget;
@@ -14,8 +16,11 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import com.trade.constants.TraderConstants;
 import com.trade.dao.ATOrderDetailsVO;
-import com.trade.dao.BinanceErrorDAO;
-import com.trade.dao.BinanceSuccess;
+import com.trade.dao.binance.BinanceErrorDAO;
+import com.trade.dao.binance.BinanceExchangeInfo;
+import com.trade.dao.binance.BinanceSuccess;
+import com.trade.dao.binance.SymbolDetails;
+import com.trade.utils.AutoTradeUtilities;
 import com.trade.utils.TradeClient;
 import com.trade.utils.TradeLogger;
 import com.trade.utils.TradeStatusCode;
@@ -30,12 +35,12 @@ public class BinanceTrade extends BaseTrade
 	private static final String RESOURCE_ORDER_DELETE = RESOURCE_ORDER;
 	private static final String X_MBX_APIKEY_HEADER_KEY = "X-MBX-APIKEY";
 	private static final String API_ENDPOINT = "https://api.binance.com";
-	private static final String API_KEY= "Yu9NkIm2C01LXIG1xeIqg3jVspDUnl5MWJFgULhuNgKD5feqNmQ7zHfoYpLTI8zu";
+	private static final String API_KEY= "j5bIoyvPNkJB6NXpH8ZYbVvx2pfPFXbdKxHN3bCzbpUkxQcVLqzhn2bfbF9DmBiz";
 	private static final String SECRET_KEY="";
 	private static final String ALGORITHM="HmacSHA256";
 	public static WebTarget target = null;
 	public static Mac mac = null;
-	
+	public static BinanceExchangeInfo exchangeInfo  = null;
 	public static Mac getCryptoMacForBinance() {
 		if(mac== null) {
 			mac= TradeClient.getCryptoMac(SECRET_KEY, ALGORITHM);
@@ -44,22 +49,13 @@ public class BinanceTrade extends BaseTrade
 	}
 	public static WebTarget getTarget() {
 		if(target == null) {
-			target = TradeClient.getAdvancedClient(API_ENDPOINT,false);
+			target = TradeClient.getAdvancedClient(API_ENDPOINT,true);
 			TradeLogger.LOGGER.info("Initialized Newly ....");
 		}
 		return target;
 	}
-	public void getMarketStatics() {
-		
-		if(getFetchConfigurationForExchange("BINANCE") != null) {
-			TradeLogger.LOGGER.info(getFetchConfigurationForExchange("BINANCE").getFetchURL());
-		}
-	}
 
-	public void buyCoin(String symbol,int subOrderType,BigDecimal quantity,BigDecimal price,BigDecimal stopPrice) {
-		String type = getOrderType(subOrderType);
-		placeOrder(symbol, "BUY", type, quantity, price, stopPrice);		
-	}
+	
 
 	
 	private String getOrderType(int subOrderType) {
@@ -90,6 +86,11 @@ public class BinanceTrade extends BaseTrade
 		String type = getOrderType(subOrderType);
 		placeOrder(symbol, "SELL", type, quantity, price, stopPrice);
 		
+	}
+	
+	public void buyCoin(String symbol,int subOrderType,BigDecimal quantity,BigDecimal price,BigDecimal stopPrice) {
+		String type = getOrderType(subOrderType);
+		placeOrder(symbol, "BUY", type, quantity, price, stopPrice);		
 	}
 	
 	private int placeOrder(String symbol,String orderType,String subOrderType,BigDecimal quantity,BigDecimal price,BigDecimal stopPrice)
@@ -191,7 +192,55 @@ public class BinanceTrade extends BaseTrade
 			//append the Signature to Query Parameter
 			target= target.queryParam(BINANCE_SIGNATURE, signature);	
 			TradeLogger.LOGGER.finest("Final Request URL : "+ target.getUri().toString());
+			
 			Response response = target.request(MediaType.APPLICATION_JSON).header(X_MBX_APIKEY_HEADER_KEY,API_KEY).get();
+			/*String encoded = new String(Base64.getEncoder()
+					.encode((new String("hcltech\natarjan_g" + ":" + "Gopalms@54").getBytes())));
+		
+			Response response  = target.request(MediaType.APPLICATION_JSON).property("Proxy-Authorization","Basic "+encoded).header(X_MBX_APIKEY_HEADER_KEY,API_KEY).get();*/
+			if(response.getStatus() == 200) 
+			{
+				returnValue = response.readEntity(String.class);
+				TradeLogger.LOGGER.info(returnValue);
+			}
+			else
+			{
+				TradeLogger.LOGGER.severe("Response Code " + response.getStatus());
+				TradeLogger.LOGGER.severe("Response Data " + response.readEntity(String.class));
+			}
+		}
+		return returnValue;
+
+	}
+	
+	
+	public String getAllOrderDetails(String symbol) 
+	{
+		//timestamp is mandatory one 		
+		WebTarget target = getTarget().path("/api/v3/allOrders").queryParam(BINANCE_TIMESTAMP,System.currentTimeMillis());
+		//symbol is not mandatory one
+		if(symbol!= null && !symbol.equalsIgnoreCase("")) 
+		{
+			target=target.queryParam("symbol",symbol);
+		}	
+		//Get the Query String to generate the signature
+		String queryString = target.getUri().getQuery();
+		TradeLogger.LOGGER.finest("QueryString to generate the signature " + queryString);
+		//Generate the Signature  for query string 
+		String signature = generateSignature(queryString);
+		TradeLogger.LOGGER.finest("Signature Genereated  " + signature);
+		String returnValue= null;
+		if(signature!= null )
+		{
+			//append the Signature to Query Parameter
+			target= target.queryParam(BINANCE_SIGNATURE, signature);	
+			TradeLogger.LOGGER.finest("Final Request URL : "+ target.getUri().toString());
+			
+			Response response = target.request(MediaType.APPLICATION_JSON).header(X_MBX_APIKEY_HEADER_KEY,API_KEY).get();
+			/*String encoded = new String(Base64.getEncoder()
+					.encode((new String("hcltech\natarjan_g" + ":" + "Gopalms@54").getBytes())));
+		
+			Response response  = target.request(MediaType.APPLICATION_JSON).property("Proxy-Authorization","Basic "+encoded).header(X_MBX_APIKEY_HEADER_KEY,API_KEY).get();*/
 			if(response.getStatus() == 200) 
 			{
 				returnValue = response.readEntity(String.class);
@@ -267,6 +316,9 @@ public class BinanceTrade extends BaseTrade
 		else if(error== -2010) {
 			resultCode = TradeStatusCode.INSUFFICIENT_ACCOUNT_BALANCE;
 		}
+		else {
+			resultCode = error;
+		}
 		return resultCode;
 	}
 	@SuppressWarnings("unchecked")
@@ -276,34 +328,37 @@ public class BinanceTrade extends BaseTrade
 		try {
 			error = mapper.readValue(errorMsg,target);
 		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return error;
 	}
 	public void buyCoin() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	public void sellCoin() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	public String getSymbol(String coin,String currency){
 		
+		if(coin == null || currency == null) {
+			return null;
+		}
 		return coin+currency;
 		
 		
 	}
 	public ATOrderDetailsVO placeOrder(ATOrderDetailsVO orderDetails) {
 		String orderType= null;
-		int resultCode= -1;
+		
 		if(orderDetails.getOrderType() == TraderConstants.BUY_CALL)
 		{
 			orderType="BUY";			
@@ -318,80 +373,227 @@ public class BinanceTrade extends BaseTrade
 		else if(orderDetails.getOrderSubType() == TraderConstants.LIMIT_ORDER){
 			orderSubType = "LIMIT";
 		}
-		
-		
+
+
 		//timestamp is mandatory one 		
 		WebTarget target = getTarget().path(RESOURCE_ORDER)				
 				.queryParam(BINANCE_TIMESTAMP,System.currentTimeMillis());
 		String symbol = getSymbol(orderDetails.getCoin(), orderDetails.getCurrency());
 		
-		if(TradeClient.isNullorEmpty(symbol) || TradeClient.isNullorEmpty(orderType) || TradeClient.isNullorEmpty(orderSubType)) 
-		{
-			resultCode = TradeStatusCode.INVALIDSYMBOL;
+		
+		if(exchangeInfo == null) {
+			exchangeInfo = getExchangeInfo();
 		}
-		
-		
-		
-		target =target.queryParam("symbol", symbol);
-		target=target.queryParam("side",orderType );
-		target=target.queryParam("type",orderSubType);
-			
-		
-		target = target.queryParam("quantity", orderDetails.getQuantity().toPlainString());
+		//TODO Minimum Notational validation is required
+		BigDecimal refinedQuantity = getRefinedQuantityForBinance(exchangeInfo,symbol,orderDetails.getQuantity());
+		TradeLogger.LOGGER.info("Refined Quantity is " + refinedQuantity+" Actual Quantity is "+orderDetails.getQuantity());
+		if(TradeClient.isNullorEmpty(symbol) || TradeClient.isNullorEmpty(orderType) || TradeClient.isNullorEmpty(orderSubType) || !AutoTradeUtilities.isValidMarketData(refinedQuantity)) 
+		{
+
+			orderDetails.setErrorMsg("Invalid Query Parameter found in Validation please fix the value");
+			orderDetails.setResultCode(TradeStatusCode.INVALIDSYMBOL);
+			orderDetails.setSuccess(false);
+		}
+		else
+		{
+			BinanceSuccess returnValue= null;
+			BinanceErrorDAO error = null;
+			//setting  the Query Parameters
+			target =target.queryParam("symbol", symbol);
+			target=target.queryParam("side",orderType );
+			target=target.queryParam("type",orderSubType);
+			orderDetails.setPlacedQuantity(refinedQuantity);			
+			target = target.queryParam("quantity", refinedQuantity.toPlainString());
 
 
-		if(orderSubType.contains("LIMIT")) {
-			target= target.queryParam("timeInForce", "GTC");
-			if (orderDetails.getOrderPrice() != null) {
-				target = target.queryParam("price", orderDetails.getOrderPrice().toPlainString());
+			if(orderSubType.contains("LIMIT")) {
+				target= target.queryParam("timeInForce", "GTC");
+				if (orderDetails.getOrderPrice() != null) {
+					target = target.queryParam("price", orderDetails.getOrderPrice().toPlainString());
+				}
+			}
+
+			if(orderDetails.getStopPrice() != null &&  (orderSubType.contains("STOP_LOSS") || orderSubType.contains("TAKE_PROFIT")))
+			{
+				target=	target.queryParam("stopPrice", orderDetails.getStopPrice().toPlainString());
+			}
+
+			//Get the Query String to generate the signature
+			String queryString = target.getUri().getQuery();
+			TradeLogger.LOGGER.finest("QueryString to generate the signature " + queryString);
+			//Generate the Signature  for query string 
+			String signature = generateSignature(queryString);
+			TradeLogger.LOGGER.finest("Signature Genereated  " + signature);
+
+			if(signature!= null )
+			{
+				//append the Signature to Query Parameter
+				target= target.queryParam(BINANCE_SIGNATURE, signature);	
+				TradeLogger.LOGGER.finest("Final Request URL : "+ target.getUri().toString());
+				Response response = target.request().header(X_MBX_APIKEY_HEADER_KEY,API_KEY).post(null);
+				String responseValue = null;
+
+				if(response.getStatus() == 200) 
+				{
+					responseValue = response.readEntity(String.class);
+					TradeLogger.LOGGER.info(responseValue);
+					returnValue = (BinanceSuccess) getDAOObject(responseValue, BinanceSuccess.class);				
+					TradeLogger.LOGGER.info(returnValue.toString());
+				}
+				else
+				{
+					String errorMsg = response.readEntity(String.class);
+					TradeLogger.LOGGER.severe(errorMsg);			
+
+					if (response.getStatus() != 407) 
+					{
+						error = (BinanceErrorDAO) getDAOObject(errorMsg, BinanceErrorDAO.class);
+						TradeLogger.LOGGER.severe("Error Code " + error.getCode());
+						TradeLogger.LOGGER.severe("Error Message " + error.getMsg());
+
+					}
+
+				}
+
+			}
+			mapOrderDetailsToATOrder(returnValue,error,orderDetails);
+		}
+
+
+		return orderDetails;
+	}
+	private BigDecimal getRefinedQuantityForBinance(BinanceExchangeInfo exchangeInfo2, String symbol, BigDecimal quantity) {
+		BigDecimal refinedQuantity = TraderConstants.NEGATIVE_ONE;
+		if(exchangeInfo2 != null) 
+		{
+			if(exchangeInfo2.getSymbols()!= null ) 
+			{
+				SymbolDetails symDetails = getSymbolDetails(exchangeInfo2.getSymbols(),symbol);
+				if(!symDetails.isInitialPriceFilter()) {
+					symDetails.initializeLotSize();
+				}
+				refinedQuantity = quantity.subtract((quantity.subtract(symDetails.getMinQty())).remainder(symDetails.getStepSize()));
 			}
 		}
-
-		if(orderDetails.getStopPrice() != null &&  (orderSubType.contains("STOP_LOSS") || orderSubType.contains("TAKE_PROFIT")))
-		{
-			target=	target.queryParam("stopPrice", orderDetails.getStopPrice().toPlainString());
+		return refinedQuantity;
+	}
+	
+	private SymbolDetails getSymbolDetails(List<SymbolDetails> symbols, String symbol) {
+		for(SymbolDetails sym : symbols) {
+			if(sym!= null && sym.getSymbol().equalsIgnoreCase(symbol)) {
+				return sym;
+			}
 		}
+		return null;
+	}
+	private ATOrderDetailsVO mapOrderDetailsToATOrder(BinanceSuccess returnValue,BinanceErrorDAO error, ATOrderDetailsVO orderDetails) {
+		
+	//	orderDetails.set
+		if(returnValue!= null) 
+		{
+		orderDetails.setOrderId(returnValue.getOrderId()+"");
+		orderDetails.setTransactionTime(returnValue.getTransactTime());
+		orderDetails.setClientStatus(returnValue.getStatus());
+		orderDetails.setExecutedQuantity(new BigDecimal(returnValue.getExecutedQty()));
+		orderDetails.setCummQuoteQty(new BigDecimal(returnValue.getCummulativeQuoteQty()));
+		orderDetails.setSuccess(true);
+		}
+		else if(error!= null){
+			
+			orderDetails.setClientStatusCode(error.getCode()+"");
+			orderDetails.addErrorMessage("CLIENT MSG" + error.getMsg());
+			orderDetails.setSuccess(false);
+			
+		}
+		else {
+			
+			orderDetails.setSuccess(false);
+			orderDetails.setResultCode(TradeStatusCode.UNKNOWN_ORDER);
+			orderDetails.addErrorMessage("Unknown Result Both success and failure objects are null");
+		}
+		
+		return orderDetails;
+	}
+	public BinanceExchangeInfo getExchangeInfo() {
+		BinanceExchangeInfo exchangeInfo = null;
+		WebTarget target = getTarget().path("/api/v1/exchangeInfo")	;
+		Response response = target.request().get();
+		String responseValue= null;
+		if(response.getStatus() == 200) {
+			
+			responseValue = response.readEntity(String.class);
+			TradeLogger.LOGGER.info(responseValue);
+			 exchangeInfo = (BinanceExchangeInfo) getDAOObject(responseValue, BinanceExchangeInfo.class);
+			
+			
+		}
+		else {
+			String errorMsg = response.readEntity(String.class);
+			TradeLogger.LOGGER.severe(errorMsg);				
+			BinanceErrorDAO error = null;
+			if (response.getStatus() != 407) 
+			{
+				error = (BinanceErrorDAO) getDAOObject(errorMsg, BinanceErrorDAO.class);
+				TradeLogger.LOGGER.severe("Error Code " + error.getCode());
+				TradeLogger.LOGGER.severe("Error Message " + error.getMsg());
+				
+			}
+		}
+		return exchangeInfo;
+	}
+	public ATOrderDetailsVO deleteOrder(ATOrderDetailsVO orderDetails) {
+		
 
-		//Get the Query String to generate the signature
-		String queryString = target.getUri().getQuery();
-		TradeLogger.LOGGER.finest("QueryString to generate the signature " + queryString);
-		//Generate the Signature  for query string 
-		String signature = generateSignature(queryString);
-		TradeLogger.LOGGER.finest("Signature Genereated  " + signature);
-
-		if(signature!= null )
+		 
+		//timestamp is mandatory one 		
+		WebTarget target = getTarget().path(RESOURCE_ORDER_DELETE).queryParam(BINANCE_TIMESTAMP,System.currentTimeMillis());
+		String symbol = getSymbol(orderDetails.getCoin(), orderDetails.getCurrency());
+		//symbol is not mandatory one
+		if(TradeClient.isNullorEmpty(symbol) || TradeClient.isNullorEmpty(orderDetails.getOrderId()) || orderDetails.getOrderType() != TraderConstants.DELETE_CALL ) 
+		{
+			orderDetails.setResultCode(TradeStatusCode.INVALIDSYMBOL);
+			orderDetails.setErrorMsg("Invalid Parameter passed . Please fix the parameter with correct values");
+			orderDetails.setSuccess(false);
+			
+		}
+		else
+		{
+			BinanceSuccess success = null;
+			BinanceErrorDAO error = null;
+		target=target.queryParam("symbol",symbol);
+		target =target.queryParam("orderId", orderDetails.getOrderId());
+		String signature = generateSignature(target.getUri().getQuery());
+		if(signature != null) 
 		{
 			//append the Signature to Query Parameter
 			target= target.queryParam(BINANCE_SIGNATURE, signature);	
-			TradeLogger.LOGGER.finest("Final Request URL : "+ target.getUri().toString());
-			Response response = target.request(MediaType.APPLICATION_JSON).header(X_MBX_APIKEY_HEADER_KEY,API_KEY).post(null);
-			BinanceSuccess returnValue= null;
+			TradeLogger.LOGGER.finest("Final Request URL to delete : "+ target.getUri().toString());
+			Response response = target.request().header(X_MBX_APIKEY_HEADER_KEY,API_KEY).delete();
+			String returnValue = null;
 			if(response.getStatus() == 200) 
 			{
-				returnValue = response.readEntity(BinanceSuccess.class);
-				mapOrderDetailsToATOrder(returnValue,orderDetails);
-				TradeLogger.LOGGER.info(returnValue.toString());
+				returnValue = response.readEntity(String.class);
+				TradeLogger.LOGGER.info(returnValue);
+				success = (BinanceSuccess) getDAOObject(returnValue, BinanceSuccess.class);
+				orderDetails.setResultCode(TradeStatusCode.DELETE_ORDER_SUCCESS);
+				orderDetails.setSuccess(true);
 			}
 			else
 			{
 				String errorMsg = response.readEntity(String.class);
 				TradeLogger.LOGGER.severe(errorMsg);				
-				BinanceErrorDAO error = (BinanceErrorDAO) getDAOObject(errorMsg,BinanceErrorDAO.class);
+				error = (BinanceErrorDAO) getDAOObject(errorMsg,BinanceErrorDAO.class);
 				TradeLogger.LOGGER.severe("Error Code " + error.getCode());
 				TradeLogger.LOGGER.severe("Error Message " + error.getMsg());
-				resultCode = getAutoTradeStatusCode(error.getCode());
+				
+				
+				orderDetails.setResultCode(TradeStatusCode.DELETE_ORDER_FAILURE);
+				orderDetails.setSuccess(false);
 			}
 		}
-		
-		
-		return orderDetails;
-	}
-	private ATOrderDetailsVO mapOrderDetailsToATOrder(BinanceSuccess returnValue, ATOrderDetailsVO orderDetails) {
-		
-	//	orderDetails.set
-		orderDetails.setOrderId(returnValue.getOrderId()+"");
+		mapOrderDetailsToATOrder(success,error,orderDetails);
+		}
 		
 		return orderDetails;
 	}
-	
 }

@@ -26,7 +26,38 @@ public class TradeDataVO {
 	
 	int profitType=1;
 	
+	long triggerTime;
 	
+	String atOrderId;
+	
+	String remarks;
+	
+	
+	
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getAtOrderId() {
+		return atOrderId;
+	}
+
+	public void setAtOrderId(String atOrderId) {
+		this.atOrderId = atOrderId;
+	}
+
+	public long getTriggerTime() {
+		return triggerTime;
+	}
+
+	public void setTriggerTime(long triggerTime) {
+		this.triggerTime = triggerTime;
+	}
+
 	public int getProfitType() {
 		return profitType;
 	}

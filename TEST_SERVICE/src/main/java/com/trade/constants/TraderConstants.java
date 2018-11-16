@@ -14,6 +14,7 @@ public class TraderConstants {
 	
 	public static final int BUY_CALL = 1;
 	public static final int SELL_CALL= 2;
+	public static final int DELETE_CALL = 3;
 	
 	public static final int MARKET_ORDER=1;
 	public static final int LIMIT_ORDER =2;
@@ -34,6 +35,9 @@ public class TraderConstants {
 	public static final String LAST_PRICE = "lastPrice";
 	public static final String LOW_PRICE = "lowPrice";
 	public static final String HIGH_PRICE = "highPrice";
+
+
+	
 	public static  BigDecimal MIN_PERMISSIBLE_PERCENT = BIGDECIMAL_ZERO;
 	public static  BigDecimal MAX_PERMISSIBLE_PERCENT = new BigDecimal("0.10");
 	

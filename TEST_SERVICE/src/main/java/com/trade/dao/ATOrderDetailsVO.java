@@ -15,8 +15,79 @@ public class ATOrderDetailsVO {
 	BigDecimal orderPrice = TraderConstants.NEGATIVE_ONE;
 	BigDecimal quantity = TraderConstants.NEGATIVE_ONE;
 	BigDecimal stopPrice = TraderConstants.NEGATIVE_ONE;
-	long transactionTime;
+	BigDecimal placedQuantity = TraderConstants.NEGATIVE_ONE;
+	BigDecimal executedQuantity = TraderConstants.NEGATIVE_ONE;
+	BigDecimal cummQuoteQty = TraderConstants.NEGATIVE_ONE;
 	
+	public BigDecimal getPlacedQuantity() {
+		return placedQuantity;
+	}
+
+	public void setPlacedQuantity(BigDecimal placedQuantity) {
+		this.placedQuantity = placedQuantity;
+	}
+
+	public BigDecimal getExecutedQuantity() {
+		return executedQuantity;
+	}
+
+	public void setExecutedQuantity(BigDecimal executedQuantity) {
+		this.executedQuantity = executedQuantity;
+	}
+
+	public BigDecimal getCummQuoteQty() {
+		return cummQuoteQty;
+	}
+
+	public void setCummQuoteQty(BigDecimal cummQuoteQty) {
+		this.cummQuoteQty = cummQuoteQty;
+	}
+
+	public String getClientStatus() {
+		return clientStatus;
+	}
+
+	public void setClientStatus(String clientStatus) {
+		this.clientStatus = clientStatus;
+	}
+	long transactionTime;
+	int resultCode;
+	String clientStatusCode;
+	boolean success= false;
+	String errorMsg="";
+	
+	String clientStatus ;
+	
+	public String getClientStatusCode() {
+		return clientStatusCode;
+	}
+
+	public void setClientStatusCode(String clientStatusCode) {
+		this.clientStatusCode = clientStatusCode;
+	}
+
+	public void addErrorMessage(String msg) {
+		this.errorMsg = this.errorMsg+msg;
+	}
+		
+	public int getResultCode() {
+		return resultCode;
+	}
+	public void setResultCode(int resultCode) {
+		this.resultCode = resultCode;
+	}
+	public boolean isSuccess() {
+		return success;
+	}
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
+	public String getErrorMsg() {
+		return errorMsg;
+	}
+	public void setErrorMsg(String errorMsg) {
+		this.errorMsg = errorMsg;
+	}
 	public int getOrderType() {
 		return orderType;
 	}
