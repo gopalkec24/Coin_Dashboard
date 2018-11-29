@@ -28,4 +28,69 @@ scenario , When maximum retry count is reached,
 		
 		by default operation mode is BASIC. it is specific to Individual transaction details.
 		For advanced mode , user has to explicit specify in transaction trade data config
- 
+		
+		
+		
+		
+		
+		once order is placed the trigger_event will be 2,
+		
+		check for order executed or not 
+			for 98% percentage , I will not be executed, so check for status
+			
+			if executed completely , then 
+				
+				1) ok good, get the details of order executed .
+				based on type of profit. calculate the quantity/volume  
+					a) place the entry for profit/loss for dashboard(existing and new)
+					b)calculate the quantity to sold/ bought
+				   c)place new Autotrade data with parent id/relationid/reference_id(yet to be finalized) to calculate the profit loss
+				   d) change the status of trigger event to other value probably 3 (completed state)
+				   e) New order should be properties parent order
+						like PlaceAvgPriceOrder
+							mode of execution if present, else default as Basic mode
+							
+		    else if order executed partially,
+					wait for order to completed
+			else if order executed is new /active / not yet executed
+					options A:	wait for order to execute completely
+					Options B:	check for last price  and order triggered price differs 
+									if differs is between 0.0 to 0.25 %(make this value as configurable) ,
+									then
+										A)cancel the order and 
+										B)change the 
+										1)trigger_event value to 0, 
+										2 )retrigger count value = Maximum retrigger count -1
+										3) initialize the low,high,wait count to zero
+										4)change the order triggered price as -1
+										5) change the trigger price as 
+											MAXIMUM_SELL_PERMISSIBLE_LIMIT differs more for sell order
+											MAXIMUM BUY_PERMISSIBLE LIMIT less for buy order
+									else
+										wait for order to execute.	
+										
+		Type of profit : 1)TAKE_AMOUNT means buy volume and sell volume should be same. 
+						 volume of the coin should be same as like previous transaction.	
+						 for ex : we have bought 0.04 ETH for 1000 MXN : total transaction amount should be 40 MXN.
+						 then while selling coin for ETH for 2000 MXN. Total volume is considered from previous transaction. volume taken for transaction is 
+						 0.04 ETH. Total transaction amount is 80 MXN.
+								here next transaction we need to take the volume as previous transaction volume/quantity.
+								40 MXN will be profit .
+								
+								cummalate the tranaction currency as Profit
+								
+						2) KEEP_VOLUME means Transaction amt should be same for both BUY and SELL. 
+						calcuate the volume of the coin based on previous transaction amount.
+						   for ex: we have bought 0.04 ETH for 1000 MXN : total amount should be 40 MXN,
+						   then while selling coin for  ETH for 2000 MXN : total coin take for sell should be 0.02 ETH. therefore keeping the transaction
+						   amount as 40 MXN
+						   Viceversa for SELL => BUY transaction
+						   
+						   cummulate the volume as profit
+						   
+						   
+		1.Buy transaction held with BTC 0.04 volume orderID: from exchange (24112018) correlation Id: null 
+			and next sell transaction order ID : from exchange(25112018) correlation Id  : 24112018
+		2.Buy Transaction held with BTC order ID : from exchange(26112018) correlation Id : 25112018 
+		and next sell transaction order ID L from exchange (27112018) correlation Id : 26112018
+		2.Sell transaction held
