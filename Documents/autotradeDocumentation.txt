@@ -28,10 +28,8 @@ scenario , When maximum retry count is reached,
 		
 		by default operation mode is BASIC. it is specific to Individual transaction details.
 		For advanced mode , user has to explicit specify in transaction trade data config
-		
-		
-		
-		
+ 
+	
 		
 		once order is placed the trigger_event will be 2,
 		

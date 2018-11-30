@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="refresh" content="45">
+<meta http-equiv="refresh" content="650">
 <title>Auto trade Data </title>
 	<!-- <link rel="stylesheet" type="text/css" href="vendor/css/normalize.css"> -->
  <link rel="stylesheet" type="text/css" href="resources/css/coinstyle.css">
@@ -25,9 +25,9 @@ success:function(result)
 console.log(result);
 
  var dataRow="<div> <table> <thead> <tr> <th>Exchange  </th><th>Coin </th><th>Currency Traded </th> <th> Place Avg pr order</th> <th>Transaction Type </th> <th>Coin Volume </th> <th>TradeCurrency Quantity </th>  <th>Triggered Price </th> <th>Last Price</th> <th> Previous Last Price</th><th> Low Price </th>  <th> High Price </th> <th>Last SellCall </th><th>last BuyCall </th> <th>Wait Count </th>"+
- "<th>Trigger Event </th> <th> Low Count</th> <th> High Count</th> <th>Re-Trigger Count</th>  <th col='20'> Trigger Price History</th> <th> Order triggered Price </th> <th> Remarks </th> </tr> </thead> <tbody>";  
+ "<th>Trigger Event </th> <th> Low Count</th> <th> High Count</th> <th>Re-Trigger Count</th>  <th width='20px'> Trigger Price History</th> <th> Order triggered Price </th> <th>Exchange Order ID </th> <th> Remarks </th> </tr> </thead> <tbody>";  
  
- var priceHistory = "<table><thead> <tr> <th>Reference ID </th> <th>Transaction Time</th>   <th>Low Price </th>  <th>High Price</th> <th>Last Price</th> </tr> </thead> <tbody> ";
+ var priceHistory = "<table><thead> <tr> <th>Reference ID </th> <th>Transaction Time</th>  <th>Xchange/Coin/Currency <th>Low Price </th>  <th>High Price</th> <th>Last Price</th>  <th> Remarks </th> </tr> </thead> <tbody> ";
     for(var i=0; i< result.length; i++)
 	{
 		var  coinTraded = result[i];
@@ -52,9 +52,10 @@ console.log(result);
                 coinTraded.triggerEvent+"</td><td>"+
 				 coinTraded.lowCount+"</td><td>"+
 				  coinTraded.highCount+"</td><td>"+
-				   coinTraded.reTriggerCount+"</td><td col='20'>"+
+				   coinTraded.reTriggerCount+"</td><td width='20'>"+
 				    coinTraded.triggerPriceHistory+"</td><td>"+
 					coinTraded.orderTriggeredPrice+"</td><td>"+
+					coinTraded.exchangeOrderId+"</td><td>"+
 					coinTraded.remarks+"</td><td>"+
 					
 					"</td></tr>";
@@ -65,11 +66,16 @@ console.log(result);
 					 var  date= new Date(ph.transactTime);
 					 priceHistory = priceHistory +"<tr> <td> "+ph.referenceId +"</td><td>"+
 						date.toString()+"</td><td>"+
+						coinTraded.exchange+"/"+coinTraded.coin+"/"+coinTraded.currency+"</td><td>"+
 						ph.lowPrice+"</td><td>"+
 						ph.highPrice+"</td><td>"+
 						ph.lastPrice+"</td><td>"+
+						ph.remarks+"</td><td>"+
+						
 						"</td></tr>";
 					}
+					priceHistory=priceHistory+"<tr><td>===</td> <td>===================================</td></tr>";
+					
                 
 				
                     
@@ -79,8 +85,8 @@ console.log(result);
     dataRow=dataRow+"</tbody></table> </div>";
   $("#exchange").append(dataRow); 
   $("#pricehistory").append(priceHistory);
-  
-  
+  $("#result").text("Welcome");
+  $("#timestamp").text("");
 
 	 
 }// success function Method close
@@ -109,6 +115,9 @@ console.log(result);
 		</div>
 		
 		<div class="pricehistory" id="pricehistory" >
+		 
+		</div>
+		<div class="remarkshistory" id="remarkshistory" >
 		 
 		</div>
 </div>	  

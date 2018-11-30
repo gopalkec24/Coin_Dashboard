@@ -22,6 +22,22 @@
   "replaceCoin" : true,
   "replaceCoinName" : "PHX",
  "coinFactor" : 1.00  
+},
+{
+  "exchangeName" : "BINANCE",
+  "coinName": "BCC",
+  "order" : 1,
+  "replaceCoin" : true,
+  "replaceCoinName" : "BCHSV,BCHABC",
+ "coinFactor" : 1.00  
+},
+{
+  "exchangeName" : "KOINEX",
+  "coinName": "BCH",
+  "order" : 1,
+  "replaceCoin" : true,
+  "replaceCoinName" : "BCHSV,BCHABC",
+ "coinFactor" : 1.00  
 }
 
 ]
