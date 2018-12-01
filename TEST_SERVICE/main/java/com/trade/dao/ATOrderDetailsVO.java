@@ -164,7 +164,10 @@ public class ATOrderDetailsVO {
 		this.transactionTime = transactionTime;
 	}
 	
-	
+	public String toString() {
+		return this.exchange + "/"+this.coin+"/"+this.currency+"/"+this.orderId+"/"+this.status+"/"+this.clientStatus+"/"+this.errorMsg;
+		
+	}
 	
 
 }

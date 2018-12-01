@@ -3,6 +3,7 @@ package com.trade.dao;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import com.trade.constants.TraderConstants;
 
@@ -34,7 +35,7 @@ public class TradeDataVO {
 	
 	String exchangeOrderId;
 	
-	
+	List<TriggerEventHistory> eventHistory = new CopyOnWriteArrayList<TriggerEventHistory>();
 
 	public String getExchangeOrderId() {
 		return exchangeOrderId;
@@ -276,6 +277,13 @@ public class TradeDataVO {
 
 	public void setTriggerEvent(int triggerEvent) {
 		this.triggerEvent = triggerEvent;
+	}
+	public void setTriggerEventForHistory(int triggerEvent) {
+		setTriggerEvent(triggerEvent);
+		if(this.eventHistory == null) {
+			this.eventHistory=	new CopyOnWriteArrayList<TriggerEventHistory>();
+		}
+		this.eventHistory.add(new TriggerEventHistory(triggerEvent));
 	}
 
 	public int getWaitCount() {

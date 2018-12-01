@@ -24,7 +24,7 @@ public class BitsoTrade extends BaseTrade{
 	private static final String API_ENDPOINT = "https://api.bitso.com";
 	private static final String RESOURCE_ORDER = "/v3/orders/";
 	private static final String API_KEY= "JmWdfqQqgh";
-	private static final String SECRET_KEY="";
+	private static final String SECRET_KEY="2a1596461bfc1b53e603eef0562e8646";
 	public static WebTarget target = null;
 	public static Mac mac = null;
 	private static final String ALGORITHM="HmacSHA256";

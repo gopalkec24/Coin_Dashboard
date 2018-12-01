@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+
 import org.apache.commons.io.FileUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -49,8 +52,17 @@ public class AutoTrader {
 	public static final BigDecimal MAX_SELL_PERMISSIBLE_PERCENT =  new BigDecimal("1");
 	public static final BigDecimal MIN_BUY_PERMISSIBLE_PERCENT = TraderConstants.BIGDECIMAL_ZERO;
 	public static final BigDecimal MAX_BUY_PERMISSIBLE_PERCENT = new BigDecimal("1");
+	//boolean advance= true;
 	private static final int NO_OF_PERMISSIBLE = 1;
-
+	private static final long DEFAULT_TRANSACTION_TIMEOUT = 86400000;
+	private static final String ORDER_WAIT_TIMEOUT = "orderWaitTimeOut";
+	private static final String MINIMUM_CANCEL_PERMISSIBLE_LIMT = "minimumCancelOrderLimit";
+	private static final BigDecimal MIN_CANCEL_PERMISSIBLE_PERCENT = TraderConstants.BIGDECIMAL_ZERO;
+	private static final Object MAXIMUM_CANCEL_PERMISSIBLE_LIMT = "maximumCancelOrderLimit";
+	private static final BigDecimal MAX_CANCEL_PERMISSIBLE_PERCENT =  new BigDecimal("0.20");
+	private static final boolean DEFAULT_TRADE_MODE = false;
+	private static final String ADVANCE_TRADE_MODE = "advanceTrading";
+	public static List<TradeDataVO> newOrderList = new CopyOnWriteArrayList<TradeDataVO>();
 	public static void main(String[] args){
 	
 		AutoTrader trader = new AutoTrader();
@@ -94,7 +106,7 @@ public class AutoTrader {
 			
 			try {
 				TradeLogger.LOGGER.info("Going to sleep by 50 second" +new Date());
-				Thread.sleep(600000);
+				Thread.sleep(60000);
 				TradeLogger.LOGGER.info("Going to wake up" +new Date());
 			} catch (InterruptedException e) {
 				
@@ -134,13 +146,19 @@ public class AutoTrader {
 
 	public void process(List<TradeDataVO> transactionData) {
 
+		
 		for(TradeDataVO data : transactionData){
 			//TODO initial a thread here to process individual data quickly	
 			TradeLogger.LOGGER.finest("Before the processing  : "+data.toString());
 			processData(data);
 			TradeLogger.LOGGER.finest("After the processing  : "+data.toString());
 		}
-		
+		if(!newOrderList.isEmpty()) {
+			transactionData.addAll(newOrderList);
+			TradeLogger.LOGGER.info("Added new OrderList to existing list");
+			newOrderList.clear();
+			TradeLogger.LOGGER.info("Cleared new OrderList to avoid the duplicate one");
+		}
 		
 		
 	}
@@ -167,10 +185,25 @@ public class AutoTrader {
 			
 			checkOrderExecution(data);
 		}
-		
+		else if(data.getTriggerEvent() == TraderConstants.MARK_FOR_DELETE_CREATE_NEW) {
+			cancelOrderReTriggerForNewTradeCondition(data);
+		}
+		else if(data.getTriggerEvent() == TraderConstants.DELETE_FOR_NEWTRADE) {
+			createNewTradeForDelete(data);
+		}
 		
 	}
 	
+	private void createNewTradeForDelete(TradeDataVO data) 
+	{
+		try {
+			createNewTradeForDelete(data,getNewTradePriceForDeletedOrder(data));
+		} catch (Exception e) {
+			TradeLogger.LOGGER.log(Level.SEVERE, "Error in caluculating amount order please contact the Administrator ", e);
+		}
+
+
+	}
 	private void checkOrderExecution(TradeDataVO data) {
 		
 		if(!TradeClient.isNullorEmpty(data.getExchangeOrderId())) 
@@ -179,9 +212,61 @@ public class AutoTrader {
 			if(trade!= null) 
 			{
 				ATOrderDetailsVO getDetailVO= generateOrderDetailsForGet(data);
-				trade.getOrderStatus(generateOrderDetailsForGet(data));
+				trade.getOrderStatus(getDetailVO);
+				//incase order is new or partially executed
 				if(getDetailVO.getStatus() == TraderConstants.NEW || getDetailVO.getStatus() == TraderConstants.PARTIALLY_EXECUTED)
 				{
+					TradeLogger.LOGGER.info("Order placed time "+new Date(getDetailVO.getTransactionTime())+""+ getDetailVO.getTransactionTime());
+					TradeLogger.LOGGER.info("Client Status " + getDetailVO.getClientStatus());
+					
+					if(isAdvanceTradeEnabled()) 
+					{
+						Map<String,Object> values= getExchangePrice(data.getExchange(),data.getCoin(),data.getCurrency());
+						if (values != null) 
+						{	
+							BigDecimal lastPrice = getValidBigDecimal(values,TraderConstants.LAST_PRICE);										
+							BigDecimal percentage= getDifferInPercentage(lastPrice, data.getOrderTriggeredPrice());
+							TradeLogger.LOGGER.finest("Percentage value before Absoulte :"+percentage);
+							percentage = percentage.abs();
+							TradeLogger.LOGGER.finest("Percentage value After Absoulte :"+percentage);
+							boolean cancelOrder = percentagePermissible(percentage, getMinCancelLimit(), getMaxCancelLimit());
+							if(cancelOrder) {
+								//TODO new Price needs to be calcuated here
+								try
+								{
+									cancelOrderReTriggerForNewTradeCondition(data,getNewTradePriceForDeletedOrder(data,values));
+								} 
+								catch (Exception e)
+								{
+									TradeLogger.LOGGER.log(Level.SEVERE, "Error in caluculating amount order please contact the Administrator ", e);
+								}
+							}
+							else 
+							{
+								TradeLogger.LOGGER.info("Waiting for More times " );
+							}
+							
+						}
+						else 
+						{
+							TradeLogger.LOGGER.severe("FAILED to fetch the values from Exchange : " + data.getExchange());
+						}
+					}
+					else
+					{
+						
+						//updatedCacheTime + defaultCacheTimeoutInMS < System.currentTimeMillis()
+						if((getDetailVO.getTransactionTime() + getTransactionTimeOut()) < System.currentTimeMillis()) {
+							TradeLogger.LOGGER.info("Making  order to delete Since 24 hours "+ getDetailVO.getTransactionTime() + getTransactionTimeOut() + "Current Time"+System.currentTimeMillis());
+							data.setTriggerEventForHistory(TraderConstants.MARK_FOR_DELETE_CREATE_NEW);
+							cancelOrderReTriggerForNewTradeCondition(data);
+							
+						}
+						else
+						{
+							TradeLogger.LOGGER.info("Waiting for order to execute for 24 hours ");
+						}
+					}
 					
 				}
 				//Cancelled / Expired
@@ -195,6 +280,154 @@ public class AutoTrader {
 			}
 		}
 		
+	}
+	
+	private void cancelOrderReTriggerForNewTradeCondition(TradeDataVO data) {
+		
+		
+		try 
+		{
+			cancelOrderReTriggerForNewTradeCondition(data, getNewTradePriceForDeletedOrder(data));
+		}
+		catch (Exception e) 
+		{
+			TradeLogger.LOGGER.log(Level.SEVERE, "Error in caluculating amount order please contact the Administrator ", e);
+		}
+		
+		
+	}
+	private BigDecimal getNewTradePriceForDeletedOrder(TradeDataVO data) throws Exception {		
+		Map<String,Object> values= getExchangePrice(data.getExchange(),data.getCoin(),data.getCurrency());
+		return getNewTradePriceForDeletedOrder(data, values);
+		
+	}
+	private BigDecimal getNewTradePriceForDeletedOrder(TradeDataVO data, Map<String, Object> values) throws Exception {
+		if(values!= null) {
+			BigDecimal basePrice = null;
+			if(data.getTransactionType() == TraderConstants.BUY_CALL) {
+				basePrice = getValidBigDecimal(values, TraderConstants.LOW_PRICE);
+				BigDecimal amount = calcuateAmountByLimit(getMaxBuyPermissibleLimit(),basePrice);
+				return basePrice.subtract(amount);
+			}
+			else if(data.getTransactionType() == TraderConstants.SELL_CALL) {
+				basePrice =getValidBigDecimal(values, TraderConstants.HIGH_PRICE);
+				BigDecimal amount = calcuateAmountByLimit(getMaxSellPermissibleLimit(),basePrice);
+				return basePrice.add(amount);
+			}
+			else {
+				throw new Exception("INVALID TRANSACTION TYPE . SHOULD BE EITHER BUY OR SELL");
+			}
+		}
+		else
+		{
+			throw new Exception("INVALID MARKET DATA");
+		}
+	}
+	private BigDecimal calcuateAmountByLimit(BigDecimal maxBuyPermissibleLimit, BigDecimal basePrice) {
+		BigDecimal amt = basePrice.multiply(maxBuyPermissibleLimit);
+		amt.setScale(basePrice.scale());
+		return amt;
+	}
+	private void cancelOrderReTriggerForNewTradeCondition(TradeDataVO data,BigDecimal lastPrice) {
+		boolean cancelOrder =  cancelOrder(data,TraderConstants.DELETE_FOR_NEWTRADE);
+		if(cancelOrder) {
+			createNewTradeForDelete(data,lastPrice);
+		}
+		
+		
+	}
+	private void createNewTradeForDelete(TradeDataVO data,BigDecimal lastPrice) {
+		TradeDataVO tradeData = new TradeDataVO(data.getExchange(), data.getCoin(), data.getCurrency(), data.getCoinVolume(), data.getTradeCurrencyVolume());
+		tradeData.setTriggerEventForHistory(TraderConstants.INTITAL_TRIGGER);
+		tradeData.setProfitType(data.getProfitType());
+		tradeData.setLastBuyCall(data.isLastBuyCall());
+		tradeData.setLastSellCall(data.isLastSellCall());
+		tradeData.setRemarks("New order created from old ID "+ data.getAtOrderId());
+		tradeData.setTriggeredPrice(lastPrice);
+		tradeData.setPlaceAvgPriceOrder(data.isPlaceAvgPriceOrder());
+		
+		initializeWLHCountToZero(tradeData);
+		tradeData.setReTriggerCount(MAX_RETRIGGER_COUNT-1);
+		newOrderList.add(tradeData);
+		data.setTriggerEventForHistory(TraderConstants.NEWTRADE_CREATED_FOR_DELETE);
+	}
+	
+	private boolean cancelOrder(TradeDataVO data,int nextTriggerEvent) {
+		ITrade trade = ExchangeFactory.getInstance(data.getExchange());
+		if(trade != null)
+		{
+		ATOrderDetailsVO deleteOrderDetails;
+		try {
+			deleteOrderDetails = generateOrderToDelete(data);
+			//Place deleteOrder to exchange
+			trade.deleteOrder(deleteOrderDetails);
+			if (deleteOrderDetails.isSuccess()) {
+				data.setTriggerEventForHistory(nextTriggerEvent);
+				return true;
+			} 
+		} 
+		catch (Exception e) {
+			TradeLogger.LOGGER.log(Level.SEVERE, "Error in Cancelling order please contact the Administrator ", e);
+			return false;
+		}
+		
+		}
+		return false;
+	}
+	private BigDecimal getMinCancelLimit() {
+		try {
+			if(AutoTradeConfigReader.getConfigValues().containsKey(MINIMUM_CANCEL_PERMISSIBLE_LIMT)) {
+				TradeLogger.LOGGER.finest("Using  Minimum Sell Permissible Limit from properties file ");
+				return	AutoTradeUtilities.getBigDecimalValue(AutoTradeConfigReader.getConfigValues().get(MINIMUM_CANCEL_PERMISSIBLE_LIMT));
+			}
+			else {
+				TradeLogger.LOGGER.finest("Using default Minimum Sell Permissible Limit " + MIN_CANCEL_PERMISSIBLE_PERCENT);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return MIN_CANCEL_PERMISSIBLE_PERCENT;
+	}
+	private BigDecimal getMaxCancelLimit() {
+		try {
+			if(AutoTradeConfigReader.getConfigValues().containsKey(MAXIMUM_CANCEL_PERMISSIBLE_LIMT)) {
+				TradeLogger.LOGGER.finest("Using  Minimum Sell Permissible Limit from properties file ");
+				return	AutoTradeUtilities.getBigDecimalValue(AutoTradeConfigReader.getConfigValues().get(MAXIMUM_CANCEL_PERMISSIBLE_LIMT));
+			}
+			else {
+				TradeLogger.LOGGER.finest("Using default Minimum Sell Permissible Limit " + MAX_CANCEL_PERMISSIBLE_PERCENT);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return MAX_CANCEL_PERMISSIBLE_PERCENT;
+	}
+	private ATOrderDetailsVO generateOrderToDelete(TradeDataVO data) {
+		ATOrderDetailsVO deleteOrderDetails  = new ATOrderDetailsVO();
+		deleteOrderDetails.setExchange(data.getExchange());
+		deleteOrderDetails.setOrderId(data.getExchangeOrderId());
+		deleteOrderDetails.setCoin(data.getCoin());
+		deleteOrderDetails.setCurrency(data.getCurrency());
+		deleteOrderDetails.setOrderType(TraderConstants.DELETE_CALL);
+		return deleteOrderDetails;
+	}
+	private long getTransactionTimeOut() {
+		try {
+			
+			if(AutoTradeConfigReader.getConfigValues().containsKey(ORDER_WAIT_TIMEOUT)) {
+				TradeLogger.LOGGER.finest("Using  Maximum Sell Permissible Limit from properties file ");
+				return	Long.parseLong(AutoTradeConfigReader.getConfigValues().get(ORDER_WAIT_TIMEOUT)+"");
+			}
+			else {
+				TradeLogger.LOGGER.finest("Using default Maximum Sell Permissible Limit " + DEFAULT_TRANSACTION_TIMEOUT);
+			}
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
+		
+		return DEFAULT_TRANSACTION_TIMEOUT;
 	}
 	private ATOrderDetailsVO generateOrderDetailsForGet(TradeDataVO data) {
 		
@@ -239,7 +472,7 @@ public class AutoTrader {
 			BigDecimal lowPrice = getValidBigDecimal(values,TraderConstants.LOW_PRICE);
 
 			BigDecimal highPrice = getValidBigDecimal(values,TraderConstants.HIGH_PRICE);
-			boolean advance= true;
+			
 			ATOrderDetailsVO placeOrder = null;
 			if(isValidMarketData(data.getLastPrice()) && isValidMarketData(lastPrice))
 			{
@@ -296,7 +529,7 @@ public class AutoTrader {
 								//start of advance Trading 
 								//Advanced Trading 
 								//advance 2
-								if(advance)
+								if(isAdvanceTradeEnabled())
 								{
 									//higher count is more than Low count, price is moving towards up direction very fastly
 									if(data.getLowCount() < data.getHighCount())
@@ -542,7 +775,7 @@ public class AutoTrader {
 								//start of advance Trading 
 								//Advanced Trading 
 								//advance 2
-								if(advance)
+								if(isAdvanceTradeEnabled())
 								{
 
 									//low count is more than high count, price is moving towards down direction very fastly
@@ -567,15 +800,7 @@ public class AutoTrader {
 										{
 											//place sell with avg price or Reinitailize the count
 
-										/*	if(data.isPlaceAvgPriceOrder()) 
-											{
-												//place sell with avg price
-												TradeLogger.LOGGER.info("Condition Met to transact changeing the state alone");
-												placeOrder=generateOrderDetails(TraderConstants.SELL_CALL,TraderConstants.LIMIT_ORDER,avgLastPrice,null,data);
-												data.setRemarks("Triggered in Advance well with Non differential Percentage as "+percentageDiffer+" and Make order data placeAvgPriceOrder as True");
-											}
-											else 
-											{*/
+										
 
 												if(data.getReTriggerCount() < MAX_RETRIGGER_COUNT) 
 												{
@@ -601,7 +826,7 @@ public class AutoTrader {
 														data.addPriceHistory(getMarketStaticsVO(values,data.getPriceHistory().size(),"Initialize the new trade with avg Last price "));
 													}
 												}
-											//}
+											
 										}
 									}
 									
@@ -677,6 +902,12 @@ public class AutoTrader {
 				
 
 			}
+			else {
+				data.setPreviousLastPrice(lastPrice);				
+				data.setLowPrice(lowPrice);
+				data.setHighPrice(highPrice);
+				data.setLastPrice(lastPrice);
+			}
 
 		}
 		else {
@@ -684,11 +915,27 @@ public class AutoTrader {
 		}
 		
 	}
+	private boolean isAdvanceTradeEnabled() 
+	{
+		try {
+			
+			if(AutoTradeConfigReader.getConfigValues().containsKey(ADVANCE_TRADE_MODE)) {
+				TradeLogger.LOGGER.finest("Using  Maximum Sell Permissible Limit from properties file ");
+				return	(Boolean) AutoTradeConfigReader.getConfigValues().get(ADVANCE_TRADE_MODE);
+			}
+			else {
+				TradeLogger.LOGGER.finest("Using default Maximum Sell Permissible Limit " + DEFAULT_TRADE_MODE);
+			}
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
+		return DEFAULT_TRADE_MODE;
+	}
 	private void updateTradeData(TradeDataVO data, ATOrderDetailsVO placeOrder) {
 		if(placeOrder.isSuccess() && !TradeClient.isNullorEmpty(placeOrder.getOrderId())) {
 			TradeLogger.LOGGER.info("Order placed to Exchange was successful");
 			data.setExchangeOrderId(placeOrder.getOrderId());
-			data.setTriggerEvent(TraderConstants.ORDER_TRIGGERED);
+			data.setTriggerEventForHistory(TraderConstants.ORDER_TRIGGERED);
 			data.setRemarks("Order placed to Exchange was successful");
 		}
 		else if(placeOrder.isSuccess() && TradeClient.isNullorEmpty(placeOrder.getOrderId()))
@@ -748,7 +995,7 @@ public class AutoTrader {
 			orderDetailsVO.setQuantity(data.getCoinVolume());
 		}
 		data.setOrderTriggeredPrice(orderPrice);
-		data.setTriggerEvent(TraderConstants.PLACE_ORDER_TRIGGER);
+		data.setTriggerEventForHistory(TraderConstants.PLACE_ORDER_TRIGGER);
 		return orderDetailsVO;
 		
 	}
@@ -762,7 +1009,7 @@ public class AutoTrader {
 		}
 		ATOrderDetailsVO orderDetailsVO = generateATOrderForBSTransaction(orderSubType, orderPrice,stopPrice, data);
 		data.setOrderTriggeredPrice(orderPrice);
-		data.setTriggerEvent(TraderConstants.PLACE_ORDER_TRIGGER);
+		data.setTriggerEventForHistory(TraderConstants.PLACE_ORDER_TRIGGER);
 		return orderDetailsVO;
 		
 	}
@@ -925,7 +1172,7 @@ public class AutoTrader {
 			
 			data.setTriggerTime(System.currentTimeMillis());
 			data.setAtOrderId(System.currentTimeMillis()+"");
-			data.setTriggerEvent(TraderConstants.INTITAL_TRIGGER);
+			data.setTriggerEventForHistory(TraderConstants.INTITAL_TRIGGER);
 			data.setWaitCount(TraderConstants.ZERO_COUNT);
 			data.setLowCount(TraderConstants.ZERO_COUNT);
 			data.setHighCount(TraderConstants.ZERO_COUNT);

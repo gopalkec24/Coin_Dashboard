@@ -405,7 +405,13 @@ public class BinanceTrade extends BaseTrade
 		if(returnValue!= null) 
 		{
 		orderDetails.setOrderId(returnValue.getOrderId()+"");		
-		orderDetails.setTransactionTime(returnValue.getTransactTime());
+		if (orderDetails.getOrderType() != TraderConstants.GET_CALL) {
+			orderDetails.setTransactionTime(returnValue.getTransactTime());
+		}
+		else 
+		{
+			orderDetails.setTransactionTime(returnValue.getUpdateTime());
+		}
 		orderDetails.setStatus(getATStatusFromExchangeStatus(returnValue.getStatus()));
 		orderDetails.setClientStatus(returnValue.getStatus());
 		orderDetails.setExecutedQuantity(new BigDecimal(returnValue.getExecutedQty()));

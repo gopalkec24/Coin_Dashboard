@@ -50,5 +50,14 @@ public class TraderConstants {
 	public static final int EXECUTED = 3;
 	public static final int PARTIALLY_EXECUTED = 2;
 	public static final int NEW = 1;
+
+
+	public static final int DELETE_FOR_NEWTRADE = 5;
+
+
+	public static final int MARK_FOR_DELETE_CREATE_NEW = 4;
+
+
+	public static final int NEWTRADE_CREATED_FOR_DELETE = 6;
 	
 }
