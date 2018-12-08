@@ -98,9 +98,19 @@ public class TradeDataVO {
 	int reTriggerCount = TraderConstants.COUNTER_NOINIT;
 	
 	boolean placeAvgPriceOrder = false;
+	boolean advanceTrade = false;
 	
 	
 	
+	
+	public boolean isAdvanceTrade() {
+		return advanceTrade;
+	}
+
+	public void setAdvanceTrade(boolean advanceTrade) {
+		this.advanceTrade = advanceTrade;
+	}
+
 	public boolean isPlaceAvgPriceOrder() {
 		return placeAvgPriceOrder;
 	}
@@ -279,11 +289,20 @@ public class TradeDataVO {
 		this.triggerEvent = triggerEvent;
 	}
 	public void setTriggerEventForHistory(int triggerEvent) {
+		int previousEvent = this.triggerEvent;
 		setTriggerEvent(triggerEvent);
 		if(this.eventHistory == null) {
 			this.eventHistory=	new CopyOnWriteArrayList<TriggerEventHistory>();
 		}
-		this.eventHistory.add(new TriggerEventHistory(triggerEvent));
+		this.eventHistory.add(new TriggerEventHistory(triggerEvent,previousEvent));
+	}
+
+	public List<TriggerEventHistory> getEventHistory() {
+		return eventHistory;
+	}
+
+	public void setEventHistory(List<TriggerEventHistory> eventHistory) {
+		this.eventHistory = eventHistory;
 	}
 
 	public int getWaitCount() {

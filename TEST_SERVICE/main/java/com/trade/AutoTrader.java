@@ -72,6 +72,10 @@ public class AutoTrader {
 		//new TradeDataVO for Testing object for sell Scenaio
 		TradeDataVO tradeVO1= new TradeDataVO("BINANCE", "ETH", "USDT", new BigDecimal("0.0125"), new BigDecimal("0.00"));
 		tradeVO1.setPlaceAvgPriceOrder(true);
+		
+		TradeDataVO tradeVO2= new TradeDataVO("BINANCE", "PHX", "ETH", new BigDecimal("200.00"), new BigDecimal("0.00"));
+		tradeVO2.setPlaceAvgPriceOrder(true);
+		
 		/*TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));
 		TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));
 		TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));*/
@@ -80,11 +84,11 @@ public class AutoTrader {
 	/*		List<TradeDataVO> list = new ArrayList<TradeDataVO>();
 		list.add(tradeVO);
 		list.add(tradeVO1);
-		
+		list.add(tradeVO2);
 		
 		trader.process(list);
-		writeAutoTradeDataToJSON(jsonFilePath,list);*/
-		
+		writeAutoTradeDataToJSON(jsonFilePath,list);
+		*/
 		for (int i = 0; i < 1000; i++) {
 			
 			TradeLogger.LOGGER.info("LOOPING COUNT =============================================>"+i);
@@ -106,7 +110,7 @@ public class AutoTrader {
 			
 			try {
 				TradeLogger.LOGGER.info("Going to sleep by 50 second" +new Date());
-				Thread.sleep(60000);
+				Thread.sleep(420000);
 				TradeLogger.LOGGER.info("Going to wake up" +new Date());
 			} catch (InterruptedException e) {
 				
@@ -148,10 +152,15 @@ public class AutoTrader {
 
 		
 		for(TradeDataVO data : transactionData){
-			//TODO initial a thread here to process individual data quickly	
-			TradeLogger.LOGGER.finest("Before the processing  : "+data.toString());
-			processData(data);
-			TradeLogger.LOGGER.finest("After the processing  : "+data.toString());
+			try {
+				//TODO initial a thread here to process individual data quickly	
+				TradeLogger.LOGGER.finest("Before the processing  : "+data.toString());
+				processData(data);
+				TradeLogger.LOGGER.finest("After the processing  : "+data.toString());
+			} catch (Exception e) {
+				TradeLogger.LOGGER.log(Level.SEVERE,"Error in processing the data object",e);
+				
+			}
 		}
 		if(!newOrderList.isEmpty()) {
 			transactionData.addAll(newOrderList);
@@ -219,7 +228,7 @@ public class AutoTrader {
 					TradeLogger.LOGGER.info("Order placed time "+new Date(getDetailVO.getTransactionTime())+""+ getDetailVO.getTransactionTime());
 					TradeLogger.LOGGER.info("Client Status " + getDetailVO.getClientStatus());
 					
-					if(isAdvanceTradeEnabled()) 
+					if(data.isAdvanceTrade() || isAdvanceTradeEnabled()) 
 					{
 						Map<String,Object> values= getExchangePrice(data.getExchange(),data.getCoin(),data.getCurrency());
 						if (values != null) 
@@ -325,7 +334,7 @@ public class AutoTrader {
 	}
 	private BigDecimal calcuateAmountByLimit(BigDecimal maxBuyPermissibleLimit, BigDecimal basePrice) {
 		BigDecimal amt = basePrice.multiply(maxBuyPermissibleLimit);
-		amt.setScale(basePrice.scale());
+		amt = amt.setScale(basePrice.scale(),RoundingMode.HALF_UP);
 		return amt;
 	}
 	private void cancelOrderReTriggerForNewTradeCondition(TradeDataVO data,BigDecimal lastPrice) {
@@ -529,7 +538,7 @@ public class AutoTrader {
 								//start of advance Trading 
 								//Advanced Trading 
 								//advance 2
-								if(isAdvanceTradeEnabled())
+								if(data.isAdvanceTrade() || isAdvanceTradeEnabled())
 								{
 									//higher count is more than Low count, price is moving towards up direction very fastly
 									if(data.getLowCount() < data.getHighCount())
@@ -708,6 +717,7 @@ public class AutoTrader {
 					else
 					{
 						//last price is greater or equal than Previous last price
+						//indicating that Price is increasing here
 						if(lastCompare == TraderConstants.COMPARE_GREATER || lastCompare == TraderConstants.COMPARE_EQUAL)
 						{
 							int triggerCompare = lastPrice.compareTo(data.getTriggeredPrice());
@@ -758,7 +768,8 @@ public class AutoTrader {
 								}
 							}
 							
-						}						
+						}
+						//Indicating that Price is decreasing
 						else if(lastCompare == TraderConstants.COMPARE_LOWER)
 						{
 							//checking for maximum retry processing 
@@ -775,7 +786,7 @@ public class AutoTrader {
 								//start of advance Trading 
 								//Advanced Trading 
 								//advance 2
-								if(isAdvanceTradeEnabled())
+								if(data.isAdvanceTrade() || isAdvanceTradeEnabled())
 								{
 
 									//low count is more than high count, price is moving towards down direction very fastly
@@ -866,7 +877,7 @@ public class AutoTrader {
 									}
 									else 
 									{
-										//place buy with triggered Price here
+										//place Sell order with triggered Price here
 										TradeLogger.LOGGER.info("Condition Met to transact changeing the state alone");
 										placeOrder=generateOrderDetails(TraderConstants.SELL_CALL,TraderConstants.LIMIT_ORDER,data.getTriggeredPrice(),null,data);
 										data.setRemarks("Triggering sell order with Triggered Price in Basic Trading after reaching maximum Re- trigger count");
