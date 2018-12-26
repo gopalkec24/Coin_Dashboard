@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.jboss.resteasy.client.jaxrs.BasicAuthentication;
+//import org.jboss.resteasy.client.jaxrs.BasicAuthentication;
 
 import com.trade.BinanceTrade;
 import com.trade.BitsoTrade;

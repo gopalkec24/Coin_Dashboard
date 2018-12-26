@@ -59,5 +59,11 @@ public class TraderConstants {
 
 
 	public static final int NEWTRADE_CREATED_FOR_DELETE = 6;
+
+
+	public static final int TAKE_AMOUNT = 1;
+
+
+	public static final int KEEP_VOLUME = 2;
 	
 }

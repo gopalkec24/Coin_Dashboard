@@ -4,19 +4,9 @@ public class TriggerEventHistory {
 
 	long transactTime;
 	int event;
-	int beforeEvent;
 	
-	public int getBeforeEvent() {
-		return beforeEvent;
-	}
-
-	public void setBeforeEvent(int beforeEvent) {
-		this.beforeEvent = beforeEvent;
-	}
-
-	public TriggerEventHistory(int event, int previousEvent) {
+	public TriggerEventHistory(int event) {
 		this.event =event;
-		this.beforeEvent = previousEvent;
 		transactTime =System.currentTimeMillis();
 	}
 

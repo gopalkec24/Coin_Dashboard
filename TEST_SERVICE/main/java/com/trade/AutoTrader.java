@@ -36,6 +36,7 @@ public class AutoTrader {
 	
 	
 	
+	private static final String CLASS_NAME = "AutoTrader";
 	private static final String MINIMUM_BUY_PERMISSIBLE_LIMT = "minimumBuyPermissibleLimt";
 	private static final String MAXIMUM_BUY_PERMISSIBLE_LIMT = "maximumBuyPermissibleLimt";
 	private static final String MINIMUM_SELL_PERMISSIBLE_LIMT = "minimumSellPermissibleLimt";
@@ -67,38 +68,34 @@ public class AutoTrader {
 	
 		AutoTrader trader = new AutoTrader();
 		//new TradeDataVO for TESTing object for Buy scenario
-		TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));
-		tradeVO.setPlaceAvgPriceOrder(true);
+		TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.001"), new BigDecimal("0"),TraderConstants.SELL_CALL);
+		tradeVO.setPlaceAvgPriceOrder(false);
 		//new TradeDataVO for Testing object for sell Scenaio
-		TradeDataVO tradeVO1= new TradeDataVO("BINANCE", "ETH", "USDT", new BigDecimal("0.0125"), new BigDecimal("0.00"));
-		tradeVO1.setPlaceAvgPriceOrder(true);
-		
-		TradeDataVO tradeVO2= new TradeDataVO("BINANCE", "PHX", "ETH", new BigDecimal("200.00"), new BigDecimal("0.00"));
-		tradeVO2.setPlaceAvgPriceOrder(true);
-		
+		TradeDataVO tradeVO1= new TradeDataVO("BINANCE", "ETH", "USDT", new BigDecimal("0"), new BigDecimal("11.00"),TraderConstants.BUY_CALL);
+		tradeVO1.setPlaceAvgPriceOrder(false);
 		/*TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));
 		TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));
 		TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));*/
-	String jsonFilePath = "C:/Documents/autotradeData.json";
+	String jsonFilePath = "D:/Documents/autotradeData.json";
 		
-	/*		List<TradeDataVO> list = new ArrayList<TradeDataVO>();
+		/*List<TradeDataVO> list = new ArrayList<TradeDataVO>();
 		list.add(tradeVO);
 		list.add(tradeVO1);
-		list.add(tradeVO2);
+		
 		
 		trader.process(list);
-		writeAutoTradeDataToJSON(jsonFilePath,list);
-		*/
+		writeAutoTradeDataToJSON(jsonFilePath,list);*/
+		
 		for (int i = 0; i < 1000; i++) {
 			
 			TradeLogger.LOGGER.info("LOOPING COUNT =============================================>"+i);
-			List<TradeDataVO> list;
+			List<TradeDataVO> list1;
 			try {
-				list = readAutoTradeDataFromJSON(jsonFilePath);
-				TradeLogger.LOGGER.info(list.toString());
-				trader.process(list);
+				list1 = readAutoTradeDataFromJSON(jsonFilePath);
+				TradeLogger.LOGGER.info(list1.toString());
+				trader.process(list1);
 
-				writeAutoTradeDataToJSON(jsonFilePath, list);
+				writeAutoTradeDataToJSON(jsonFilePath, list1);
 
 			} catch (JsonSyntaxException e) {
 
@@ -110,7 +107,7 @@ public class AutoTrader {
 			
 			try {
 				TradeLogger.LOGGER.info("Going to sleep by 50 second" +new Date());
-				Thread.sleep(420000);
+				Thread.sleep(560000);
 				TradeLogger.LOGGER.info("Going to wake up" +new Date());
 			} catch (InterruptedException e) {
 				
@@ -152,15 +149,10 @@ public class AutoTrader {
 
 		
 		for(TradeDataVO data : transactionData){
-			try {
-				//TODO initial a thread here to process individual data quickly	
-				TradeLogger.LOGGER.finest("Before the processing  : "+data.toString());
-				processData(data);
-				TradeLogger.LOGGER.finest("After the processing  : "+data.toString());
-			} catch (Exception e) {
-				TradeLogger.LOGGER.log(Level.SEVERE,"Error in processing the data object",e);
-				
-			}
+			//TODO initial a thread here to process individual data quickly	
+			TradeLogger.LOGGER.finest("Before the processing  : "+data.toString());
+			processData(data);
+			TradeLogger.LOGGER.finest("After the processing  : "+data.toString());
 		}
 		if(!newOrderList.isEmpty()) {
 			transactionData.addAll(newOrderList);
@@ -205,9 +197,11 @@ public class AutoTrader {
 	
 	private void createNewTradeForDelete(TradeDataVO data) 
 	{
-		try {
+		try 
+		{
 			createNewTradeForDelete(data,getNewTradePriceForDeletedOrder(data));
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			TradeLogger.LOGGER.log(Level.SEVERE, "Error in caluculating amount order please contact the Administrator ", e);
 		}
 
@@ -215,82 +209,121 @@ public class AutoTrader {
 	}
 	private void checkOrderExecution(TradeDataVO data) {
 		
-		if(!TradeClient.isNullorEmpty(data.getExchangeOrderId())) 
-		{
-			ITrade trade = ExchangeFactory.getInstance(data.getExchange());
-			if(trade!= null) 
+		try {
+			//check whether exchange order id is available 
+			if(!TradeClient.isNullorEmpty(data.getExchangeOrderId())) 
 			{
-				ATOrderDetailsVO getDetailVO= generateOrderDetailsForGet(data);
-				trade.getOrderStatus(getDetailVO);
-				//incase order is new or partially executed
-				if(getDetailVO.getStatus() == TraderConstants.NEW || getDetailVO.getStatus() == TraderConstants.PARTIALLY_EXECUTED)
+				//get the implementation for Exchange 
+				ITrade trade = ExchangeFactory.getInstance(data.getExchange());
+				if(trade!= null) 
 				{
-					TradeLogger.LOGGER.info("Order placed time "+new Date(getDetailVO.getTransactionTime())+""+ getDetailVO.getTransactionTime());
-					TradeLogger.LOGGER.info("Client Status " + getDetailVO.getClientStatus());
-					
-					if(data.isAdvanceTrade() || isAdvanceTradeEnabled()) 
+					//Generate the orderDetails to get the status of order triggered
+					ATOrderDetailsVO getDetailVO= generateOrderDetailsForGet(data);
+					trade.getOrderStatus(getDetailVO);
+					//incase order is new or partially executed
+					if(getDetailVO.getStatus() == TraderConstants.NEW || getDetailVO.getStatus() == TraderConstants.PARTIALLY_EXECUTED)
 					{
-						Map<String,Object> values= getExchangePrice(data.getExchange(),data.getCoin(),data.getCurrency());
-						if (values != null) 
-						{	
-							BigDecimal lastPrice = getValidBigDecimal(values,TraderConstants.LAST_PRICE);										
-							BigDecimal percentage= getDifferInPercentage(lastPrice, data.getOrderTriggeredPrice());
-							TradeLogger.LOGGER.finest("Percentage value before Absoulte :"+percentage);
-							percentage = percentage.abs();
-							TradeLogger.LOGGER.finest("Percentage value After Absoulte :"+percentage);
-							boolean cancelOrder = percentagePermissible(percentage, getMinCancelLimit(), getMaxCancelLimit());
-							if(cancelOrder) {
-								//TODO new Price needs to be calcuated here
-								try
+						TradeLogger.LOGGER.info("Order placed time "+new Date(getDetailVO.getTransactionTime())+""+ getDetailVO.getTransactionTime());
+						TradeLogger.LOGGER.info("Client Status " + getDetailVO.getClientStatus());
+						
+						//In Advance Mode
+						if(isAdvanceTradeEnabled()) 
+						{
+							//Getting the exchangePrice for coin/currency pair
+							Map<String,Object> values= getExchangePrice(data.getExchange(),data.getCoin(),data.getCurrency());
+							if (values != null) 
+							{	
+								//get the lastPrice for Current coin/currency pair
+								BigDecimal lastPrice = getValidBigDecimal(values,TraderConstants.LAST_PRICE);		
+								//calculate the difference between last price and orderTriggered Price
+								BigDecimal percentage= getDifferInPercentage(lastPrice, data.getOrderTriggeredPrice());
+								TradeLogger.LOGGER.finest("Percentage value before Absoulte :"+percentage);
+								percentage = percentage.abs();
+								TradeLogger.LOGGER.finest("Percentage value After Absoulte :"+percentage);
+								//check the percentage difference is permissible to cancel the order and 
+								boolean cancelOrder = percentagePermissible(percentage, getMinCancelLimit(), getMaxCancelLimit());
+								if(cancelOrder)
 								{
-									cancelOrderReTriggerForNewTradeCondition(data,getNewTradePriceForDeletedOrder(data,values));
-								} 
-								catch (Exception e)
-								{
-									TradeLogger.LOGGER.log(Level.SEVERE, "Error in caluculating amount order please contact the Administrator ", e);
+									try
+									{
+										cancelOrderReTriggerForNewTradeCondition(data,getNewTradePriceForDeletedOrder(data,values));
+									} 
+									catch (Exception e)
+									{
+										TradeLogger.LOGGER.log(Level.SEVERE, "Error in caluculating amount order please contact the Administrator ", e);
+									}
 								}
+								else 
+								{
+									TradeLogger.LOGGER.info("Waiting for More times " );
+								}
+								
 							}
 							else 
 							{
-								TradeLogger.LOGGER.info("Waiting for More times " );
+								TradeLogger.LOGGER.severe("FAILED to fetch the values from Exchange : " + data.getExchange());
 							}
-							
-						}
-						else 
-						{
-							TradeLogger.LOGGER.severe("FAILED to fetch the values from Exchange : " + data.getExchange());
-						}
-					}
-					else
-					{
-						
-						//updatedCacheTime + defaultCacheTimeoutInMS < System.currentTimeMillis()
-						if((getDetailVO.getTransactionTime() + getTransactionTimeOut()) < System.currentTimeMillis()) {
-							TradeLogger.LOGGER.info("Making  order to delete Since 24 hours "+ getDetailVO.getTransactionTime() + getTransactionTimeOut() + "Current Time"+System.currentTimeMillis());
-							data.setTriggerEventForHistory(TraderConstants.MARK_FOR_DELETE_CREATE_NEW);
-							cancelOrderReTriggerForNewTradeCondition(data);
-							
 						}
 						else
 						{
-							TradeLogger.LOGGER.info("Waiting for order to execute for 24 hours ");
+							
+							//updatedCacheTime + defaultCacheTimeoutInMS < System.currentTimeMillis()
+							if((getDetailVO.getTransactionTime() + getTransactionTimeOut()) < System.currentTimeMillis()) 
+							{
+								TradeLogger.LOGGER.info("Making  order to delete Since 24 hours "+ getDetailVO.getTransactionTime() + getTransactionTimeOut() + "Current Time"+System.currentTimeMillis());
+								data.setTriggerEventForHistory(TraderConstants.MARK_FOR_DELETE_CREATE_NEW);
+								cancelOrderReTriggerForNewTradeCondition(data);
+								
+							}
+							else
+							{
+								TradeLogger.LOGGER.info("Waiting for order to execute for "+ getTransactionTimeOut()/3600000+" hours ");
+							}
 						}
+						
 					}
-					
-				}
-				//Cancelled / Expired
-				else if(getDetailVO.getStatus() == TraderConstants.DELETED || getDetailVO.getStatus() == TraderConstants.EXPIRED)
-				{
-					
-				}
-				else if(getDetailVO.getStatus() == TraderConstants.EXECUTED) {
-					//TODO generate the counter transaction for executed
+					//Cancelled / Expired
+					else if(getDetailVO.getStatus() == TraderConstants.DELETED || getDetailVO.getStatus() == TraderConstants.EXPIRED)
+					{
+						data.setTriggerEventForHistory(TraderConstants.DELETED);
+					}
+					//Order Executed , create Counter Trade for Order executed
+					else if(getDetailVO.getStatus() == TraderConstants.EXECUTED) 
+					{
+						
+						BigDecimal quantity = TraderConstants.BIGDECIMAL_ZERO;
+						BigDecimal tradeCurrency = TraderConstants.BIGDECIMAL_ZERO;
+						
+						//TODO generate the counter transaction for executed
+						if(data.getProfitType() == TraderConstants.TAKE_AMOUNT)
+						{
+							quantity = getDetailVO.getExecutedQuantity();
+						}
+						else if(data.getProfitType() == TraderConstants.KEEP_VOLUME)
+						{
+							tradeCurrency = getDetailVO.getExecutedQuantity().multiply(getDetailVO.getOrderPrice());
+						}
+						TradeDataVO newTradeData = new TradeDataVO(data.getExchange(), data.getCoin(), data.getCurrency(), quantity, tradeCurrency, reverseTransaction(data.getTransactionType()));
+						newOrderList.add(newTradeData);
+					}
 				}
 			}
+		} catch (Exception e) {
+			
+			TradeLogger.LOGGER.severe("FAILED to fetch the values from Exchange : " + data.getExchange());
 		}
 		
 	}
 	
+	private int reverseTransaction(int transactionType) {
+		if(transactionType == TraderConstants.BUY_CALL){
+			return TraderConstants.SELL_CALL;
+		}
+		else if(transactionType == TraderConstants.SELL_CALL){
+			return TraderConstants.BUY_CALL;
+		}
+		return 0;
+	}
 	private void cancelOrderReTriggerForNewTradeCondition(TradeDataVO data) {
 		
 		
@@ -334,7 +367,7 @@ public class AutoTrader {
 	}
 	private BigDecimal calcuateAmountByLimit(BigDecimal maxBuyPermissibleLimit, BigDecimal basePrice) {
 		BigDecimal amt = basePrice.multiply(maxBuyPermissibleLimit);
-		amt = amt.setScale(basePrice.scale(),RoundingMode.HALF_UP);
+		amt.setScale(basePrice.scale());
 		return amt;
 	}
 	private void cancelOrderReTriggerForNewTradeCondition(TradeDataVO data,BigDecimal lastPrice) {
@@ -343,18 +376,16 @@ public class AutoTrader {
 			createNewTradeForDelete(data,lastPrice);
 		}
 		
-		
 	}
 	private void createNewTradeForDelete(TradeDataVO data,BigDecimal lastPrice) {
-		TradeDataVO tradeData = new TradeDataVO(data.getExchange(), data.getCoin(), data.getCurrency(), data.getCoinVolume(), data.getTradeCurrencyVolume());
+		TradeDataVO tradeData = new TradeDataVO(data.getExchange(), data.getCoin(), data.getCurrency(), data.getCoinVolume(), data.getTradeCurrencyVolume(),data.getTransactionType());
 		tradeData.setTriggerEventForHistory(TraderConstants.INTITAL_TRIGGER);
 		tradeData.setProfitType(data.getProfitType());
 		tradeData.setLastBuyCall(data.isLastBuyCall());
 		tradeData.setLastSellCall(data.isLastSellCall());
 		tradeData.setRemarks("New order created from old ID "+ data.getAtOrderId());
 		tradeData.setTriggeredPrice(lastPrice);
-		tradeData.setPlaceAvgPriceOrder(data.isPlaceAvgPriceOrder());
-		
+		tradeData.setPlaceAvgPriceOrder(data.isPlaceAvgPriceOrder());		
 		initializeWLHCountToZero(tradeData);
 		tradeData.setReTriggerCount(MAX_RETRIGGER_COUNT-1);
 		newOrderList.add(tradeData);
@@ -393,7 +424,7 @@ public class AutoTrader {
 				TradeLogger.LOGGER.finest("Using default Minimum Sell Permissible Limit " + MIN_CANCEL_PERMISSIBLE_PERCENT);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			TradeLogger.LOGGER.logp(Level.SEVERE,CLASS_NAME,"getMinCancelLimit","Error in getting the minCancelLimit",e);
 			e.printStackTrace();
 		}
 		return MIN_CANCEL_PERMISSIBLE_PERCENT;
@@ -408,7 +439,8 @@ public class AutoTrader {
 				TradeLogger.LOGGER.finest("Using default Minimum Sell Permissible Limit " + MAX_CANCEL_PERMISSIBLE_PERCENT);
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			TradeLogger.LOGGER.logp(Level.SEVERE,CLASS_NAME,"getMaxCancelLimit","Error in getting the minCancelLimit",e);
+			
 			e.printStackTrace();
 		}
 		return MAX_CANCEL_PERMISSIBLE_PERCENT;
@@ -538,7 +570,7 @@ public class AutoTrader {
 								//start of advance Trading 
 								//Advanced Trading 
 								//advance 2
-								if(data.isAdvanceTrade() || isAdvanceTradeEnabled())
+								if(isAdvanceTradeEnabled())
 								{
 									//higher count is more than Low count, price is moving towards up direction very fastly
 									if(data.getLowCount() < data.getHighCount())
@@ -717,7 +749,6 @@ public class AutoTrader {
 					else
 					{
 						//last price is greater or equal than Previous last price
-						//indicating that Price is increasing here
 						if(lastCompare == TraderConstants.COMPARE_GREATER || lastCompare == TraderConstants.COMPARE_EQUAL)
 						{
 							int triggerCompare = lastPrice.compareTo(data.getTriggeredPrice());
@@ -768,8 +799,7 @@ public class AutoTrader {
 								}
 							}
 							
-						}
-						//Indicating that Price is decreasing
+						}						
 						else if(lastCompare == TraderConstants.COMPARE_LOWER)
 						{
 							//checking for maximum retry processing 
@@ -786,7 +816,7 @@ public class AutoTrader {
 								//start of advance Trading 
 								//Advanced Trading 
 								//advance 2
-								if(data.isAdvanceTrade() || isAdvanceTradeEnabled())
+								if(isAdvanceTradeEnabled())
 								{
 
 									//low count is more than high count, price is moving towards down direction very fastly
@@ -877,7 +907,7 @@ public class AutoTrader {
 									}
 									else 
 									{
-										//place Sell order with triggered Price here
+										//place buy with triggered Price here
 										TradeLogger.LOGGER.info("Condition Met to transact changeing the state alone");
 										placeOrder=generateOrderDetails(TraderConstants.SELL_CALL,TraderConstants.LIMIT_ORDER,data.getTriggeredPrice(),null,data);
 										data.setRemarks("Triggering sell order with Triggered Price in Basic Trading after reaching maximum Re- trigger count");
@@ -969,15 +999,17 @@ public class AutoTrader {
 	}
 	private void placeOrderToExchange(ATOrderDetailsVO placeOrder) 
 	{
-		ITrade trade = ExchangeFactory.getInstance(placeOrder.getExchange());
-		
-		if(trade!= null)
+		try 
 		{
-			trade.placeOrder(placeOrder);
-		}
-		else
-		{
-			TradeLogger.LOGGER.severe("NO AUTOTRADE  EXCHANGE TRADE IMPLEMENTATION FOUND");
+			ITrade trade = ExchangeFactory.getInstance(placeOrder.getExchange());
+			if (trade != null) {
+				trade.placeOrder(placeOrder);
+			} else
+			{
+				TradeLogger.LOGGER.severe("NO AUTOTRADE  EXCHANGE TRADE IMPLEMENTATION FOUND");
+			} 
+		} catch (Exception e) {
+			TradeLogger.LOGGER.log(Level.SEVERE,"Error in placing the order",e);
 		}
 		
 	}
@@ -1300,20 +1332,23 @@ public class AutoTrader {
 		
 		Map<String,Object> values = null;
 		
-		 /*values = new TreeMap<String, Object>();
-		
-		values.put(LAST_PRICE,new BigDecimal("6660.00"));
-		values.put(LOW_PRICE,new BigDecimal("6650.00"));
-		values.put(HIGH_PRICE,new BigDecimal("6675.00"));*/
-		ArrayList<String> tradePair = new ArrayList<String>();
-		String coinPair = coin+"/"+currency;
-		tradePair.add(coinPair);
-		GetCurrentMarketPrice get= new GetCurrentMarketPrice();
-		Map<String,Map<String,Object>> exchangeValues = get.getCurrentMarketPrice(exchange,tradePair,2);
-			if(exchangeValues!= null && exchangeValues.containsKey(coinPair)) 
-			{
+		 try {
+			/*values = new TreeMap<String, Object>();
+					
+					values.put(LAST_PRICE,new BigDecimal("6660.00"));
+					values.put(LOW_PRICE,new BigDecimal("6650.00"));
+					values.put(HIGH_PRICE,new BigDecimal("6675.00"));*/
+			ArrayList<String> tradePair = new ArrayList<String>();
+			String coinPair = coin + "/" + currency;
+			tradePair.add(coinPair);
+			GetCurrentMarketPrice get = new GetCurrentMarketPrice();
+			Map<String, Map<String, Object>> exchangeValues = get.getCurrentMarketPrice(exchange, tradePair, 2);
+			if (exchangeValues != null && exchangeValues.containsKey(coinPair)) {
 				values = exchangeValues.get(coinPair);
-			}
+			} 
+		} catch (Exception e) {
+			TradeLogger.LOGGER.log(Level.SEVERE,"Error in getting current market value",e);
+		}
 		return values;
 		
 		

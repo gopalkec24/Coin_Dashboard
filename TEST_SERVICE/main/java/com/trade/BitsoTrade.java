@@ -271,7 +271,7 @@ public class BitsoTrade extends BaseTrade{
 	}
 	public static WebTarget getTarget() {
 		if(target == null) {
-			target = TradeClient.getAdvancedClient(API_ENDPOINT,true);
+			target = TradeClient.getAdvancedClient(API_ENDPOINT,false);
 			TradeLogger.LOGGER.info("Initialized Newly ....");
 		}
 		return target;

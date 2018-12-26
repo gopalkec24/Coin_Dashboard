@@ -38,7 +38,7 @@ public class BinanceTrade extends BaseTrade
 	private static final String X_MBX_APIKEY_HEADER_KEY = "X-MBX-APIKEY";
 	private static final String API_ENDPOINT = "https://api.binance.com";
 	private static final String API_KEY= "j5bIoyvPNkJB6NXpH8ZYbVvx2pfPFXbdKxHN3bCzbpUkxQcVLqzhn2bfbF9DmBiz";
-	private static final String SECRET_KEY="";
+	private static final String SECRET_KEY="6nL9kki1yrFvk3E3r048ZIw0MBN2QqstohR3IP0lfJ7AeIcDegHpkefEPUTzKIJN";
 	private static final String ALGORITHM="HmacSHA256";
 	public static WebTarget target = null;
 	public static Mac mac = null;
@@ -52,7 +52,7 @@ public class BinanceTrade extends BaseTrade
 	}
 	public static WebTarget getTarget() {
 		if(target == null) {
-			target = TradeClient.getAdvancedClient(API_ENDPOINT,true);
+			target = TradeClient.getAdvancedClient(API_ENDPOINT,false);
 			TradeLogger.LOGGER.info("Initialized Newly ....");
 		}
 		return target;

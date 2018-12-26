@@ -27,7 +27,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
-import org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine;
+//import org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine;
 
 @SuppressWarnings("deprecation")
 public class TradeClient {
@@ -55,7 +55,7 @@ public class TradeClient {
 		Client client = null;
 		if(proxy) {
 		
-			System.setProperty("http.proxyHost", PROXY_HOSTNAME);
+			/*System.setProperty("http.proxyHost", PROXY_HOSTNAME);
 			System.setProperty("http.proxyPort", PROXY_PORT+"");
 	
 			// 1. Create AuthCache instance
@@ -76,7 +76,7 @@ public class TradeClient {
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			 httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, hostProxy);
 			ApacheHttpClient4Engine engine = new ApacheHttpClient4Engine(httpClient, localContext);
-			 client = new ResteasyClientBuilder().httpEngine(engine).build();
+			 client = new ResteasyClientBuilder().httpEngine(engine).build();*/
 			
 		}
 		else

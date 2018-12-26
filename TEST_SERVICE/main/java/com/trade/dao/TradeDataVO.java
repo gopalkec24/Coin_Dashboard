@@ -36,6 +36,16 @@ public class TradeDataVO {
 	String exchangeOrderId;
 	
 	List<TriggerEventHistory> eventHistory = new CopyOnWriteArrayList<TriggerEventHistory>();
+	
+	
+
+	public List<TriggerEventHistory> getEventHistory() {
+		return eventHistory;
+	}
+
+	public void setEventHistory(List<TriggerEventHistory> eventHistory) {
+		this.eventHistory = eventHistory;
+	}
 
 	public String getExchangeOrderId() {
 		return exchangeOrderId;
@@ -98,19 +108,9 @@ public class TradeDataVO {
 	int reTriggerCount = TraderConstants.COUNTER_NOINIT;
 	
 	boolean placeAvgPriceOrder = false;
-	boolean advanceTrade = false;
 	
 	
 	
-	
-	public boolean isAdvanceTrade() {
-		return advanceTrade;
-	}
-
-	public void setAdvanceTrade(boolean advanceTrade) {
-		this.advanceTrade = advanceTrade;
-	}
-
 	public boolean isPlaceAvgPriceOrder() {
 		return placeAvgPriceOrder;
 	}
@@ -162,14 +162,16 @@ public class TradeDataVO {
 	}
 	
 	
-	public TradeDataVO(String exchange,String coinName,String currency,BigDecimal coinVol,BigDecimal currencyVolume)
+	public TradeDataVO(String exchange,String coinName,String currency,BigDecimal coinVol,BigDecimal currencyVolume,int transactionType)
 	{
 		this.exchange = exchange;
 		this.coin=coinName;
 		this.currency = currency;
 		this.coinVolume = coinVol;
-		this.tradeCurrencyVolume = currencyVolume;		
-		initalizeTransactionType();	
+		this.tradeCurrencyVolume = currencyVolume;	
+		this.transactionType = transactionType;
+		
+		//initalizeTransactionType();	
 		
 	}
 
@@ -289,20 +291,11 @@ public class TradeDataVO {
 		this.triggerEvent = triggerEvent;
 	}
 	public void setTriggerEventForHistory(int triggerEvent) {
-		int previousEvent = this.triggerEvent;
 		setTriggerEvent(triggerEvent);
 		if(this.eventHistory == null) {
 			this.eventHistory=	new CopyOnWriteArrayList<TriggerEventHistory>();
 		}
-		this.eventHistory.add(new TriggerEventHistory(triggerEvent,previousEvent));
-	}
-
-	public List<TriggerEventHistory> getEventHistory() {
-		return eventHistory;
-	}
-
-	public void setEventHistory(List<TriggerEventHistory> eventHistory) {
-		this.eventHistory = eventHistory;
+		this.eventHistory.add(new TriggerEventHistory(triggerEvent));
 	}
 
 	public int getWaitCount() {
