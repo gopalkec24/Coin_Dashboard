@@ -1,0 +1,9 @@
+{
+"tickerConfigFile": "C:/Documents/configurationURL2.json",
+
+ "minimumBuyPermissibleLimt": 0.00,
+	"maximumBuyPermissibleLimt": 6.7,
+	 "minimumSellPermissibleLimt" : 0.00,
+	"maximumSellPermissibleLimt" :  19.5
+
+}
