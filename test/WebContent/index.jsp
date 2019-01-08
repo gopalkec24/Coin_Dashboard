@@ -12,6 +12,8 @@
 <div align="center">
   <a href="report.html">Summary Report</a>
  <a href="watchList.html"> Live Xchange for Watch List</a>
+ 
+ <a href="binanceOpenOrder.html"> Binance Open Order Details</a>
 
 </div>
 </body>

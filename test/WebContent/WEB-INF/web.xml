@@ -17,4 +17,14 @@
     <servlet-name>Test</servlet-name>
     <url-pattern>/MyBadLuck</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Binance_Open_Order_Details</servlet-name>
+    <servlet-class>com.gopal.BinanceOpenOrderDetails</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Binance_Open_Order_Details</servlet-name>
+    <url-pattern>/binOpenOrders</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

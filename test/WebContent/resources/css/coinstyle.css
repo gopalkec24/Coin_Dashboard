@@ -135,3 +135,23 @@ h2{
 	float: left;
 }	
 
+
+
+	
+	
+.focus{
+	
+	background-color : #ff00ff;
+	color : #fff;
+	cursor : pointer;
+	font-weight: bold;
+}
+
+.selected {
+	background-color : #ffooff;
+	color : #fff;
+	font-weight : bold;
+}
+
+.asc:after (content : "\25B2"}
+.desc:after {content : "\25BC" }
