@@ -11,7 +11,7 @@
 "fetchURL": "https://api.binance.com/api/v1/ticker/24hr",
 "securityRequired" : false,
 "result":"JSONARRAY",
-"transCurrency":["BNB","ETH","BTC","USDT"],
+"transCurrency":["BNB","ETH","BTC","USDT","XRP"],
 "currencyAlias":{"BNB":"BNB","BTC":"BTC","ETH":"ETH","USDT":"USDT","BCC":"BCH"},
 "allFetch":2,
 "getSymbolParameter" :"symbol",

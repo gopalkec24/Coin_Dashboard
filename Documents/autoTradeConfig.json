@@ -1,9 +1,12 @@
 {
 "tickerConfigFile": "C:/Documents/configurationURL2.json",
-
-
  "minimumBuyPermissibleLimt": 0.00,
-	"maximumBuyPermissibleLimt": 2.00,
+	"maximumBuyPermissibleLimt": 1.00,
 	 "minimumSellPermissibleLimt" : 0.00,
-	"maximumSellPermissibleLimt" : 2.75
+	"maximumSellPermissibleLimt" : 0.75,
+	"orderWaitTimeOut" : 43200000,
+	"minimumCancelOrderLimit" : 0,
+	"maximumCancelOrderLimit" : 0.30,
+	"advanceTrading" :false,
+	"placeOrderMode": true
 }

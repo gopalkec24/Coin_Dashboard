@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="refresh" content="650">
+<title>Binance Open Order Details </title>
+	<!-- <link rel="stylesheet" type="text/css" href="vendor/css/normalize.css"> -->
+ <link rel="stylesheet" type="text/css" href="resources/css/coinstyle.css">
+<!--  <link rel="stylesheet" type="text/css" href="vendor/css/sortable.css"> -->
+
+</head>
+
+<body>
+<script src="resources/js/jquery.js" > </script>
+<script src="resources/js/customcoin.js" > </script>
+<script>
+$(document).ready(function (){
+
+$.ajax({
+	
+url:"binance_openOrder.json",
+dataType:"json",
+success:function(result)
+{
+
+console.log(result);
+/*
+<th>Last SellCall </th><th>last BuyCall </th> 
+*/
+ var dataRow="<div> <table> <thead> <tr> <th>Symbol  </th><th>Order ID  </th><th>Client OrderID  </th>  <th> Price </th> <th> Original Quanity </th> <th> Executed Quantity </th> <th>CummulativeQuoteQty </th> <th>Status </th> "+
+ "<th>Time In Force</th> <th> Type </th> <th> Transaction Type </th> <th>Stop Price</th>  <th> Order Time</th> <th>Updated Time</th> <th> Working </th> </tr> </thead> <tbody>";  
+ 
+ 
+    for(var i=0; i< result.length; i++)
+	{
+		var  coinTraded = result[i];
+			
+ var  date= new Date(coinTraded.time);
+
+
+				//console.log(cssclass)
+				dataRow= dataRow+ "<tr><td>"+coinTraded.symbol+"</td><td>"+
+				coinTraded.orderId+"</td><td>"+
+				coinTraded.clientOrderId+"</td><td>"+
+				coinTraded.price+"</td><td>"+			
+				coinTraded.origQty+"</td><td>"+
+				coinTraded.executedQty+"</td><td>"+				
+				coinTraded.cummulativeQuoteQty+"</td><td>"+
+				coinTraded.status+"</td><td>"+
+				coinTraded.timeInForce+"</td><td>"+
+				coinTraded.type+"</td><td>"+
+				coinTraded.side+"</td><td>"+
+				coinTraded.stopPrice+"</td><td>"+
+				new Date(coinTraded.time).toString()+"</td><td>"+
+				new Date(coinTraded.updateTime).toString()+"</td><td>"+
+				coinTraded.isWorking+"</td><td>"+				
+					"</td></tr>";
+					
+					
+                
+				
+                    
+		}	
+	  
+    
+    dataRow=dataRow+"</tbody></table> </div>";
+  $("#exchange").append(dataRow); 
+ 
+  $("#result").text("Welcome .....Total Count is "+result.length);
+  $("#timestamp").text("");
+
+	 
+}// success function Method close
+
+
+
+});//ajax close
+
+});
+
+</script>
+<div class="container">
+          <div class="header">
+				<div class="header_text">
+				<h1> Binance Open Order  </h1> 
+				<label id="result" > Loading the summary data............. </label>
+				<label id="timestamp"></label>
+            
+				</div>		   
+          </div>
+		    
+		    <br>
+		  		  
+		<div class="exchangeDetails" id="exchange" >
+		 
+		</div>
+		
+		
+		 
+		</div>
+		<div class="remarkshistory" id="remarkshistory" >
+		 
+		</div>
+</div>	  
+</body>
+
+</html>

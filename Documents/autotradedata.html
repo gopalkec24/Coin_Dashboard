@@ -23,9 +23,11 @@ success:function(result)
 {
 
 console.log(result);
-
- var dataRow="<div> <table> <thead> <tr> <th>Exchange  </th><th>Coin </th><th>Currency Traded </th> <th> Place Avg pr order</th> <th>Transaction Type </th> <th>Coin Volume </th> <th>TradeCurrency Quantity </th>  <th>Triggered Price </th> <th>Last Price</th> <th> Previous Last Price</th><th> Low Price </th>  <th> High Price </th> <th>Last SellCall </th><th>last BuyCall </th> <th>Wait Count </th>"+
- "<th>Trigger Event </th> <th> Low Count</th> <th> High Count</th> <th>Re-Trigger Count</th>  <th width='20px'> Trigger Price History</th> <th> Order triggered Price </th> <th>Exchange Order ID </th> <th> Remarks </th> </tr> </thead> <tbody>";  
+/*
+<th>Last SellCall </th><th>last BuyCall </th> 
+*/
+ var dataRow="<div> <table> <thead> <tr> <th>Exchange  </th><th>Coin </th><th>Trade Curr  </th>  <th> ATOrder ID</th> <th> Advance Trading Enable</th> <th> Place Avg pr order</th> <th>Transaction Type </th> <th>Coin Volume </th> <th>TradeCurrency Quantity </th>  <th>Triggered Price </th> <th>Last Price</th> <th> Previous Last Price</th><th> Low Price </th>  <th> High Price </th> <th>Wait Count </th>"+
+ "<th>Trigger Event </th> <th> Low Count</th> <th> High Count</th> <th>Re-Trigger Count</th>  <th> Order triggered Price </th> <th>Exchange Order ID </th> <th> Remarks </th> <th width='20px'> Trigger Price History</th>  </tr> </thead> <tbody>";  
  
  var priceHistory = "<table><thead> <tr> <th>Reference ID </th> <th>Transaction Time</th>  <th>Xchange/Coin/Currency <th>Low Price </th>  <th>High Price</th> <th>Last Price</th>  <th> Remarks </th> </tr> </thead> <tbody> ";
     for(var i=0; i< result.length; i++)
@@ -36,9 +38,10 @@ console.log(result);
 				dataRow= dataRow+ "<tr><td>"+coinTraded.exchange+"</td><td>"+
 				coinTraded.coin+"</td><td>"+
 				coinTraded.currency+"</td><td>"+
+				coinTraded.atOrderId+"</td><td>"+
+				coinTraded.advanceTrade+"</td><td>"+
 				coinTraded.placeAvgPriceOrder+"</td><td>"+
-				coinTraded.transactionType+"</td><td>"+
-				
+				coinTraded.transactionType+"</td><td>"+				
 				coinTraded.coinVolume+"</td><td>"+
 				coinTraded.tradeCurrencyVolume+"</td><td>"+
 				coinTraded.triggeredPrice+"</td><td>"+
@@ -46,18 +49,18 @@ console.log(result);
 				coinTraded.previousLastPrice+"</td><td>"+
 				coinTraded.lowPrice+"</td><td>"+
 				coinTraded.highPrice+"</td><td>"+
-				coinTraded.lastSellCall+"</td><td>"+
-				coinTraded.lastBuyCall+"</td><td>"+                           
+				/*coinTraded.lastSellCall+"</td><td>"+
+				coinTraded.lastBuyCall+"</td><td>"+   */                        
                 coinTraded.waitCount+"</td><td>"+
                 coinTraded.triggerEvent+"</td><td>"+
 				 coinTraded.lowCount+"</td><td>"+
 				  coinTraded.highCount+"</td><td>"+
 				   coinTraded.reTriggerCount+"</td><td width='20'>"+
-				    coinTraded.triggerPriceHistory+"</td><td>"+
+				   
 					coinTraded.orderTriggeredPrice+"</td><td>"+
 					coinTraded.exchangeOrderId+"</td><td>"+
 					coinTraded.remarks+"</td><td>"+
-					
+					 coinTraded.triggerPriceHistory+"</td><td>"+
 					"</td></tr>";
 					
 					for(var j=0; j < coinTraded.priceHistory.length ; j++){

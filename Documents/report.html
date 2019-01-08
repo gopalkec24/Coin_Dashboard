@@ -104,7 +104,7 @@ var exchangeObj = result.exchangeList[exchange];
   */ 
   var dataRow="<table> <tr> <th> Exchange Name :  </th> <td class='exchange_text'>" +exchange +"</td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td><td class='blank' &nbsp </td> <td class='blank' &nbsp </td> <td class='blank' &nbsp </td><th>Total Net Investment value(after Withdraw) in USD </th> <td>"+exchangeObj.netInvestValue +"</td><th>Total Investment value in USD </th> <td>"+exchangeObj.nonCryptoInvestValue +"</td> <th>Total Current Fund value in USD</th> <td>"+exchangeObj.currentMarketValue +"</td></tr> </table>";
   dataRow=dataRow+"<div> <table id='"+exchange+"'> <thead> <tr><th>Coin/Currency Traded</th><th>Buy Price</th><th>Buy Volume</th><th>Buy Avg Price </th><th>Sell Avg Price</th><th>Sell Volume</th><th>Sell Price</th><th>Amount spend on Commission</th>"+
-  "<th>Profit </th> <th>Profit % </th> <th>Price Differ </th>  <th>Price Differ % </th>  <th>Xchange Market unitPrice </th> <th>Lowest BuyPrice </th> <th>Highest BuyPrice</th> <th> Lowest Sell Price</th> <th>High SellPrice </th>  <th> Deposit Amt </th> <th>Withdrawal</th> <th>Commission Spend on transfers</th> <th>Total volume available</th>"+
+  "<th>Profit Realized </th> <th>Profit Realized % </th> <th>Net Profit  </th> <th>Net Profit % </th> <th>Price Differ </th>  <th>Price Differ % </th>  <th>Xchange Market unitPrice </th> <th>Lowest BuyPrice </th> <th>Highest BuyPrice</th> <th> Lowest Sell Price</th> <th>High SellPrice </th>  <th> Deposit Amt </th> <th>Withdrawal</th> <th>Commission Spend on transfers</th> <th>Total volume available</th>"+
   "<th>CoinMktCap Mkt Price </th> <th>1 hr change </th> <th>24 hr change</th>  <th>7d change</th><th>Current Fund value in USD</th></tr> </thead> <tbody>";  
     for(var i=0; i< exchangeObj.coinList.length; i++)
 	{
@@ -151,6 +151,8 @@ var exchangeObj = result.exchangeList[exchange];
 				coinTraded.currentInvestment+"</td><td>"+   */                            
                 coinTraded.profitRealised+"</td><td>"+
                 coinTraded.profitRealPercentage+"</td><td>"+
+				coinTraded.netProfit+"</td><td>"+
+                coinTraded.netProfitPercentage+"</td><td>"+
                 replaceUndefinedData(coinTraded.priceDiffer)+"</td><td>"+
                 replaceUndefinedData(coinTraded.priceDifferPercentage)+"</td><td>"+
                 replaceUndefinedData(coinTraded.lastPrice)+"</td><td>"+
@@ -172,7 +174,7 @@ var exchangeObj = result.exchangeList[exchange];
 			cssclass="neutral";
 		}
 				//removed two td from here
-		dataRow=dataRow+"<tr class='"+cssclass+"'><td>"+coin.coinName+"</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>"+coin.depositAmt+"</td><td>"+coin.withdrawalAmt+"</td><td>"+coin.xchangeTransferCommission+"</td><td>"+coin.totalAmt+"</td><td class='"+getStatusCSS(coin.percent1hChange)+"'>"+ coin.marketCapPrice +"</td><td class='"+getStatusCSS(coin.percent1hChange)+"'>"+coin.percent1hChange+"</td><td class='"+getStatusCSS(coin.percent24hChange)+"'>"+coin.percent24hChange+"</td> <td class='"+getStatusCSS(coin.percent7dChange)+"'>"+coin.percent7dChange+"</td><td>"+coin.currentMarketValue+"</td></tr>";
+		dataRow=dataRow+"<tr class='"+cssclass+"'><td>"+coin.coinName+"</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td> <td></td> <td></td><td>"+coin.depositAmt+"</td><td>"+coin.withdrawalAmt+"</td><td>"+coin.xchangeTransferCommission+"</td><td>"+coin.totalAmt+"</td><td class='"+getStatusCSS(coin.percent1hChange)+"'>"+ coin.marketCapPrice +"</td><td class='"+getStatusCSS(coin.percent1hChange)+"'>"+coin.percent1hChange+"</td><td class='"+getStatusCSS(coin.percent24hChange)+"'>"+coin.percent24hChange+"</td> <td class='"+getStatusCSS(coin.percent7dChange)+"'>"+coin.percent7dChange+"</td><td>"+coin.currentMarketValue+"</td></tr>";
 	
 	
 	/*if(dataRow.length > 0 )
