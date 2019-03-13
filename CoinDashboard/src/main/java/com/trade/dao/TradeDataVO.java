@@ -18,10 +18,20 @@ public class TradeDataVO {
 	BigDecimal lastPrice= TraderConstants.NEGATIVE_ONE;
 	BigDecimal lowPrice = TraderConstants.NEGATIVE_ONE;
 	BigDecimal highPrice= TraderConstants.NEGATIVE_ONE;
+	
 	BigDecimal triggeredPrice= TraderConstants.NEGATIVE_ONE;
 	BigDecimal previousLastPrice = TraderConstants.NEGATIVE_ONE;
 	BigDecimal orderTriggeredPrice= TraderConstants.NEGATIVE_ONE;
+	BigDecimal basePrice = TraderConstants.NEGATIVE_ONE;
 	
+	public BigDecimal getBasePrice() {
+		return basePrice;
+	}
+
+	public void setBasePrice(BigDecimal basePrice) {
+		this.basePrice = basePrice;
+	}
+
 	BigDecimal tradeCurrencyVolume= TraderConstants.NEGATIVE_ONE;
 	BigDecimal coinVolume = TraderConstants.NEGATIVE_ONE;
 	
@@ -84,6 +94,7 @@ public class TradeDataVO {
 	public void setPreviousLastPrice(BigDecimal previousLastPrice) {
 		this.previousLastPrice = previousLastPrice;
 	}
+	
 	String coin;
 	String currency;
 	String exchange;
@@ -170,7 +181,7 @@ public class TradeDataVO {
 		this.coinVolume = coinVol;
 		this.tradeCurrencyVolume = currencyVolume;		
 		this.transactionType = transactionType;
-		initalizeTransactionType();	
+		//initalizeTransactionType();	
 		
 	}
 

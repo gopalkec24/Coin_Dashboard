@@ -11,7 +11,8 @@ public class BitsoTradeTest {
 	public static void main(String[] args) {
 		
 		BitsoTrade bitSoTrade = new BitsoTrade();
-		ATOrderDetailsVO orderDetails = new ATOrderDetailsVO();
+		bitSoTrade.getBalance();
+		/*ATOrderDetailsVO orderDetails = new ATOrderDetailsVO();
 		orderDetails.setOrderId("gcIcMYgrL3ckUOLq");
 		orderDetails.setOrderType(TraderConstants.GET_CALL);
 		
@@ -28,7 +29,7 @@ public class BitsoTradeTest {
 		if((orderDetails.getTransactionTime()  + 86400000) < System.currentTimeMillis()) {
 			System.out.println("Time reached to get out : "+ orderDetails.getTransactionTime());
 			
-		}
+		}*/
 		
 		/*//Test to Place order
 		ATOrderDetailsVO placeOrderDetailsforBITSO = new ATOrderDetailsVO();

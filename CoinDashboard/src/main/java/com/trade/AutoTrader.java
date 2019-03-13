@@ -22,6 +22,7 @@ import com.google.gson.reflect.TypeToken;
 import com.portfolio.utilis.GetCurrentMarketPrice;
 import com.trade.constants.TraderConstants;
 import com.trade.dao.ATOrderDetailsVO;
+import com.trade.dao.AutoTradeVO;
 import com.trade.dao.MarketStaticsVO;
 import com.trade.dao.TradeDataVO;
 import com.trade.utils.AutoTradeConfigReader;
@@ -67,10 +68,13 @@ public class AutoTrader {
 	
 		AutoTrader trader = new AutoTrader();
 		//new TradeDataVO for TESTing object for Buy scenario
-		TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00148009"), new BigDecimal("0.00"),TraderConstants.SELL_CALL);
-		tradeVO.setPlaceAvgPriceOrder(true);
+		/*TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00148009"), new BigDecimal("0.00"),TraderConstants.SELL_CALL);
+		tradeVO.setPlaceAvgPriceOrder(true);*/
 		//new TradeDataVO for Testing object for sell Scenaio
-		TradeDataVO tradeVO1= new TradeDataVO("BINANCE", "ETH", "USDT", new BigDecimal("0.00"), new BigDecimal("11.00"),TraderConstants.BUY_CALL);
+	/*	TradeDataVO tradeVO1= new TradeDataVO("BINANCE", "ETH", "USDT", new BigDecimal("0.00"), new BigDecimal("11.00"),TraderConstants.BUY_CALL);
+		tradeVO1.setPlaceAvgPriceOrder(false);
+		tradeVO1.setAdvanceTrade(false);*/
+		TradeDataVO tradeVO1= new TradeDataVO("BINANCE", "NEO", "USDT", new BigDecimal("0.00"), new BigDecimal("10.30"),TraderConstants.BUY_CALL);
 		tradeVO1.setPlaceAvgPriceOrder(false);
 		tradeVO1.setAdvanceTrade(false);
 		
@@ -84,49 +88,84 @@ public class AutoTrader {
 		TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));
 		TradeDataVO tradeVO= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.00"), new BigDecimal("100.00"));*/
 	String jsonFilePath = "C:/Documents/autotradeData.json";
+	String jsonFilePathNew = "C:/Documents/autotradeData2.json";
 		
-		/*	List<TradeDataVO> list = new ArrayList<TradeDataVO>();
-		list.add(tradeVO);
+			List<TradeDataVO> list = new ArrayList<TradeDataVO>();
+		//list.add(tradeVO);
 		list.add(tradeVO1);
-		list.add(tradeVO3);
+		//list.add(tradeVO3);
 		
-		trader.process(list);
-		writeAutoTradeDataToJSON(jsonFilePath,list);*/
+		AutoTradeVO tradeDataVO = new AutoTradeVO();
+		 Date dt = new Date();
+		  tradeDataVO.setLastUpdatedTime(dt.getTime());
+		  tradeDataVO.setTradeData(list);
+		  writeAutoTradeDataToJSON(jsonFilePathNew, tradeDataVO);
 		
-		for (int i = 0; i < 1000; i++) {
+		/*
+		  for (int i = 0; i < 1000; i++) {
+		  
+		  TradeLogger.LOGGER.
+		  info("LOOPING COUNT =============================================>"+i);
+		  List<TradeDataVO> list1; 
+		  try { 
+		  list1 =  readAutoTradeDataFromJSON(jsonFilePath);
 			
-			TradeLogger.LOGGER.info("LOOPING COUNT =============================================>"+i);
-			List<TradeDataVO> list1;
-			try {
-				list1 = readAutoTradeDataFromJSON(jsonFilePath);
-				TradeLogger.LOGGER.info(list1.toString());
-				trader.process(list1);
-				
-
-				writeAutoTradeDataToJSON(jsonFilePath, list1);
-
-			} catch (JsonSyntaxException e) {
-
-				e.printStackTrace();
-			} catch (IOException e) {
-
-				e.printStackTrace();
-			} 
-			
-			try {
-				TradeLogger.LOGGER.info("Going to sleep by 50 second" +new Date());
-				Thread.sleep(420000);
-				TradeLogger.LOGGER.info("Going to wake up" +new Date());
-			} catch (InterruptedException e) {
-				
-				e.printStackTrace();
-			}
-		}
+		  TradeLogger.LOGGER.info(list1.toString());
+		  trader.process(list1);
+		  writeAutoTradeDataToJSON(jsonFilePath, list1);
+		  
+		  AutoTradeVO tradeData =   readAutoTradeDataFromJSONNew(jsonFilePathNew);
+		  list1=tradeData.getTradeData();
+		  trader.process(list1);
+		  Date dt = new Date();
+		  AutoTradeVO tradeDataVO = new AutoTradeVO();
+		  tradeDataVO.setLastUpdatedTime(dt.getTime());
+		  tradeDataVO.setTradeData(list1);
+		  writeAutoTradeDataToJSON(jsonFilePathNew, tradeDataVO);
+		  
+		  
+		  } catch (JsonSyntaxException e) {
+		  
+		  e.printStackTrace(); } catch (IOException e) {
+		  
+		  e.printStackTrace(); }
+		  
+		  try { TradeLogger.LOGGER.info("Going to sleep by 50 second" +new Date());
+		  Thread.sleep(420000); TradeLogger.LOGGER.info("Going to wake up" +new
+		  Date()); } catch (InterruptedException e) {
+		  
+		  e.printStackTrace(); }
+		 
+		}*/
 		
 		
 		
 	
 	}
+	private static void writeAutoTradeDataToJSON(String jsonFilePath, AutoTradeVO tradeDataVO) {
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			
+			FileUtils.write(new File(jsonFilePath),mapper.defaultPrettyPrintingWriter().writeValueAsString(tradeDataVO));
+		} catch (JsonGenerationException e) {
+			
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+		
+			e.printStackTrace();
+		}
+		
+	}
+	private static AutoTradeVO readAutoTradeDataFromJSONNew(String jsonFilePath) throws JsonSyntaxException, IOException {
+		Gson gson = new Gson();
+		 Type listType = new TypeToken<AutoTradeVO>(){}.getType();
+		 AutoTradeVO configValues= gson.fromJson(FileUtils.readFileToString(new File(jsonFilePath)),listType);
+		return configValues;
+	}
+	
 	private static List<TradeDataVO> readAutoTradeDataFromJSON(String jsonFilePath) throws JsonSyntaxException, IOException{
 
 		Gson gson = new Gson();

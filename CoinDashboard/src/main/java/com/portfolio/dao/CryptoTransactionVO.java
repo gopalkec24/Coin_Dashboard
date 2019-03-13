@@ -68,7 +68,14 @@ public class CryptoTransactionVO {
 	String transactionCoin;
 	String commissionCoin;
 	String xchangeName;
+	String transDate;
 	
+	public String getTransDate() {
+		return transDate;
+	}
+	public void setTransDate(String transDate) {
+		this.transDate = transDate;
+	}
 	public String getXchangeName() {
 		return xchangeName;
 	}

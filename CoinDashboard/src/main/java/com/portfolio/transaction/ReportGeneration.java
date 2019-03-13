@@ -54,7 +54,7 @@ public class ReportGeneration {
 	public void loadTradeConfig(String configurationFile) throws Exception{
 		tradeConfiguration.getConfigurationDetails(configurationFile);
 		//tradeConfiguration.setUseProxy(true);
-		tradeConfiguration.setProxyDetails("10.121.11.32", "8080", "hcltech\\natarajan_g", "Gopalus@54");
+		tradeConfiguration.setProxyDetails("csez-s500", "8080", "hcltech\\natarajan_g", "Gopalus@54");
 		//ReadTradeConfig.excludedCoinList.add("VEN");
 		
 	}
@@ -517,10 +517,14 @@ public class ReportGeneration {
 			for(TransactionCurrency transVO: exchangeVO.getTransCurrency()) {
 				int compare1 =transVO.getBuyTransactionAmount().compareTo(ZERO_BIGDECIMAL);
 				int compare2 =transVO.getSoldInvestment().compareTo(ZERO_BIGDECIMAL);
+				//int compare3 = transVO.getSellTransactionAmount().compareTo(ZERO_BIGDECIMAL);
 				//BigDecimal overall= (compare1 == 1 && compare2 == 1)? (transVO.getSellTransactionAmount().add(transVO.getCommissionAmount()).subtract(transVO.getBuyTransactionAmount().subtract(transVO.getCurrentInvestAmount()))).divide(transVO.getBuyTransactionAmount().subtract(transVO.getCurrentInvestAmount()), 8, RoundingMode.HALF_UP): ZERO_BIGDECIMAL;
 				BigDecimal overall= (compare1 == 1 && compare2 == 1)? (transVO.getSellTransactionAmount().add(transVO.getCommissionAmount()).subtract(transVO.getSoldInvestment())).divide(transVO.getSoldInvestment(), 8, RoundingMode.HALF_UP): ZERO_BIGDECIMAL;
+				BigDecimal netProfit = (compare1==1) ?transVO.getSellTransactionAmount().subtract(transVO.getBuyTransactionAmount()).divide(transVO.getBuyTransactionAmount(),4,RoundingMode.HALF_UP) :ZERO_BIGDECIMAL;
+				netProfit=netProfit.multiply(BIG_DECIMAL_100);
 				overall= overall.multiply(BIG_DECIMAL_100);
 				transVO.setOverallGainPercent(overall);
+				transVO.setNetProfit(netProfit);
 
 			}
 			totalAmt= totalAmt.setScale(2, RoundingMode.HALF_UP);
@@ -1049,6 +1053,7 @@ public class ReportGeneration {
 			crypto.setFinalVol(totalAmt);
 			crypto.setCoinName(coinName);
 			crypto.setTransactionCoin(currency);
+			crypto.setTransDate(detailsVO.getDate());
 			if(commissionCurrency==null)
 			{
 				crypto.setCommissionCoin(currency);

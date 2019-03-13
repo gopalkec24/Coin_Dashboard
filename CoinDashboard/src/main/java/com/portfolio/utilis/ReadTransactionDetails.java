@@ -36,7 +36,8 @@ public class ReadTransactionDetails {
 	}
    
 	
-	 public List<TransactionDetailsVO> getTransactionDetails(String csvFile,String filterExchange,String filterCoinName,String tradeCurrency) throws NumberFormatException, IOException{
+	 public List<TransactionDetailsVO> getTransactionDetails(String csvFile,String filterExchange,String filterCoinName,String tradeCurrency) throws NumberFormatException, IOException
+	 {
 
 
 			BufferedReader br = null;

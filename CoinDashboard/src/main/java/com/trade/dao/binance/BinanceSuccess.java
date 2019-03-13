@@ -2,9 +2,12 @@ package com.trade.dao.binance;
 
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class BinanceSuccess {
 	
-	String symbol;
+	public String symbol;
 	long orderId;
 	String clientOrderId;
 	long transactTime;

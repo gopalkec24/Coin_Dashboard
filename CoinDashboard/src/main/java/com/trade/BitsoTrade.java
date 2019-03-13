@@ -8,12 +8,14 @@ import javax.ws.rs.core.Response;
 import org.json.JSONObject;
 
 import com.trade.constants.TraderConstants;
+import com.trade.dao.ATMarketStaticsVO;
 import com.trade.dao.ATOrderDetailsVO;
 import com.trade.dao.bitso.BitsoDeleteOrderVO;
 import com.trade.dao.bitso.BitsoOrderResponse;
 import com.trade.dao.bitso.BitsoOrderVO;
 import com.trade.dao.bitso.BitsoPayload;
 import com.trade.dao.bitso.BitsoResponse;
+import com.trade.exception.AutoTradeException;
 import com.trade.utils.AutoTradeUtilities;
 import com.trade.utils.TradeClient;
 import com.trade.utils.TradeLogger;
@@ -21,10 +23,11 @@ import com.trade.utils.TradeStatusCode;
 
 public class BitsoTrade extends BaseTrade{
 
+	private static final String BALANCE_ORDER = "/v3/balance/";
 	private static final String EX_STATUS_OPEN = "open";
 	private static final String API_ENDPOINT = "https://api.bitso.com";
 	private static final String RESOURCE_ORDER = "/v3/orders/";
-	private static final String API_KEY= "";
+	private static final String API_KEY= "CjcnRrbVhS";
 	private static final String SECRET_KEY="";
 	public static WebTarget target = null;
 	public static Mac mac = null;
@@ -121,6 +124,33 @@ public class BitsoTrade extends BaseTrade{
 		return signature;
 	}
 	
+	
+	public void getBalance() {
+		WebTarget target  = getTarget().path(BALANCE_ORDER);
+
+		String methodType= "GET";
+		long nonce = System.currentTimeMillis();
+		String signatureData = nonce+methodType +BALANCE_ORDER;
+		TradeLogger.LOGGER.info("Signature Data :"+signatureData);
+		String signature = generateSignature(signatureData);
+		TradeLogger.LOGGER.info(signature);
+		String authorizationHeader = String.format("Bitso %s:%s:%s",API_KEY,nonce,signature);
+		TradeLogger.LOGGER.finest(authorizationHeader);
+		Response response = target.request().header("Authorization", authorizationHeader).get();
+		String returnValue = null;
+		 
+		if(response.getStatus() == 200) 
+		{
+			 returnValue = response.readEntity(String.class);
+			 TradeLogger.LOGGER.info(returnValue);
+			 
+		}
+		else {
+			returnValue = response.readEntity(String.class);
+			TradeLogger.LOGGER.severe(returnValue);
+		}
+		
+	}
 	public ATOrderDetailsVO getOrderStatus(ATOrderDetailsVO orderDetails) {
 		
 		WebTarget target = getTarget().path(RESOURCE_ORDER);
@@ -290,7 +320,7 @@ public class BitsoTrade extends BaseTrade{
 		return coin.toLowerCase()+"_"+currency.toLowerCase();
 	}
 	 
-	public static Mac getCryptoMacForBITSO() {
+	private static Mac getCryptoMacForBITSO() {
 		if(mac== null) {
 			mac= TradeClient.getCryptoMac(SECRET_KEY, ALGORITHM);
 		}
@@ -302,5 +332,11 @@ public class BitsoTrade extends BaseTrade{
 			TradeLogger.LOGGER.info("Initialized Newly ....");
 		}
 		return target;
+	}
+
+
+	public ATMarketStaticsVO getExchangePriceStatics(String symbol, String currency) throws AutoTradeException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

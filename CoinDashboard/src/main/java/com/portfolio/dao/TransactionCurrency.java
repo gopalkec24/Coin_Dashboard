@@ -29,7 +29,13 @@ public class TransactionCurrency {
 	BigDecimal commissionAmount=BIG_DECIMAL_ZERO;
 	BigDecimal currentInvestAmount=BIG_DECIMAL_ZERO;
 	BigDecimal soldInvestment=BIG_DECIMAL_ZERO;
-	
+	BigDecimal netProfit =BIG_DECIMAL_ZERO;
+	public BigDecimal getNetProfit() {
+		return netProfit;
+	}
+	public void setNetProfit(BigDecimal netProfit) {
+		this.netProfit = netProfit;
+	}
 	public BigDecimal getSoldInvestment() {
 		return soldInvestment;
 	}

@@ -1,12 +1,22 @@
 package com.trade.dao.binance;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class OrderFillDetails {
 	
 	String price;
 	String qty;
 	String commission;
 	String commissionAsset;
+	long tradeId;
 	
+	/*public long getTradeId() {
+		return tradeId;
+	}
+	public void setTradeId(long tradeId) {
+		this.tradeId = tradeId;
+	}*/
 	public String getPrice() {
 		return price;
 	}

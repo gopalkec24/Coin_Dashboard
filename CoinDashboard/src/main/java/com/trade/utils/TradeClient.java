@@ -37,10 +37,10 @@ import org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine;
 public class TradeClient {
 	
 	
-	private static  String PROXY_HOSTNAME = "10.121.11.32";
+	private static  String PROXY_HOSTNAME = "csez-s500";
 	private static  int PROXY_PORT = 8080;
 	private static  String PROXY_AUTH_USERNAME = "hcltech\natarajan_g";
-	private static String  PROXY_AUTH_PASSWORD = "4";
+	private static String  PROXY_AUTH_PASSWORD = "Gopalus@54";
 	public static WebTarget getClient(String endpoint,boolean proxy) {
 		
 		System.out.println(ClientBuilder.JAXRS_DEFAULT_CLIENT_BUILDER_PROPERTY);
@@ -178,7 +178,7 @@ public class TradeClient {
 			TradeLogger.LOGGER.info("Converted Date Format :" + dt);
 			return dt.getTime();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+			//TODO LOGGER
 			e.printStackTrace();
 		}
 		

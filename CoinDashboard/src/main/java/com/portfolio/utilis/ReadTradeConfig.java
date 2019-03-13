@@ -26,7 +26,7 @@ public class ReadTradeConfig {
 	private static String PROXY_AUTH_PASSWORD = "Gopalmp@54";
 	private static String PROXY_AUTH_USERNAME = "hcltech\\natarajan_g";
 	private static String PROXY_PORT = "8080";
-	private static String PROXY_HOSTNAME = "10.121.11.32";
+	private static String PROXY_HOSTNAME = "csez-s500";
 	private static boolean useProxy = true;
 	
 	public static  String CONFIG_DIRECTORY = "C:/Documents/";

@@ -55,6 +55,7 @@ public class TraderConstants {
 	
 	//Profit type constants
 	public static final int TAKE_AMOUNT = 1;
-	public static final int KEEP_VOLUME = 2;	
+	public static final int KEEP_VOLUME = 2;
+	public static final int ERROR_CALL = 8;	
 	
 }

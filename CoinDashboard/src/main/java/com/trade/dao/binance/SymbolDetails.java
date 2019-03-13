@@ -10,7 +10,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import com.trade.constants.TraderConstants;
 
-
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class SymbolDetails {
 
 	String symbol;
@@ -20,7 +20,26 @@ public class SymbolDetails {
 	int quotePrecision;
 	List<String>  orderTypes;
 	boolean icebergAllowed;
+	boolean isSpotTradingAllowed;
+	boolean isMarginTradingAllowed;
 	
+	
+	public boolean isMarginTradingAllowed() {
+		return isMarginTradingAllowed;
+	}
+
+	public void setMarginTradingAllowed(boolean isMarginTradingAllowed) {
+		this.isMarginTradingAllowed = isMarginTradingAllowed;
+	}
+
+	public boolean isSpotTradingAllowed() {
+		return isSpotTradingAllowed;
+	}
+
+	public void setSpotTradingAllowed(boolean isSpotTradingAllowed) {
+		this.isSpotTradingAllowed = isSpotTradingAllowed;
+	}
+
 	BigDecimal minQty;
 	BigDecimal maxQty;
 	BigDecimal stepSize;
@@ -30,6 +49,30 @@ public class SymbolDetails {
 	BigDecimal minPrice;
 	BigDecimal maxPrice;
 	BigDecimal tickSize;
+
+	public BigDecimal getMinPrice() {
+		return minPrice;
+	}
+
+	public void setMinPrice(BigDecimal minPrice) {
+		this.minPrice = minPrice;
+	}
+
+	public BigDecimal getMaxPrice() {
+		return maxPrice;
+	}
+
+	public void setMaxPrice(BigDecimal maxPrice) {
+		this.maxPrice = maxPrice;
+	}
+
+	public BigDecimal getTickSize() {
+		return tickSize;
+	}
+
+	public void setTickSize(BigDecimal tickSize) {
+		this.tickSize = tickSize;
+	}
 
 	public BigDecimal getMinQty() {
 		return minQty;

@@ -15,11 +15,14 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.trade.constants.TraderConstants;
+import com.trade.dao.ATMarketStaticsVO;
 import com.trade.dao.ATOrderDetailsVO;
 import com.trade.dao.binance.BinanceErrorDAO;
 import com.trade.dao.binance.BinanceExchangeInfo;
+import com.trade.dao.binance.BinanceMarketStatics;
 import com.trade.dao.binance.BinanceSuccess;
 import com.trade.dao.binance.SymbolDetails;
+import com.trade.exception.AutoTradeException;
 import com.trade.utils.AutoTradeUtilities;
 import com.trade.utils.TradeClient;
 import com.trade.utils.TradeLogger;
@@ -34,12 +37,14 @@ public class BinanceTrade extends BaseTrade
 	private static final String BINANCE_TIMESTAMP = "timestamp";
 	private static final String RESOURCE_OPENORDER = "/api/v3/openOrders";
 	private static final String RESOURCE_ORDER = "/api/v3/order";
+	private static final String RESOURCE_ORDER_TEST = "/api/v3/order/test";
 	private static final String RESOURCE_ORDER_DELETE = RESOURCE_ORDER;
 	private static final String X_MBX_APIKEY_HEADER_KEY = "X-MBX-APIKEY";
 	private static final String API_ENDPOINT = "https://api.binance.com";
-	private static final String API_KEY= "";
+	private static final String API_KEY= "j5bIoyvPNkJB6NXpH8ZYbVvx2pfPFXbdKxHN3bCzbpUkxQcVLqzhn2bfbF9DmBiz";
 	private static final String SECRET_KEY="";
 	private static final String ALGORITHM="HmacSHA256";
+	private static final String PRICE_TICKER = "/api/v1/ticker/24hr";
 	public static WebTarget target = null;
 	public static Mac mac = null;
 	public static BinanceExchangeInfo exchangeInfo  = null;
@@ -115,6 +120,7 @@ public class BinanceTrade extends BaseTrade
 			Response response  = target.request(MediaType.APPLICATION_JSON).property("Proxy-Authorization","Basic "+encoded).header(X_MBX_APIKEY_HEADER_KEY,API_KEY).get();*/
 			if(response.getStatus() == 200) 
 			{
+				 TradeLogger.LOGGER.fine(response.getHeaderString("content-type"));
 				returnValue = response.readEntity(String.class);
 				TradeLogger.LOGGER.info(returnValue);
 			}
@@ -298,8 +304,11 @@ public class BinanceTrade extends BaseTrade
 			exchangeInfo = getExchangeInfo();
 		}
 		//TODO Minimum Notational validation is required
-		BigDecimal refinedQuantity = getRefinedQuantityForBinance(exchangeInfo,symbol,orderDetails.getQuantity());
-		TradeLogger.LOGGER.info("Refined Quantity is " + refinedQuantity+" Actual Quantity is "+orderDetails.getQuantity());
+				BigDecimal refinedQuantity = getRefinedQuantityForBinance(exchangeInfo,symbol,orderDetails.getQuantity());
+				BigDecimal refinedPrice = TraderConstants.NEGATIVE_ONE;
+				BigDecimal refinedStopPrice = TraderConstants.NEGATIVE_ONE;
+				TradeLogger.LOGGER.info("Refined Quantity is " + refinedQuantity+" Actual Quantity is "+orderDetails.getQuantity());
+				
 		if(TradeClient.isNullorEmpty(symbol) || TradeClient.isNullorEmpty(orderType) || TradeClient.isNullorEmpty(orderSubType) || !AutoTradeUtilities.isValidMarketData(refinedQuantity)) 
 		{
 
@@ -322,13 +331,16 @@ public class BinanceTrade extends BaseTrade
 			if(orderSubType.contains("LIMIT")) {
 				target= target.queryParam("timeInForce", "GTC");
 				if (orderDetails.getOrderPrice() != null) {
-					target = target.queryParam("price", orderDetails.getOrderPrice().toPlainString());
+					refinedPrice= getRefinedPriceForBinance(exchangeInfo,symbol,orderDetails.getOrderPrice());
+					TradeLogger.LOGGER.info("Refined Price is " + refinedPrice+" Actual Price  is "+orderDetails.getOrderPrice());
+					target = target.queryParam("price", refinedPrice.toPlainString());
 				}
 			}
 
 			if(orderDetails.getStopPrice() != null &&  (orderSubType.contains("STOP_LOSS") || orderSubType.contains("TAKE_PROFIT")))
 			{
-				target=	target.queryParam("stopPrice", orderDetails.getStopPrice().toPlainString());
+				refinedStopPrice= getRefinedPriceForBinance(exchangeInfo,symbol,orderDetails.getStopPrice());
+				target=	target.queryParam("stopPrice", refinedStopPrice.toPlainString());
 			}
 
 			//Get the Query String to generate the signature
@@ -375,6 +387,131 @@ public class BinanceTrade extends BaseTrade
 
 		return orderDetails;
 	}
+	
+	public ATOrderDetailsVO placeOrderTest(ATOrderDetailsVO orderDetails) {
+		String orderType= null;
+		
+		if(orderDetails.getOrderType() == TraderConstants.BUY_CALL)
+		{
+			orderType="BUY";			
+		}
+		else if(orderDetails.getOrderType() == TraderConstants.SELL_CALL){
+			orderType = "SELL";
+		}
+		String orderSubType = getOrderType(orderDetails.getOrderSubType());
+		/*if(orderDetails.getOrderSubType() == TraderConstants.MARKET_ORDER){
+			orderSubType = "MARKET";
+		}
+		else if(orderDetails.getOrderSubType() == TraderConstants.LIMIT_ORDER){
+			orderSubType = "LIMIT";
+		}*/
+
+
+		//timestamp is mandatory one 		
+		WebTarget target = getTarget().path(RESOURCE_ORDER_TEST)				
+				.queryParam(BINANCE_TIMESTAMP,System.currentTimeMillis());
+		String symbol = getSymbolForExchange(orderDetails.getCoin(), orderDetails.getCurrency());
+		
+		
+		if(exchangeInfo == null) {
+			exchangeInfo = getExchangeInfo();
+		}
+		//TODO Minimum Notational validation is required
+		BigDecimal refinedQuantity = getRefinedQuantityForBinance(exchangeInfo,symbol,orderDetails.getQuantity());
+		BigDecimal refinedPrice = getRefinedPriceForBinance(exchangeInfo,symbol,orderDetails.getOrderPrice());
+		TradeLogger.LOGGER.info("Refined Quantity is " + refinedQuantity+" Actual Quantity is "+orderDetails.getQuantity());
+		TradeLogger.LOGGER.info("Refined Price is " + refinedPrice+" Actual Price  is "+orderDetails.getOrderPrice());
+		if(TradeClient.isNullorEmpty(symbol) || TradeClient.isNullorEmpty(orderType) || TradeClient.isNullorEmpty(orderSubType) || !AutoTradeUtilities.isValidMarketData(refinedQuantity)) 
+		{
+
+			orderDetails.setErrorMsg("Invalid Query Parameter found in Validation please fix the value");
+			orderDetails.setResultCode(TradeStatusCode.INVALIDSYMBOL);
+			orderDetails.setSuccess(false);
+		}
+		else
+		{
+			BinanceSuccess returnValue= null;
+			BinanceErrorDAO error = null;
+			//setting  the Query Parameters
+			target =target.queryParam("symbol", symbol);
+			target=target.queryParam("side",orderType );
+			target=target.queryParam("type",orderSubType);
+			orderDetails.setPlacedQuantity(refinedQuantity);			
+			target = target.queryParam("quantity", refinedQuantity.toPlainString());
+
+
+			if(orderSubType.contains("LIMIT")) {
+				target= target.queryParam("timeInForce", "GTC");
+				if (orderDetails.getOrderPrice() != null) {
+					target = target.queryParam("price", refinedPrice.toPlainString());
+				}
+			}
+
+			if(orderDetails.getStopPrice() != null &&  (orderSubType.contains("STOP_LOSS") || orderSubType.contains("TAKE_PROFIT")))
+			{
+				target=	target.queryParam("stopPrice", orderDetails.getStopPrice().toPlainString());
+			}
+
+			//Get the Query String to generate the signature
+			String queryString = target.getUri().getQuery();
+			TradeLogger.LOGGER.finest("QueryString to generate the signature " + queryString);
+			//Generate the Signature  for query string 
+			String signature = generateSignature(queryString);
+			TradeLogger.LOGGER.finest("Signature Genereated  " + signature);
+
+			if(signature!= null )
+			{
+				//append the Signature to Query Parameter
+				target= target.queryParam(BINANCE_SIGNATURE, signature);	
+				TradeLogger.LOGGER.finest("Final Request URL : "+ target.getUri().toString());
+				Response response = target.request().header(X_MBX_APIKEY_HEADER_KEY,API_KEY).post(null);
+				String responseValue = null;
+
+				if(response.getStatus() == 200) 
+				{
+					responseValue = response.readEntity(String.class);
+					TradeLogger.LOGGER.info(responseValue);
+					/*returnValue = (BinanceSuccess) getDAOObject(responseValue, BinanceSuccess.class);				
+					TradeLogger.LOGGER.info(returnValue.toString());*/
+				}
+				else
+				{
+					String errorMsg = response.readEntity(String.class);
+					TradeLogger.LOGGER.severe(errorMsg);			
+
+					if (response.getStatus() != 407) 
+					{
+						error = (BinanceErrorDAO) getDAOObject(errorMsg, BinanceErrorDAO.class);
+						TradeLogger.LOGGER.severe("Error Code " + error.getCode());
+						TradeLogger.LOGGER.severe("Error Message " + error.getMsg());
+
+					}
+
+				}
+
+			}
+			mapOrderDetailsToATOrder(returnValue,error,orderDetails);
+		}
+
+
+		return orderDetails;
+	}
+	
+	private BigDecimal getRefinedPriceForBinance(BinanceExchangeInfo exchangeInfo2,String symbol,BigDecimal orderPrice) {
+		BigDecimal refinedQuantity = TraderConstants.NEGATIVE_ONE;
+		if(exchangeInfo2 != null) 
+		{
+			if(exchangeInfo2.getSymbols()!= null ) 
+			{
+				SymbolDetails symDetails = getSymbolDetails(exchangeInfo2.getSymbols(),symbol);
+				if(!symDetails.isInitialPriceFilter()) {
+					symDetails.initializeLotSize();
+				}
+				refinedQuantity = orderPrice.subtract((orderPrice.subtract(symDetails.getMinPrice())).remainder(symDetails.getTickSize()));
+			}
+		}
+		return refinedQuantity;
+	}
 	private BigDecimal getRefinedQuantityForBinance(BinanceExchangeInfo exchangeInfo2, String symbol, BigDecimal quantity) {
 		BigDecimal refinedQuantity = TraderConstants.NEGATIVE_ONE;
 		if(exchangeInfo2 != null) 
@@ -412,16 +549,18 @@ public class BinanceTrade extends BaseTrade
 		{
 			orderDetails.setTransactionTime(returnValue.getUpdateTime());
 		}
+		orderDetails.setOrderPrice(new BigDecimal(returnValue.getPrice()));
 		orderDetails.setStatus(getATStatusFromExchangeStatus(returnValue.getStatus()));
 		orderDetails.setClientStatus(returnValue.getStatus());
 		orderDetails.setExecutedQuantity(new BigDecimal(returnValue.getExecutedQty()));
 		orderDetails.setCummQuoteQty(new BigDecimal(returnValue.getCummulativeQuoteQty()));
 		orderDetails.setSuccess(true);
+		
 		}
 		else if(error!= null)
 		{
 			orderDetails.setClientStatusCode(error.getCode()+"");
-			orderDetails.addErrorMessage("CLIENT MSG" + error.getMsg());
+			orderDetails.addErrorMessage("CLIENT MSG :: " + error.getMsg());
 			orderDetails.setSuccess(false);
 		}
 		else
@@ -621,4 +760,67 @@ public class BinanceTrade extends BaseTrade
 	
 		return orderDetails;
 	}
+	
+	 public ATMarketStaticsVO getExchangePriceStatics(String symbol,String currency) throws AutoTradeException 
+	 {
+
+		 ATMarketStaticsVO marketStaticsVO = new ATMarketStaticsVO();
+		 marketStaticsVO.setExchangeName("BINANCE");
+		 marketStaticsVO.setCurrency(currency);
+		 marketStaticsVO.setSymbol(symbol);
+
+		 if(AutoTradeUtilities.isNullorEmpty(symbol) || AutoTradeUtilities.isNullorEmpty(currency))
+		 {
+			 throw new AutoTradeException("symbol name or Currency cannot null value. Please pass the value." );
+		 }
+
+		 WebTarget target = getTarget().path(PRICE_TICKER);
+
+		 String symbolForEx = getSymbolForExchange(symbol, currency);
+		 target=target.queryParam("symbol",symbolForEx);
+
+		 TradeLogger.LOGGER.finest("Final Request URL : "+  target.getUri());
+		
+		 Response response = target.request().get();
+		 BinanceMarketStatics responseValue = null;
+		 BinanceErrorDAO error = null;
+
+		 if(response.getStatus() == 200) 
+		 {
+			 TradeLogger.LOGGER.fine(response.getHeaderString("content-type"));
+			 responseValue = response.readEntity(BinanceMarketStatics.class);
+			 mapMarKetStatics(responseValue,marketStaticsVO);
+			 marketStaticsVO.setSuccess(true);
+		 }
+		 else
+		 {
+			 String errorMsg = response.readEntity(String.class);
+			 TradeLogger.LOGGER.severe(errorMsg);			
+			 marketStaticsVO.setSuccess(false);
+			 if (response.getStatus() != 407) 
+			 {
+				 error = (BinanceErrorDAO) getDAOObject(errorMsg, BinanceErrorDAO.class);
+				 TradeLogger.LOGGER.severe("Error Code " + error.getCode());
+				 TradeLogger.LOGGER.severe("Error Message " + error.getMsg());
+
+			 }
+
+		 }
+
+
+
+		 return marketStaticsVO;
+
+	 }
+	private void mapMarKetStatics(BinanceMarketStatics responseValue,ATMarketStaticsVO marketStatics) {
+		
+		marketStatics.setPriceChange(AutoTradeUtilities.getBigDecimalValue(responseValue.getPriceChange()));
+		marketStatics.setPricePercentFor24H(AutoTradeUtilities.getBigDecimalValue(responseValue.getPriceChangePercent()));
+		marketStatics.setLastPrice(AutoTradeUtilities.getBigDecimalValue(responseValue.getLastPrice()));
+		marketStatics.setHighPrice(AutoTradeUtilities.getBigDecimalValue(responseValue.getHighPrice()));
+		marketStatics.setLowPrice(AutoTradeUtilities.getBigDecimalValue(responseValue.getLowPrice()));
+		marketStatics.setExchangePrice(true);
+	}
+	 
+	 
 }
