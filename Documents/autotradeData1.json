@@ -1,0 +1,1496 @@
+{
+  "tradeData" : [ {
+    "profitType" : 1,
+    "advanceTrade" : false,
+    "atOrderId" : "1551693637854",
+    "remarks" : "Order placed to Exchange was successful",
+    "priceHistory" : [ {
+      "remarks" : "Low price is less than Triggered Price , Initialize the new Trade with Current Low price",
+      "lastPrice" : 8.15600000,
+      "lowPrice" : 8.08200000,
+      "highPrice" : 8.78700000,
+      "transactTime" : 1551694058326,
+      "referenceId" : 0
+    }, {
+      "remarks" : "Low price is less than Triggered Price , Initialize the new Trade with Current Low price",
+      "lastPrice" : 8.05500000,
+      "lowPrice" : 8.05000000,
+      "highPrice" : 8.78000000,
+      "transactTime" : 1551694479610,
+      "referenceId" : 1
+    }, {
+      "remarks" : "Low price is less than Triggered Price , Initialize the new Trade with Current Low price",
+      "lastPrice" : 8.05400000,
+      "lowPrice" : 8.03000000,
+      "highPrice" : 8.78000000,
+      "transactTime" : 1551694900232,
+      "referenceId" : 2
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.06500000,
+      "lowPrice" : 8.03000000,
+      "highPrice" : 8.78000000,
+      "transactTime" : 1551695320790,
+      "referenceId" : 3
+    }, {
+      "remarks" : "Low price is less than Triggered Price , Initialize the new Trade with Current Low price",
+      "lastPrice" : 7.97900000,
+      "lowPrice" : 7.97200000,
+      "highPrice" : 8.78000000,
+      "transactTime" : 1551695741463,
+      "referenceId" : 4
+    }, {
+      "remarks" : "Low price is less than Triggered Price , Initialize the new Trade with Current Low price",
+      "lastPrice" : 8.01900000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.78000000,
+      "transactTime" : 1551696161859,
+      "referenceId" : 5
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.10100000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.78000000,
+      "transactTime" : 1551696582308,
+      "referenceId" : 6
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.12600000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.78000000,
+      "transactTime" : 1551697002514,
+      "referenceId" : 7
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.17800000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.78000000,
+      "transactTime" : 1551697422826,
+      "referenceId" : 8
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.14000000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.78000000,
+      "transactTime" : 1551697843294,
+      "referenceId" : 9
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.21700000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.78000000,
+      "transactTime" : 1551698263539,
+      "referenceId" : 10
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.17200000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.77600000,
+      "transactTime" : 1551698683914,
+      "referenceId" : 11
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.21800000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.77500000,
+      "transactTime" : 1551699104263,
+      "referenceId" : 12
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.18800000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.77200000,
+      "transactTime" : 1551699524507,
+      "referenceId" : 13
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.17600000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.77200000,
+      "transactTime" : 1551699944893,
+      "referenceId" : 14
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.14900000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.75900000,
+      "transactTime" : 1551700366058,
+      "referenceId" : 15
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.12200000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.75900000,
+      "transactTime" : 1551700786406,
+      "referenceId" : 16
+    }, {
+      "remarks" : "Reinitialized looping with Triggered Prices in Basic Trading since ReTriggerCount is less than Maximum level. Low price may decrease further So wait for some time",
+      "lastPrice" : 8.16900000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.75700000,
+      "transactTime" : 1551701206787,
+      "referenceId" : 17
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.17600000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.75700000,
+      "transactTime" : 1551701627044,
+      "referenceId" : 18
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.13300000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.75700000,
+      "transactTime" : 1551702047493,
+      "referenceId" : 19
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.14200000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.75700000,
+      "transactTime" : 1551702467828,
+      "referenceId" : 20
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.18300000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.75700000,
+      "transactTime" : 1551702888078,
+      "referenceId" : 21
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.13500000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.74600000,
+      "transactTime" : 1551703308427,
+      "referenceId" : 22
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.13600000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.74300000,
+      "transactTime" : 1551705133414,
+      "referenceId" : 23
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.16300000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.74300000,
+      "transactTime" : 1551705554283,
+      "referenceId" : 24
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.13400000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.74300000,
+      "transactTime" : 1551705974651,
+      "referenceId" : 25
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.22200000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.74300000,
+      "transactTime" : 1551706394989,
+      "referenceId" : 26
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.18500000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.74300000,
+      "transactTime" : 1551706815391,
+      "referenceId" : 27
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.22000000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.74300000,
+      "transactTime" : 1551707235661,
+      "referenceId" : 28
+    }, {
+      "remarks" : "Reinitialized looping with Triggered Prices in Basic Trading since ReTriggerCount is less than Maximum level. Low price may decrease further So wait for some time",
+      "lastPrice" : 8.22900000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.74300000,
+      "transactTime" : 1551707656256,
+      "referenceId" : 29
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.21800000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.74300000,
+      "transactTime" : 1551708076170,
+      "referenceId" : 30
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.23200000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.74300000,
+      "transactTime" : 1551708496358,
+      "referenceId" : 31
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.25000000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.74300000,
+      "transactTime" : 1551708916592,
+      "referenceId" : 32
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.23000000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.74300000,
+      "transactTime" : 1551709336803,
+      "referenceId" : 33
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.23300000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.74300000,
+      "transactTime" : 1551709757150,
+      "referenceId" : 34
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.10000000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.50000000,
+      "transactTime" : 1551755032110,
+      "referenceId" : 35
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.10000000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.50000000,
+      "transactTime" : 1551755451101,
+      "referenceId" : 36
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.18600000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.50000000,
+      "transactTime" : 1551762581375,
+      "referenceId" : 37
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.21600000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.50000000,
+      "transactTime" : 1551763001909,
+      "referenceId" : 38
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.21800000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.50000000,
+      "transactTime" : 1551763422184,
+      "referenceId" : 39
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.22000000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.50000000,
+      "transactTime" : 1551763842562,
+      "referenceId" : 40
+    }, {
+      "remarks" : "Increase Re-trigger Count and baseline count values of low,high,wait",
+      "lastPrice" : 8.21400000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.39900000,
+      "transactTime" : 1551764262914,
+      "referenceId" : 41
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.22100000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.39900000,
+      "transactTime" : 1551764683305,
+      "referenceId" : 42
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.21500000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.39900000,
+      "transactTime" : 1551765103719,
+      "referenceId" : 43
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.21400000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.39900000,
+      "transactTime" : 1551765524161,
+      "referenceId" : 44
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.21800000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.39900000,
+      "transactTime" : 1551765944369,
+      "referenceId" : 45
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.22000000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.39900000,
+      "transactTime" : 1551766365048,
+      "referenceId" : 46
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.22300000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.39900000,
+      "transactTime" : 1551766785472,
+      "referenceId" : 47
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.23300000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.39900000,
+      "transactTime" : 1551767205757,
+      "referenceId" : 48
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.22700000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.39900000,
+      "transactTime" : 1551767626106,
+      "referenceId" : 49
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.22800000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.39900000,
+      "transactTime" : 1551768046573,
+      "referenceId" : 50
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.23800000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.39900000,
+      "transactTime" : 1551768467037,
+      "referenceId" : 51
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.23500000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.39900000,
+      "transactTime" : 1551768887515,
+      "referenceId" : 52
+    }, {
+      "remarks" : "Triggering Buy order with Triggered Price in Basic Trading after reaching maximum Re- trigger count",
+      "lastPrice" : 8.23800000,
+      "lowPrice" : 7.90200000,
+      "highPrice" : 8.37900000,
+      "transactTime" : 1551769308070,
+      "referenceId" : 53
+    }, {
+      "remarks" : "Checking the order to be executed",
+      "lastPrice" : 8.44300000,
+      "lowPrice" : 8.01300000,
+      "highPrice" : 8.47700000,
+      "transactTime" : 1551788381286,
+      "referenceId" : 54
+    }, {
+      "remarks" : "Checking the order to be executed",
+      "lastPrice" : 8.44700000,
+      "lowPrice" : 8.01300000,
+      "highPrice" : 8.47700000,
+      "transactTime" : 1551788803303,
+      "referenceId" : 55
+    }, {
+      "remarks" : "Checking the order to be executed",
+      "lastPrice" : 8.45000000,
+      "lowPrice" : 8.01300000,
+      "highPrice" : 8.47700000,
+      "transactTime" : 1551789224336,
+      "referenceId" : 56
+    }, {
+      "remarks" : "Checking the order to be executed",
+      "lastPrice" : 8.45000000,
+      "lowPrice" : 8.01300000,
+      "highPrice" : 8.47700000,
+      "transactTime" : 1551789644888,
+      "referenceId" : 57
+    }, {
+      "remarks" : "Checking the order to be executed",
+      "lastPrice" : 8.39300000,
+      "lowPrice" : 8.01300000,
+      "highPrice" : 8.47700000,
+      "transactTime" : 1551790065481,
+      "referenceId" : 58
+    }, {
+      "remarks" : "Checking the order to be executed",
+      "lastPrice" : 8.42300000,
+      "lowPrice" : 8.01300000,
+      "highPrice" : 8.47700000,
+      "transactTime" : 1551790486280,
+      "referenceId" : 59
+    }, {
+      "remarks" : "Checking the order to be executed",
+      "lastPrice" : 8.61600000,
+      "lowPrice" : 8.19600000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551849542566,
+      "referenceId" : 60
+    } ],
+    "triggerTime" : 1551693637854,
+    "exchange" : "BINANCE",
+    "coin" : "NEO",
+    "exchangeOrderId" : "72589413",
+    "placeAvgPriceOrder" : false,
+    "previousLastPrice" : 8.23500000,
+    "reTriggerCount" : 3,
+    "triggerPriceHistory" : [ 8.14200000, 8.08200000, 8.05000000, 8.03000000, 7.97200000, 7.90200000, 7.90200000, 7.90200000 ],
+    "tradeCurrencyVolume" : 10.03,
+    "orderTriggeredPrice" : 7.90200000,
+    "transactionType" : 1,
+    "triggeredPrice" : 7.90200000,
+    "currency" : "USDT",
+    "lastPrice" : 8.23800000,
+    "highCount" : 7,
+    "lastBuyCall" : true,
+    "lowPrice" : 7.90200000,
+    "coinVolume" : 0.00,
+    "triggerEvent" : 6,
+    "lastSellCall" : false,
+    "highPrice" : 8.37900000,
+    "eventHistory" : [ {
+      "event" : 0,
+      "beforeEvent" : -1,
+      "transactTime" : 1551693637854
+    }, {
+      "event" : 1,
+      "beforeEvent" : 0,
+      "transactTime" : 1551769308070
+    }, {
+      "event" : 2,
+      "beforeEvent" : 1,
+      "transactTime" : 1551781833118
+    }, {
+      "event" : 4,
+      "beforeEvent" : 2,
+      "transactTime" : 1551849542154
+    }, {
+      "event" : 5,
+      "beforeEvent" : 4,
+      "transactTime" : 1551849542566
+    }, {
+      "event" : 6,
+      "beforeEvent" : 5,
+      "transactTime" : 1551849542566
+    } ],
+    "lowCount" : 4,
+    "waitCount" : 11
+  }, {
+    "profitType" : 1,
+    "advanceTrade" : false,
+    "atOrderId" : "1551849542566",
+    "remarks" : "Increase Re-trigger Count and baseline count values of low,high,wait",
+    "priceHistory" : [ {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.62400000,
+      "lowPrice" : 8.19600000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551850383469,
+      "referenceId" : 0
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.60700000,
+      "lowPrice" : 8.19600000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551850804284,
+      "referenceId" : 1
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.62000000,
+      "lowPrice" : 8.19600000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551851061331,
+      "referenceId" : 2
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.61000000,
+      "lowPrice" : 8.20600000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551851482092,
+      "referenceId" : 3
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.61000000,
+      "lowPrice" : 8.20600000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551851902354,
+      "referenceId" : 4
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.59900000,
+      "lowPrice" : 8.21000000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551852322762,
+      "referenceId" : 5
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.61200000,
+      "lowPrice" : 8.21000000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551852743102,
+      "referenceId" : 6
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.63500000,
+      "lowPrice" : 8.21400000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551853163421,
+      "referenceId" : 7
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.64000000,
+      "lowPrice" : 8.21400000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551853583886,
+      "referenceId" : 8
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.67700000,
+      "lowPrice" : 8.21400000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551854004210,
+      "referenceId" : 9
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.70100000,
+      "lowPrice" : 8.21400000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551854424726,
+      "referenceId" : 10
+    }, {
+      "remarks" : "Reinitialized looping with Triggered Prices in Basic Trading since ReTriggerCount is less than Maximum level. Low price may decrease further So wait for some time",
+      "lastPrice" : 8.72000000,
+      "lowPrice" : 8.21400000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551854845223,
+      "referenceId" : 11
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.67300000,
+      "lowPrice" : 8.21400000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551855266213,
+      "referenceId" : 12
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.69500000,
+      "lowPrice" : 8.22000000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551855686738,
+      "referenceId" : 13
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.66300000,
+      "lowPrice" : 8.22000000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551856107217,
+      "referenceId" : 14
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.66500000,
+      "lowPrice" : 8.22000000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551856527912,
+      "referenceId" : 15
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.68300000,
+      "lowPrice" : 8.22000000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551856948375,
+      "referenceId" : 16
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.70700000,
+      "lowPrice" : 8.22000000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551857368856,
+      "referenceId" : 17
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.67200000,
+      "lowPrice" : 8.22000000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551857789470,
+      "referenceId" : 18
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.66600000,
+      "lowPrice" : 8.22000000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551858210211,
+      "referenceId" : 19
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.67600000,
+      "lowPrice" : 8.22000000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551858630636,
+      "referenceId" : 20
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.68400000,
+      "lowPrice" : 8.23400000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551859051053,
+      "referenceId" : 21
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.67500000,
+      "lowPrice" : 8.23800000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551859474896,
+      "referenceId" : 22
+    }, {
+      "remarks" : "Triggering Buy order with Triggered Price in Basic Trading after reaching maximum Re- trigger count",
+      "lastPrice" : 8.67800000,
+      "lowPrice" : 8.24100000,
+      "highPrice" : 8.86500000,
+      "transactTime" : 1551859895145,
+      "referenceId" : 23
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.70100000,
+      "lowPrice" : 8.33100000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551869618287,
+      "referenceId" : 24
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.70600000,
+      "lowPrice" : 8.33100000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551870038934,
+      "referenceId" : 25
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.73900000,
+      "lowPrice" : 8.33100000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551870459327,
+      "referenceId" : 26
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.74900000,
+      "lowPrice" : 8.33100000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551870879774,
+      "referenceId" : 27
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.73200000,
+      "lowPrice" : 8.33100000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551871300354,
+      "referenceId" : 28
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.72100000,
+      "lowPrice" : 8.33100000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551871721263,
+      "referenceId" : 29
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.71100000,
+      "lowPrice" : 8.34000000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551872141721,
+      "referenceId" : 30
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.71000000,
+      "lowPrice" : 8.34900000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551872562191,
+      "referenceId" : 31
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.71100000,
+      "lowPrice" : 8.35000000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551872982692,
+      "referenceId" : 32
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.74400000,
+      "lowPrice" : 8.37800000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551874432135,
+      "referenceId" : 33
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.73000000,
+      "lowPrice" : 8.37800000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551874852018,
+      "referenceId" : 34
+    }, {
+      "remarks" : "Reinitialized looping with Triggered Prices in Basic Trading since ReTriggerCount is less than Maximum level. Low price may decrease further So wait for some time",
+      "lastPrice" : 8.74000000,
+      "lowPrice" : 8.37800000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551875272375,
+      "referenceId" : 35
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.73100000,
+      "lowPrice" : 8.37800000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551875692836,
+      "referenceId" : 36
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.74600000,
+      "lowPrice" : 8.37800000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551876113223,
+      "referenceId" : 37
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.73700000,
+      "lowPrice" : 8.39000000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551876533415,
+      "referenceId" : 38
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.73800000,
+      "lowPrice" : 8.39000000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551876953595,
+      "referenceId" : 39
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.73100000,
+      "lowPrice" : 8.39400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551877373907,
+      "referenceId" : 40
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.73700000,
+      "lowPrice" : 8.50100000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551877794278,
+      "referenceId" : 41
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.72000000,
+      "lowPrice" : 8.50100000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551878214634,
+      "referenceId" : 42
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.71700000,
+      "lowPrice" : 8.50100000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551878635011,
+      "referenceId" : 43
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.69800000,
+      "lowPrice" : 8.53800000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551879055460,
+      "referenceId" : 44
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.71100000,
+      "lowPrice" : 8.53800000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551879475815,
+      "referenceId" : 45
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.70300000,
+      "lowPrice" : 8.53800000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551879896120,
+      "referenceId" : 46
+    }, {
+      "remarks" : "Reinitialized looping with Triggered Prices in Basic Trading since ReTriggerCount is less than Maximum level. Low price may decrease further So wait for some time",
+      "lastPrice" : 8.71200000,
+      "lowPrice" : 8.53800000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551880316752,
+      "referenceId" : 47
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.74300000,
+      "lowPrice" : 8.59000000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551938389823,
+      "referenceId" : 48
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.73200000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551938808782,
+      "referenceId" : 49
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.71200000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551939228828,
+      "referenceId" : 50
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.77800000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551939649319,
+      "referenceId" : 51
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.75500000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551940069847,
+      "referenceId" : 52
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.77500000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551940490664,
+      "referenceId" : 53
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.75200000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551940911140,
+      "referenceId" : 54
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.73600000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551941331518,
+      "referenceId" : 55
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.74700000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551941752300,
+      "referenceId" : 56
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.74000000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551942172791,
+      "referenceId" : 57
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.74500000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551942593387,
+      "referenceId" : 58
+    }, {
+      "remarks" : "Reinitialized looping with Triggered Prices in Basic Trading since ReTriggerCount is less than Maximum level. Low price may decrease further So wait for some time",
+      "lastPrice" : 8.75300000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551943014135,
+      "referenceId" : 59
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.75900000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551943434862,
+      "referenceId" : 60
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.74600000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551943855296,
+      "referenceId" : 61
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.76600000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551944731820,
+      "referenceId" : 62
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.77200000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551945152085,
+      "referenceId" : 63
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.76900000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551945572498,
+      "referenceId" : 64
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.74800000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551945992920,
+      "referenceId" : 65
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.74300000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551946417258,
+      "referenceId" : 66
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.72600000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551946837841,
+      "referenceId" : 67
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.72500000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551947258334,
+      "referenceId" : 68
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.74500000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551947678655,
+      "referenceId" : 69
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.74700000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551948099109,
+      "referenceId" : 70
+    }, {
+      "remarks" : "Maximum Re-triggered reached so initialize New Trade with Low Price",
+      "lastPrice" : 8.72200000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551948519903,
+      "referenceId" : 71
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.74200000,
+      "lowPrice" : 8.59400000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551948940424,
+      "referenceId" : 72
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.69400000,
+      "lowPrice" : 8.59800000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551949360954,
+      "referenceId" : 73
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.72100000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551949781340,
+      "referenceId" : 74
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.73900000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551952600493,
+      "referenceId" : 75
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.73500000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551953019738,
+      "referenceId" : 76
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.74400000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551953440668,
+      "referenceId" : 77
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.74000000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551953861212,
+      "referenceId" : 78
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.70700000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551954281708,
+      "referenceId" : 79
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.70600000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551954704122,
+      "referenceId" : 80
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.70400000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88800000,
+      "transactTime" : 1551955246127,
+      "referenceId" : 81
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.70500000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88000000,
+      "transactTime" : 1551955666105,
+      "referenceId" : 82
+    }, {
+      "remarks" : "Increase Re-trigger Count and baseline count values of low,high,wait",
+      "lastPrice" : 8.69300000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88000000,
+      "transactTime" : 1551956086777,
+      "referenceId" : 83
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.70000000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88000000,
+      "transactTime" : 1551956507064,
+      "referenceId" : 84
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.69100000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88000000,
+      "transactTime" : 1551956928549,
+      "referenceId" : 85
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.69200000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88000000,
+      "transactTime" : 1551957348807,
+      "referenceId" : 86
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.69100000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88000000,
+      "transactTime" : 1551957769234,
+      "referenceId" : 87
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.68800000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88000000,
+      "transactTime" : 1551958189693,
+      "referenceId" : 88
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.69100000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88000000,
+      "transactTime" : 1551958610335,
+      "referenceId" : 89
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.69800000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88000000,
+      "transactTime" : 1551959033589,
+      "referenceId" : 90
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.68100000,
+      "lowPrice" : 8.60000000,
+      "highPrice" : 8.88000000,
+      "transactTime" : 1551959457692,
+      "referenceId" : 91
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.98800000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552020120435,
+      "referenceId" : 92
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.97400000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552020539282,
+      "referenceId" : 93
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.98600000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552020959097,
+      "referenceId" : 94
+    }, {
+      "remarks" : "Increase Re-trigger Count and baseline count values of low,high,wait",
+      "lastPrice" : 8.95100000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552021379389,
+      "referenceId" : 95
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.96100000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552021799688,
+      "referenceId" : 96
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.97600000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552022220053,
+      "referenceId" : 97
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.97900000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552022640391,
+      "referenceId" : 98
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.99000000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552023060599,
+      "referenceId" : 99
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.99600000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552023481016,
+      "referenceId" : 100
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.99500000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552023901476,
+      "referenceId" : 101
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.96300000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552024321885,
+      "referenceId" : 102
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.96300000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552024742263,
+      "referenceId" : 103
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.97500000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552025162515,
+      "referenceId" : 104
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.97000000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552025582843,
+      "referenceId" : 105
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 9.01900000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552026003507,
+      "referenceId" : 106
+    }, {
+      "remarks" : "Reinitialized looping with Triggered Prices in Basic Trading since ReTriggerCount is less than Maximum level. Low price may decrease further So wait for some time",
+      "lastPrice" : 9.04600000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552026424074,
+      "referenceId" : 107
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 9.05300000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552026844484,
+      "referenceId" : 108
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 9.06800000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552027264855,
+      "referenceId" : 109
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 9.08100000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552027685375,
+      "referenceId" : 110
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 9.03900000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552028105581,
+      "referenceId" : 111
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 9.05200000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552028526009,
+      "referenceId" : 112
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.96000000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552028946514,
+      "referenceId" : 113
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 9.02800000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552029366811,
+      "referenceId" : 114
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.98900000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552029787212,
+      "referenceId" : 115
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.91500000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552037869046,
+      "referenceId" : 116
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.91900000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552038289463,
+      "referenceId" : 117
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.90300000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552038709710,
+      "referenceId" : 118
+    }, {
+      "remarks" : "Maximum Re-triggered reached so initialize New Trade with Low Price",
+      "lastPrice" : 8.90100000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552039129954,
+      "referenceId" : 119
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.89000000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552039550347,
+      "referenceId" : 120
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.89300000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552039970566,
+      "referenceId" : 121
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.90300000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552040391016,
+      "referenceId" : 122
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.89100000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552040811346,
+      "referenceId" : 123
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.89600000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552041231652,
+      "referenceId" : 124
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.89300000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552041651862,
+      "referenceId" : 125
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.92100000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552042072203,
+      "referenceId" : 126
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.91600000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552042492569,
+      "referenceId" : 127
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.92500000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552042912875,
+      "referenceId" : 128
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.91300000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552043333379,
+      "referenceId" : 129
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.93600000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552043753750,
+      "referenceId" : 130
+    }, {
+      "remarks" : "Increase Re-trigger Count and baseline count values of low,high,wait",
+      "lastPrice" : 8.92700000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552044174846,
+      "referenceId" : 131
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.94800000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552044595449,
+      "referenceId" : 132
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.93700000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552045019978,
+      "referenceId" : 133
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.92600000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552045591681,
+      "referenceId" : 134
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.93500000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552046012150,
+      "referenceId" : 135
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.93000000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552046432510,
+      "referenceId" : 136
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lastPrice" : 8.90400000,
+      "lowPrice" : 8.65000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552046852657,
+      "referenceId" : 137
+    }, {
+      "remarks" : "Increase in Price so increasing High count",
+      "lastPrice" : 8.92200000,
+      "lowPrice" : 8.67000000,
+      "highPrice" : 9.29000000,
+      "transactTime" : 1552047272924,
+      "referenceId" : 138
+    } ],
+    "triggerTime" : 1552039129953,
+    "exchange" : "BINANCE",
+    "coin" : "NEO",
+    "exchangeOrderId" : null,
+    "placeAvgPriceOrder" : false,
+    "previousLastPrice" : 8.90400000,
+    "reTriggerCount" : 1,
+    "triggerPriceHistory" : [ 8.11404000, 8.11404000, 8.11404000, 8.11404000, 8.11404000, 8.59400000, 8.59400000, 8.59400000, 8.59400000, 8.65000000 ],
+    "tradeCurrencyVolume" : 10.03,
+    "orderTriggeredPrice" : 8.11404000,
+    "transactionType" : 1,
+    "triggeredPrice" : 8.65000000,
+    "currency" : "USDT",
+    "lastPrice" : 8.92200000,
+    "highCount" : 3,
+    "lastBuyCall" : true,
+    "lowPrice" : 8.67000000,
+    "coinVolume" : 0.00,
+    "triggerEvent" : 0,
+    "lastSellCall" : false,
+    "highPrice" : 9.29000000,
+    "eventHistory" : [ {
+      "event" : 0,
+      "beforeEvent" : -1,
+      "transactTime" : 1551849542566
+    }, {
+      "event" : 1,
+      "beforeEvent" : 0,
+      "transactTime" : 1551859895145
+    } ],
+    "lowCount" : 4,
+    "waitCount" : 7
+  } ],
+  "lastUpdatedTime" : 1552047272924
+}

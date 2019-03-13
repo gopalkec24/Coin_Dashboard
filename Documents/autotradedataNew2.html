@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="refresh" content="650">
+<title>Auto trade Data </title>
+	<!-- <link rel="stylesheet" type="text/css" href="vendor/css/normalize.css"> -->
+ <link rel="stylesheet" type="text/css" href="resources/css/coinstyle.css">
+<!--  <link rel="stylesheet" type="text/css" href="vendor/css/sortable.css"> -->
+
+</head>
+
+<body>
+<script src="resources/js/jquery.js" > </script>
+<script src="resources/js/customcoin.js" > </script>
+<script>
+$(document).ready(function (){
+
+$.ajax({
+	
+url:"autotradeData2.json",
+dataType:"json",
+success:function(result)
+{
+
+console.log(result);
+/*
+<th>Last SellCall </th><th>last BuyCall </th> 
+*/
+ var dataRow="<div> <table> <thead> <tr> <th>Exchange  </th><th>Coin </th><th>Trade Curr  </th>  <th> ATOrder ID</th> <th> Base Price</th> <th>Transaction Type </th> <th>Coin Volume </th> <th>TradeCurrency Quantity </th>  <th>Triggered Price </th> <th>Last Price</th> <th> Previous Last Price</th><th> Low Price </th>  <th> High Price </th> <th>Wait Count </th>"+
+ "<th>Trigger Event </th> <th> Low Count</th> <th> High Count</th> <th>Re-Trigger Count</th>  <th> Order triggered Price </th> <th>Exchange Order ID </th> <th> Remarks </th> <th width='20px'> Trigger Price History</th>  </tr> </thead> <tbody>";  
+ 
+ var priceHistory = "<table><thead> <tr> <th>Reference ID </th> <th>Transaction Time</th>  <th>Xchange/Coin/Currency <th>Low Price </th>  <th>High Price</th> <th>Last Price</th>  <th> Remarks </th> </tr> </thead> <tbody> ";
+    for(var i=0; i< result.tradeData.length; i++)
+	{
+		var  coinTraded = result.tradeData[i];
+			var transaction= "UNKNOWN";
+			if(coinTraded.transactionType == 1){
+				transaction ="BUY";
+			}
+			else if(coinTraded.transactionType == 2)
+			{
+				transaction ="SELL";
+			}
+			
+			if( coinTraded.triggerEvent < 3)
+			{
+				//console.log(cssclass)
+				dataRow= dataRow+ "<tr><td>"+coinTraded.exchange+"</td><td>"+
+				coinTraded.coin+"</td><td>"+
+				coinTraded.currency+"</td><td>"+
+				coinTraded.atOrderId+"</td><td>"+				
+				coinTraded.basePrice+"</td><td>"+
+				transaction+"</td><td>"+				
+				coinTraded.coinVolume+"</td><td>"+
+				coinTraded.tradeCurrencyVolume+"</td><td>"+
+				coinTraded.triggeredPrice+"</td><td>"+
+				coinTraded.lastPrice+"</td><td>"+
+				coinTraded.previousLastPrice+"</td><td>"+
+				coinTraded.lowPrice+"</td><td>"+
+				coinTraded.highPrice+"</td><td>"+
+				/*coinTraded.lastSellCall+"</td><td>"+
+				coinTraded.lastBuyCall+"</td><td>"+   */                        
+                coinTraded.waitCount+"</td><td>"+
+                coinTraded.triggerEvent+"</td><td>"+
+				 coinTraded.lowCount+"</td><td>"+
+				  coinTraded.highCount+"</td><td>"+
+				   coinTraded.reTriggerCount+"</td><td width='20'>"+				   
+					coinTraded.orderTriggeredPrice+"</td><td>"+
+					coinTraded.exchangeOrderId+"</td><td>"+
+					coinTraded.remarks+"</td><td>"+
+					 coinTraded.triggerPriceHistory+"</td><td>"+
+					"</td></tr>";
+					if( coinTraded.triggerEvent <6)
+					{
+					for(var j=0; j < coinTraded.priceHistory.length ; j++){
+					
+					 var ph = coinTraded.priceHistory[j];
+					 var  date= new Date(ph.transactTime);
+					 priceHistory = priceHistory +"<tr> <td> "+ph.referenceId +"</td><td>"+
+						date.toString()+"</td><td>"+
+						coinTraded.exchange+"/"+coinTraded.coin+"/"+coinTraded.currency+"</td><td>"+
+						ph.lowPrice+"</td><td>"+
+						ph.highPrice+"</td><td>"+
+						ph.lastPrice+"</td><td>"+
+						ph.remarks+"</td><td>"+
+						
+						"</td></tr>";
+					}
+					priceHistory=priceHistory+"<tr><td>===</td> <td>===================================</td></tr>";
+					}
+                
+				}
+                    
+		}	
+	  
+    priceHistory=priceHistory+"</tbody></table>";
+    dataRow=dataRow+"</tbody></table> </div>";
+  $("#exchange").append(dataRow); 
+  $("#pricehistory").append(priceHistory);
+  $("#result").text("Welcome");
+  $("#timestamp").text(new Date(result.lastUpdatedTime));
+
+	 
+}// success function Method close
+
+
+
+});//ajax close
+
+});
+
+</script>
+<div class="container">
+          <div class="header">
+				<div class="header_text">
+				<h1> Auto trade Data </h1> 
+				<label id="result" > Loading the summary data............. </label>
+				<label id="timestamp"></label>
+            
+				</div>		   
+          </div>
+		    
+		    <br>
+		  		  
+		<div class="exchangeDetails" id="exchange" >
+		 
+		</div>
+		
+		<div class="pricehistory" id="pricehistory" >
+		 
+		</div>
+		<div class="remarkshistory" id="remarkshistory" >
+		 
+		</div>
+</div>	  
+</body>
+
+</html>

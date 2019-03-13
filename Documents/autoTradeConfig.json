@@ -4,7 +4,7 @@
 	"maximumBuyPermissibleLimt": 1.00,
 	 "minimumSellPermissibleLimt" : 0.00,
 	"maximumSellPermissibleLimt" : 0.75,
-	"orderWaitTimeOut" : 43200000,
+	"orderWaitTimeOut" : 14400000,
 	"minimumCancelOrderLimit" : 0,
 	"maximumCancelOrderLimit" : 0.30,
 	"advanceTrading" :false,

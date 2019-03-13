@@ -87,7 +87,7 @@ $(document).ready(function (){
     $( "#searchBlock").hide();
 $.ajax({
 	
-url:"summaryJsonSL.json",
+url:"/exchangeservice/exchanges/getSummaryReport/gopal",
 dataType:"json",
 success:function(result)
 {
@@ -187,12 +187,12 @@ var exchangeObj = result.exchangeList[exchange];
     dataRow=dataRow+"</tbody></table> </div>";
   $("#exchange").append(dataRow); 
   
-  var transRow = "<table> <thead><tr> <th>Currency</th> <th>Total Buy Price </th>  <th> Total Sell Price</th> <th> Deposit volume </th> <th>Withdrawal Volume </th> <th> Commission Amt</th> <th> Overall Profit Percentage </th>  <th> Net Profit Percentage</th></tr> </thead> <tbody>"
+  var transRow = "<table> <thead><tr> <th>Currency</th> <th>Total Buy Price </th>  <th> Total Sell Price</th> <th> Deposit volume </th> <th>Withdrawal Volume </th> <th> Commission Amt</th> <th> Overall Profit Percentage </th></tr> </thead> <tbody>"
   
   for(var i=0; i< exchangeObj.transCurrency.length; i++)
 	{
 	//  var  coin = exchangeObj.transCurrency[i];
-		transRow=transRow+ "<tr> <td> "+exchangeObj.transCurrency[i].name+"</td><td>"+exchangeObj.transCurrency[i].buyTransactionAmount+"</td><td>"+exchangeObj.transCurrency[i].sellTransactionAmount+"</td><td>"+exchangeObj.transCurrency[i].depositVolume+"</td><td>"+exchangeObj.transCurrency[i].withdrawalVolume+"</td><td>"+exchangeObj.transCurrency[i].commissionAmount+"</td><td>"+exchangeObj.transCurrency[i].overallGainPercent+"</td><td>"+exchangeObj.transCurrency[i].netProfit+"</td></tr> </thead> <tbody>";
+		transRow=transRow+ "<tr> <td> "+exchangeObj.transCurrency[i].name+"</td><td>"+exchangeObj.transCurrency[i].buyTransactionAmount+"</td><td>"+exchangeObj.transCurrency[i].sellTransactionAmount+"</td><td>"+exchangeObj.transCurrency[i].depositVolume+"</td><td>"+exchangeObj.transCurrency[i].withdrawalVolume+"</td><td>"+exchangeObj.transCurrency[i].commissionAmount+"</td><td>"+exchangeObj.transCurrency[i].overallGainPercent+"</td></tr> </thead> <tbody>";
 	
 	}
   transRow=transRow+"</tbody></table>";
