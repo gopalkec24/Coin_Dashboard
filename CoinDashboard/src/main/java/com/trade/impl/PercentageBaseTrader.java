@@ -18,9 +18,9 @@ import com.trade.utils.AutoTradeUtilities;
 import com.trade.utils.TradeClient;
 import com.trade.utils.TradeLogger;
 
-public class PercentageTrader extends Trader implements IAutoTrader {
+public class PercentageBaseTrader extends Trader implements IAutoTrader {
 
-	private static final String CLASS_NAME = PercentageTrader.class.getName();
+	private static final String CLASS_NAME = PercentageBaseTrader.class.getName();
 	BigDecimal mIN_PERMISSIBLE_PERCENT= new BigDecimal("1.2");
 	BigDecimal mAX_PERMISSIBLE_PERCENT = new BigDecimal("1000");
 	public static void main(String[] args) {
@@ -99,175 +99,73 @@ public class PercentageTrader extends Trader implements IAutoTrader {
 				throw new AutoTradeException(marketStaticsVO.getErrorMsg());
 			} 
 
-			//get the Percentage change
-			int compareResult = pricePercentChange.compareTo(TraderConstants.BIGDECIMAL_ZERO);
-			TradeLogger.LOGGER.info("PricePercent change value is "+pricePercentChange);
+			
 			StringBuffer remarks=new StringBuffer();
-			if(compareResult== TraderConstants.COMPARE_GREATER)
-			{
-				//value is greater than zero
+		
 				if(data.getTransactionType() == TraderConstants.BUY_CALL) 
 				{
 					// Transaction is buy call
-					//compare the current pricePercent change is less than buy permissible limit
-					//if yes then trigger buy order trigger here.
-					//else wait for some time.
-					TradeLogger.LOGGER.info("Greater condition :: Maximum Buy Permission Limit :: " +AutoTradeConfigReader.getMaxBuyPermissibleLimit());
-					int buyLimit = pricePercentChange.compareTo(AutoTradeConfigReader.getMaxBuyPermissibleLimit());
-					if(buyLimit == TraderConstants.COMPARE_LOWER) 
-					{
 						//Initializing the buy order trigger here
 						if(AutoTradeUtilities.isValidMarketData(data.getBasePrice()) ) 
 						{
 							int compareBasePrice = lastPrice.compareTo(data.getBasePrice());
 							if(compareBasePrice == TraderConstants.COMPARE_LOWER) 
 							{
-								BigDecimal percent = AutoTradeUtilities.getDifferInPercentage(lastPrice, data.getBasePrice());
+								BigDecimal percent = AutoTradeUtilities.getDifferInPercentage(data.getBasePrice(),lastPrice);
 								buyTrigger= AutoTradeUtilities.percentagePermissible(percent,(data.getMinPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mIN_PERMISSIBLE_PERCENT:data.getMinPercentage(), (data.getMaxPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mAX_PERMISSIBLE_PERCENT:data.getMaxPercentage());
-								TradeLogger.LOGGER.fine("Under PP is Greater .last price is lower than Base price. and Price differ Percentage " + percent +" Buy trigger value is "+buyTrigger);
+								TradeLogger.LOGGER.fine("last price is lower than Base price. and Price differ Percentage " + percent +" Buy trigger value is "+buyTrigger);
 								remarks.append("last price is lower than Base price. and Price differ Percentage " + percent +" Buy trigger value is "+buyTrigger);
 							}
 							else 
 							{
-								TradeLogger.LOGGER.fine("Under PP is Greater .last price is Greater than Base price,So not Triggering Buy trigger");
-								remarks.append("last Price is lower than Base Price");
+								TradeLogger.LOGGER.fine("last price is Greater than Base price,So not Triggering Buy trigger");
+								remarks.append("last Price is Greater than Base Price");
 							}
 						}
 						else
 						{
-							buyTrigger= true;
-							TradeLogger.LOGGER.fine(" Under PP is Greater .last price is not valid price");
+							
+							TradeLogger.LOGGER.fine(" Base price is not valid price");
+							remarks.append(" Base price is not valid price. Kindly set the base price in Trade Object configuration");
 
 						}
-					}
-					else
-					{
-						TradeLogger.LOGGER.info(" Under PP is Greater . Price Percent Change value is greater than MaximumBuyPermissible Limit");
-						//wait for some time. 
-					}
+					
+					
 
 				}
 				else if(data.getTransactionType() == TraderConstants.SELL_CALL) 
 				{
-					TradeLogger.LOGGER.info("Maximum Sell Permission Limit :: " +AutoTradeConfigReader.getMaxSellPermissibleLimit());
-					//Transaction is sell call
-					int sellLimit = pricePercentChange.compareTo(AutoTradeConfigReader.getMaxSellPermissibleLimit());
-					if(sellLimit == TraderConstants.COMPARE_GREATER) {
-						//Initializing the sell order trigger here
+					
 						if(AutoTradeUtilities.isValidMarketData(data.getBasePrice()) ) 
 						{
 							int compareBasePrice = lastPrice.compareTo(data.getBasePrice());
 							if(compareBasePrice == TraderConstants.COMPARE_GREATER) 
 							{
 								BigDecimal percent = AutoTradeUtilities.getDifferInPercentage(lastPrice, data.getBasePrice());
-								sellTrigger=AutoTradeUtilities.percentagePermissible(percent.abs(),(data.getMinPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mIN_PERMISSIBLE_PERCENT:data.getMinPercentage(), (data.getMaxPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mAX_PERMISSIBLE_PERCENT:data.getMaxPercentage());
-								TradeLogger.LOGGER.fine("Under PP is Greater .last price is Greater than Base price and Price differ Percentage " + percent +" sell trigger value is "+sellTrigger);
+								sellTrigger=AutoTradeUtilities.percentagePermissible(percent,(data.getMinPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mIN_PERMISSIBLE_PERCENT:data.getMinPercentage(), (data.getMaxPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mAX_PERMISSIBLE_PERCENT:data.getMaxPercentage());
+								TradeLogger.LOGGER.fine("last price is Greater than Base price and Price differ Percentage " + percent +" sell trigger value is "+sellTrigger);
 								//TradeLogger.LOGGER.finest("Under PP is Greater .last price is Greater than Base price. so Triggering sell trigger");
 								remarks.append("Last price is Greater than Base price and Price differ Percentage " + percent +" sell trigger value is "+sellTrigger);
 							}
 							else 
 							{
-								TradeLogger.LOGGER.fine("Under PP is Greater .last price is lesser than Base price");
-								remarks.append("Last price is Greater than Base price ");
+								TradeLogger.LOGGER.fine("last price is lesser than Base price");
+								remarks.append("Last price is Lesser than Base price ");
 							}
 						}
 						else
 						{
 
-							sellTrigger =true;
-							TradeLogger.LOGGER.fine("Under PP is Greater .last price is not valid price");
+							
+							TradeLogger.LOGGER.fine(" Base price is not valid price");
+							remarks.append(" Base price is not valid price. Kindly set the base price in Trade Object configuration");
 						}
-					}
-					else
-					{
-						// wait for some time.
-						TradeLogger.LOGGER.info("Under PP is Greater .Price Percent Change value is greater than MaximumSellPermissible Limit");
-					}
+					
 
 
 				}
 
-			}
-			else if(compareResult == TraderConstants.COMPARE_LOWER || compareResult == TraderConstants.COMPARE_EQUAL)
-			{
-				// value is lesser or equal to zero
-
-				if(data.getTransactionType() == TraderConstants.BUY_CALL)
-				{
-					TradeLogger.LOGGER.info("Maximum Buy Permission Limit :: " +AutoTradeConfigReader.getMaxBuyPermissibleLimit());
-					// Transaction is buy call
-					int buyLimit = pricePercentChange.abs().compareTo(AutoTradeConfigReader.getMaxBuyPermissibleLimit());
-					if(buyLimit == TraderConstants.COMPARE_GREATER) 
-					{
-						if(AutoTradeUtilities.isValidMarketData(data.getBasePrice()) ) 
-						{
-							int compareBasePrice = lastPrice.compareTo(data.getBasePrice());
-							if(compareBasePrice == TraderConstants.COMPARE_LOWER) 
-							{
-								BigDecimal percent = AutoTradeUtilities.getDifferInPercentage(lastPrice, data.getBasePrice());
-								buyTrigger= AutoTradeUtilities.percentagePermissible(percent,(data.getMinPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mIN_PERMISSIBLE_PERCENT:data.getMinPercentage(), (data.getMaxPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mAX_PERMISSIBLE_PERCENT:data.getMaxPercentage());
-								TradeLogger.LOGGER.fine("Under PP is Greater .last price is Greater than Base price and Price differ Percentage " + percent +" Buy trigger value is "+buyTrigger);
-								remarks.append("last price is Greater than Base price. and Price differ Percentage " + percent +" Buy trigger value is "+buyTrigger);
-							}
-							else 
-							{
-								TradeLogger.LOGGER.fine("Under PP is lower or Equal .last price is Greater than Base price,So not Triggering Buy trigger");
-								remarks.append("last Price is Greater than Base Price");
-							}
-						}
-						else 
-						{
-							buyTrigger= true;
-							TradeLogger.LOGGER.fine("Under PP is lower or Equal .last price is not valid price. Triggering buy trigger");
-						}
-					}
-					else {
-						// wait for few minutes
-						TradeLogger.LOGGER.info("Under PP is lower or Equal .Price Percent Change value is less than MaximumBuyPermissible Limit");
-					}
-				}
-				else if(data.getTransactionType() == TraderConstants.SELL_CALL) 
-				{
-					//Transaction is sell call
-					TradeLogger.LOGGER.info("Maximum Sell Permission Limit :: " +AutoTradeConfigReader.getMaxSellPermissibleLimit());
-					//percentage change is negative value
-					//Since change is negative value,we sell the immediately may be price will be getting down soon
-					int sellLimit = pricePercentChange.abs().compareTo(AutoTradeConfigReader.getMaxSellPermissibleLimit());
-					if(sellLimit == TraderConstants.COMPARE_GREATER) 
-					{
-						//Initializing the sell order trigger here
-						if(AutoTradeUtilities.isValidMarketData(data.getBasePrice()) ) 
-						{
-							int compareBasePrice = lastPrice.compareTo(data.getBasePrice());
-							if(compareBasePrice == TraderConstants.COMPARE_GREATER) 
-							{
-								//sellTrigger= true;
-								BigDecimal percent = AutoTradeUtilities.getDifferInPercentage(lastPrice, data.getBasePrice());
-								sellTrigger= AutoTradeUtilities.percentagePermissible(percent.abs(),(data.getMinPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mIN_PERMISSIBLE_PERCENT:data.getMinPercentage(), (data.getMaxPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mAX_PERMISSIBLE_PERCENT:data.getMaxPercentage());
-								TradeLogger.LOGGER.fine("Under PP is lower or Equal .last price is Greater than Base price and Price differ Percentage " + percent +" sell trigger value is "+sellTrigger);
-								//TradeLogger.LOGGER.finest("Under PP is lower or Equal .last price is Greater than Base price. so Triggering sell trigger");
-								remarks.append("Last price is Greater than Base price and Price differ Percentage " + percent +" sell trigger value is "+sellTrigger);
-							}
-							else 
-							{
-								TradeLogger.LOGGER.fine("Under PP is lower or Equal .last price is lesser than Base price");
-							}
-						}
-						else
-						{
-
-							sellTrigger =true;
-							TradeLogger.LOGGER.fine("Under PP is lower or Equal .last price is not valid price");
-						}
-					}
-					else 
-					{
-						//wait 
-						TradeLogger.LOGGER.info("Under PP is lower or Equal .Price Percent Change value is less than MaximumSellPermissible Limit");
-					}
-				}
-
-			}
+			
 			
 			data.setLastPrice(lastPrice);
 			data.setLowPrice(marketStaticsVO.getLowPrice());
@@ -289,12 +187,12 @@ public class PercentageTrader extends Trader implements IAutoTrader {
 			data.setReTriggerCount(TraderConstants.ZERO_COUNT);
 			data.addPriceHistory(getMarketStaticsVO(marketStaticsVO, data.getPriceHistory().size(), remarks.toString()+"Triggered Scenario"));
 			TradeLogger.LOGGER.warning("TRIGGERED SCENARIO");
-			data.setRemarks(" Scenario TRIGGERED");
+			data.setRemarks(remarks.toString()+" Scenario TRIGGERED");
 			}
 			else
 			{
 				TradeLogger.LOGGER.warning("NO Scenario TRIGGERED ");
-				data.setRemarks(remarks.toString()+" No Scenario TRIGGERED Since PricePercent change value is "+pricePercentChange);
+				data.setRemarks(remarks.toString()+" No Scenario TRIGGERED ");
 			}
 			
 		} catch (AutoTradeException e) {
@@ -508,6 +406,8 @@ public class PercentageTrader extends Trader implements IAutoTrader {
 							TradeDataVO newTradeData = new TradeDataVO(data.getExchange(), data.getCoin(), data.getCurrency(), quantity, tradeCurrency,AutoTradeUtilities.reverseTransaction(data.getTransactionType()));
 							newTradeData.setBasePrice(getDetailVO.getOrderPrice());
 							newTradeData.setProfitType(data.getProfitType());
+							newTradeData.setMinPercentage(data.getMinPercentage());
+							newTradeData.setMaxPercentage(data.getMaxPercentage());
 							TradeLogger.LOGGER.info("New Trade Data" + newTradeData);
 							newOrderList.add(newTradeData);
 							data.setTriggerEventForHistory(TraderConstants.COMPLETED);

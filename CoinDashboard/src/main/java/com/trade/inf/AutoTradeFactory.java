@@ -1,6 +1,7 @@
 package com.trade.inf;
 
 import com.trade.impl.AdvanceTrader;
+import com.trade.impl.PercentageBaseTrader;
 import com.trade.impl.PercentageTrader;
 import com.trade.utils.TradeLogger;
 
@@ -18,6 +19,11 @@ public class AutoTradeFactory {
 			else if(traderType.equalsIgnoreCase("PercentageTrader"))
 			{
 				trader = new PercentageTrader();
+				TradeLogger.LOGGER.finest("PercentageTrader class is created here");
+			}
+			else if(traderType.equalsIgnoreCase("PercentageBaseTrader"))
+			{
+				trader = new PercentageBaseTrader();
 				TradeLogger.LOGGER.finest("PercentageTrader class is created here");
 			}
 			else

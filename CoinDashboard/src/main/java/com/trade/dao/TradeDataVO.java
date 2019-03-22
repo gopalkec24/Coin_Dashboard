@@ -24,6 +24,27 @@ public class TradeDataVO {
 	BigDecimal orderTriggeredPrice= TraderConstants.NEGATIVE_ONE;
 	BigDecimal basePrice = TraderConstants.NEGATIVE_ONE;
 	
+	BigDecimal minPercentage=TraderConstants.NEGATIVE_ONE;
+	BigDecimal maxPercentage=TraderConstants.NEGATIVE_ONE;
+	
+	
+	
+	public BigDecimal getMinPercentage() {
+		return minPercentage;
+	}
+
+	public void setMinPercentage(BigDecimal minPercentage) {
+		this.minPercentage = minPercentage;
+	}
+
+	public BigDecimal getMaxPercentage() {
+		return maxPercentage;
+	}
+
+	public void setMaxPercentage(BigDecimal maxPercentage) {
+		this.maxPercentage = maxPercentage;
+	}
+
 	public BigDecimal getBasePrice() {
 		return basePrice;
 	}

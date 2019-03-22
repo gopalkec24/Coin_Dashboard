@@ -2,6 +2,8 @@ package com.trade.dao;
 
 import java.math.BigDecimal;
 
+import com.trade.constants.TraderConstants;
+
 public class ATMarketStaticsVO {
 	
 	
@@ -20,9 +22,9 @@ public class ATMarketStaticsVO {
 	String symbol;
 	String currency;
 	
-	BigDecimal lastPrice;
-	BigDecimal lowPrice;
-	BigDecimal highPrice;
+	BigDecimal lastPrice = TraderConstants.NEGATIVE_ONE;
+	BigDecimal lowPrice = TraderConstants.NEGATIVE_ONE;
+	BigDecimal highPrice = TraderConstants.NEGATIVE_ONE;
 	
 	BigDecimal volume;
 	

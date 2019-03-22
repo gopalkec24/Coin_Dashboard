@@ -110,7 +110,14 @@ public class Trader {
 		else if(data.getTransactionType() == TraderConstants.SELL_CALL)
 		{
 			orderDetailsVO.setOrderType(TraderConstants.SELL_CALL);
+			//TODO decimal points needs to be taken in both case
+			if(AutoTradeUtilities.isZero(data.getTradeCurrencyVolume())) {	
 			orderDetailsVO.setQuantity(data.getCoinVolume());
+			}
+			else
+			{
+			orderDetailsVO.setQuantity(data.getTradeCurrencyVolume().divide(orderPrice,8,RoundingMode.HALF_UP));
+			}
 		}
 		else {
 			TradeLogger.LOGGER.severe("Unknown Transaction Type Encounted here : "+ data.getTransactionType());
@@ -135,7 +142,8 @@ public class Trader {
 	
 	
 	public void updateTradeData(TradeDataVO data, ATOrderDetailsVO placeOrder) {
-		if(placeOrder.isSuccess() && !TradeClient.isNullorEmpty(placeOrder.getOrderId())) {
+		if(placeOrder.isSuccess() && !TradeClient.isNullorEmpty(placeOrder.getOrderId())) 
+		{
 			TradeLogger.LOGGER.info("Order placed to Exchange was successful");
 			data.setExchangeOrderId(placeOrder.getOrderId());
 			data.setTriggerEventForHistory(TraderConstants.ORDER_TRIGGERED);
@@ -145,13 +153,15 @@ public class Trader {
 		else if(placeOrder.isSuccess() && TradeClient.isNullorEmpty(placeOrder.getOrderId()))
 		{
 			data.setRemarks("Invalid Scenario . Please contact Administrator for more info");
+			data.setTriggerEventForHistory(TraderConstants.ERROR_CALL);
 		}
 		else if (!placeOrder.isSuccess())
 		{
 			data.setRemarks(placeOrder.getErrorMsg());
-			data.setTriggerEvent(TraderConstants.ERROR_CALL);
+			data.setTriggerEventForHistory(TraderConstants.ERROR_CALL);
 		}
-		else {
+		else 
+		{
 			data.setRemarks("Invalid Scenario . Please contact Administrator for more info");
 		}
 	}
@@ -191,7 +201,7 @@ public class Trader {
 	
 	public TradeDataVO createNewTradeForDelete(TradeDataVO data,BigDecimal orderPrice) {
 		TradeDataVO tradeData = new TradeDataVO(data.getExchange(), data.getCoin(), data.getCurrency(), data.getCoinVolume(), data.getTradeCurrencyVolume(),data.getTransactionType());
-		tradeData.setTriggerEventForHistory(TraderConstants.INTITAL_TRIGGER);
+		tradeData.setTriggerEventForHistory(TraderConstants.COUNTER_NOINIT);
 		tradeData.setProfitType(data.getProfitType());
 		tradeData.setLastBuyCall(data.isLastBuyCall());
 		tradeData.setLastSellCall(data.isLastSellCall());
@@ -199,14 +209,25 @@ public class Trader {
 		tradeData.setTriggeredPrice(orderPrice);
 		tradeData.setPlaceAvgPriceOrder(data.isPlaceAvgPriceOrder());
 		tradeData.setAtOrderId(System.currentTimeMillis()+"");
+		tradeData.setBasePrice(data.getBasePrice());
+		tradeData.setMaxPercentage(data.getMaxPercentage());
+		tradeData.setMinPercentage(data.getMinPercentage());
+		ATMarketStaticsVO marketStaticsVO = generateDummyMarketStaticsVO();
+		tradeData.addPriceHistory(getMarketStaticsVO(marketStaticsVO, data.getPriceHistory().size(), "New order created from old ID "+ data.getAtOrderId()));
 		initializeWLHCountToZero(tradeData);
 		tradeData.setReTriggerCount(0);
 		newOrderList.add(tradeData);
 		data.setTriggerEventForHistory(TraderConstants.NEWTRADE_CREATED_FOR_DELETE);
 		data.setRemarks("New counter order was created for this order");
+		
+		data.addPriceHistory(getMarketStaticsVO(marketStaticsVO, data.getPriceHistory().size(), "New counter order was created "));
 		return tradeData;
 	}
 	
+private ATMarketStaticsVO generateDummyMarketStaticsVO() {
+		ATMarketStaticsVO maketVO = new ATMarketStaticsVO();
+		return null;
+	}
 public ATOrderDetailsVO generateOrderDetailsForGet(TradeDataVO data) {
 		
 		ATOrderDetailsVO orderDetailsVO = new ATOrderDetailsVO();
