@@ -29,13 +29,35 @@ public class PercentageTradingData {
 	}
 	private static void addDataToExistingFile() {
 		// TODO Auto-generated method stub
-		TradeDataVO tradeVO1= new TradeDataVO("BINANCE", "PHX", "ETH", new BigDecimal("0.00"), new BigDecimal("0.010009"),TraderConstants.BUY_CALL);
+	/*	TradeDataVO tradeVO1= new TradeDataVO("BINANCE", "XLM", "USDT", new BigDecimal("136.00"), new BigDecimal("0.0"),TraderConstants.SELL_CALL);
 		tradeVO1.setPlaceAvgPriceOrder(false);
-		tradeVO1.setBasePrice(new BigDecimal("0.00008666"));
-		tradeVO1.setAdvanceTrade(false);
+		tradeVO1.setProfitType(2);
+	//	tradeVO1.setBasePrice(new BigDecimal("0.00008666"));
+		tradeVO1.setAdvanceTrade(false);*/
+/*		TradeDataVO tradeVO2= new TradeDataVO("BINANCE", "PHX", "ETH", new BigDecimal("0"), new BigDecimal("0.01001"),TraderConstants.SELL_CALL);
+		tradeVO2.setPlaceAvgPriceOrder(false);
+		tradeVO2.setAdvanceTrade(false);
+		tradeVO2.setProfitType(2);
+		tradeVO2.setBasePrice(new BigDecimal("0.00007900"));*/
+		/*TradeDataVO tradeVO2= new TradeDataVO("BINANCE", "XLM", "USDT", new BigDecimal("0"), new BigDecimal("15.52576"),TraderConstants.BUY_CALL);
+		tradeVO2.setPlaceAvgPriceOrder(false);
+		tradeVO2.setAdvanceTrade(false);
+		tradeVO2.setProfitType(2);
+		tradeVO2.setBasePrice(new BigDecimal("0.11416"));
+		tradeVO2.setMinPercentage(new BigDecimal("1.5"));
+		tradeVO2.setMaxPercentage(new BigDecimal("1000"));*/
+		
+		TradeDataVO tradeVO2= new TradeDataVO("BINANCE", "BTC", "USDT", new BigDecimal("0.003515"), new BigDecimal("0.00"),TraderConstants.SELL_CALL);
+		tradeVO2.setPlaceAvgPriceOrder(false);
+		tradeVO2.setAdvanceTrade(false);
+		tradeVO2.setProfitType(2);
+		tradeVO2.setBasePrice(new BigDecimal("3800.00"));
+		tradeVO2.setMinPercentage(new BigDecimal("1"));
+		tradeVO2.setMaxPercentage(new BigDecimal("1000"));
+		
 		List<TradeDataVO> list = new ArrayList<TradeDataVO>();
-		list.add(tradeVO1);
-		String jsonFilePathNew = "C:/Documents/autotradeData2.json";
+		list.add(tradeVO2);
+		String jsonFilePathNew = "C:/Documents/autotradeData4.json";
 		AutoTradeVO tradeData;
 		try {
 			tradeData = readAutoTradeDataFromJSONNew(jsonFilePathNew);
