@@ -1,6 +1,7 @@
 package com.trade.impl;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -11,8 +12,10 @@ import com.trade.constants.TraderConstants;
 import com.trade.dao.ATMarketStaticsVO;
 import com.trade.dao.ATOrderDetailsVO;
 import com.trade.dao.TradeDataVO;
+import com.trade.dao.TriggerEventHistory;
 import com.trade.exception.AutoTradeException;
 import com.trade.inf.IAutoTrader;
+import com.trade.notification.NotificationSender;
 import com.trade.utils.AutoTradeConfigReader;
 import com.trade.utils.AutoTradeUtilities;
 import com.trade.utils.TradeClient;
@@ -21,8 +24,10 @@ import com.trade.utils.TradeLogger;
 public class PercentageBaseTrader extends Trader implements IAutoTrader {
 
 	private static final String CLASS_NAME = PercentageBaseTrader.class.getName();
+	private static  List<String> recipients = new ArrayList<String>();
 	BigDecimal mIN_PERMISSIBLE_PERCENT= new BigDecimal("1.2");
 	BigDecimal mAX_PERMISSIBLE_PERCENT = new BigDecimal("1000");
+	
 	public static void main(String[] args) {
 		
 
@@ -33,7 +38,8 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 		
 	}
 
-	public void processData(TradeDataVO data) {
+	public void processData(TradeDataVO data)
+	{
 
 		if(data.getTriggerEvent() == TraderConstants.COUNTER_NOINIT)
 		{
@@ -67,9 +73,6 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 		else if(data.getTriggerEvent() == TraderConstants.COMPLETED) {
 			data.setRemarks("Order Got completed ");
 		}
-		
-	
-		
 	}
 
 	public void initializeLastPrice(TradeDataVO data) 
@@ -85,11 +88,9 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 			//Get the price from Exchange
 			ATMarketStaticsVO marketStaticsVO = trade.getExchangePriceStatics(data.getCoin(), data.getCurrency());
 			TradeLogger.LOGGER.finest("End to get the price from Exchange ");
-			BigDecimal pricePercentChange = TraderConstants.BIGDECIMAL_ZERO;
+			
 			if (marketStaticsVO.isSuccess()) 
 			{
-				
-				pricePercentChange = marketStaticsVO.getPricePercentFor24H();
 				TradeLogger.LOGGER.finest("Get the value from Exchange was successful");
 				lastPrice = marketStaticsVO.getLastPrice();
 			} 
@@ -98,8 +99,6 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 				//check the current price from CoinMarketCap site 
 				throw new AutoTradeException(marketStaticsVO.getErrorMsg());
 			} 
-
-			
 			StringBuffer remarks=new StringBuffer();
 		
 				if(data.getTransactionType() == TraderConstants.BUY_CALL) 
@@ -127,15 +126,10 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 							
 							TradeLogger.LOGGER.fine(" Base price is not valid price");
 							remarks.append(" Base price is not valid price. Kindly set the base price in Trade Object configuration");
-
 						}
-					
-					
-
 				}
 				else if(data.getTransactionType() == TraderConstants.SELL_CALL) 
 				{
-					
 						if(AutoTradeUtilities.isValidMarketData(data.getBasePrice()) ) 
 						{
 							int compareBasePrice = lastPrice.compareTo(data.getBasePrice());
@@ -155,18 +149,10 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 						}
 						else
 						{
-
-							
 							TradeLogger.LOGGER.fine(" Base price is not valid price");
 							remarks.append(" Base price is not valid price. Kindly set the base price in Trade Object configuration");
 						}
-					
-
-
 				}
-
-			
-			
 			data.setLastPrice(lastPrice);
 			data.setLowPrice(marketStaticsVO.getLowPrice());
 			data.setHighPrice(marketStaticsVO.getHighPrice());
@@ -278,7 +264,7 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 				data.addTriggerPriceHistory(data.getTriggeredPrice());
 				data.setTriggeredPrice(marketStaticsVO.getLastPrice());
 				//increase the lower count and overall count here
-				data.addPriceHistory(getMarketStaticsVO(marketStaticsVO,data.getPriceHistory().size(),"Updating the triggered Price as "+ marketStaticsVO.getLastPrice() + " .Decrease in Price so increasing Low count"));
+				data.addPriceHistory(getMarketStaticsVO(marketStaticsVO,data.getPriceHistory().size(),"Updating the triggered Price as "+ marketStaticsVO.getLastPrice() + " . Resetting the count to 0"));
 				/*data.increaseLowCount();
 				data.increaseWaitCount();*/
 				
@@ -300,7 +286,7 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 		}
 		else if(data.getTransactionType() == TraderConstants.SELL_CALL) 
 		{
-			if(compareLastCurrent == TraderConstants.COMPARE_LOWER)
+			if(compareLastCurrent == TraderConstants.COMPARE_LOWER || compareLastCurrent ==TraderConstants.COMPARE_EQUAL)
 			{
 
 				//increase the lower count and overall count here
@@ -308,7 +294,7 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 				data.increaseLowCount();
 				data.increaseWaitCount();
 			}
-			else if(compareLastCurrent == TraderConstants.COMPARE_GREATER || compareLastCurrent ==TraderConstants.COMPARE_EQUAL)
+			else if(compareLastCurrent == TraderConstants.COMPARE_GREATER )
 			{
 				TradeLogger.LOGGER.finest("Updating the triggered Price also here");
 				//change the trigger price to current last price
@@ -316,7 +302,7 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 				data.setTriggeredPrice(marketStaticsVO.getLastPrice());
 				//increase the High count and overall count here
 				TradeLogger.LOGGER.finest("Updating the triggered Price as "+ marketStaticsVO.getLastPrice()+"Increase in Price so increasing High count");
-				data.addPriceHistory(getMarketStaticsVO(marketStaticsVO,data.getPriceHistory().size(), "Updating the triggered Price as "+ marketStaticsVO.getLastPrice()+"Increase in Price so increasing High count"));
+				data.addPriceHistory(getMarketStaticsVO(marketStaticsVO,data.getPriceHistory().size(), "Updating the triggered Price as "+ marketStaticsVO.getLastPrice()+" .  Resetting the count to 0"));
 				/*data.increaseHigherCount();
 				data.increaseWaitCount();*/
 				data.setWaitCount(0);
@@ -327,6 +313,7 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 		return placeOrder;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void orderToExchange(TradeDataVO data) {
 		
 		ITrade trade = ExchangeFactory.getInstance(data.getExchange());
@@ -336,7 +323,10 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 			checkAndChangeTriggerPrice(data, marketStaticsVO);
 			ATOrderDetailsVO orderDetailsVO = generateATOrderForBSTransaction(TraderConstants.LIMIT_ORDER, data.getOrderTriggeredPrice(), null,data);
 			placeOrderToExchange(orderDetailsVO);
-			updateTradeData(data, orderDetailsVO);	
+			updateTradeData(data, orderDetailsVO);
+			recipients= (List<String>) AutoTradeConfigReader.getNotifier();
+			if(recipients.size() >0)
+			NotificationSender.sendNotificationMessage("Order placed : "+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
 		} catch (AutoTradeException e) {
 			TradeLogger.LOGGER.logp(Level.SEVERE, CLASS_NAME,"orderToExchange" ,"FAILED to fetch the values from Exchange : " + data.getExchange(),e);
 		}
@@ -364,17 +354,42 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 						//Map<String,Object> values= AutoTradeUtilities.getExchangePrice(data.getExchange(),data.getCoin(),data.getCurrency());
 							ATMarketStaticsVO marketStaticsVO = trade.getExchangePriceStatics(data.getCoin(), data.getCurrency());
 							//updatedCacheTime + defaultCacheTimeoutInMS < System.currentTimeMillis()
-							if((getDetailVO.getTransactionTime() + AutoTradeConfigReader.getTransactionTimeOut()) < System.currentTimeMillis()) 
+							if(getDetailVO.getTransactionTime()!=-1 && (getDetailVO.getTransactionTime() + AutoTradeConfigReader.getTransactionTimeOut()) < System.currentTimeMillis()) 
 							{
 								TradeLogger.LOGGER.info("Making  order to delete Since  "+ (getDetailVO.getTransactionTime() + AutoTradeConfigReader.getTransactionTimeOut() )+ " milliseconds . Current Time"+System.currentTimeMillis());
 								data.setTriggerEventForHistory(TraderConstants.MARK_FOR_DELETE_CREATE_NEW);
 								data.setRemarks("Marking order to delete ");
 								cancelOrderReTriggerForNewTradeCondition(data);
+								recipients= (List<String>) AutoTradeConfigReader.getNotifier();
+								if(recipients.size() >0)
+								NotificationSender.sendNotificationMessage("Order Cancelled due to timeout : "+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
 								
 							}
-							else
+							else if(getDetailVO.getTransactionTime()==-1) {
+								for(TriggerEventHistory event : data.getEventHistory()) 
+								{
+									if(event!= null && event.getEvent() == TraderConstants.ORDER_TRIGGERED &&  event.getBeforeEvent() ==TraderConstants.PLACE_ORDER_TRIGGER) 
+									{
+										if(event.getTransactTime() + AutoTradeConfigReader.getTransactionTimeOut()  < System.currentTimeMillis())
+										{
+											TradeLogger.LOGGER.info("Making  order to delete Since  "+ event.getTransactTime() + AutoTradeConfigReader.getTransactionTimeOut() + " milliseconds . Current Time"+System.currentTimeMillis());
+											data.setTriggerEventForHistory(TraderConstants.MARK_FOR_DELETE_CREATE_NEW);
+											data.setRemarks("Marking order to delete ");
+											cancelOrderReTriggerForNewTradeCondition(data);
+											recipients= (List<String>) AutoTradeConfigReader.getNotifier();
+											if(recipients.size() >0)
+											NotificationSender.sendNotificationMessage("Order Cancelled due to timeout : "+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
+										}
+										else {
+											TradeLogger.LOGGER.info("Waiting for order to execute in event hisstory scenario for   "+ event.getTransactTime() + AutoTradeConfigReader.getTransactionTimeOut()+ " milliseconds . Current Time"+System.currentTimeMillis());
+										}
+									}
+								}
+							}
+							else 
 							{
 								TradeLogger.LOGGER.info("Waiting for order to execute  for   "+ (getDetailVO.getTransactionTime() + AutoTradeConfigReader.getTransactionTimeOut() )+ " milliseconds . Current Time"+System.currentTimeMillis());
+								
 								
 							}
 						
@@ -412,6 +427,9 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 							newOrderList.add(newTradeData);
 							data.setTriggerEventForHistory(TraderConstants.COMPLETED);
 							data.setRemarks("Order Got completed. Counter Order created");
+							recipients= (List<String>) AutoTradeConfigReader.getNotifier();
+							if(recipients.size() >0)
+							NotificationSender.sendNotificationMessage("Order Got completed. Counter Order created"+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
 					}
 				}
 			}
@@ -429,7 +447,11 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 
 	public void cancelOrderReTriggerForNewTradeCondition(TradeDataVO data) {
 		try {
-			createNewTradeForDelete(data,getNewTradePriceForDeletedOrder2(data));
+			boolean cancelOrder =  cancelOrder(data,TraderConstants.DELETE_FOR_NEWTRADE);
+			if(cancelOrder) {
+				createNewTradeForDelete(data,getNewTradePriceForDeletedOrder2(data));
+			}
+			
 		} catch (Exception e) {
 			TradeLogger.LOGGER.log(Level.SEVERE, "Error in calculating amount order please contact the Administrator ", e);
 		}

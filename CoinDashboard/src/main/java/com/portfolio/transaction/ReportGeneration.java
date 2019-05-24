@@ -121,14 +121,14 @@ public class ReportGeneration {
 		for(MainnetConfiguration mainData : GetCurrentRate.getMainNetConfigData())
 		{
 			if(exchangeList.containsKey(mainData.getExchangeName())){
-				System.out.println("Exchange found for mainnet processing ....");
+			LOGGER.info("Exchange found for mainnet processing ....");
 			ExchangeVO exchangeVO = exchangeList.get(mainData.getExchangeName());
 			if(exchangeVO ==null) {
-				System.out.println("No Data for Exchange :"+exchangeVO);
+				LOGGER.info("No Data for Exchange :"+exchangeVO);
 				continue;
 			}
 			else {
-				System.out.println("exchange data "+exchangeVO.getExchangeName());
+				LOGGER.info("exchange data "+exchangeVO.getExchangeName());
 			}
 			
 			ExchangeCurrencyVO replaceCoin =null;
@@ -143,7 +143,7 @@ public class ReportGeneration {
 							for(String replace: replacementCoin)
 							{
 								if(replace.equalsIgnoreCase(originalCoin.getCoinName())) {
-									System.out.println("Symbol name is same , ideally cwrong configuration");
+									//System.out.println("Symbol name is same , ideally cwrong configuration");
 									originalCoin.setTotalAmt(originalCoin.getTotalAmt().multiply(mainData.getCoinFactor()));
 									
 								}
@@ -151,8 +151,8 @@ public class ReportGeneration {
 								{
 									replaceCoin =  getXChangeCurrency(exchangeVO.getCoinList(), replace);
 									if(replaceCoin== null) {
-										System.out.println("Replacing coin is null");
-										System.out.println("Need to create the coin");
+										//System.out.println("Replacing coin is null");
+										//System.out.println("Need to create the coin");
 										replaceCoin = new ExchangeCurrencyVO();
 										 //System.out.println("Coin Not Found : "+ coinName);
 										replaceCoin.setCoinName(replace);
@@ -163,7 +163,7 @@ public class ReportGeneration {
 									tradedSymbol.add(replace);
 									}
 									else {
-										System.out.println("Replaced coin found from list : replacing it..");
+										//System.out.println("Replaced coin found from list : replacing it..");
 										//currently updating upon number of coin by coin factor value
 										//TODO May be required to update the buy ,sell volume and amt to replacing coin 
 										replaceCoin.setTotalAmt(replaceCoin.getTotalAmt().add(originalCoin.getTotalAmt().multiply(mainData.getCoinFactor())));									
@@ -176,7 +176,7 @@ public class ReportGeneration {
 						}//CHECK FOR REPLACE COIN NAME NULL AND EMPTY
 					}
 					else {
-						System.out.println("Replace is false condition here ");
+						//System.out.println("Replace is false condition here ");
 						originalCoin.setTotalAmt(originalCoin.getTotalAmt().multiply(mainData.getCoinFactor()));
 						updateMainNetDetails(originalCoin.getCurrency(),mainData.getCoinFactor());
 					}
@@ -466,7 +466,7 @@ public class ReportGeneration {
 						if(coinstats!= null) 
 						{
 							marketValue=getBigDecimalFromObject(coinstats.get("price"),true);
-							System.out.println(coinstats);
+							//System.out.println(coinstats);
 							if(marketValue != null) 
 							{
 								currentValue = exVO.getTotalAmt().multiply(marketValue);
@@ -607,7 +607,7 @@ public class ReportGeneration {
 		BigDecimal commissionRate;
 		String currency;
 		String commissionCurrency;
-		System.out.println("Coin \t Currency \t Trade Currency Amt \t Transaction Amt \t Transaction Type \t Total Transaction amt ");
+		LOGGER.fine("Coin \t Currency \t Trade Currency Amt \t Transaction Amt \t Transaction Type \t Total Transaction amt ");
 		for(TransactionDetailsVO detailsVO : transactionList){
 			
 			if(detailsVO != null){
@@ -678,12 +678,14 @@ public class ReportGeneration {
 				}
 				tradeCurrency = getXChangeCurrency(currencyList, currency);
 				if(tradeCurrency == null){
+					System.out.println("Date ::: "+detailsVO.getDate()+ " Coin :: "+currency);
 					tradeCurrency = buildCurrencyInXChange(exchangeName, currency, currencyList);
 				}
-				if(commissionCurrency != null  && !currency.equalsIgnoreCase(commissionCurrency)) {
-					tradeCommission=getXChangeCurrency(currencyList, commissionCurrency );
+				if(commissionCurrency != null  && !currency.equalsIgnoreCase(commissionCurrency.trim())) {
+					tradeCommission=getXChangeCurrency(currencyList, commissionCurrency.trim());
 					if(tradeCommission == null) {
-						tradeCommission = buildCurrencyInXChange(exchangeName, commissionCurrency, currencyList);
+						System.out.println("Date ::: "+detailsVO.getDate()+ " Coin :: "+commissionCurrency.trim());
+						tradeCommission = buildCurrencyInXChange(exchangeName, commissionCurrency.trim(), currencyList);
 					}
 				}
 				
@@ -692,7 +694,7 @@ public class ReportGeneration {
 			else
 			{
 				
-				System.out.println("\nNew Exchange Name :"+ exchangeName);
+				LOGGER.fine("\nNew Exchange Name :"+ exchangeName);
 				ExchangeVO exchangeVO= new ExchangeVO();
 				exchangeVO.setExchangeName(exchangeName);
 				xChangeCurrency = new ExchangeCurrencyVO();
@@ -737,12 +739,14 @@ public class ReportGeneration {
 				
 				tradeCurrency = getXChangeCurrency(exList, currency);
 				if(tradeCurrency == null){
+					LOGGER.fine("Date ::: "+detailsVO.getDate()+ " Coin :: "+currency);
 				tradeCurrency = buildCurrencyInXChange(exchangeName, currency, exList);
 				}
-				if(commissionCurrency!= null  && !currency.equalsIgnoreCase(commissionCurrency)) {
+				if(commissionCurrency!= null  && !currency.equalsIgnoreCase(commissionCurrency.trim())) {
 					
 					if(tradeCommission == null) {
-						tradeCommission = buildCurrencyInXChange(exchangeName, commissionCurrency, exList);
+						LOGGER.fine("Date ::: "+detailsVO.getDate()+ " Coin :: "+commissionCurrency.trim());
+						tradeCommission = buildCurrencyInXChange(exchangeName, commissionCurrency.trim(), exList);
 					}
 				}
 				
@@ -784,18 +788,18 @@ public class ReportGeneration {
 			
 			BigDecimal commissionValue = null;
 			BigDecimal effectiveVolume = null;
-			System.out.println();
-			System.out.print(coinName);
-			System.out.print("\t"+ currency);
+			//System.out.println();
+			//System.out.print(coinName);
+			//System.out.print("\t"+ currency);
 			/*System.out.println("Total Amt" + buyPrice);
 			System.out.println("Total Volume "+buyVolume);
 			System.out.println("Total CommissionSepnd"+ totalCommissionSpend);*/
-			System.out.print(" Trans curr = "+ tradeCurrencyAmt+"\t");
+			//System.out.print(" Trans curr = "+ tradeCurrencyAmt+"\t");
 			//System.out.println("*********************************Calculation Part*********");
 			
-			System.out.print(" Bef Vol = "+totalAmt+"\t");
+			//System.out.print(" Bef Vol = "+totalAmt+"\t");
 			crypto.setInitialVol(totalAmt);				  
-			System.out.print(" Tra Vol = "+volume+"\t");
+			//System.out.print(" Tra Vol = "+volume+"\t");
 	        crypto.setTradeVol(volume);
 	        
 	       
@@ -807,7 +811,7 @@ public class ReportGeneration {
 				if(detailsVO.getTransactionType() == 5) {
 					transactionAmt = detailsVO.getTotalTransactionAmt();
 				}
-				System.out.print(" Trans Amt = "+transactionAmt+"\t");
+				//System.out.print(" Trans Amt = "+transactionAmt+"\t");
 	            crypto.setTransactionAmt(transactionAmt);
 				//purchasing coin volume does not get affected in this method of transaction 
 				effectiveVolume = volume;
@@ -820,8 +824,8 @@ public class ReportGeneration {
 					tradeCurrencyAmt=tradeCurrencyAmt.subtract(transactionAmt.add(commissionValue));
 					totalCommissionSpend = totalCommissionSpend.add(commissionValue);
 					//System.out.println("effectiveVolume : "+effectiveVolume);
-					System.out.print("BUY ORDER");
-					System.out.print("\t"+commissionValue);
+					//System.out.print("BUY ORDER");
+					//System.out.print("\t"+commissionValue);
 					crypto.setCommissionValue(commissionValue);
 					crypto.setCommissionType(TRANSACT_AMT);									  
 				}
@@ -832,21 +836,21 @@ public class ReportGeneration {
 					commissionValue = volume.multiply(price).multiply(commissionRate).setScale(8, RoundingMode.HALF_UP);
 					//purchasing coin volume get affected in this method of transaction 
 					effectiveVolume = volume.subtract(volume.multiply(commissionRate));
-					System.out.print("Eff vol : "+effectiveVolume);
+					//System.out.print("Eff vol : "+effectiveVolume);
 					crypto.setEffectiveTradeVol(effectiveVolume);
 					crypto.setCommissionValue(volume.multiply(commissionRate));								
 					totalCommissionSpend = totalCommissionSpend.add(commissionValue);
 					//System.out.println("effectiveVolume : "+effectiveVolume);
-					System.out.print("BUY ORDER");
-					System.out.print("\t comission value ="+" ");
+					//System.out.print("BUY ORDER");
+					//System.out.print("\t comission value ="+" ");
 					crypto.setCommissionType(TRANS_VOLUME);											
 				}
 				else if(detailsVO.getCommissionType() == 3 || detailsVO.getCommissionType() == 5) {		
 					if (detailsVO.getCommissionType() == 3) {
 						//transaction coin as commission , but commission is fixed amount
-						System.out.println("trade Currency Amt "+tradeCurrencyAmt);
+						//System.out.println("trade Currency Amt "+tradeCurrencyAmt);
 						tradeCurrencyAmt = tradeCurrencyAmt.subtract(transactionAmt.add(commissionRate));
-						System.out.println("trade Currency Amt "+tradeCurrencyAmt);
+						//System.out.println("trade Currency Amt "+tradeCurrencyAmt);
 						totalCommissionSpend = totalCommissionSpend.add(commissionRate);
 					}
 					else 
@@ -858,8 +862,8 @@ public class ReportGeneration {
 					}
 					
 					
-					System.out.print("BUY ORDER");
-					System.out.print("\t"+commissionRate);
+					//System.out.print("BUY ORDER");
+					//System.out.print("\t"+commissionRate);
 					crypto.setCommissionValue(commissionRate);
 					crypto.setCommissionType(TRANS_VOLUME);																	 
 					
@@ -868,8 +872,8 @@ public class ReportGeneration {
 					//Commission other than transaction,purchasing coin , but commission is fixed amount
 					tradeCommission.setTotalAmt(tradeCommission.getTotalAmt().subtract(commissionRate));
 					tradeCurrencyAmt=tradeCurrencyAmt.subtract(transactionAmt);
-					System.out.print("BUY ORDER");
-					System.out.print("\t"+commissionRate);
+					//System.out.print("BUY ORDER");
+					//System.out.print("\t"+commissionRate);
 					crypto.setCommissionValue(commissionRate);
 					crypto.setCommissionType(TRANS_VOLUME);										   
 				}
@@ -905,7 +909,7 @@ public class ReportGeneration {
 					transactionAmt = detailsVO.getTotalTransactionAmt();
 					//System.out.print("setting "+transactionAmt);
 				}
-				System.out.print(" Trans Amt = "+transactionAmt+"\t");
+				//System.out.print(" Trans Amt = "+transactionAmt+"\t");
 				crypto.setTransactionAmt(transactionAmt);																					  
 				effectiveVolume = volume;
 				if(detailsVO.getCommissionType() == AMOUNT_BASED)
@@ -914,8 +918,8 @@ public class ReportGeneration {
 					commissionValue = transactionAmt.multiply(commissionRate).setScale(8, RoundingMode.HALF_UP);					
 					tradeCurrencyAmt=tradeCurrencyAmt.add(transactionAmt.subtract(commissionValue));
 					totalCommissionSpend = totalCommissionSpend.add(commissionValue);
-					System.out.print("SELL ORDER");
-					System.out.print("\t"+commissionValue);
+					//System.out.print("SELL ORDER");
+					//System.out.print("\t"+commissionValue);
 					crypto.setCommissionValue(commissionValue);
 					crypto.setCommissionType(TRANSACT_AMT);	   
 				
@@ -927,8 +931,8 @@ public class ReportGeneration {
 					commissionValue = transactionAmt.multiply(commissionRate).setScale(8, RoundingMode.HALF_UP);					
 					tradeCurrencyAmt=tradeCurrencyAmt.add(transactionAmt.subtract(commissionValue));
 					totalCommissionSpend = totalCommissionSpend.add(commissionValue);
-					System.out.print("SELL ORDER");
-					System.out.print("\t"+commissionValue);
+					//System.out.print("SELL ORDER");
+					//System.out.print("\t"+commissionValue);
 					crypto.setCommissionValue(commissionValue);
 					crypto.setCommissionType(TRANS_VOLUME);	
 				}
@@ -949,8 +953,8 @@ public class ReportGeneration {
 						
 					}
 					
-					System.out.print("SELL ORDER");
-					System.out.print("\t"+commissionRate);
+					//System.out.print("SELL ORDER");
+					//System.out.print("\t"+commissionRate);
 	                crypto.setCommissionValue(commissionRate);
 					crypto.setCommissionType(TRANS_VOLUME);
 				}
@@ -971,8 +975,8 @@ public class ReportGeneration {
 						tradeCommission.setTotalAmt(tradeCommission.getTotalAmt().subtract(commissionRate));
 						tradeCurrencyAmt=tradeCurrencyAmt.add(transactionAmt);
 					}
-					System.out.print("SELL ORDER");
-					System.out.print("\t"+commissionRate);
+					//System.out.print("SELL ORDER");
+					//System.out.print("\t"+commissionRate);
 					crypto.setCommissionValue(commissionRate);
 					crypto.setCommissionType(TRANS_VOLUME);				  
 				}
@@ -1009,7 +1013,7 @@ public class ReportGeneration {
 				totalAmt = totalAmt.add(effectiveVolume);
 				tradeCurrencyAmt=tradeCurrencyAmt.add(effectiveVolume);
 				crypto.setTransactionType("DEPOSIT");							  
-				System.out.print("DEPOSIT ORDER");
+				//System.out.print("DEPOSIT ORDER");
 				//TODO commission for Deposit Rate needs to be calculated 
 				xChangeTransferRate=xChangeTransferRate.add(commissionRate);
 				System.out.print("\t"+commissionRate);
@@ -1023,13 +1027,13 @@ public class ReportGeneration {
 				withdrawAmt=withdrawAmt.add(volume);
 				totalAmt = totalAmt.subtract(volume);
 				tradeCurrencyAmt=tradeCurrencyAmt.subtract(volume);
-				System.out.print("WITHDRAWAL ORDER");
+				//System.out.print("WITHDRAWAL ORDER");
 				crypto.setTransactionType("WITHDRAWAL");
 				crypto.setCommissionType(TRANS_VOLUME);						  
 				//TODO commission for Withdrawal Rate needs to be calculated
 				xChangeTransferRate=xChangeTransferRate.add(commissionRate);
-				System.out.print("\t"+effectiveVolume);
-				System.out.print("\t"+commissionRate);
+				//System.out.print("\t"+effectiveVolume);
+				//System.out.print("\t"+commissionRate);
 				crypto.setCommissionValue(commissionRate);			 
 			}
 			else if(detailsVO.getTransactionType() ==6) 
@@ -1040,16 +1044,16 @@ public class ReportGeneration {
 				sellPrice= sellPrice.add(detailsVO.getTotalTransactionAmt());
 				totalAmt = totalAmt.subtract(effectiveVolume);
 				
-				System.out.print("SELL ORDER");
+				//System.out.print("SELL ORDER");
 				crypto.setTransactionType("SELL");
 				crypto.setCommissionType(TRANS_VOLUME);
-				System.out.print("\t"+commissionValue);
+				//System.out.print("\t"+commissionValue);
 				crypto.setCommissionValue(commissionValue);
 			}
 			
-			System.out.print(" Final Curr Amt \t"+tradeCurrencyAmt);
+			//System.out.print(" Final Curr Amt \t"+tradeCurrencyAmt);
 			crypto.setFinalTradeVol(tradeCurrencyAmt);						   
-			System.out.print(" Aft Vol \t"+totalAmt);
+			//System.out.print(" Aft Vol \t"+totalAmt);
 			crypto.setFinalVol(totalAmt);
 			crypto.setCoinName(coinName);
 			crypto.setTransactionCoin(currency);

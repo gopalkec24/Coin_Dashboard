@@ -16,6 +16,10 @@ public class ExchangeFactory {
 		{
 			exchange = new BitsoTrade();
 		}
+		else if(exchangeName.equalsIgnoreCase("LIVECOIN"))
+		{
+			exchange = new LivecoinTrade();
+		}
 		else
 		{
 			TradeLogger.LOGGER.severe("No Implementation for exchange : "+ exchangeName);

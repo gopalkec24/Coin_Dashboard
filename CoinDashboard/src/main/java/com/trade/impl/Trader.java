@@ -226,7 +226,7 @@ public class Trader {
 	
 private ATMarketStaticsVO generateDummyMarketStaticsVO() {
 		ATMarketStaticsVO maketVO = new ATMarketStaticsVO();
-		return null;
+		return maketVO;
 	}
 public ATOrderDetailsVO generateOrderDetailsForGet(TradeDataVO data) {
 		

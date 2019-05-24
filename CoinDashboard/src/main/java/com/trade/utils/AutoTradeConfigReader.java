@@ -3,6 +3,9 @@ package com.trade.utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -280,5 +283,22 @@ public static int getWaitCount(){
 	}
 	
 	return DEFAULT_MAXIMUM_WAIT_COUNT;
+}
+
+public static Collection<? extends String> getNotifier() {
+	List<String> recipents= new ArrayList<String>();
+	try {
+		if(AutoTradeConfigReader.getConfigValues().containsKey("notificationRecipients")) {
+			String notificationRec = (String) AutoTradeConfigReader.getConfigValues().get("notificationRecipients");
+			
+			for(String recipient : notificationRec.split(":")) {
+				recipents.add(recipient);
+			}
+		}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return recipents;
 }
 }

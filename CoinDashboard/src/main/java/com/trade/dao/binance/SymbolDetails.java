@@ -211,6 +211,10 @@ public class SymbolDetails {
 						this.tickSize = getBigDecimalValue(filter.get("tickSize"));
 						this.initialPriceFilter = true;
 					}
+					else if(value.equalsIgnoreCase("MIN_NOTIONAL")) {
+						this.minNotional = getBigDecimalValue(filter.get("minNotional"));
+						this.initialPriceFilter = true;
+					}
 
 				}
 			} 

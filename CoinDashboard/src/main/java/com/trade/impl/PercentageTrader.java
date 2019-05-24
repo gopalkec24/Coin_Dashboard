@@ -469,6 +469,7 @@ public class PercentageTrader extends Trader implements IAutoTrader {
 							if((getDetailVO.getTransactionTime() + AutoTradeConfigReader.getTransactionTimeOut()) < System.currentTimeMillis()) 
 							{
 								TradeLogger.LOGGER.info("Making  order to delete Since  "+ (getDetailVO.getTransactionTime() + AutoTradeConfigReader.getTransactionTimeOut() )+ " milliseconds . Current Time"+System.currentTimeMillis());
+								
 								data.setTriggerEventForHistory(TraderConstants.MARK_FOR_DELETE_CREATE_NEW);
 								data.setRemarks("Marking order to delete ");
 								cancelOrderReTriggerForNewTradeCondition(data);

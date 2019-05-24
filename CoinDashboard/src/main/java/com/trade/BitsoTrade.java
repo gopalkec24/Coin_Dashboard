@@ -11,9 +11,11 @@ import com.trade.constants.TraderConstants;
 import com.trade.dao.ATMarketStaticsVO;
 import com.trade.dao.ATOrderDetailsVO;
 import com.trade.dao.bitso.BitsoDeleteOrderVO;
+import com.trade.dao.bitso.BitsoError;
 import com.trade.dao.bitso.BitsoOrderResponse;
 import com.trade.dao.bitso.BitsoOrderVO;
 import com.trade.dao.bitso.BitsoPayload;
+import com.trade.dao.bitso.BitsoPriceStatusVO;
 import com.trade.dao.bitso.BitsoResponse;
 import com.trade.exception.AutoTradeException;
 import com.trade.utils.AutoTradeUtilities;
@@ -27,11 +29,12 @@ public class BitsoTrade extends BaseTrade{
 	private static final String EX_STATUS_OPEN = "open";
 	private static final String API_ENDPOINT = "https://api.bitso.com";
 	private static final String RESOURCE_ORDER = "/v3/orders/";
-	private static final String API_KEY= "CjcnRrbVhS";
+	private static final String API_KEY= "";
 	private static final String SECRET_KEY="";
 	public static WebTarget target = null;
 	public static Mac mac = null;
 	private static final String ALGORITHM="HmacSHA256";
+	private static final String PRICE_TICKER = "/v3/ticker/";
 	
 
 	public ATOrderDetailsVO placeOrder(ATOrderDetailsVO orderDetails) {
@@ -263,12 +266,14 @@ public class BitsoTrade extends BaseTrade{
 					orderDetails.setTransactionTime(System.currentTimeMillis());
 					orderDetails.setClientStatus(TradeStatusCode.DEFAULT_SUCCESS_CODE + "");
 					orderDetails.setSuccess(true);
+					orderDetails.setResultCode(TradeStatusCode.DELETE_ORDER_SUCCESS);
 				}
 				else {
 					orderDetails.setSuccess(false);
 					orderDetails.setClientStatusCode("INVALID ORDER ID");
 					orderDetails.setClientStatus("UNKNOWN ORDER ID");
 					orderDetails.addErrorMessage("AT MSG: Invalid order id passed");
+					orderDetails.setResultCode(TradeStatusCode.DELETE_ORDER_FAILURE);
 				}
 				
 			}
@@ -283,6 +288,7 @@ public class BitsoTrade extends BaseTrade{
 				orderDetails.setClientStatusCode(resObj.getError().getCode()+"");
 				orderDetails.addErrorMessage("CLIENT MSG" +resObj.getError().getMessage());
 				orderDetails.setSuccess(false);
+				orderDetails.setResultCode(TradeStatusCode.DELETE_ORDER_FAILURE);
 				
 			}
 			
@@ -299,7 +305,7 @@ public class BitsoTrade extends BaseTrade{
 		else if(status.equalsIgnoreCase("partial-fill")) {
 			returnValue = TraderConstants.PARTIALLY_EXECUTED;
 		}
-		else if(status.equalsIgnoreCase("FILLED")) {
+		else if(status.equalsIgnoreCase("FILLED")||status.equalsIgnoreCase("COMPLETED")) {
 			returnValue =TraderConstants.EXECUTED;
 		}
 		else if(status.equalsIgnoreCase("cancelled")) {
@@ -311,6 +317,7 @@ public class BitsoTrade extends BaseTrade{
 		else if(status.equalsIgnoreCase("EXPIRED")) {
 			returnValue = TraderConstants.EXPIRED;
 		}
+		
 		return returnValue;
 	}
 	public String getSymbolForExchange(String coin, String currency) {
@@ -336,7 +343,64 @@ public class BitsoTrade extends BaseTrade{
 
 
 	public ATMarketStaticsVO getExchangePriceStatics(String symbol, String currency) throws AutoTradeException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		 ATMarketStaticsVO marketStaticsVO = new ATMarketStaticsVO();
+		 marketStaticsVO.setExchangeName("BITSO");
+		 marketStaticsVO.setCurrency(currency);
+		 marketStaticsVO.setSymbol(symbol);
+
+		 if(AutoTradeUtilities.isNullorEmpty(symbol) || AutoTradeUtilities.isNullorEmpty(currency))
+		 {
+			 throw new AutoTradeException("symbol name or Currency cannot null value. Please pass the value." );
+		 }
+		 
+		 
+		 WebTarget target = getTarget().path(PRICE_TICKER);
+
+		 String symbolForEx = getSymbolForExchange(symbol, currency);
+		 target=target.queryParam("book",symbolForEx);
+
+		 TradeLogger.LOGGER.fine("Final Request URL : "+  target.getUri());
+		 
+		 Response response = target.request().get();
+		 BitsoPriceStatusVO responseValue = null;
+		 BitsoError error = null;
+
+		 if(response.getStatus() == 200) 
+		 {
+			 TradeLogger.LOGGER.finest(response.getHeaderString("content-type"));
+			 responseValue = response.readEntity(BitsoPriceStatusVO.class);
+			 mapMarKetStatics(responseValue,marketStaticsVO);
+			 marketStaticsVO.setSuccess(true);
+		 }
+		 else
+		 {
+			 String errorMsg = response.readEntity(String.class);
+			 TradeLogger.LOGGER.severe(errorMsg);			
+			 marketStaticsVO.setSuccess(false);
+			 if (response.getStatus() != 407) 
+			 {
+				 error = (BitsoError) getDAOObject(errorMsg, BitsoError.class);
+				 TradeLogger.LOGGER.severe("Error Code " + error.getCode());
+				 TradeLogger.LOGGER.severe("Error Message " + error.getMessage());
+
+			 }
+
+		 }
+
+		return marketStaticsVO;
+	}
+
+
+	private void mapMarKetStatics(BitsoPriceStatusVO responseValue, ATMarketStaticsVO marketStaticsVO) {
+		
+		
+		//only percentage base Trading is possible
+		
+		marketStaticsVO.setLastPrice(AutoTradeUtilities.getBigDecimalValue(responseValue.getPayload().getLast()));
+		marketStaticsVO.setHighPrice(AutoTradeUtilities.getBigDecimalValue(responseValue.getPayload().getHigh()));
+		marketStaticsVO.setLowPrice(AutoTradeUtilities.getBigDecimalValue(responseValue.getPayload().getLow()));
+		marketStaticsVO.setExchangePrice(true);
+		
 	}
 }

@@ -22,6 +22,8 @@ public class TradeStatusCode {
 
 	public static final int FETCH_FAILURE_CODE = 4404;
 	
+	public static final int DEFAULT_ERROR_CODE = 400;
+	
 	
 
 }

@@ -135,7 +135,7 @@ public class GetCurrentRate {
 			(conn.getInputStream())));
 
 		String output;
-		System.out.println("Output from Server .... \n");
+		//System.out.println("Output from Server .... \n");
 		while ((output = br.readLine()) != null) {
 			//System.out.println(output);
 			response.append(output);

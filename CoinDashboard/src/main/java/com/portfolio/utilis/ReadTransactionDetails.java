@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+
 import com.portfolio.dao.TransactionDetailsVO;
 
 public class ReadTransactionDetails {
@@ -25,7 +27,7 @@ public class ReadTransactionDetails {
 	
 
 
-	
+	public static final Logger logger = Logger.getLogger(ReadTransactionDetails.class.getName());
 	
 	
 	public static void main(String[] args) {
@@ -55,7 +57,8 @@ public class ReadTransactionDetails {
 				while ((line = br.readLine()) != null) 
 				{
 					//line is empty and startswith # means it is comment in transaction
-					System.out.println(line);
+					//System.out.println(line);
+					logger.fine(line);
 					if(line.length()<0 || line.equalsIgnoreCase("") ||line.startsWith("#"))
 					{
 						continue;
@@ -81,9 +84,9 @@ public class ReadTransactionDetails {
 						continue;
 					}
 					
-					System.out.println(" Trade Currency: "+ transactionDetails[TRANS_CURRENCY_INDEX]+ " Commission Currency : "+commissionCurrency);
+					//System.out.println(" Trade Currency: "+ transactionDetails[TRANS_CURRENCY_INDEX]+ " Commission Currency : "+commissionCurrency);
 					if(tradeCurrency != null &&!( tradeCurrency.equalsIgnoreCase(coinName)|| (tradeCurrency.equalsIgnoreCase(transactionDetails[TRANS_CURRENCY_INDEX]) || (commissionCurrency!= null && commissionCurrency.equalsIgnoreCase(tradeCurrency)) ))) {
-						System.out.print("  Skipped\n");
+						logger.fine("  Skipped\n");
 						continue;
 					}
 					
