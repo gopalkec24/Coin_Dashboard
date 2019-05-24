@@ -4,14 +4,16 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import com.trade.constants.TraderConstants;
+import com.trade.dao.ATMarketStaticsVO;
 import com.trade.dao.ATOrderDetailsVO;
+import com.trade.exception.AutoTradeException;
 
 public class BitsoTradeTest {
 
 	public static void main(String[] args) {
 		
 		BitsoTrade bitSoTrade = new BitsoTrade();
-		bitSoTrade.getBalance();
+		//bitSoTrade.getBalance();
 		/*ATOrderDetailsVO orderDetails = new ATOrderDetailsVO();
 		orderDetails.setOrderId("gcIcMYgrL3ckUOLq");
 		orderDetails.setOrderType(TraderConstants.GET_CALL);
@@ -63,6 +65,18 @@ public class BitsoTradeTest {
 		//bitSoTrade.deleteOrder(deleteOrderDetailsForBitso);
 		 
 		System.out.println(deleteOrderDetailsForBitso.getClientStatus());*/
+		
+		
+
+		try {
+		ATMarketStaticsVO marketstatucsVO= bitSoTrade.getExchangePriceStatics("BTC", "MXN");
+		System.out.println("LAst PRice " +marketstatucsVO.getLastPrice());
+		System.out.println("low price "+ marketstatucsVO.getLowPrice());
+		System.out.println("high price "+ marketstatucsVO.getHighPrice());
+		} catch (AutoTradeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

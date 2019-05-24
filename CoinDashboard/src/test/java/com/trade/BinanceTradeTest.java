@@ -32,14 +32,14 @@ public class BinanceTradeTest {
 		
 		//Test to place the order
 		ATOrderDetailsVO placeOrderDetails = new ATOrderDetailsVO();
-		placeOrderDetails.setCoin("NEO");		
-		placeOrderDetails.setCurrency("USDT");
+		placeOrderDetails.setCoin("ETH");		
+		placeOrderDetails.setCurrency("BTC");
 		placeOrderDetails.setExchange("BINANCE");
-		BigDecimal orderPrice = new BigDecimal("8.40708000");
+		BigDecimal orderPrice = new BigDecimal("0.03531300");
 		placeOrderDetails.setOrderPrice(orderPrice);
 		placeOrderDetails.setOrderType(TraderConstants.BUY_CALL);
 		placeOrderDetails.setOrderSubType(TraderConstants.LIMIT_ORDER);
-		BigDecimal quantity = new BigDecimal("10.01").divide(orderPrice,8,RoundingMode.HALF_UP);
+		BigDecimal quantity = new BigDecimal("0.001001").divide(orderPrice,8,RoundingMode.HALF_UP);
 		System.out.println("Quantitu " + quantity);		
 		placeOrderDetails.setQuantity(quantity);
 		System.out.println(quantity.toPlainString());
