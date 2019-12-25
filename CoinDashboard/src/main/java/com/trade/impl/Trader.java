@@ -16,6 +16,7 @@ import com.trade.dao.ATMarketStaticsVO;
 import com.trade.dao.ATOrderDetailsVO;
 import com.trade.dao.MarketStaticsVO;
 import com.trade.dao.TradeDataVO;
+import com.trade.notification.NotificationSender;
 import com.trade.utils.AutoTradeConfigReader;
 import com.trade.utils.AutoTradeUtilities;
 import com.trade.utils.TradeClient;
@@ -142,6 +143,7 @@ public class Trader {
 	
 	
 	public void updateTradeData(TradeDataVO data, ATOrderDetailsVO placeOrder) {
+		List<String>recipients= (List<String>) AutoTradeConfigReader.getNotifier();
 		if(placeOrder.isSuccess() && !TradeClient.isNullorEmpty(placeOrder.getOrderId())) 
 		{
 			TradeLogger.LOGGER.info("Order placed to Exchange was successful");
@@ -149,20 +151,29 @@ public class Trader {
 			data.setTriggerEventForHistory(TraderConstants.ORDER_TRIGGERED);
 			data.setOrderTriggeredPrice(placeOrder.getOrderPrice());
 			data.setRemarks("Order placed to Exchange was successful");
+			
+			if(recipients.size() >0)
+			NotificationSender.sendNotificationMessage("Order was placed to Exchange "+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
 		}
 		else if(placeOrder.isSuccess() && TradeClient.isNullorEmpty(placeOrder.getOrderId()))
 		{
 			data.setRemarks("Invalid Scenario . Please contact Administrator for more info");
 			data.setTriggerEventForHistory(TraderConstants.ERROR_CALL);
+			if(recipients.size() >0)
+				NotificationSender.sendNotificationMessage("Invalid Scenario in order placing "+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
 		}
 		else if (!placeOrder.isSuccess())
 		{
 			data.setRemarks(placeOrder.getErrorMsg());
 			data.setTriggerEventForHistory(TraderConstants.ERROR_CALL);
+			if(recipients.size() >0)
+				NotificationSender.sendNotificationMessage("Error in Placing the Order : "+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
 		}
 		else 
 		{
 			data.setRemarks("Invalid Scenario . Please contact Administrator for more info");
+			if(recipients.size() >0)
+				NotificationSender.sendNotificationMessage("Unexcepted Behaviour in placing the order"+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
 		}
 	}
 	
@@ -212,6 +223,8 @@ public class Trader {
 		tradeData.setBasePrice(data.getBasePrice());
 		tradeData.setMaxPercentage(data.getMaxPercentage());
 		tradeData.setMinPercentage(data.getMinPercentage());
+		tradeData.setAddTimeout(data.getAddTimeout());
+		tradeData.setCyclic(data.isCyclic());
 		ATMarketStaticsVO marketStaticsVO = generateDummyMarketStaticsVO();
 		tradeData.addPriceHistory(getMarketStaticsVO(marketStaticsVO, data.getPriceHistory().size(), "New order created from old ID "+ data.getAtOrderId()));
 		initializeWLHCountToZero(tradeData);
@@ -221,6 +234,10 @@ public class Trader {
 		data.setRemarks("New counter order was created for this order");
 		
 		data.addPriceHistory(getMarketStaticsVO(marketStaticsVO, data.getPriceHistory().size(), "New counter order was created "));
+		List<String>recipients= (List<String>) AutoTradeConfigReader.getNotifier();
+		if(recipients.size() >0)
+			NotificationSender.sendNotificationMessage("New counter order was created"+ tradeData.getExchange() + "|"+tradeData.getCoin()+"|"+tradeData.getCurrency()+"|"+tradeData.getTransactionType()+"|"+tradeData.getOrderTriggeredPrice()+"|"+tradeData.getCoinVolume()+"|"+tradeData.getTradeCurrencyVolume(), recipients);
+		
 		return tradeData;
 	}
 	

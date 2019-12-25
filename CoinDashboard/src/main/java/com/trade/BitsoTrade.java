@@ -152,6 +152,7 @@ public class BitsoTrade extends BaseTrade{
 			returnValue = response.readEntity(String.class);
 			TradeLogger.LOGGER.severe(returnValue);
 		}
+		 response.close();
 		
 	}
 	public ATOrderDetailsVO getOrderStatus(ATOrderDetailsVO orderDetails) {
@@ -193,6 +194,12 @@ public class BitsoTrade extends BaseTrade{
 							//2019-01-02T20:54:59+0000
 							orderDetails.setTransactionTime(TradeClient.getTimeInMSFromString(payload.getCreated_at(),"yyyy-MM-dd'T'HH:mm:ssZ"));
 						}
+						if(payload.getOriginal_amount()!= null && !payload.getOriginal_amount().isEmpty()) {
+							orderDetails.setExecutedQuantity(AutoTradeUtilities.getBigDecimalValue(payload.getOriginal_amount()));
+						}
+						if(payload.getPrice()!= null && !payload.getPrice().isEmpty()) {
+							orderDetails.setOrderPrice(AutoTradeUtilities.getBigDecimalValue(payload.getPrice()));
+						}
 					}				
 					
 					orderDetails.setSuccess(true);
@@ -219,6 +226,7 @@ public class BitsoTrade extends BaseTrade{
 				orderDetails.setSuccess(false);
 				
 			}
+			 response.close();
 		}
 		
 		return orderDetails;
@@ -291,7 +299,7 @@ public class BitsoTrade extends BaseTrade{
 				orderDetails.setResultCode(TradeStatusCode.DELETE_ORDER_FAILURE);
 				
 			}
-			
+			 response.close();
 			
 		}
 		return orderDetails;
@@ -302,7 +310,7 @@ public class BitsoTrade extends BaseTrade{
 		if(status.equalsIgnoreCase(EX_STATUS_OPEN)) {
 			returnValue = TraderConstants.NEW;
 		}
-		else if(status.equalsIgnoreCase("partial-fill")) {
+		else if(status.equalsIgnoreCase("partial-fill")||status.equalsIgnoreCase("partially filled")) {
 			returnValue = TraderConstants.PARTIALLY_EXECUTED;
 		}
 		else if(status.equalsIgnoreCase("FILLED")||status.equalsIgnoreCase("COMPLETED")) {
@@ -387,6 +395,7 @@ public class BitsoTrade extends BaseTrade{
 			 }
 
 		 }
+		 response.close();
 
 		return marketStaticsVO;
 	}

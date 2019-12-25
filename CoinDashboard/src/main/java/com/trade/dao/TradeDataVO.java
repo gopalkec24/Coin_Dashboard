@@ -27,8 +27,18 @@ public class TradeDataVO {
 	BigDecimal minPercentage=TraderConstants.NEGATIVE_ONE;
 	BigDecimal maxPercentage=TraderConstants.NEGATIVE_ONE;
 	
+	BigDecimal projectedPrice = TraderConstants.NEGATIVE_ONE;
 	
 	
+	
+	public BigDecimal getProjectedPrice() {
+		return projectedPrice;
+	}
+
+	public void setProjectedPrice(BigDecimal projectedPrice) {
+		this.projectedPrice = projectedPrice;
+	}
+
 	public BigDecimal getMinPercentage() {
 		return minPercentage;
 	}
@@ -398,4 +408,43 @@ public class TradeDataVO {
 	public void decreaseLowerCount(){
 		this.lowCount--;
 	}
+	
+	public boolean cyclic = true;
+
+
+
+	public boolean isCyclic() {
+		return cyclic;
+	}
+
+	public void setCyclic(boolean cyclic) {
+		this.cyclic = cyclic;
+	}
+	
+	 public boolean reInitialLP = false;
+
+
+
+	public boolean isReInitialLP() {
+		return reInitialLP;
+	}
+
+	public void setReInitialLP(boolean reInitialLP) {
+		this.reInitialLP = reInitialLP;
+	}
+	 
+	 public long addTimeout = 0;
+
+
+
+	public long getAddTimeout() {
+		return addTimeout;
+	}
+
+	public void setAddTimeout(long addTimeout) {
+		this.addTimeout = addTimeout;
+	}
+	 
+	
+	
 }

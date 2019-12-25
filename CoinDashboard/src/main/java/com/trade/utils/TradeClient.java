@@ -2,17 +2,23 @@ package com.trade.utils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.Authenticator;
+import java.net.URLConnection;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
+import java.util.logging.Level;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScheme;
@@ -32,6 +38,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.engines.ApacheHttpClient4Engine;
+import org.jboss.resteasy.client.jaxrs.engines.URLConnectionEngine;
 
 @SuppressWarnings("deprecation")
 public class TradeClient {
@@ -40,12 +47,24 @@ public class TradeClient {
 	private static  String PROXY_HOSTNAME = "csez-s500";
 	private static  int PROXY_PORT = 8080;
 	private static  String PROXY_AUTH_USERNAME = "hcltech\natarajan_g";
-	private static String  PROXY_AUTH_PASSWORD = "Gopalus@54";
+	private static String  PROXY_AUTH_PASSWORD = "Gopalsw@54";
 	public static WebTarget getClient(String endpoint,boolean proxy) {
 		
 		System.out.println(ClientBuilder.JAXRS_DEFAULT_CLIENT_BUILDER_PROPERTY);
 	
 		ClientBuilder cb = ClientBuilder.newBuilder();		
+		Client client = cb.build();		
+		WebTarget target = client.target(endpoint);
+		
+		return target;
+		
+	}
+public static WebTarget getClientV1(String endpoint,boolean proxy) {
+		
+		System.out.println(ClientBuilder.JAXRS_DEFAULT_CLIENT_BUILDER_PROPERTY);
+	
+		ClientBuilder cb = ClientBuilder.newBuilder();	
+		System.out.println(cb.getConfiguration().getProperties());
 		Client client = cb.build();		
 		WebTarget target = client.target(endpoint);
 		
@@ -71,22 +90,56 @@ public class TradeClient {
 			    new UsernamePasswordCredentials(PROXY_AUTH_USERNAME, PROXY_AUTH_PASSWORD));
 			
 			AuthCache authCache = new BasicAuthCache();
+			
 			AuthScheme basicAuth = new BasicScheme();
+			
+			
 			authCache.put(hostProxy, basicAuth);
 			
 			BasicHttpContext localContext = new BasicHttpContext();
 			localContext.setAttribute(ClientContext.AUTH_CACHE, authCache);
+			//localContext.setAttribute(ClientContext.CREDS_PROVIDER, credsProvider);
 			
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			 httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, hostProxy);
-			ApacheHttpClient4Engine engine = new ApacheHttpClient4Engine(httpClient, localContext);
-			 client = new ResteasyClientBuilder().httpEngine(engine).build();
 			
+			ApacheHttpClient4Engine engine = new ApacheHttpClient4Engine(httpClient, localContext);
+			
+			 client = new ResteasyClientBuilder().httpEngine(engine).build();
+			 System.out.println(httpClient.getParams());
 		}
 		else
 		{
 		client= ClientBuilder.newBuilder().build();
 		}
+		WebTarget target = client.target(endpoint);
+		
+		return target;
+		
+	}
+	
+	public static WebTarget getAdvancedClientV1(String endpoint,boolean proxy) 
+	{
+		
+		Client client = null;
+		
+		
+			System.setProperty("http.proxyHost", PROXY_HOSTNAME);
+			System.setProperty("http.proxyPort", PROXY_PORT+"");
+			System.setProperty("https.proxyHost", PROXY_HOSTNAME);
+			System.setProperty("https.proxyPort", PROXY_PORT+"");
+	
+			String encoded = new String(Base64.encodeBase64((PROXY_AUTH_USERNAME + ":" + PROXY_AUTH_PASSWORD).getBytes()));
+            
+            Authenticator.setDefault(new ProxyAuth(PROXY_AUTH_USERNAME, PROXY_AUTH_PASSWORD));
+            
+           URLConnectionEngine engine= new URLConnectionEngine();
+           
+            
+            client = new ResteasyClientBuilder().httpEngine(engine).build();
+            
+	
+		
 		WebTarget target = client.target(endpoint);
 		
 		return target;
@@ -157,13 +210,13 @@ public class TradeClient {
 		try {
 			error = mapper.readValue(errorMsg,target);
 		} catch (JsonParseException e) {
-			
+			TradeLogger.LOGGER.log(Level.SEVERE, "Conversion Error", e);
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
-			
+			TradeLogger.LOGGER.log(Level.SEVERE, "Conversion Error", e);
 			e.printStackTrace();
 		} catch (IOException e) {
-			
+			TradeLogger.LOGGER.log(Level.SEVERE, "Conversion Error", e);
 			e.printStackTrace();
 		}
 		return error;

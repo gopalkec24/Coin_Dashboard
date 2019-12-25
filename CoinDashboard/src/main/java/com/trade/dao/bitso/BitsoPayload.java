@@ -1,5 +1,8 @@
 package com.trade.dao.bitso;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class BitsoPayload {
 	
 	String oid;
@@ -102,7 +105,5 @@ public class BitsoPayload {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
 
 }

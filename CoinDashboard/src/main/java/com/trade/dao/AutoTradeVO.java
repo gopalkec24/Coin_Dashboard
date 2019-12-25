@@ -6,6 +6,7 @@ public class AutoTradeVO {
 
 	long lastUpdatedTime;
 	List<TradeDataVO> tradeData;
+	
 	public long getLastUpdatedTime() {
 		return lastUpdatedTime;
 	}

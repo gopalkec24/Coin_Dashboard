@@ -8,6 +8,8 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.json.JSONObject;
+
 import com.trade.constants.TraderConstants;
 import com.trade.dao.ATMarketStaticsVO;
 import com.trade.dao.ATOrderDetailsVO;
@@ -88,7 +90,7 @@ public class BinanceTrade extends BaseTrade
 	public String getOrderDetails(String symbol) 
 	{
 		//timestamp is mandatory one 		
-		WebTarget target = getTarget().path(RESOURCE_OPENORDER).queryParam(BINANCE_TIMESTAMP,System.currentTimeMillis());
+		WebTarget target = getTarget().path(RESOURCE_OPENORDER).queryParam(BINANCE_TIMESTAMP,getTimeStamp());
 		//symbol is not mandatory one
 		if(symbol!= null && !symbol.equalsIgnoreCase("")) 
 		{
@@ -137,7 +139,7 @@ public class BinanceTrade extends BaseTrade
 	public String getAllOrderDetails(String symbol) 
 	{
 		//timestamp is mandatory one 		
-		WebTarget target = getTarget().path("/api/v3/allOrders").queryParam(BINANCE_TIMESTAMP,System.currentTimeMillis());
+		WebTarget target = getTarget().path("/api/v3/allOrders").queryParam(BINANCE_TIMESTAMP,getTimeStamp());
 		//symbol is not mandatory one
 		if(symbol!= null && !symbol.equalsIgnoreCase("")) 
 		{
@@ -187,7 +189,7 @@ public class BinanceTrade extends BaseTrade
 	{
 		 int resultCode = TradeStatusCode.DELETE_ORDER_FAILURE;
 		//timestamp is mandatory one 		
-		WebTarget target = getTarget().path(RESOURCE_ORDER_DELETE).queryParam(BINANCE_TIMESTAMP,System.currentTimeMillis());
+		WebTarget target = getTarget().path(RESOURCE_ORDER_DELETE).queryParam(BINANCE_TIMESTAMP,getTimeStamp());
 
 		//symbol is not mandatory one
 		if(!TradeClient.isNullorEmpty(symbol)) 
@@ -224,6 +226,19 @@ public class BinanceTrade extends BaseTrade
 		}
 		return resultCode;
 
+	}
+	public long getTimeStamp()
+	{
+		WebTarget target = getTarget().path("/api/v1/time");		
+		 Response response = target.request().get();
+		 if(response!= null && response.getStatus() == 200) 
+		 {
+			 String responseStr= response.readEntity(String.class);
+			 JSONObject json= new JSONObject(responseStr);
+			 response.close();
+			return (Long) json.get("serverTime");
+		 }
+		return System.currentTimeMillis()-5000;
 	}
 	private int getAutoTradeStatusCode(int error) {
 		int resultCode = -1;
@@ -273,7 +288,7 @@ public class BinanceTrade extends BaseTrade
 
 		//timestamp is mandatory one 		
 		WebTarget target = getTarget().path(RESOURCE_ORDER)				
-				.queryParam(BINANCE_TIMESTAMP,System.currentTimeMillis());
+				.queryParam(BINANCE_TIMESTAMP,getTimeStamp());
 		String symbol = getSymbolForExchange(orderDetails.getCoin(), orderDetails.getCurrency());
 		
 		
@@ -366,10 +381,12 @@ public class BinanceTrade extends BaseTrade
 					}
 
 				}
+				 response.close();
 
 			}
 			mapOrderDetailsToATOrder(returnValue,error,orderDetails);
 			}
+			
 		}
 
 
@@ -397,7 +414,7 @@ public class BinanceTrade extends BaseTrade
 
 		//timestamp is mandatory one 		
 		WebTarget target = getTarget().path(RESOURCE_ORDER_TEST)				
-				.queryParam(BINANCE_TIMESTAMP,System.currentTimeMillis());
+				.queryParam(BINANCE_TIMESTAMP,getTimeStamp());
 		String symbol = getSymbolForExchange(orderDetails.getCoin(), orderDetails.getCurrency());
 		
 		
@@ -479,6 +496,7 @@ public class BinanceTrade extends BaseTrade
 					}
 
 				}
+				 response.close();
 
 			}
 			mapOrderDetailsToATOrder(returnValue,error,orderDetails);
@@ -667,6 +685,7 @@ public class BinanceTrade extends BaseTrade
 				
 			}
 		}
+		 response.close();
 		return exchangeInfo;
 	}
 	public ATOrderDetailsVO deleteOrder(ATOrderDetailsVO orderDetails) {
@@ -674,7 +693,7 @@ public class BinanceTrade extends BaseTrade
 
 		 
 		//timestamp is mandatory one 		
-		WebTarget target = getTarget().path(RESOURCE_ORDER_DELETE).queryParam(BINANCE_TIMESTAMP,System.currentTimeMillis());
+		WebTarget target = getTarget().path(RESOURCE_ORDER_DELETE).queryParam(BINANCE_TIMESTAMP,getTimeStamp());
 		String symbol = getSymbolForExchange(orderDetails.getCoin(), orderDetails.getCurrency());
 		//symbol is not mandatory one
 		if(TradeClient.isNullorEmpty(symbol) || TradeClient.isNullorEmpty(orderDetails.getOrderId()) || orderDetails.getOrderType() != TraderConstants.DELETE_CALL ) 
@@ -706,6 +725,13 @@ public class BinanceTrade extends BaseTrade
 				orderDetails.setResultCode(TradeStatusCode.DELETE_ORDER_SUCCESS);
 				orderDetails.setSuccess(true);
 			}
+			else if(response.getStatus() == 407) {
+				String errorMsg = response.readEntity(String.class);
+				TradeLogger.LOGGER.severe(errorMsg);
+				orderDetails.setClientStatus(errorMsg);
+				orderDetails.setResultCode(TradeStatusCode.DELETE_ORDER_FAILURE);
+				orderDetails.setSuccess(false);
+			}
 			else
 			{
 				String errorMsg = response.readEntity(String.class);
@@ -718,6 +744,7 @@ public class BinanceTrade extends BaseTrade
 				orderDetails.setResultCode(TradeStatusCode.DELETE_ORDER_FAILURE);
 				orderDetails.setSuccess(false);
 			}
+			 response.close();
 		}
 		mapOrderDetailsToATOrder(success,error,orderDetails);
 		}
@@ -732,7 +759,7 @@ public class BinanceTrade extends BaseTrade
 		//timestamp is mandatory one 	
 		//
 		//"/api/v3/myTrades"
-		WebTarget target = getTarget().path(RESOURCE_ORDER).queryParam(BINANCE_TIMESTAMP,System.currentTimeMillis());
+		WebTarget target = getTarget().path(RESOURCE_ORDER).queryParam(BINANCE_TIMESTAMP,getTimeStamp());
 		String symbol = getSymbolForExchange(orderDetails.getCoin(), orderDetails.getCurrency());
 		
 		if(TradeClient.isNullorEmpty(symbol) || TradeClient.isNullorEmpty(orderDetails.getOrderId()) || orderDetails.getOrderType() != TraderConstants.GET_CALL ) 
@@ -782,6 +809,7 @@ public class BinanceTrade extends BaseTrade
 					orderDetails.setResultCode(TradeStatusCode.FETCH_FAILURE_CODE);
 					orderDetails.setSuccess(false);
 				}
+				 response.close();
 				mapOrderDetailsToATOrder(success, error, orderDetails);
 			}
 		}
@@ -835,7 +863,7 @@ public class BinanceTrade extends BaseTrade
 
 		 }
 
-
+		 response.close();
 
 		 return marketStaticsVO;
 

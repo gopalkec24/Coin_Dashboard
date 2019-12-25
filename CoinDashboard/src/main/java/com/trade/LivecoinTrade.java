@@ -104,6 +104,7 @@ public class LivecoinTrade extends BaseTrade {
 				TradeLogger.LOGGER.severe("Response Code " + response.getStatus());
 				TradeLogger.LOGGER.severe("Response Data " + response.readEntity(String.class));
 			}
+			response.close();
 		}
 		return returnValue;
 
@@ -185,6 +186,7 @@ public class LivecoinTrade extends BaseTrade {
 				orderDetails.setClientStatus(TradeStatusCode.DEFAULT_ERROR_CODE+"");
 				orderDetails.addErrorMessage(responseValue);
 			}
+			response.close();
 		}
 		return orderDetails;
 	}
@@ -259,6 +261,7 @@ public class LivecoinTrade extends BaseTrade {
 				orderDetails.addErrorMessage(responseValue);
 				 orderDetails.setResultCode(TradeStatusCode.DELETE_ORDER_FAILURE);
 			}
+			response.close();
 		}
 		}
 		return orderDetails;
@@ -324,6 +327,7 @@ public class LivecoinTrade extends BaseTrade {
 				orderDetails.addErrorMessage(responseValue);
 				 orderDetails.setResultCode(TradeStatusCode.FETCH_FAILURE_CODE);
 			}
+			response.close();
 		}
 		}
 		return orderDetails;
@@ -446,6 +450,7 @@ public class LivecoinTrade extends BaseTrade {
 				marketStaticsVO.setSuccess(false);
 				marketStaticsVO.setErrorMsg(responseValue);
 			}
+			response.close();
 		}
 		return marketStaticsVO;
 

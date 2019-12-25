@@ -50,6 +50,10 @@ public class AutoTradeConfigReader {
 	private static final String PLACE_ORDER_MODE = "placeOrderMode";
 
 	private static final String MAXIMUM_WAIT_COUNT = "maximumRetryCount";
+
+	private static final Object TEMP_LOCATION = "tempLocation";
+
+	private static final String DEFAULT_TEMP_LOCATION = "C:/Temp/ATCache/";
 	
 	public void setConfigFilePath(String configFilePath) {		
 		AutoTradeConfigReader.configFilePath = configFilePath;
@@ -296,9 +300,29 @@ public static Collection<? extends String> getNotifier() {
 			}
 		}
 	} catch (Exception e) {
-		// TODO Auto-generated catch block
+		
 		e.printStackTrace();
 	}
 	return recipents;
+}
+
+public static String getTempLocation() {
+	
+try {
+		
+		if(AutoTradeConfigReader.getConfigValues().containsKey(TEMP_LOCATION)) {
+			TradeLogger.LOGGER.finest("Using  TEMP_FILE_LOCATION from properties file ");
+			return	(String) AutoTradeConfigReader.getConfigValues().get(TEMP_LOCATION);
+		}
+		else {
+			TradeLogger.LOGGER.finest("Using default Maximum Wait Count " + DEFAULT_MAXIMUM_WAIT_COUNT);
+		}
+	} catch (Exception e) {			
+		e.printStackTrace();
+	}
+	
+	
+	return DEFAULT_TEMP_LOCATION;
+	
 }
 }

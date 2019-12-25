@@ -1,10 +1,15 @@
 package com.trade.utils;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.logging.Level;
+
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import com.portfolio.utilis.GetCurrentMarketPrice;
 import com.trade.constants.TraderConstants;
@@ -155,4 +160,23 @@ public static boolean isZero(BigDecimal value) {
 	}
 	return false;
 }	
+
+@SuppressWarnings("unchecked")
+public static Object getDAOObject(String errorMsg,Class target) {
+	Object error = null;
+	ObjectMapper mapper = new ObjectMapper();
+	try {
+		error = mapper.readValue(errorMsg,target);
+	} catch (JsonParseException e) {
+		
+		e.printStackTrace();
+	} catch (JsonMappingException e) {
+		
+		e.printStackTrace();
+	} catch (IOException e) {
+		
+		e.printStackTrace();
+	}
+	return error;
+}
 }

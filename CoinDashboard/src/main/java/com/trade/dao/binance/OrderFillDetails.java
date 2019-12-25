@@ -3,7 +3,8 @@ package com.trade.dao.binance;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class OrderFillDetails {
+public class OrderFillDetails 
+{
 	
 	String price;
 	String qty;
@@ -17,6 +18,7 @@ public class OrderFillDetails {
 	public void setTradeId(long tradeId) {
 		this.tradeId = tradeId;
 	}*/
+	
 	public String getPrice() {
 		return price;
 	}
@@ -41,7 +43,5 @@ public class OrderFillDetails {
 	public void setCommissionAsset(String commissionAsset) {
 		this.commissionAsset = commissionAsset;
 	}
-	
-	
 
 }

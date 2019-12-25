@@ -1,10 +1,13 @@
 package com.trade.impl;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
+
+
 
 import com.trade.ExchangeFactory;
 import com.trade.ITrade;
@@ -23,6 +26,8 @@ import com.trade.utils.TradeLogger;
 
 public class PercentageBaseTrader extends Trader implements IAutoTrader {
 
+	private static final String ORDER_COMPLETED = "Order got Completed";
+	private static final String ORDER_COMPLETED_COUNTER_ORDER_CREATED = "Order Got completed. Counter Order created";
 	private static final String CLASS_NAME = PercentageBaseTrader.class.getName();
 	private static  List<String> recipients = new ArrayList<String>();
 	BigDecimal mIN_PERMISSIBLE_PERCENT= new BigDecimal("1.2");
@@ -73,6 +78,9 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 		else if(data.getTriggerEvent() == TraderConstants.COMPLETED) {
 			data.setRemarks("Order Got completed ");
 		}
+		else if(data.getTriggerEvent() == 8) {
+			
+		}
 	}
 
 	public void initializeLastPrice(TradeDataVO data) 
@@ -100,18 +108,20 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 				throw new AutoTradeException(marketStaticsVO.getErrorMsg());
 			} 
 			StringBuffer remarks=new StringBuffer();
-		
+			BigDecimal projectedPrice = TraderConstants.NEGATIVE_ONE;
 				if(data.getTransactionType() == TraderConstants.BUY_CALL) 
 				{
 					// Transaction is buy call
 						//Initializing the buy order trigger here
 						if(AutoTradeUtilities.isValidMarketData(data.getBasePrice()) ) 
 						{
+							BigDecimal minPercentage = (data.getMinPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mIN_PERMISSIBLE_PERCENT:data.getMinPercentage();
+							projectedPrice= calculateProjectedPrice(data.getBasePrice(),minPercentage,data.getTransactionType());
 							int compareBasePrice = lastPrice.compareTo(data.getBasePrice());
 							if(compareBasePrice == TraderConstants.COMPARE_LOWER) 
 							{
 								BigDecimal percent = AutoTradeUtilities.getDifferInPercentage(data.getBasePrice(),lastPrice);
-								buyTrigger= AutoTradeUtilities.percentagePermissible(percent,(data.getMinPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mIN_PERMISSIBLE_PERCENT:data.getMinPercentage(), (data.getMaxPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mAX_PERMISSIBLE_PERCENT:data.getMaxPercentage());
+								buyTrigger= AutoTradeUtilities.percentagePermissible(percent,minPercentage, (data.getMaxPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mAX_PERMISSIBLE_PERCENT:data.getMaxPercentage());
 								TradeLogger.LOGGER.fine("last price is lower than Base price. and Price differ Percentage " + percent +" Buy trigger value is "+buyTrigger);
 								remarks.append("last price is lower than Base price. and Price differ Percentage " + percent +" Buy trigger value is "+buyTrigger);
 							}
@@ -132,7 +142,9 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 				{
 						if(AutoTradeUtilities.isValidMarketData(data.getBasePrice()) ) 
 						{
-							int compareBasePrice = lastPrice.compareTo(data.getBasePrice());
+							BigDecimal minPercentage = (data.getMinPercentage().compareTo(TraderConstants.NEGATIVE_ONE))== TraderConstants.COMPARE_EQUAL?mIN_PERMISSIBLE_PERCENT:data.getMinPercentage();
+							projectedPrice= calculateProjectedPrice(data.getBasePrice(),minPercentage,data.getTransactionType());
+							int compareBasePrice = lastPrice.compareTo(data.getBasePrice());							
 							if(compareBasePrice == TraderConstants.COMPARE_GREATER) 
 							{
 								BigDecimal percent = AutoTradeUtilities.getDifferInPercentage(lastPrice, data.getBasePrice());
@@ -156,7 +168,7 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 			data.setLastPrice(lastPrice);
 			data.setLowPrice(marketStaticsVO.getLowPrice());
 			data.setHighPrice(marketStaticsVO.getHighPrice());
-			
+			data.setProjectedPrice(projectedPrice);
 			
 			if(buyTrigger || sellTrigger)
 			{
@@ -174,6 +186,9 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 			data.addPriceHistory(getMarketStaticsVO(marketStaticsVO, data.getPriceHistory().size(), remarks.toString()+"Triggered Scenario"));
 			TradeLogger.LOGGER.warning("TRIGGERED SCENARIO");
 			data.setRemarks(remarks.toString()+" Scenario TRIGGERED");
+			recipients= (List<String>) AutoTradeConfigReader.getNotifier();
+			if(recipients.size() >0)
+			NotificationSender.sendNotificationMessage("Order Inititalized "+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume()+"|"+ data.getRemarks(), recipients);
 			}
 			else
 			{
@@ -187,6 +202,22 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 
 
 
+	}
+
+	private BigDecimal calculateProjectedPrice(BigDecimal basePrice, BigDecimal minPercentage,int tradeType) {
+		BigDecimal projectedPrice = TraderConstants.NEGATIVE_ONE;
+		
+		if(tradeType==TraderConstants.BUY_CALL) 
+		{
+		projectedPrice =basePrice.subtract(basePrice.multiply(minPercentage).divide(TraderConstants.HUNDRED, 4,  RoundingMode.HALF_UP));
+		}
+		else if(tradeType==TraderConstants.SELL_CALL)
+		{
+			projectedPrice =basePrice.add(basePrice.multiply(minPercentage).divide(TraderConstants.HUNDRED, 4,  RoundingMode.HALF_UP));
+		}
+		
+		
+		return projectedPrice;
 	}
 
 	public void checkConditionTriggerTransaction(TradeDataVO data) 
@@ -345,6 +376,7 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 				{
 					ATOrderDetailsVO getDetailVO= generateOrderDetailsForGet(data);
 					trade.getOrderStatus(getDetailVO);
+					recipients= (List<String>) AutoTradeConfigReader.getNotifier();
 					//incase order is new or partially executed
 					if(getDetailVO.getStatus() == TraderConstants.NEW || getDetailVO.getStatus() == TraderConstants.PARTIALLY_EXECUTED)
 					{
@@ -354,31 +386,30 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 						//Map<String,Object> values= AutoTradeUtilities.getExchangePrice(data.getExchange(),data.getCoin(),data.getCurrency());
 							ATMarketStaticsVO marketStaticsVO = trade.getExchangePriceStatics(data.getCoin(), data.getCurrency());
 							//updatedCacheTime + defaultCacheTimeoutInMS < System.currentTimeMillis()
-							if(getDetailVO.getTransactionTime()!=-1 && (getDetailVO.getTransactionTime() + AutoTradeConfigReader.getTransactionTimeOut()) < System.currentTimeMillis()) 
+							if(getDetailVO.getTransactionTime()!=-1 && (getDetailVO.getTransactionTime() + AutoTradeConfigReader.getTransactionTimeOut()+data.getAddTimeout()) < System.currentTimeMillis()) 
 							{
-								TradeLogger.LOGGER.info("Making  order to delete Since  "+ (getDetailVO.getTransactionTime() + AutoTradeConfigReader.getTransactionTimeOut() )+ " milliseconds . Current Time"+System.currentTimeMillis());
+								TradeLogger.LOGGER.info("Making  order to delete Since  "+ (getDetailVO.getTransactionTime() + AutoTradeConfigReader.getTransactionTimeOut() + data.getAddTimeout())+ " milliseconds . Current Time"+System.currentTimeMillis());
 								data.setTriggerEventForHistory(TraderConstants.MARK_FOR_DELETE_CREATE_NEW);
 								data.setRemarks("Marking order to delete ");
-								cancelOrderReTriggerForNewTradeCondition(data);
-								recipients= (List<String>) AutoTradeConfigReader.getNotifier();
 								if(recipients.size() >0)
-								NotificationSender.sendNotificationMessage("Order Cancelled due to timeout : "+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
-								
+								NotificationSender.sendNotificationMessage("Marking order to cancel  due to timeout : "+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
+								cancelOrderReTriggerForNewTradeCondition(data);
 							}
 							else if(getDetailVO.getTransactionTime()==-1) {
 								for(TriggerEventHistory event : data.getEventHistory()) 
 								{
 									if(event!= null && event.getEvent() == TraderConstants.ORDER_TRIGGERED &&  event.getBeforeEvent() ==TraderConstants.PLACE_ORDER_TRIGGER) 
 									{
-										if(event.getTransactTime() + AutoTradeConfigReader.getTransactionTimeOut()  < System.currentTimeMillis())
+										if(event.getTransactTime() + AutoTradeConfigReader.getTransactionTimeOut()+data.getAddTimeout()  < System.currentTimeMillis())
 										{
 											TradeLogger.LOGGER.info("Making  order to delete Since  "+ event.getTransactTime() + AutoTradeConfigReader.getTransactionTimeOut() + " milliseconds . Current Time"+System.currentTimeMillis());
 											data.setTriggerEventForHistory(TraderConstants.MARK_FOR_DELETE_CREATE_NEW);
 											data.setRemarks("Marking order to delete ");
-											cancelOrderReTriggerForNewTradeCondition(data);
-											recipients= (List<String>) AutoTradeConfigReader.getNotifier();
 											if(recipients.size() >0)
-											NotificationSender.sendNotificationMessage("Order Cancelled due to timeout : "+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
+												NotificationSender.sendNotificationMessage("Marking order to cancel  due to timeout : "+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
+											cancelOrderReTriggerForNewTradeCondition(data);
+											
+											
 										}
 										else {
 											TradeLogger.LOGGER.info("Waiting for order to execute in event hisstory scenario for   "+ event.getTransactTime() + AutoTradeConfigReader.getTransactionTimeOut()+ " milliseconds . Current Time"+System.currentTimeMillis());
@@ -401,6 +432,9 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 					{
 						data.setTriggerEventForHistory(TraderConstants.DELETED);
 						data.setRemarks("Order got Deleted");
+						if(recipients.size() >0)
+							NotificationSender.sendNotificationMessage("Order got Deleted : "+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
+						
 					}
 					else if(getDetailVO.getStatus() == TraderConstants.EXECUTED)
 					{
@@ -418,18 +452,30 @@ public class PercentageBaseTrader extends Trader implements IAutoTrader {
 								//total transactin volume
 								tradeCurrency = getDetailVO.getExecutedQuantity().multiply(getDetailVO.getOrderPrice());
 							}
-							TradeDataVO newTradeData = new TradeDataVO(data.getExchange(), data.getCoin(), data.getCurrency(), quantity, tradeCurrency,AutoTradeUtilities.reverseTransaction(data.getTransactionType()));
-							newTradeData.setBasePrice(getDetailVO.getOrderPrice());
-							newTradeData.setProfitType(data.getProfitType());
-							newTradeData.setMinPercentage(data.getMinPercentage());
-							newTradeData.setMaxPercentage(data.getMaxPercentage());
-							TradeLogger.LOGGER.info("New Trade Data" + newTradeData);
-							newOrderList.add(newTradeData);
+							String status = null;
+							if (data.isCyclic()) {
+								TradeDataVO newTradeData = new TradeDataVO(data.getExchange(), data.getCoin(),
+										data.getCurrency(), quantity, tradeCurrency,
+										AutoTradeUtilities.reverseTransaction(data.getTransactionType()));
+								newTradeData.setBasePrice(getDetailVO.getOrderPrice());
+								newTradeData.setProfitType(data.getProfitType());
+								newTradeData.setMinPercentage(data.getMinPercentage());
+								newTradeData.setMaxPercentage(data.getMaxPercentage());
+								newTradeData.setCyclic(data.isCyclic());
+								newTradeData.setAddTimeout(data.getAddTimeout());
+								TradeLogger.LOGGER.info("New Trade Data" + newTradeData);
+								newOrderList.add(newTradeData);
+								status = ORDER_COMPLETED_COUNTER_ORDER_CREATED;
+								
+							}
+							else
+							{
+								status = ORDER_COMPLETED;
+							}
 							data.setTriggerEventForHistory(TraderConstants.COMPLETED);
-							data.setRemarks("Order Got completed. Counter Order created");
-							recipients= (List<String>) AutoTradeConfigReader.getNotifier();
+							data.setRemarks(status);
 							if(recipients.size() >0)
-							NotificationSender.sendNotificationMessage("Order Got completed. Counter Order created"+ data.getExchange() + "|"+data.getCoin()+"|"+data.getCurrency()+"|"+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
+							NotificationSender.sendNotificationMessage(status +" | " + data.getExchange() + " | "+data.getCoin()+" | "+data.getCurrency()+" | "+data.getTransactionType()+"|"+data.getOrderTriggeredPrice()+"|"+data.getCoinVolume()+"|"+data.getTradeCurrencyVolume(), recipients);
 					}
 				}
 			}
