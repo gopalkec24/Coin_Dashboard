@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="refresh" content="650">
-<title>Auto trade Data </title>
+<meta http-equiv="refresh" content="420">
+<title>Percentage Base trade Data </title>
 	<!-- <link rel="stylesheet" type="text/css" href="vendor/css/normalize.css"> -->
  <link rel="stylesheet" type="text/css" href="resources/css/coinstyle.css">
 <!--  <link rel="stylesheet" type="text/css" href="vendor/css/sortable.css"> -->
@@ -16,8 +16,11 @@
 $(document).ready(function (){
 
 $.ajax({
-	
-url:"autotradeData4.json",
+type: "Get",
+ headers: {"Access-Control-Allow-Origin":"*"},
+crossOrigin: true,
+crossDomain: true,	
+url:"bitso.json",
 dataType:"json",
 success:function(result)
 {
@@ -26,8 +29,8 @@ console.log(result);
 /*
 <th>Last SellCall </th><th>last BuyCall </th> 
 */
- var dataRow="<div> <table> <thead> <tr> <th>Exchange  </th><th>Coin </th><th>Trade Curr  </th>  <th> ATOrder ID</th> <th> Base Price</th> <th>Transaction Type </th> <th>Coin Volume </th> <th>TradeCurrency Quantity </th>  <th>Triggered Price </th> <th>Last Price</th> <th> Previous Last Price</th><th> Low Price </th>  <th> High Price </th> <th>Wait Count </th>"+
- "<th>Trigger Event </th> <th> Low Count</th> <th> High Count</th> <th>Re-Trigger Count</th>  <th> Order triggered Price </th> <th>Exchange Order ID </th> <th> Remarks </th> <th width='20px'> Trigger Price History</th>  </tr> </thead> <tbody>";  
+ var dataRow="<div> <table> <thead> <tr> <th>Exchange  </th><th>Coin </th><th>Trade Curr  </th>  <th> ATOrder ID</th> <th> Base Price</th> <th>Transaction Type </th> <th> Projected Price </th> <th>Coin Volume </th> <th>TradeCurrency Quantity </th>  <th>Triggered Price </th> <th>Last Price</th> <th> Previous Last Price</th><th> Low Price </th>  <th> High Price </th>  <th>Trigger Event </th> <th>Wait Count </th>"+
+ " <th> Low Count</th> <th> High Count</th> <th>Min Per</th>  <th> Max Per </th> <th>Exchange Order ID </th> <th> Remarks </th> <th width='20px'> Trigger Price History</th>  </tr> </thead> <tbody>";  
  
  var priceHistory = "<table><thead> <tr> <th>Reference ID </th> <th>Transaction Time</th>  <th>Xchange/Coin/Currency <th>Low Price </th>  <th>High Price</th> <th>Last Price</th>  <th> Remarks </th> </tr> </thead> <tbody> ";
  
@@ -49,13 +52,26 @@ console.log(result);
 			}
 			var data="";
 			var priceHis="";
+			
+			
+			
 			//console.log(cssclass)
-				data=  "<tr><td>"+coinTraded.exchange+"</td><td>"+
+			var  cssclass = "";
+			
+			if(coinTraded.triggerEvent >= 0 && coinTraded.triggerEvent != 8)
+			{
+			cssclass="profit";
+					}
+					else {
+					cssclass="";
+					}
+				data=  "<tr class='" + cssclass+"' ><td>"+coinTraded.exchange+"</td><td>"+
 				coinTraded.coin+"</td><td>"+
 				coinTraded.currency+"</td><td>"+
 				coinTraded.atOrderId+"</td><td>"+				
 				coinTraded.basePrice+"</td><td>"+
-				transaction+"</td><td>"+				
+				transaction+"</td><td>"+
+				coinTraded.projectedPrice+"</td><td>"+	
 				coinTraded.coinVolume+"</td><td>"+
 				coinTraded.tradeCurrencyVolume+"</td><td>"+
 				coinTraded.triggeredPrice+"</td><td>"+
@@ -65,17 +81,20 @@ console.log(result);
 				coinTraded.highPrice+"</td><td>"+
 				/*coinTraded.lastSellCall+"</td><td>"+
 				coinTraded.lastBuyCall+"</td><td>"+   */                        
-                coinTraded.waitCount+"</td><td>"+
+                
                 coinTraded.triggerEvent+"</td><td>"+
+				coinTraded.waitCount+"</td><td>"+
 				 coinTraded.lowCount+"</td><td>"+
 				  coinTraded.highCount+"</td><td>"+
-				   coinTraded.reTriggerCount+"</td><td width='20'>"+				   
-					coinTraded.orderTriggeredPrice+"</td><td>"+
+				   /*coinTraded.reTriggerCount+"</td><td width='20'>"+				   
+					coinTraded.orderTriggeredPrice+"</td><td>"+*/
+					coinTraded.minPercentage+"</td><td>"+
+					coinTraded.maxPercentage+"</td><td>"+
 					coinTraded.exchangeOrderId+"</td><td>"+
 					coinTraded.remarks+"</td><td>"+
 					 coinTraded.triggerPriceHistory+"</td><td>"+
 					"</td></tr>";
-					if( coinTraded.triggerEvent <8)
+					if( coinTraded.triggerEvent!=-1 && coinTraded.triggerEvent <8)
 					{
 					for(var j=0; j < coinTraded.priceHistory.length ; j++){
 					
@@ -120,12 +139,19 @@ console.log(result);
   $("#result").text("Welcome");
   $("#timestamp").text(new Date(result.lastUpdatedTime));
 
+//$('#archieveData').hide();
+$('#remarkshistory').hide();
 	 
 }// success function Method close
 
 
 
 });//ajax close
+
+$('#hideremarkshistory').on('click', function () {
+    //$('#archieveData').toggle();
+	 $('#remarkshistory').toggle();
+});
 
 });
 
@@ -149,9 +175,14 @@ console.log(result);
 		<div class="pricehistory" id="pricehistory" >
 		 
 		</div>
+		
 		<div class="exchangeDetails" id="archieveData" >
 		 
 		</div>
+		<div>
+		<button class="toggleEmptyCoin" id="hideremarkshistory">Hide/Show the Archeive Data</button>
+		</div>
+		
 		<div class="remarkshistory" id="remarkshistory" >
 		 
 		</div>

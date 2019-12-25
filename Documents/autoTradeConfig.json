@@ -1,10 +1,11 @@
 {
 "tickerConfigFile": "C:/Documents/configurationURL2.json",
+"tempLocation": "C:/Documents/ATCache/",
  "minimumBuyPermissibleLimt": 0.00,
 	"maximumBuyPermissibleLimt": 1.00,
 	 "minimumSellPermissibleLimt" : 0.00,
 	"maximumSellPermissibleLimt" : 1.00,
-	"orderWaitTimeOut" : 3600000,
+	"orderWaitTimeOut" : 5400000,
 	"minimumCancelOrderLimit" : 0,
 	"maximumCancelOrderLimit" : 0.30,
 	"advanceTrading" :false,

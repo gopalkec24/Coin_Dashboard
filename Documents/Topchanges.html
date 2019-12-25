@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" http-equiv="refresh" content="420" >
+<title>Percentage Base trade Data </title>
+	<!-- <link rel="stylesheet" type="text/css" href="vendor/css/normalize.css"> -->
+ <link rel="stylesheet" type="text/css" href="resources/css/coinstyle.css">
+<!--  <link rel="stylesheet" type="text/css" href="vendor/css/sortable.css"> -->
+
+</head>
+
+<body>
+<script src="resources/js/jquery.js" > </script>
+<script src="resources/js/customcoin.js" > </script>
+<script>
+$(document).ready(function (){
+
+$.ajax({
+ type: "Get",
+ headers: {"Access-Control-Allow-Origin":"*"},
+crossOrigin: true,
+crossDomain: true,	
+url:"TopChange20.json",
+dataType:"json",
+success:function(result)
+{
+
+console.log(result);
+/*
+
+<th>Last SellCall </th><th>last BuyCall </th> 
+*/
+ var dataRow="<div> <table> <thead> <tr> <th>CMC Rank  </th><th>Coin </th><th>Symbol  </th> <th> CMC Price</th> <th> Last 1 hour change</th>  <th>Last 24 hours change </th> <th>Last 7 day change </th> <th>Last updated </th> </tr> </thead> <tbody>";  
+ 
+
+ 
+    for(var i=0; i< result.length; i++)
+	{
+		var  coinTraded = result[i];
+			
+			var data="";
+			var priceHis="";
+			
+				data=  "<tr><td>"+coinTraded.cmc_rank+"</td><td>"+
+				coinTraded.name+"</td><td>"+
+				coinTraded.symbol+"</td><td>"+
+				coinTraded.quote.USD.price+"</td><td>"+
+				coinTraded.quote.USD.percent_change_1h+"</td><td>"+
+				coinTraded.quote.USD.percent_change_24h+"</td><td>"+
+				coinTraded.quote.USD.percent_change_7d+"</td><td>"+
+				(new Date(coinTraded.quote.USD.last_updated)).toString()+"</td><td>"+
+				
+				"</td></tr>";
+					
+			dataRow=dataRow+data;
+			
+			
+                    
+		}	
+	  
+    
+    dataRow=dataRow+"</tbody></table> </div>";
+	
+    
+  $("#exchange").append(dataRow); 
+
+  
+
+
+  
+  $("#result").text("Welcome");
+ // $("#timestamp").text(new Date(result.lastUpdatedTime));
+
+//$('#archieveData').hide();
+$('#remarkshistory').hide();
+	 
+}// success function Method close
+
+
+
+});//ajax close
+
+$('#hideremarkshistory').on('click', function () {
+    //$('#archieveData').toggle();
+	 $('#remarkshistory').toggle();
+});
+
+});
+
+</script>
+<div class="container">
+          <div class="header">
+				<div class="header_text">
+				<h1>  Top changes load check</h1> 
+				<label id="result"> Loading the summary data............. </label>
+				<label id="timestamp"></label>
+            
+				</div>		   
+          </div>
+		    
+		    <br>
+		  		  
+		<div class="exchangeDetails" id="exchange" >
+		 
+		</div>
+		
+		<div class="pricehistory" id="pricehistory" >
+		 
+		</div>
+		
+		<div class="exchangeDetails" id="archieveData" >
+		 
+		</div>
+		<div>
+		<button class="toggleEmptyCoin" id="hideremarkshistory">Hide/Show the Archeive Data</button>
+		</div>
+		
+		<div class="remarkshistory" id="remarkshistory" >
+		 
+		</div>
+</div>	  
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="refresh" content="65">
+<title>Auto trade Data </title>
+	<!-- <link rel="stylesheet" type="text/css" href="vendor/css/normalize.css"> -->
+ <link rel="stylesheet" type="text/css" href="resources/css/coinstyle.css">
+<!--  <link rel="stylesheet" type="text/css" href="vendor/css/sortable.css"> -->
+
+</head>
+
+<body>
+<script src="resources/js/jquery.js" > </script>
+<script src="resources/js/customcoin.js" > </script>
+<script>
+$(document).ready(function (){
+
+$.ajax({
+	
+url:"http://localhost:8080/exchangeservice/time/logTime",
+dataType:"json",
+success:function(result)
+{
+
+console.log(result);
+/*
+<th>Last SellCall </th><th>last BuyCall </th> 
+*/
+ var dataRow="<div> <table> <thead> <tr> <th>DATE </th>  </tr> </thead> <tbody>";  
+ 
+ 
+ 
+ 
+ 
+    for(var i=0; i< result.length; i++)
+	{
+		var  coinTraded = result[i];
+			var transaction= "UNKNOWN";
+				data=  "<tr><td>"+coinTraded.Date+"</td></tr>";
+				dataRow = dataRow+data;
+	}
+	  
+    dataRow=dataRow+"</tbody></table> </div>";
+    
+  $("#exchange").append(dataRow); 
+  
+  
+  $("#result").text("Welcome");
+  $("#timestamp").text(new Date());
+
+	 
+}// success function Method close
+
+
+
+});//ajax close
+
+});
+
+</script>
+<div class="container">
+          <div class="header">
+				<div class="header_text">
+				<h1>  Server upTime details</h1> 
+				<label id="result" > Loading the summary data............. </label>
+				<label id="timestamp"></label>
+            
+				</div>		   
+          </div>
+		    
+		    <br>
+		  		  
+		<div class="exchangeDetails" id="exchange" >
+		 
+		</div>
+		
+		<div class="pricehistory" id="pricehistory" >
+		 
+		</div>
+		<div class="exchangeDetails" id="archieveData" >
+		 
+		</div>
+		<div class="remarkshistory" id="remarkshistory" >
+		 
+		</div>
+</div>	  
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="refresh" content="420">
+<title>Top 20 changes </title>
+	<!-- <link rel="stylesheet" type="text/css" href="vendor/css/normalize.css"> -->
+<link rel="stylesheet" type="text/css" href="resources/css/coinmarketdash.css">
+<!--  <link rel="stylesheet" type="text/css" href="vendor/css/sortable.css"> -->
+
+</head>
+
+<body>
+<script src="resources/js/jquery.js" > </script>
+<script src="resources/js/customcoin.js" > </script>
+<script>
+function loadData(result){
+
+var dataRow="<div> <table> <thead> <tr> <th>CMC Rank </th> <th>Coin </th><th>Symbol </th>  <th> Price in USD </th>  <th> 1hr </th> <th>24hr   </th> <th> 7d  </th> </tr> </thead> <tbody>";  
+ var lossdataRow="<div> <table> <thead> <tr> <th>CMC Rank </th> <th>Coin </th><th>Symbol </th>  <th> Price in USD </th>  <th> 1hr </th> <th>24hr   </th> <th> 7d  </th> </tr> </thead> <tbody>";  
+
+    for(var i=0; i< result.topGain.length; i++)
+	{
+		var  coinTraded = result.topGain[i];
+			
+				data=  "<tr><td>"+coinTraded.cmc_rank+"</td><td>"+
+						coinTraded.name+"</td><td>"+
+						coinTraded.symbol+"</td><td>"+
+						coinTraded.quote.USD.price+"</td><td>"+
+						coinTraded.quote.USD.percent_change_1h+"</td><td>"+
+						coinTraded.quote.USD.percent_change_24h+"</td><td>"+
+						coinTraded.quote.USD.percent_change_7d+"</td><td>"+
+						
+						"</td></tr>";
+		     dataRow=dataRow+data;     
+			
+                    
+	}	
+		 for(var i=0; i< result.topLoss.length; i++)
+		{
+		   var  coinTraded = result.topLoss[i];
+						data=  "<tr><td>"+coinTraded.cmc_rank+"</td><td>"+
+						coinTraded.name+"</td><td>"+
+						coinTraded.symbol+"</td><td>"+
+						coinTraded.quote.USD.price+"</td><td>"+
+						coinTraded.quote.USD.percent_change_1h+"</td><td>"+
+						coinTraded.quote.USD.percent_change_24h+"</td><td>"+
+						coinTraded.quote.USD.percent_change_7d+"</td><td>"+
+						
+						"</td></tr>";
+		     lossdataRow=lossdataRow+data;     
+			
+                    
+		  }	
+	  
+   
+    dataRow=dataRow+"</tbody></table> </div>";
+	 lossdataRow=lossdataRow+"</tbody></table> </div>";
+	
+	 $("#exchange").empty(); 
+  $("#pricehistory").empty();
+  $("#exchange").append(dataRow); 
+  $("#pricehistory").append(lossdataRow);
+
+
+}
+$(document).ready(function (){
+
+$.ajax({
+type: "Get",
+ headers: {"Access-Control-Allow-Origin":"*"},
+crossOrigin: true,
+crossDomain: true,	
+url:"TopChange20.json",
+dataType:"json",
+success:function(result)
+{
+loadData(result);
+ 
+    $("#result").text("Welcome");	 
+}// success function Method close
+
+
+
+});//ajax close
+
+$('#hourselector').on('change',function(){
+	
+ var time=$('#hourselector').val();
+	$.ajax({
+type: "Get",
+ headers: {"Access-Control-Allow-Origin":"*"},
+crossOrigin: true,
+crossDomain: true,	
+url:"http://localhost:8080/exchangeservice/market/getStaticsReport?time="+time,
+dataType:"json",
+success:function(result)
+{
+loadData(result);
+ 
+    $("#result").text("Welcome from UI");	 
+}
+
+});
+
+});
+
+$('#hideremarkshistory').on('click', function () {
+    //$('#archieveData').toggle();
+	 $('#remarkshistory').toggle();
+});
+
+});
+
+</script>
+<div class="container">
+          <div class="header">
+				<div class="header_text">
+				<h1>  Top changes from CMC  </h1> 
+				<label id="result" > Loading the summary data............. </label>
+				<label id="timestamp"></label>
+				<select id='hourselector'>
+					<option value="1HR">1 Hour</option>
+					<option value="24HR">24 hours</option>
+					<option value="7D">7 days</option>
+
+				</select>
+				</div>		   
+          </div>
+		    
+		    <br>
+		  		  
+		<div class="exchangeDetails" id="exchange" >
+		 
+		</div>
+		
+		<div class="pricehistory" id="pricehistory" >
+		 
+		</div>
+		
+		<!--<div class="exchangeDetails" id="archieveData" >
+		 
+		</div>
+		<div>
+		<button class="toggleEmptyCoin" id="hideremarkshistory">Hide/Show the Archeive Data</button>
+		</div> -->
+		
+		<!-- <div class="remarkshistory" id="remarkshistory" >
+		 
+		</div> -->
+</div>	  
+</body>
+
+</html>
