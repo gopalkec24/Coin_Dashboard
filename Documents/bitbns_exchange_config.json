@@ -1,0 +1,338 @@
+{
+	"BTC" : {
+		"coin":"Bitcoin",
+		"symbol":"BTC",
+		"minqty" : 0.01,
+		"maxqty" : 20
+	},
+	"XRP" : {
+		"coin" : "Ripple",
+		"symbol" : "XRP",
+		"minqty" : 150,
+		"maxqty" : 500000
+	
+	},
+	"NEO" : {
+	"coin" : "Neo",
+	"symbol" : "NEO",
+	"minqty" : 4,
+	"maxqty" : 10000
+	},
+	"XLM" : {
+	"coin" : "Stellar",
+	"symbol" : "XLM",
+	"minqty" : 300,
+	"maxqty" : 500000
+	},
+	"GAS" : {
+	"coin" : "Gas",
+	"symbol" : "GAS",
+	"minqty" : 13,
+	"maxqty" : 10000
+	},
+	"ETH" : {
+	 "coin" : "Ethereum",
+	 "symbol" :"ETH",
+	 "minqty" : 0.32,
+	 "maxqty" : 20 
+	},
+	"BCH" : {
+	 "coin" : "Bitcoin Cash",
+	 "symbol" :"BCH",
+	 "minqty" : 0.15,
+	 "maxqty" :  200
+	},
+	"TRX" : {
+	 "coin" :"Tron",
+	 "symbol" : "TRX",
+	 "minqty" : 2800,
+	 "maxqty" : 200000
+	},
+	"ADA" : {
+	 "coin" : "Cardano",
+	 "symbol" : "ADA",
+	 "minqty" : 880,
+	 "maxqty" :  2000000
+	},
+	"VET" : {
+	 "coin" : "Vechain",
+	 "symbol" : "VET",
+	 "minqty" : 5800,
+	 "maxqty" : 20000
+	},
+	"XVG" : {
+	 "coin" : "Verge",
+	 "symbol" : "XVG",
+	 "minqty" : 4550,
+	 "maxqty" : 2000000
+	},
+	"DASH" : {
+	 "coin" : "Dash",
+	 "symbol" : "DASH",
+	 "minqty" : 0.42,
+	 "maxqty" :  200
+	},
+	"DGD" : {
+	 "coin" : "DigixDAO",
+	 "symbol" : "DGD",
+	 "minqty" : 1.5,
+	 "maxqty" :  200
+	},
+	"LTC" : {
+	 "coin" : "Litecoin",
+	 "symbol" : "LTC",
+	 "minqty" : 1.2,
+	 "maxqty" : 150
+	},
+	"REP" : {
+	 "coin" : "Augur",
+	 "symbol" : "REP", 
+	 "minqty" : 6,
+	 "maxqty" :  500
+	},
+	"QTUM" : {
+	 "coin" :"Qtum",
+	 "symbol" : "QTUM",
+	 "minqty" : 17,
+	 "maxqty" : 1000 
+	},
+	"LSK" : {
+	 "coin" : "Lisk",
+	 "symbol" : "LSK",
+	 "minqty" : 24,
+	 "maxqty" : 1000 
+	},
+	"OMG" : {
+	 "coin" : "OmiseGo",
+	 "symbol" :"OMG",
+	 "minqty" : 21,
+	 "maxqty" : 1000
+	},
+	"WAVES" : {
+	 "coin" : "Waves",
+	 "symbol" : "WAVES",
+	 "minqty" : 34,
+	 "maxqty" :  1000
+	},
+	"ONT" : {
+	 "coin" : "Ontology",
+	 "symbol" : "ONT",
+	 "minqty" : 35,
+	 "maxqty" : 1000 
+	},
+	"ZRX" : {
+	 "coin" : "0x",
+	 "symbol" :"ZRX",
+	 "minqty" : 87,
+	 "maxqty" : 3000
+	},
+	"POWR" : {
+	 "coin" : "Power Ledger",
+	 "symbol" : "POWR",
+	 "minqty" : 400,
+	 "maxqty" : 8000
+	},
+	"POLY" : {
+	 "coin" : "PolyMath",
+	 "symbol" :"POLY",
+	 "minqty" :324,
+	 "maxqty" : 10000
+	},
+	"USDT" : {
+	 "coin" : "Tether",
+	 "symbol" : "USDT",
+	 "minqty" : 100,
+	 "maxqty" : 5000 
+	},
+	"SC" : {
+	 "coin" : "Sia",
+	 "symbol" : "SC",
+	 "minqty" : 10000,
+	 "maxqty" : 1000000 
+	},
+	"XEM" : {
+	 "coin" :"NEM",
+	 "symbol" : "XEM",
+	 "minqty" : 564,
+	 "maxqty" : 5000000 
+	},
+	"DBC" : {
+	 "coin" : "DeepBrain Chain",
+	 "symbol" : "DBC",
+	 "minqty" : 9400,
+	 "maxqty" :  500000
+	},
+	"XMR" : {
+	 "coin" : "MONERO",
+	 "symbol" : "XMR",
+	 "minqty" : 0.7,
+	 "maxqty" : 200
+	},
+	"DOGE" : {
+	 "coin" : "DogeCoin",
+	 "symbol" : "DOGE",
+	 "minqty" : 18000,
+	 "maxqty" :  1000000
+	},
+	"ETN" : {
+	 "coin" : "Electroneum",
+	 "symbol" :"ETN",
+	 "minqty" : 4000,
+	 "maxqty" : 200000
+	},
+	"EOS" : {
+	 "coin" : "EOS",
+	 "symbol" : "EOS",
+	 "minqty" : 15,
+	 "maxqty" : 200000
+	},
+	"ZIL" : {
+	 "coin" : "Zilica",
+	 "symbol" :"ZIL",
+	 "minqty" : 2000,
+	 "maxqty" : 200000 
+	},
+	"DGB" : {
+	 "coin" : "Digibyte",
+	 "symbol" : "DGB",
+	 "minqty" : 3000,
+	 "maxqty" : 2000000
+	},
+	"ICX" : {
+	 "coin" : "ICON",
+	 "symbol" : "ICX",
+	 "minqty" : 105,
+	 "maxqty" : 20000
+	},
+	"REQ" : {
+	 "coin" : "Request",
+	 "symbol" : "REQ",
+	 "minqty" : 1500,
+	 "maxqty" :  20000
+	},
+	"QLC" : {
+	 "coin" : "QLC Chain",
+	 "symbol" : "QLC",
+	 "minqty" : 1500,
+	 "maxqty" : 2000000
+	},
+	"WAN" : {
+	 "coin" : "Wan Chain",
+	 "symbol" : "WAN",
+	 "minqty" : 70,
+	 "maxqty" : 200000
+	},
+	"ACT" : {
+	 "coin" : "Achain",
+	 "symbol" : "ACT",
+	 "minqty" : 2500,
+	 "maxqty" : 200000
+	},
+	"BLZ" : {
+	 "coin" : "Bluzelle",
+	 "symbol" :"BLZ",
+	 "minqty" : 500,
+	 "maxqty" : 200000 
+	},
+	"SUB" : {
+	 "coin" :"Substratum",
+	 "symbol" : "SUB",
+	 "minqty" : 600,
+	 "maxqty" : 200000
+	},"LRC" : {
+	 "coin" : "Loopring",
+	 "symbol" : "LRC",
+	 "minqty" : 600,
+	 "maxqty" : 200000
+	},
+	"NEXO" : {
+	 "coin" :"Nexo",
+	 "symbol" : "NEXO",
+	 "minqty" : 450,
+	 "maxqty" : 200000
+	},
+	"EFX" : {
+	 "coin" : "Effect.Ai",
+	 "symbol" : "EFX",
+	 "minqty" : 5000,
+	 "maxqty" : 200000
+	},
+	"CPX" : {
+	 "coin" : "Apex",
+	 "symbol" : "CPX",
+	 "minqty" : 2500,
+	 "maxqty" : 200000
+	},
+	"LOOM": {
+	"coin" :  "LOOM Network",
+	"symbol": "LOOM",
+	"minqty" : 500,
+	"maxqty" : 200000
+	},
+	"eosDAC": {
+	"coin" :  "eosDAC",
+	"symbol": "eosDAC",
+	"minqty" : 1600,
+	"maxqty" :200000
+	},
+	"STORM": {
+	"coin" :  "Storm",
+	"symbol": "STORM",
+	"minqty" : 8000,
+	"maxqty" : 200000
+	},
+	"GOLEM": {
+	"coin" :  "Golem",
+	"symbol": "GOLEM",
+	"minqty" : 400,
+	"maxqty" : 200000
+	},
+	"NPXS": {
+	"coin" :  "PundiX",
+	"symbol": "NPXS",
+	"minqty" : 40000 ,
+	"maxqty" : 2000000
+	},
+	"ETC": {
+	"coin" :  "Ethereum Classic",
+	"symbol": "ETC",
+	"minqty" : 10 ,
+	"maxqty" : 2000000
+	},
+	"DENT": {
+	"coin" :  "DENT",
+	"symbol": "DENT",
+	"minqty" : 30,
+	"maxqty" : 200000
+	},
+	"CLOAK": {
+	"coin" :  "Cloak Coin",
+	"symbol": "CLOAK",
+	"minqty" : 25,
+	"maxqty" : 200000
+	},
+	"KMD": {
+	"coin" :  "Komodo",
+	"symbol": "KMD",
+	"minqty" : 55,
+	"maxqty" : 200000
+	},
+	"GRS": {
+	"coin" :  "GroestlCoin",
+	"symbol": "GRS",
+	"minqty" : 150,
+	"maxqty" : 200000
+	},
+	"LET": {
+	"coin" :  "LinkEye",
+	"symbol": "LET",
+	"minqty" : 10000,
+	"maxqty" : 200000
+	},
+	"SOUL": {
+	"coin" :  "Phantasma",
+	"symbol": "SOUL",
+	"minqty" : 600,
+	"maxqty" : 200000
+	}
+}

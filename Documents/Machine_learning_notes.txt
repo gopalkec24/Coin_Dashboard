@@ -1,0 +1,42 @@
+12/22/2020
+Machine Learning in Elastic search
+
+To enable the Machine  LEarning , needs one noede to have machine lerarning feature enabled in the cluster
+
+xonfiguration Value :
+xpack.ml.enabled  => true
+
+Elastic stack Secuirty Features  has roles and Privileges =? To cintrol the user which they can manage or View MAchine learning objects like jobsmdatafeeds,results and Model snapshots,
+
+Kibana also enables us to control access to the ML features within each spaces . Stack Management app in Kibana
+
+Full Access to ML :
+all kibana privileges for ML features in Spaces.
+read,view_index_metadata  index privileges on source indexes
+read,manage and index   index privileges on destination incides(data frame analaytics job only)
+
+Read Access to ML:
+read kibana privileges
+read index privileges on source indexes
+read index privileges on destination indexes(data frame analaytics job only)
+
+File Data visualizer:
+all kibana privileges.
+   or
+read kibaba privileges for ML features and all kibana privilges for index pattern management features
+
+ingest_admin (built-in role)
+read manage and index privileges on destination index
+
+Note : Cannot limit access to specifc MAchine Learning objects in each space.
+
+Machine learing feature is visbile in your soace and (read or all) kibana privileges  for features then , access to all machine learning objects in space.
+
+MAchine learning api usage requires index privileges as like Full or read ACcess to ML and  (machine_learning_admin or machine_learning_user) role.
+
+Note : custom role can set in kibana , but provide the kibana privileges for each spaces.
+
+ 
+
+
+

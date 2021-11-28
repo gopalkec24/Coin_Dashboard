@@ -1,0 +1,26 @@
+https://www.linuxtechi.com/install-docker-ce-centos-8-rhel-8/
+
+
+Proxy configuration for docker ::
+
+2)create the folder under /etc/systemd/system/docker.service.d
+
+vi http-proxy.conf
+
+[Service]
+Environment="HTTP_PROXY=http://csez-s500:8080/"
+
+Curl configuration :
+## proxy server, 202.54.1.1, port: 3128, user: foo, password: bar ##
+export http_proxy=http://foo:bar@202.54.1.1:3128/
+export https_proxy=$http_proxy
+## Use the curl command ##
+curl -I https://www.cyberciti.biz
+curl -v -I https://www.cyberciti.biz
+
+
+curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+
+docker-compose --version
+

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="refresh" content="420">
+<title>Bitbns Min Quantity Calculation </title>
+	<!-- <link rel="stylesheet" type="text/css" href="vendor/css/normalize.css"> -->
+<link rel="stylesheet" type="text/css" href="resources/css/coinmarketdash.css">
+<!--  <link rel="stylesheet" type="text/css" href="vendor/css/sortable.css"> -->
+
+</head>
+
+<body>
+<script src="resources/js/jquery.js" > </script>
+<script src="resources/js/customcoin.js" > </script>
+<script>
+function loadData(result){
+
+var dataTopRow=" <table> <thead> <tr> <th colspan='5'> Top Values </th></tr> <tr><th>Coin </th><th>Quantity </th>  <th> Rate </th>  <th> Total Amt </th>  </tr> </thead> <tbody>";  
+var dataBottomRow=" <table> <thead> <tr> <th colspan='5'> Bottom Values </th></tr> <tr><th>Coin </th><th>Quantity </th>  <th> Rate </th>  <th> Total Amt </th>  </tr> </thead> <tbody>";  
+  console.log(result);
+	var keys =Object.keys(result);
+	console.log(keys);
+	var top = result["top"];
+	//console.log(top);
+	var topkeys =Object.keys(top);
+	
+	var bottom = result["bottom"];
+	//console.log(bottom);
+	var bottomkeys =Object.keys(bottom);
+	
+	for(var i=0; i <topkeys.length ; i++)
+	{
+		var coinTraded = top[topkeys[i]];
+		console.log(coinTraded);
+		data=  "<tr><td>"+coinTraded.symbol+"</td><td>"+
+						coinTraded.quantity+"</td><td>"+
+						
+						coinTraded.rate+"</td><td>"+
+						coinTraded.totalPrice+"</td><td>"+
+						
+						
+						"</td></tr>";
+		     dataTopRow=dataTopRow+data;     
+	}
+	
+	for(var i=0; i <bottomkeys.length ; i++)
+	{
+		var coinTraded = bottom[bottomkeys[i]];
+		console.log(coinTraded);
+		data=  "<tr><td>"+coinTraded.symbol+"</td><td>"+
+						coinTraded.quantity+"</td><td>"+
+						
+						coinTraded.rate+"</td><td>"+
+						coinTraded.totalPrice+"</td><td>"+
+						
+						
+						"</td></tr>";
+		     dataBottomRow=dataBottomRow+data;     
+	}
+	
+    /*for(var i=0; i< result.length; i++)
+	{
+		var  coinTraded = result[i];
+			 console.log(coinTraded);
+				
+			
+                    
+	}	*/
+		
+	  
+   
+    dataTopRow=dataTopRow+"</tbody></table> </div>";
+	dataBottomRow=dataBottomRow+"</tbody></table> </div>";
+	
+	 $("#top").empty(); 
+	 $("#bottom").empty(); 
+  //$("#exchange").append("<table><tbody><tr> <td>");
+  $("#top").append(dataTopRow); 
+  //$("#exchange").append("</td> <td>");
+   
+ $("#bottom").append(dataBottomRow);
+ $("#minAmt").append(" &nbsp &nbsp &nbsp &nbsp Invest Amt calculated  is <span style='color:red'>" + result["minTradeAmt"]+"<span>");
+  //$("#exchange").append(" </td></tr></tbody></table>");
+ 
+
+
+}
+$(document).ready(function (){
+
+$.ajax({
+type: "Get",
+ headers: {"Access-Control-Allow-Origin":"*"},
+crossOrigin: true,
+crossDomain: true,	
+url:"bitMinCal.json",
+dataType:"json",
+success:function(result)
+{
+loadData(result);
+ 
+    $("#result").text("Welcome");	 
+},// success function Method close
+error:function(){
+
+	 $("#result").text("Error in Loading data");
+	  $("#timestamp").text(new Date(result.lastUpdatedTime));
+	}
+
+
+
+});//ajax close
+
+
+});
+
+</script>
+<div class="container">
+          <div class="header">
+				<div class="header_text">
+				<h1>  Bitbns Min Trade Quantity  </h1> 
+				<label id="result" > Loading the summary data............. </label>
+				<label id="timestamp"></label>
+				
+				</div>		   
+          </div>
+		    
+		    <br>
+		 <div id="topBottomContainer"> 	
+			<div id="minAmt">
+				
+			</div>
+			
+		<div class="exchangeDetails" id="top" >
+		 
+		</div>
+		<div id="bottom" >
+		 
+		</div>
+		</div>
+		<!--<div class="exchangeDetails" id="archieveData" >
+		 
+		</div>
+		<div>
+		<button class="toggleEmptyCoin" id="hideremarkshistory">Hide/Show the Archeive Data</button>
+		</div> -->
+		
+		<!-- <div class="remarkshistory" id="remarkshistory" >
+		 
+		</div> -->
+</div>	  
+</body>
+
+</html>

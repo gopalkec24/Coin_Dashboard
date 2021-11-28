@@ -2,202 +2,318 @@
   "tradeData" : [ {
     "coin" : "XRP",
     "cyclic" : true,
-    "atOrderId" : "1565802721711",
-    "minPercentage" : 3,
+    "atOrderId" : "1579006268164",
+    "minPercentage" : 1.4,
     "maxPercentage" : 1000,
-    "basePrice" : 5.30,
-    "remarks" : "Order Got completed ",
-    "tradeCurrencyVolume" : 1000.0,
-    "triggeredPrice" : 5.03,
-    "transactionType" : 1,
-    "orderTriggeredPrice" : 5.03,
-    "triggerPriceHistory" : [ ],
-    "exchangeOrderId" : "pPahYY0sWKTmufmg",
-    "previousLastPrice" : 5.17,
-    "projectedPrice" : null,
-    "placeAvgPriceOrder" : false,
+    "basePrice" : 0.00152943,
+    "remarks" : "Order was deleted and new order was created for same",
+    "stopLossPercentage" : 1.2,
+    "projectedPrice" : 0.00155084,
+    "exchangeOrderId" : "142274050",
+    "triggeredPrice" : 0.00153249,
     "reTriggerCount" : 0,
-    "reInitialLP" : false,
+    "triggerPriceHistory" : [ ],
+    "previousLastPrice" : 0.00145470,
+    "transactionType" : 2,
+    "placeAvgPriceOrder" : false,
+    "orderTriggeredPrice" : 0.00153249,
+    "tradeCurrencyVolume" : 0.0825892200000000,
+    "lowPrice" : 0.00144916,
     "eventHistory" : [ {
+      "event" : -1,
+      "transactTime" : 1578362287515,
+      "beforeEvent" : -1
+    }, {
       "event" : 0,
-      "transactTime" : 1565802721711,
+      "transactTime" : 1579006268164,
       "beforeEvent" : -1
     }, {
       "event" : 1,
-      "transactTime" : 1565808192876,
+      "transactTime" : 1579006626423,
       "beforeEvent" : 0
     }, {
       "event" : 2,
-      "transactTime" : 1565808194154,
+      "transactTime" : 1579006628563,
       "beforeEvent" : 1
     }, {
-      "event" : 7,
-      "transactTime" : 1566309701360,
+      "event" : 4,
+      "transactTime" : 1579159682131,
       "beforeEvent" : 2
+    }, {
+      "event" : 5,
+      "transactTime" : 1579159684192,
+      "beforeEvent" : 4
+    }, {
+      "event" : 6,
+      "transactTime" : 1579159684678,
+      "beforeEvent" : 5
     } ],
-    "lowCount" : 0,
-    "addTimeout" : 0,
-    "waitCount" : 12,
-    "highCount" : 12,
-    "triggerTime" : 1565802721711,
-    "lastPrice" : 5.16,
-    "lowPrice" : 5.01,
-    "lastSellCall" : false,
-    "exchange" : "BITSO",
-    "profitType" : 1,
-    "priceHistory" : [ {
-      "remarks" : "last price is lower than Base price. and Price differ Percentage 5.3700 Buy trigger value is trueTriggered Scenario",
-      "transactTime" : 1565802721711,
-      "referenceId" : 0,
-      "lastPrice" : 5.03,
-      "lowPrice" : 5.01,
-      "highPrice" : 5.78
-    }, {
-      "remarks" : "Increase in Price so increasing High count",
-      "transactTime" : 1565803148670,
-      "referenceId" : 1,
-      "lastPrice" : 5.19,
-      "lowPrice" : 5.01,
-      "highPrice" : 5.78
-    }, {
-      "remarks" : "Increase in Price so increasing High count",
-      "transactTime" : 1565803990048,
-      "referenceId" : 2,
-      "lastPrice" : 5.18,
-      "lowPrice" : 5.01,
-      "highPrice" : 5.78
-    }, {
-      "remarks" : "Increase in Price so increasing High count",
-      "transactTime" : 1565804402834,
-      "referenceId" : 3,
-      "lastPrice" : 5.15,
-      "lowPrice" : 5.01,
-      "highPrice" : 5.78
-    }, {
-      "remarks" : "Increase in Price so increasing High count",
-      "transactTime" : 1565804824208,
-      "referenceId" : 4,
-      "lastPrice" : 5.10,
-      "lowPrice" : 5.01,
-      "highPrice" : 5.78
-    }, {
-      "remarks" : "Increase in Price so increasing High count",
-      "transactTime" : 1565805243449,
-      "referenceId" : 5,
-      "lastPrice" : 5.19,
-      "lowPrice" : 5.01,
-      "highPrice" : 5.78
-    }, {
-      "remarks" : "Increase in Price so increasing High count",
-      "transactTime" : 1565805670449,
-      "referenceId" : 6,
-      "lastPrice" : 5.10,
-      "lowPrice" : 5.01,
-      "highPrice" : 5.78
-    }, {
-      "remarks" : "Increase in Price so increasing High count",
-      "transactTime" : 1565806084220,
-      "referenceId" : 7,
-      "lastPrice" : 5.10,
-      "lowPrice" : 5.01,
-      "highPrice" : 5.78
-    }, {
-      "remarks" : "Increase in Price so increasing High count",
-      "transactTime" : 1565806511810,
-      "referenceId" : 8,
-      "lastPrice" : 5.12,
-      "lowPrice" : 5.01,
-      "highPrice" : 5.78
-    }, {
-      "remarks" : "Increase in Price so increasing High count",
-      "transactTime" : 1565806926268,
-      "referenceId" : 9,
-      "lastPrice" : 5.17,
-      "lowPrice" : 5.01,
-      "highPrice" : 5.78
-    }, {
-      "remarks" : "Increase in Price so increasing High count",
-      "transactTime" : 1565807352915,
-      "referenceId" : 10,
-      "lastPrice" : 5.16,
-      "lowPrice" : 5.01,
-      "highPrice" : 5.78
-    }, {
-      "remarks" : "Increase in Price so increasing High count",
-      "transactTime" : 1565807766025,
-      "referenceId" : 11,
-      "lastPrice" : 5.17,
-      "lowPrice" : 5.01,
-      "highPrice" : 5.78
-    }, {
-      "remarks" : "Increase in Price so increasing High count",
-      "transactTime" : 1565808192876,
-      "referenceId" : 12,
-      "lastPrice" : 5.16,
-      "lowPrice" : 5.01,
-      "highPrice" : 5.78
-    }, {
-      "remarks" : "Triggered order with Triggered Price as 5.03",
-      "transactTime" : 1565808192876,
-      "referenceId" : 13,
-      "lastPrice" : 5.16,
-      "lowPrice" : 5.01,
-      "highPrice" : 5.78
-    } ],
-    "highPrice" : 5.78,
-    "coinVolume" : 0.0,
     "advanceTrade" : false,
-    "currency" : "MXN",
-    "triggerEvent" : 7,
-    "lastBuyCall" : true
+    "triggerEvent" : 6,
+    "profitType" : 1,
+    "currency" : "ETH",
+    "lastSellCall" : true,
+    "lastPrice" : 0.00145261,
+    "lastBuyCall" : false,
+    "coinVolume" : 0,
+    "triggerTime" : 1579006268164,
+    "exchange" : "BINANCE",
+    "priceHistory" : [ {
+      "remarks" : "New order created from old ID 1578355426821",
+      "lowPrice" : -1,
+      "lastPrice" : -1,
+      "highPrice" : -1,
+      "referenceId" : 58,
+      "transactTime" : 1578362287515
+    }, {
+      "remarks" : "Triggered Scenario",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145122,
+      "highPrice" : 0.00148771,
+      "referenceId" : 1,
+      "transactTime" : 1579006268164
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145120,
+      "highPrice" : 0.00148771,
+      "referenceId" : 2,
+      "transactTime" : 1579006279868
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145063,
+      "highPrice" : 0.00148771,
+      "referenceId" : 3,
+      "transactTime" : 1579006290396
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145063,
+      "highPrice" : 0.00148771,
+      "referenceId" : 4,
+      "transactTime" : 1579006300910
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145063,
+      "highPrice" : 0.00148771,
+      "referenceId" : 5,
+      "transactTime" : 1579006311438
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145432,
+      "highPrice" : 0.00148771,
+      "referenceId" : 6,
+      "transactTime" : 1579006321655
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145432,
+      "highPrice" : 0.00148771,
+      "referenceId" : 7,
+      "transactTime" : 1579006332199
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145432,
+      "highPrice" : 0.00148771,
+      "referenceId" : 8,
+      "transactTime" : 1579006342431
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145470,
+      "highPrice" : 0.00148771,
+      "referenceId" : 9,
+      "transactTime" : 1579006585713
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145470,
+      "highPrice" : 0.00148771,
+      "referenceId" : 10,
+      "transactTime" : 1579006595977
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145470,
+      "highPrice" : 0.00148771,
+      "referenceId" : 11,
+      "transactTime" : 1579006606115
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145470,
+      "highPrice" : 0.00148771,
+      "referenceId" : 12,
+      "transactTime" : 1579006616269
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145261,
+      "highPrice" : 0.00148771,
+      "referenceId" : 13,
+      "transactTime" : 1579006626423
+    }, {
+      "remarks" : "Triggered order with Triggered Price as 0.00153249",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145261,
+      "highPrice" : 0.00148771,
+      "referenceId" : 14,
+      "transactTime" : 1579006626423
+    }, {
+      "remarks" : "Checking the order to be executed",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145261,
+      "highPrice" : 0.00148771,
+      "referenceId" : 15,
+      "transactTime" : 1579006640269
+    }, {
+      "remarks" : "Checking the order to be executed",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145261,
+      "highPrice" : 0.00148771,
+      "referenceId" : 16,
+      "transactTime" : 1579006651110
+    }, {
+      "remarks" : "Checking the order to be executed",
+      "lowPrice" : 0.00144916,
+      "lastPrice" : 0.00145261,
+      "highPrice" : 0.00148771,
+      "referenceId" : 17,
+      "transactTime" : 1579006662077
+    }, {
+      "remarks" : "New counter order was created ",
+      "lowPrice" : -1,
+      "lastPrice" : -1,
+      "highPrice" : -1,
+      "referenceId" : 18,
+      "transactTime" : 1579159684678
+    }, {
+      "remarks" : "Checking the order to be executed",
+      "lowPrice" : 0.00138326,
+      "lastPrice" : 0.00140330,
+      "highPrice" : 0.00144664,
+      "referenceId" : 19,
+      "transactTime" : 1579159684894
+    } ],
+    "highPrice" : 0.00148771,
+    "reInitialLP" : false,
+    "waitCount" : 12,
+    "lowCount" : 12,
+    "addTimeout" : 0,
+    "highCount" : 0
   }, {
     "coin" : "XRP",
     "cyclic" : true,
-    "atOrderId" : "1566994158537",
-    "minPercentage" : 10,
+    "atOrderId" : "1579159842018",
+    "minPercentage" : 1.4,
     "maxPercentage" : 1000,
-    "basePrice" : 5.03,
-    "remarks" : "Last price is Lesser than Base price  No Scenario TRIGGERED ",
-    "tradeCurrencyVolume" : 0,
-    "triggeredPrice" : 5.32,
-    "transactionType" : 2,
-    "orderTriggeredPrice" : -1,
-    "triggerPriceHistory" : [ ],
+    "basePrice" : 0.00152943,
+    "remarks" : "Stoploss scenario Triggered  ",
+    "stopLossPercentage" : 1.2,
+    "projectedPrice" : 0.00155084,
     "exchangeOrderId" : null,
-    "previousLastPrice" : -1,
-    "projectedPrice" : 5.5330,
-    "placeAvgPriceOrder" : false,
+    "triggeredPrice" : 0.00153249,
     "reTriggerCount" : 0,
-    "reInitialLP" : false,
+    "triggerPriceHistory" : [ ],
+    "previousLastPrice" : 0.00140444,
+    "transactionType" : 2,
+    "placeAvgPriceOrder" : false,
+    "orderTriggeredPrice" : -1,
+    "tradeCurrencyVolume" : 0.0825892200000000,
+    "lowPrice" : 0.00138326,
     "eventHistory" : [ {
+      "event" : -1,
+      "transactTime" : 1579159684678,
+      "beforeEvent" : -1
+    }, {
       "event" : 0,
-      "transactTime" : 1566994158537,
+      "transactTime" : 1579159842018,
       "beforeEvent" : -1
     } ],
-    "lowCount" : 0,
-    "addTimeout" : 0,
-    "waitCount" : 0,
-    "highCount" : 0,
-    "triggerTime" : 1566994158537,
-    "lastPrice" : 5.00,
-    "lowPrice" : 4.96,
-    "lastSellCall" : true,
-    "exchange" : "BITSO",
-    "profitType" : 1,
-    "priceHistory" : [ {
-      "remarks" : "Last price is Greater than Base price and Price differ Percentage 5.7700 sell trigger value is trueTriggered Scenario",
-      "transactTime" : 1566994158537,
-      "referenceId" : 0,
-      "lastPrice" : 5.32,
-      "lowPrice" : 5.30,
-      "highPrice" : 5.37
-    } ],
-    "highPrice" : 5.01,
-    "coinVolume" : 198.80715706,
     "advanceTrade" : false,
-    "currency" : "MXN",
-    "triggerEvent" : -1,
-    "lastBuyCall" : false
+    "triggerEvent" : 0,
+    "profitType" : 1,
+    "currency" : "ETH",
+    "lastSellCall" : true,
+    "lastPrice" : 0.00140444,
+    "lastBuyCall" : false,
+    "coinVolume" : 0,
+    "triggerTime" : 1579159842018,
+    "exchange" : "BINANCE",
+    "priceHistory" : [ {
+      "remarks" : "New order created from old ID 1579006268164",
+      "lowPrice" : -1,
+      "lastPrice" : -1,
+      "highPrice" : -1,
+      "referenceId" : 18,
+      "transactTime" : 1579159684678
+    }, {
+      "remarks" : "Stoploss scenario Triggered  Triggered Scenario",
+      "lowPrice" : 0.00138326,
+      "lastPrice" : 0.00140444,
+      "highPrice" : 0.00144664,
+      "referenceId" : 1,
+      "transactTime" : 1579159842018
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00138326,
+      "lastPrice" : 0.00140444,
+      "highPrice" : 0.00144664,
+      "referenceId" : 2,
+      "transactTime" : 1579159853151
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00138326,
+      "lastPrice" : 0.00140444,
+      "highPrice" : 0.00144664,
+      "referenceId" : 3,
+      "transactTime" : 1579159863657
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00138326,
+      "lastPrice" : 0.00140444,
+      "highPrice" : 0.00144664,
+      "referenceId" : 4,
+      "transactTime" : 1579159874173
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00138326,
+      "lastPrice" : 0.00140444,
+      "highPrice" : 0.00144664,
+      "referenceId" : 5,
+      "transactTime" : 1579159884392
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00138326,
+      "lastPrice" : 0.00140444,
+      "highPrice" : 0.00144664,
+      "referenceId" : 6,
+      "transactTime" : 1579159894613
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00138326,
+      "lastPrice" : 0.00140444,
+      "highPrice" : 0.00144664,
+      "referenceId" : 7,
+      "transactTime" : 1579159904833
+    }, {
+      "remarks" : "Decrease in Price so increasing Low count",
+      "lowPrice" : 0.00138326,
+      "lastPrice" : 0.00140444,
+      "highPrice" : 0.00144664,
+      "referenceId" : 8,
+      "transactTime" : 1579159915053
+    } ],
+    "highPrice" : 0.00144664,
+    "reInitialLP" : false,
+    "waitCount" : 7,
+    "lowCount" : 7,
+    "addTimeout" : 0,
+    "highCount" : 0
   } ],
-  "lastUpdatedTime" : 1574061609837
+  "lastUpdatedTime" : 1579159915053
 }

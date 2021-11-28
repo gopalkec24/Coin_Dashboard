@@ -1,0 +1,1697 @@
+{
+  "updatedTime" : 1627524817355,
+  "triggerData" : [ {
+    "currency" : "USDT",
+    "actualBasePrice" : -1,
+    "coin" : "WAN",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "actualBasePrice" : -1,
+    "coin" : "IOTX",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1
+  }, {
+    "currency" : "MXN",
+    "actualBasePrice" : -1,
+    "coin" : "XRP",
+    "remarks" : null,
+    "exchange" : "BITSO",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1
+  }, {
+    "currency" : "TUSD",
+    "actualBasePrice" : -1,
+    "coin" : "ETH",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "actualBasePrice" : 37077.69000000,
+    "coin" : "BTC",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 39199.10857220,
+    "oldBasePrice" : 39116.96295000
+  }, {
+    "currency" : "USDT",
+    "actualBasePrice" : 306.90000000,
+    "coin" : "BNB",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 307.05223775,
+    "oldBasePrice" : 303.86169000
+  }, {
+    "currency" : "USDT",
+    "actualBasePrice" : 32.90200000,
+    "coin" : "NEO",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 33.45026577,
+    "oldBasePrice" : 33.09941200
+  }, {
+    "currency" : "USDT",
+    "actualBasePrice" : -1,
+    "coin" : "NANO",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "actualBasePrice" : -1,
+    "coin" : "AION",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1
+  } ],
+  "filePath" : "C:/Documents/autotradeData7.json"
+}{
+  "filePath" : "C:/Documents/autotradeData7.json",
+  "updatedTime" : 1628097156915,
+  "triggerData" : [ {
+    "remarks" : null,
+    "coin" : "WAN",
+    "exchange" : "BINANCE",
+    "currency" : "USDT",
+    "actualBasePrice" : -1,
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1
+  }, {
+    "remarks" : null,
+    "coin" : "IOTX",
+    "exchange" : "BINANCE",
+    "currency" : "USDT",
+    "actualBasePrice" : -1,
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1
+  }, {
+    "remarks" : null,
+    "coin" : "XRP",
+    "exchange" : "BITSO",
+    "currency" : "MXN",
+    "actualBasePrice" : -1,
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1
+  }, {
+    "remarks" : null,
+    "coin" : "ETH",
+    "exchange" : "BINANCE",
+    "currency" : "TUSD",
+    "actualBasePrice" : -1,
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1
+  }, {
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "BNB",
+    "exchange" : "BINANCE",
+    "currency" : "USDT",
+    "actualBasePrice" : 306.90000000,
+    "newBasePrice" : 326.85710708,
+    "oldBasePrice" : 307.05223775
+  }, {
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "NEO",
+    "exchange" : "BINANCE",
+    "currency" : "USDT",
+    "actualBasePrice" : 32.90200000,
+    "newBasePrice" : 43.72953244,
+    "oldBasePrice" : 33.45026577
+  }, {
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "NANO",
+    "exchange" : "BINANCE",
+    "currency" : "USDT",
+    "actualBasePrice" : 4.33690000,
+    "newBasePrice" : 4.36899306,
+    "oldBasePrice" : 4.33690000
+  }, {
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "AION",
+    "exchange" : "BINANCE",
+    "currency" : "USDT",
+    "actualBasePrice" : 0.12140000,
+    "newBasePrice" : 0.12723934,
+    "oldBasePrice" : 0.12140000
+  }, {
+    "remarks" : null,
+    "coin" : "BTC",
+    "exchange" : "BINANCE",
+    "currency" : "USDT",
+    "actualBasePrice" : -1,
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1
+  } ]
+}{
+  "triggerData" : [ {
+    "coin" : "WAN",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "currency" : "USDT",
+    "actualBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1
+  }, {
+    "coin" : "IOTX",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "currency" : "USDT",
+    "actualBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1
+  }, {
+    "coin" : "ETH",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "currency" : "TUSD",
+    "actualBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1
+  }, {
+    "coin" : "BNB",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "currency" : "USDT",
+    "actualBasePrice" : 306.90000000,
+    "oldBasePrice" : 326.85710708,
+    "newBasePrice" : 324.30762164
+  }, {
+    "coin" : "NANO",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "currency" : "USDT",
+    "actualBasePrice" : 4.33690000,
+    "oldBasePrice" : 4.36899306,
+    "newBasePrice" : 4.42185788
+  }, {
+    "coin" : "AION",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "currency" : "USDT",
+    "actualBasePrice" : 0.12140000,
+    "oldBasePrice" : 0.12723934,
+    "newBasePrice" : 0.13360131
+  }, {
+    "coin" : "BTC",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "currency" : "USDT",
+    "actualBasePrice" : 38734.26000000,
+    "oldBasePrice" : 38734.26000000,
+    "newBasePrice" : 39776.21159400
+  }, {
+    "coin" : "NEO",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "currency" : "USDT",
+    "actualBasePrice" : 42.17900000,
+    "oldBasePrice" : 42.17900000,
+    "newBasePrice" : 42.28866540
+  }, {
+    "coin" : "XRP",
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "currency" : "MXN",
+    "actualBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1
+  }, {
+    "coin" : "XRP",
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "currency" : "MXN",
+    "actualBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1
+  } ],
+  "updatedTime" : 1628251513242,
+  "filePath" : "C:/Documents/autotradeData7.json"
+}{
+  "filePath" : "C:/Documents/autotradeData7.json",
+  "updatedTime" : 1628483902967,
+  "triggerData" : [ {
+    "currency" : "USDT",
+    "coin" : "WAN",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "coin" : "IOTX",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "TUSD",
+    "coin" : "ETH",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "coin" : "BNB",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "oldBasePrice" : 324.30762164,
+    "newBasePrice" : 333.74497343,
+    "actualBasePrice" : 306.90000000
+  }, {
+    "currency" : "USDT",
+    "coin" : "NANO",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "oldBasePrice" : 4.42185788,
+    "newBasePrice" : 4.76278312,
+    "actualBasePrice" : 4.33690000
+  }, {
+    "currency" : "USDT",
+    "coin" : "AION",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "oldBasePrice" : 0.13360131,
+    "newBasePrice" : 0.14323396,
+    "actualBasePrice" : 0.12140000
+  }, {
+    "currency" : "USDT",
+    "coin" : "BTC",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "oldBasePrice" : 39776.21159400,
+    "newBasePrice" : 42878.75609833,
+    "actualBasePrice" : 38734.26000000
+  }, {
+    "currency" : "USDT",
+    "coin" : "NEO",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "oldBasePrice" : 42.28866540,
+    "newBasePrice" : 43.71379342,
+    "actualBasePrice" : 42.17900000
+  }, {
+    "currency" : "MXN",
+    "coin" : "XRP",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BITSO",
+    "oldBasePrice" : 14.6700,
+    "newBasePrice" : 15.6910,
+    "actualBasePrice" : 14.6700
+  } ]
+}{
+  "filePath" : "C:/Documents/autotradeData7.json",
+  "updatedTime" : 1628509601519,
+  "triggerData" : [ {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "coin" : "WAN",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "coin" : "IOTX",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "TUSD",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "coin" : "ETH",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1
+  }, {
+    "actualBasePrice" : 306.90000000,
+    "currency" : "USDT",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "coin" : "BNB",
+    "newBasePrice" : 348.32962877,
+    "oldBasePrice" : 333.74497343
+  }, {
+    "actualBasePrice" : 4.33690000,
+    "currency" : "USDT",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "coin" : "NANO",
+    "newBasePrice" : 5.00187483,
+    "oldBasePrice" : 4.76278312
+  }, {
+    "actualBasePrice" : 0.12140000,
+    "currency" : "USDT",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "coin" : "AION",
+    "newBasePrice" : 0.14890602,
+    "oldBasePrice" : 0.14323396
+  }, {
+    "actualBasePrice" : 38734.26000000,
+    "currency" : "USDT",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "coin" : "BTC",
+    "newBasePrice" : 45117.02716666,
+    "oldBasePrice" : 42878.75609833
+  }, {
+    "actualBasePrice" : 42.17900000,
+    "currency" : "USDT",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "coin" : "NEO",
+    "newBasePrice" : 45.44485964,
+    "oldBasePrice" : 43.71379342
+  }, {
+    "actualBasePrice" : 14.6700,
+    "currency" : "MXN",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BITSO",
+    "coin" : "XRP",
+    "newBasePrice" : 15.8510,
+    "oldBasePrice" : 15.6910
+  } ]
+}{
+  "updatedTime" : 1629030234556,
+  "filePath" : "C:/Documents/autotradeData7.json",
+  "triggerData" : [ {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "coin" : "WAN",
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "TUSD",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "coin" : "ETH",
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 348.32962877,
+    "newBasePrice" : 394.13497495,
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "coin" : "BNB",
+    "actualBasePrice" : 306.90000000
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 5.00187483,
+    "newBasePrice" : 6.06327267,
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "coin" : "NANO",
+    "actualBasePrice" : 4.33690000
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 0.14890602,
+    "newBasePrice" : 0.17786824,
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "coin" : "AION",
+    "actualBasePrice" : 0.12140000
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 45.44485964,
+    "newBasePrice" : 52.98416185,
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "coin" : "NEO",
+    "actualBasePrice" : 42.17900000
+  }, {
+    "currency" : "MXN",
+    "oldBasePrice" : 15.8510,
+    "newBasePrice" : 24.8306,
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BITSO",
+    "coin" : "XRP",
+    "actualBasePrice" : 14.6700
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "coin" : "IOTX",
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "coin" : "IOTX",
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 45500.58000000,
+    "newBasePrice" : 45150.22553400,
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "coin" : "BTC",
+    "actualBasePrice" : 45500.58000000
+  } ]
+}{
+  "updatedTime" : 1629545141258,
+  "triggerData" : [ {
+    "currency" : "USDT",
+    "coin" : "WAN",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "TUSD",
+    "coin" : "ETH",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "coin" : "BNB",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 436.89861973,
+    "oldBasePrice" : 394.13497495,
+    "actualBasePrice" : 306.90000000
+  }, {
+    "currency" : "USDT",
+    "coin" : "IOTX",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "coin" : "IOTX",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "coin" : "AION",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 0.18759365,
+    "oldBasePrice" : 0.18050000,
+    "actualBasePrice" : 0.18050000
+  }, {
+    "currency" : "USDT",
+    "coin" : "BTC",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 47703.13922400,
+    "oldBasePrice" : 45134.96000000,
+    "actualBasePrice" : 45134.96000000
+  }, {
+    "currency" : "USDT",
+    "coin" : "NEO",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 53.92150760,
+    "oldBasePrice" : 50.92700000,
+    "actualBasePrice" : 50.92700000
+  }, {
+    "currency" : "USDT",
+    "coin" : "NANO",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 6.02561232,
+    "oldBasePrice" : 5.91210000,
+    "actualBasePrice" : 5.91210000
+  }, {
+    "currency" : "MXN",
+    "coin" : "XRP",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BITSO",
+    "newBasePrice" : 23.9789,
+    "oldBasePrice" : 24.1601,
+    "actualBasePrice" : 24.1601
+  } ],
+  "filePath" : "C:/Documents/autotradeData7.json"
+}{
+  "updatedTime" : 1629633130823,
+  "triggerData" : [ {
+    "currency" : "USDT",
+    "coin" : "WAN",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "TUSD",
+    "coin" : "ETH",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "coin" : "BNB",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 445.72397185,
+    "oldBasePrice" : 436.89861973,
+    "actualBasePrice" : 306.90000000
+  }, {
+    "currency" : "USDT",
+    "coin" : "IOTX",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "coin" : "IOTX",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "coin" : "AION",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 0.20612790,
+    "oldBasePrice" : 0.18759365,
+    "actualBasePrice" : 0.18050000
+  }, {
+    "currency" : "USDT",
+    "coin" : "BTC",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 48399.60505667,
+    "oldBasePrice" : 47703.13922400,
+    "actualBasePrice" : 45134.96000000
+  }, {
+    "currency" : "USDT",
+    "coin" : "NEO",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 54.91366334,
+    "oldBasePrice" : 53.92150760,
+    "actualBasePrice" : 50.92700000
+  }, {
+    "currency" : "USDT",
+    "coin" : "NANO",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 6.06959929,
+    "oldBasePrice" : 6.02561232,
+    "actualBasePrice" : 5.91210000
+  }, {
+    "currency" : "MXN",
+    "coin" : "XRP",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BITSO",
+    "newBasePrice" : 24.5136,
+    "oldBasePrice" : 23.9789,
+    "actualBasePrice" : 24.1601
+  } ],
+  "filePath" : "C:/Documents/autotradeData7.json"
+}{
+  "updatedTime" : 1629708542469,
+  "triggerData" : [ {
+    "currency" : "USDT",
+    "coin" : "WAN",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "TUSD",
+    "coin" : "ETH",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "coin" : "BNB",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 475.85491235,
+    "oldBasePrice" : 445.72397185,
+    "actualBasePrice" : 306.90000000
+  }, {
+    "currency" : "USDT",
+    "coin" : "IOTX",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "coin" : "IOTX",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "coin" : "BTC",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 49464.39636792,
+    "oldBasePrice" : 48399.60505667,
+    "actualBasePrice" : 45134.96000000
+  }, {
+    "currency" : "USDT",
+    "coin" : "NANO",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 7.11114253,
+    "oldBasePrice" : 6.06959929,
+    "actualBasePrice" : 5.91210000
+  }, {
+    "currency" : "MXN",
+    "coin" : "XRP",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BITSO",
+    "newBasePrice" : 25.4966,
+    "oldBasePrice" : 24.5136,
+    "actualBasePrice" : 24.1601
+  }, {
+    "currency" : "USDT",
+    "coin" : "AION",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 0.20670312,
+    "oldBasePrice" : 0.20490000,
+    "actualBasePrice" : 0.20490000
+  }, {
+    "currency" : "USDT",
+    "coin" : "NEO",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "newBasePrice" : 55.96019520,
+    "oldBasePrice" : 54.90600000,
+    "actualBasePrice" : 54.90600000
+  } ],
+  "filePath" : "C:/Documents/autotradeData7.json"
+}{
+  "filePath" : "C:/Documents/autotradeData7.json",
+  "updatedTime" : 1630672828583,
+  "triggerData" : [ {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "WAN",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "TUSD",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "ETH",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "IOTX",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "IOTX",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "NANO",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "MXN",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "XRP",
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "AION",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 47258.45000000,
+    "newBasePrice" : 49881.29397500,
+    "coin" : "BTC",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "actualBasePrice" : 47258.45000000
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 466.10000000,
+    "newBasePrice" : 481.85418000,
+    "coin" : "BNB",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "actualBasePrice" : 466.10000000
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 50.95000000,
+    "newBasePrice" : 56.51883500,
+    "coin" : "NEO",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "actualBasePrice" : 50.95000000
+  }, {
+    "currency" : "MXN",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "XRP",
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "MXN",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "XRP",
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  } ]
+}{
+  "filePath" : "C:/Documents/autotradeData7.json",
+  "updatedTime" : 1630945729775,
+  "triggerData" : [ {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "WAN",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "TUSD",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "ETH",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "IOTX",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "IOTX",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "NANO",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "MXN",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "XRP",
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "AION",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 49881.29397500,
+    "newBasePrice" : 50853.97920751,
+    "coin" : "BTC",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "actualBasePrice" : 47258.45000000
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 481.85418000,
+    "newBasePrice" : 486.81727805,
+    "coin" : "BNB",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "actualBasePrice" : 466.10000000
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 56.51883500,
+    "newBasePrice" : 61.94464316,
+    "coin" : "NEO",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "actualBasePrice" : 50.95000000
+  }, {
+    "currency" : "MXN",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "XRP",
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "MXN",
+    "oldBasePrice" : 25.4633,
+    "newBasePrice" : 26.3723,
+    "coin" : "XRP",
+    "exchange" : "BITSO",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "actualBasePrice" : 25.4633
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 7.08900000,
+    "newBasePrice" : 7.08687330,
+    "coin" : "NANO",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "actualBasePrice" : 7.08900000
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 0.22080000,
+    "newBasePrice" : 0.22461984,
+    "coin" : "AION",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "actualBasePrice" : 0.22080000
+  } ]
+}{
+  "filePath" : "C:/Documents/autotradeData7.json",
+  "updatedTime" : 1631870945017,
+  "triggerData" : [ {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "WAN",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "TUSD",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "ETH",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "IOTX",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "AION",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "NANO",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "MXN",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "XRP",
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "coin" : "IOTX",
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "actualBasePrice" : -1
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 47.22000000,
+    "newBasePrice" : 49.30240200,
+    "coin" : "NEO",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "actualBasePrice" : 47.22000000
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 399.20000000,
+    "newBasePrice" : 410.13808000,
+    "coin" : "BNB",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "actualBasePrice" : 399.20000000
+  }, {
+    "currency" : "USDT",
+    "oldBasePrice" : 45474.57000000,
+    "newBasePrice" : 47170.77146100,
+    "coin" : "BTC",
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "actualBasePrice" : 45474.57000000
+  } ]
+}{
+  "filePath" : "C:/Documents/autotradeData7.json",
+  "triggerData" : [ {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "WAN"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "TUSD",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "ETH"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "IOTX"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "AION"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "NANO"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "MXN",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "coin" : "XRP"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "IOTX"
+  }, {
+    "actualBasePrice" : 38.92000000,
+    "currency" : "USDT",
+    "newBasePrice" : 38.69815600,
+    "oldBasePrice" : 38.92000000,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "NEO"
+  }, {
+    "actualBasePrice" : 346.50000000,
+    "currency" : "USDT",
+    "newBasePrice" : 346.95045000,
+    "oldBasePrice" : 346.50000000,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "BNB"
+  }, {
+    "actualBasePrice" : 43220.78000000,
+    "currency" : "USDT",
+    "newBasePrice" : 43385.01896400,
+    "oldBasePrice" : 43220.78000000,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "BTC"
+  } ],
+  "updatedTime" : 1632725011502
+}{
+  "filePath" : "C:/Documents/autotradeData7.json",
+  "triggerData" : [ {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "WAN"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "TUSD",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "ETH"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "IOTX"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "AION"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "NANO"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "MXN",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "coin" : "XRP"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "IOTX"
+  }, {
+    "actualBasePrice" : 338.10000000,
+    "currency" : "USDT",
+    "newBasePrice" : 418.22970000,
+    "oldBasePrice" : 338.10000000,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "coin" : "BNB"
+  }, {
+    "actualBasePrice" : 36.13000000,
+    "currency" : "USDT",
+    "newBasePrice" : 41.50975700,
+    "oldBasePrice" : 36.13000000,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "coin" : "NEO"
+  }, {
+    "actualBasePrice" : 41754.08000000,
+    "currency" : "USDT",
+    "newBasePrice" : 47177.93499200,
+    "oldBasePrice" : 41754.08000000,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "BTC"
+  } ],
+  "updatedTime" : 1633255871386
+}{
+  "filePath" : "C:/Documents/autotradeData7.json",
+  "triggerData" : [ {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "WAN"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "TUSD",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "ETH"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "IOTX"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "AION"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "NANO"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "MXN",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "coin" : "XRP"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "IOTX"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "BNB"
+  }, {
+    "actualBasePrice" : 36.13000000,
+    "currency" : "USDT",
+    "newBasePrice" : 41.46824724,
+    "oldBasePrice" : 41.50975700,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "coin" : "NEO"
+  }, {
+    "actualBasePrice" : 41754.08000000,
+    "currency" : "USDT",
+    "newBasePrice" : 46687.28446808,
+    "oldBasePrice" : 47177.93499200,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "coin" : "BTC"
+  } ],
+  "updatedTime" : 1633359573127
+}{
+  "filePath" : "C:/Documents/autotradeData7.json",
+  "triggerData" : [ {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "WAN"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "TUSD",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "ETH"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "IOTX"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "AION"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "NANO"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "MXN",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "coin" : "XRP"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "IOTX"
+  }, {
+    "actualBasePrice" : 338.10000000,
+    "currency" : "USDT",
+    "newBasePrice" : 419.14980534,
+    "oldBasePrice" : 418.22970000,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "BNB"
+  }, {
+    "actualBasePrice" : 36.13000000,
+    "currency" : "USDT",
+    "newBasePrice" : 43.25138187,
+    "oldBasePrice" : 41.46824724,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "NEO"
+  }, {
+    "actualBasePrice" : 41754.08000000,
+    "currency" : "USDT",
+    "newBasePrice" : 48750.86244157,
+    "oldBasePrice" : 46687.28446808,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "BTC"
+  } ],
+  "updatedTime" : 1633396359422
+}{
+  "filePath" : "C:/Documents/autotradeData7.json",
+  "triggerData" : [ {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "WAN"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "TUSD",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "ETH"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "IOTX"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "AION"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "NANO"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "MXN",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "coin" : "XRP"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "IOTX"
+  }, {
+    "actualBasePrice" : 338.10000000,
+    "currency" : "USDT",
+    "newBasePrice" : 427.82620631,
+    "oldBasePrice" : 419.14980534,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "coin" : "BNB"
+  }, {
+    "actualBasePrice" : 36.13000000,
+    "currency" : "USDT",
+    "newBasePrice" : 45.85944020,
+    "oldBasePrice" : 43.25138187,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "NEO"
+  }, {
+    "actualBasePrice" : 41754.08000000,
+    "currency" : "USDT",
+    "newBasePrice" : 50959.27651017,
+    "oldBasePrice" : 48750.86244157,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "BTC"
+  } ],
+  "updatedTime" : 1633502313859
+}{
+  "filePath" : "C:/Documents/autotradeData7.json",
+  "triggerData" : [ {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "WAN"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "TUSD",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "ETH"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "IOTX"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "AION"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "NANO"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "MXN",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "coin" : "XRP"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "IOTX"
+  }, {
+    "actualBasePrice" : 41754.08000000,
+    "currency" : "USDT",
+    "newBasePrice" : 53889.43490950,
+    "oldBasePrice" : 50959.27651017,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "BTC"
+  }, {
+    "actualBasePrice" : 428.10000000,
+    "currency" : "USDT",
+    "newBasePrice" : 419.02428000,
+    "oldBasePrice" : 428.10000000,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "coin" : "BNB"
+  }, {
+    "actualBasePrice" : 44.79000000,
+    "currency" : "USDT",
+    "newBasePrice" : 44.60636100,
+    "oldBasePrice" : 44.79000000,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "coin" : "NEO"
+  } ],
+  "updatedTime" : 1633567201039
+}{
+  "filePath" : "C:/Documents/autotradeData7.json",
+  "triggerData" : [ {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "WAN"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "TUSD",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "ETH"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "IOTX"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "AION"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "NANO"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "MXN",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BITSO",
+    "remarks" : null,
+    "coin" : "XRP"
+  }, {
+    "actualBasePrice" : -1,
+    "currency" : "USDT",
+    "newBasePrice" : -1,
+    "oldBasePrice" : -1,
+    "exchange" : "BINANCE",
+    "remarks" : null,
+    "coin" : "IOTX"
+  }, {
+    "actualBasePrice" : 41754.08000000,
+    "currency" : "USDT",
+    "newBasePrice" : 53727.76660477,
+    "oldBasePrice" : 53889.43490950,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "BTC"
+  }, {
+    "actualBasePrice" : 428.10000000,
+    "currency" : "USDT",
+    "newBasePrice" : 439.93359157,
+    "oldBasePrice" : 419.02428000,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "BNB"
+  }, {
+    "actualBasePrice" : 44.79000000,
+    "currency" : "USDT",
+    "newBasePrice" : 46.02930392,
+    "oldBasePrice" : 44.60636100,
+    "exchange" : "BINANCE",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "coin" : "NEO"
+  } ],
+  "updatedTime" : 1633596336243
+}{
+  "updatedTime" : 1634282183489,
+  "triggerData" : [ {
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "currency" : "USDT",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "coin" : "WAN",
+    "actualBasePrice" : -1
+  }, {
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "currency" : "TUSD",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "coin" : "ETH",
+    "actualBasePrice" : -1
+  }, {
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "currency" : "USDT",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "coin" : "IOTX",
+    "actualBasePrice" : -1
+  }, {
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "currency" : "USDT",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "coin" : "AION",
+    "actualBasePrice" : -1
+  }, {
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "currency" : "USDT",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "coin" : "NANO",
+    "actualBasePrice" : -1
+  }, {
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "currency" : "MXN",
+    "remarks" : null,
+    "exchange" : "BITSO",
+    "coin" : "XRP",
+    "actualBasePrice" : -1
+  }, {
+    "oldBasePrice" : -1,
+    "newBasePrice" : -1,
+    "currency" : "USDT",
+    "remarks" : null,
+    "exchange" : "BINANCE",
+    "coin" : "IOTX",
+    "actualBasePrice" : -1
+  }, {
+    "oldBasePrice" : 53727.76660477,
+    "newBasePrice" : 58676.09390907,
+    "currency" : "USDT",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "coin" : "BTC",
+    "actualBasePrice" : 41754.08000000
+  }, {
+    "oldBasePrice" : 409.80000000,
+    "newBasePrice" : 457.00896000,
+    "currency" : "USDT",
+    "remarks" : "Last price is near to Low PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "coin" : "BNB",
+    "actualBasePrice" : 409.80000000
+  }, {
+    "oldBasePrice" : 43.51000000,
+    "newBasePrice" : 44.00601400,
+    "currency" : "USDT",
+    "remarks" : "Last price is near to High PriceBaseprice re-assigned...",
+    "exchange" : "BINANCE",
+    "coin" : "NEO",
+    "actualBasePrice" : 43.51000000
+  } ],
+  "filePath" : "C:/Documents/autotradeData7.json"
+}

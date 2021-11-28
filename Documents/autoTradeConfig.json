@@ -5,10 +5,20 @@
 	"maximumBuyPermissibleLimt": 1.00,
 	 "minimumSellPermissibleLimt" : 0.00,
 	"maximumSellPermissibleLimt" : 1.00,
+	"bitbnsExchangeConfigPath" : "C:/Documents/bitbns_exchange_config.json";
 	"orderWaitTimeOut" : 5400000,
 	"minimumCancelOrderLimit" : 0,
 	"maximumCancelOrderLimit" : 0.30,
 	"advanceTrading" :false,
-	"notificationRecipients" : "919952818233",
-	"placeOrderMode": true
+	"notificationRecipients" : "919600182836",
+	"placeOrderMode": true,
+	"enableProxy" : false,
+	"proxyHost" : "csez-s500",
+	"proxyPort" : 8080,
+	"proxyAuthentication": true,
+	"proxyUser" : "hcltech\natarajan_g",
+	"proxyPassword" : "Gopalsc@54",
+	"ttStartHour" : "06:00",
+	"ttEndHour" : "20:00",
+	"ttCutOffTime" : "02:00"
 }

@@ -1,0 +1,11 @@
+CLIENT MSG :: Invalid API-key, IP, or permissions for action
+CLIENT MSG :: Invalid API-key, IP, or permissions for action
+
+
+CLIENT MSG :: Filter failure: LOT_SIZE
+
+
+
+FINEST: Final Request URL : https://api3.binance.com/api/v3/order?timestamp=1629819688559&symbol=BTCUSDT&side=BUY&type=LIMIT&timeInForce=GTC&price=48395.25000000&quantity=0.00032300&signature=653e66354aac9b49a8fc53199e7a7aedc4c622924501a2d9891fc2dbfbbbdb82
+Aug 24, 2021 9:11:29 PM com.trade.BinanceTrade placeOrder
+SEVERE: {"code":-2015,"msg":"Invalid API-key, IP, or permissions for action."}

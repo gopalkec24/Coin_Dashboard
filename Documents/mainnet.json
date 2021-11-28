@@ -9,14 +9,6 @@
 },
 {
   "exchangeName" : "BITBNS",
-  "coinName": "VEN",
-  "order" : 1,
-  "replaceCoin" : false,
-  "replaceCoinName" : "VEN",
- "coinFactor" : 100.00  
-},
-{
-  "exchangeName" : "BITBNS",
   "coinName": "RPX",
   "order" : 1,
   "replaceCoin" : true,
@@ -55,5 +47,13 @@
   "replaceCoinName" : "BCH",
  "coinFactor" : 1.00  
 }
-
+,
+{
+  "exchangeName" : "BINANCE",
+  "coinName": "STORM",
+  "order" : 1,
+  "replaceCoin" : true,
+  "replaceCoinName" : "STMX",
+ "coinFactor" : 1.00  
+}
 ]
